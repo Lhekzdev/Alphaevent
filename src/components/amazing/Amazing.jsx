@@ -1,23 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-// const getCloudinaryURL ="https://res.cloudinary.com/dzyvwxh7n/image/upload/v1731074046/"
-
-
-// https://res.cloudinary.com/dzyvwxh7n/image/upload/v1731074046/Rectangle_346_3_p8hhms.png
-
-// https://res.cloudinary.com/dzyvwxh7n/image/upload/v1731074046/Rectangle_346_2_axm7pj.png
-
-
-// https://res.cloudinary.com/dzyvwxh7n/image/upload/v1731074046/Rectangle_346_1_hvdqgz.png
-
-
-
-// https://res.cloudinary.com/dzyvwxh7n/image/upload/v1731074045/Rectangle_346_ceqyrg.png
-
-
-
-
-
 
 
 

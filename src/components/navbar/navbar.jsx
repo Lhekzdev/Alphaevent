@@ -52,7 +52,7 @@ const Navbar = () => {
 
                 <ol className="hidden  md:flex">
 
-                  <button className='items-center py-1 px-5 md md:py-[14px] rounded-[10px] lg:px-[32px]  bg-customSkyblue text-nowrap'>Sign up</button>
+                  <button className='items-center py-1 px-5 md md:py-[14px] text-white rounded-[10px] lg:px-[32px]  bg-customSkyblue text-nowrap'>Sign up</button>
 
                 </ol>
               </div>
