@@ -2,7 +2,7 @@ import React from 'react'
 const manwoman = "https://res.cloudinary.com/dzyvwxh7n/image/upload/v1731332783/manwoman_ffelhs.png"
 const Eventcoming = () => {
   return (
-    <div className=' mb-10  items-center bg-customRed justify-between pt-[52px] md:flex-row h-screen  flex-col flex w-full md:h-[274px] '>
+    <div className='  items-center bg-customRed justify-between pt-[52px] md:flex-row h-screen  flex-col flex w-full md:h-[274px] '>
 <ol className=' lg:ml-[82px] mb-6 lg:mb-20 md:object-contain  flex shrink-0 max-w-[300px] md:max-w-[400px] lg:max-w-[543px] h-[304px]'>
     <img  loading='lazy' src={manwoman} alt="" /></ol>
 

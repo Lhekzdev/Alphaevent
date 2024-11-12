@@ -7,7 +7,7 @@ import search from "/search.svg"
 
 const Herocontainer = () => {
   return (
-    <div className='px-5 md:px-[80px]  my-[120px] '>
+    <div className='px-5 md:px-[80px] pt-[60px] my-[60px] '>
  
 <div loading="lazy" className=' bg-cover  bg-black opacity-[100%]  bg-center  h-screen rounded-[28px] w-full '  style={{ backgroundImage: "url('https://res.cloudinary.com/dzyvwxh7n/image/upload/v1731364264/Hero_Section_ooujz0.png')" }} >
 

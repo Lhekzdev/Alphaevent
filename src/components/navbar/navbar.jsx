@@ -77,12 +77,12 @@ const Navbar = () => {
               <div class="py-1  " onMouseLeave={closeMenu}>
                 <a href="#" className="text-gray-700 block px-4 py-1 text-lg hover:bg-customSkyblue" role="menuitem">Explore events</a>
                 <a href="#" className="text-gray-700 block px-4 py-1 text-lg hover:bg-customSkyblue" role="menuitem">My Ticket</a>
-                <a href="#" className="text-gray-700 block px-4 py-1 pb-4 text-lg hover:bg-customSkyblue" role="menuitem">About</a>
+                <a href="#" className="text-gray-700 block px-4 py-1 mb-4 text-lg hover:bg-customSkyblue" role="menuitem">About</a>
                 <div className="flex">  <a href="#" className='flex text-gray-700  px-4 py-1 text-sm gap-[10px]'>
-                  <h4 className='text-customSkyblue text-xl py-1 hover:text-sky-900'>Login</h4>
+                  <h4 className='hover:text-customSkyblue text-xl mb-3 text-sky-900'>Login</h4>
                   <img className='w-[10.67px] h-[10p.67px]' src={arrowRight} alt="" /></a>
 
-                  <button href="#" className=' items-center py-1 px-5 md md:py-[14px] text-xl hover:bg-sky-900 rounded-[10px] lg:px-[32px] bg-customSkyblue text-nowrap'>Sign up</button>
+                  <button href="#" className=' items-center  px-5  py-0 text-xl hover:bg-sky-900 rounded-[10px] lg:px-[32px] bg-customSkyblue text-nowrap'>Sign up</button>
                 </div>
               </div>
 
