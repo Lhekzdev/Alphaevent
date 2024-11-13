@@ -5,7 +5,7 @@ import Section4EDDown from '../../components/EventDetails/Section4EDDown'
 const EventDetails = () => {
   return (
     <>
-    <section className='bg-[#FFF0F0] overflow-hidden'>
+    <section className='bg-[#FFF0F0] overflow-hidden pb-[50px]'>
         <Section4EDUp />
         <Section4EDDown />
     </section>

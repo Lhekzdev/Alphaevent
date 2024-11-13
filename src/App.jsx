@@ -15,16 +15,16 @@ function App() {
 
   return (
     <>
-      {/* <Navbar /> */}
-      {/* <Herocontainer />
+      <Navbar />
+      <Herocontainer />
       <Amazing />
       <FeacturedEvents />
       <TrendingEvent />
-      <Eventcoming /> */}
+      <Eventcoming />
 
-      <ExploreEvents />
-      <EventDetails />
-      {/* <Footer /> */}
+      {/* <ExploreEvents />
+      <EventDetails /> */}
+      <Footer />
     </>
 
 
