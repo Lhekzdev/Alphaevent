@@ -5,6 +5,8 @@ import Amazing from "./components/amazing/Amazing.jsx"
 import Eventcoming from "./components/eventcoming/Eventcoming.jsx"
 import FeacturedEvents from './components/FeacturedEvents/FeacturedEvents.jsx'
 import TrendingEvent from './components/TrendingEvent/TrendingEvent.jsx'
+import ExploreEvents from './components/ExploreEvents/ExploreEvents.jsx'
+import EventDetails from './components/EventDetails/EventDetails.jsx'
 import Footer from './components/Footer/Footer.jsx'
 import './App.css'
 
@@ -13,13 +15,16 @@ function App() {
 
   return (
     <>
-      <Navbar />
-      <Herocontainer />
+      {/* <Navbar /> */}
+      {/* <Herocontainer />
       <Amazing />
       <FeacturedEvents />
       <TrendingEvent />
-      <Eventcoming />
-      <Footer />
+      <Eventcoming /> */}
+
+      <ExploreEvents />
+      <EventDetails />
+      {/* <Footer /> */}
     </>
 
 
