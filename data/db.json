@@ -55,8 +55,8 @@
           "date": "Review",
           "location": "Review",
           "by": "Review",
-          "initialAmount": "Review",
-          "lastAmount": "Review"
+          "initialAmount": "10.00",
+          "lastAmount": "30.00"
         },
         {
           "id": 3,
@@ -66,8 +66,8 @@
           "date": "Review",
           "location": "Review",
           "by": "Review",
-          "initialAmount": "Review",
-          "lastAmount": "Review"
+          "initialAmount": "10.00",
+          "lastAmount": "30.00"
         }
       ],
 
