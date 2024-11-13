@@ -70,7 +70,7 @@ const Section3 = () => {
           ))}
         </div>
         <div className="flex justify-end mt-[30px] sm:mt-[42px] gap-[8px] sm:gap-[10px]">
-          <p className="text-[#3A7BD5] text-[12px] sm:text-[14px]">SEE MORE EVENTS</p>
+          <p className="text-[#3A7BD5] text-[12px] sm:text-[14px] cursor ">SEE MORE EVENTS</p>
           <img src={arrowblue} alt="" className="w-[16px] sm:w-auto" />
         </div>
       </section>
