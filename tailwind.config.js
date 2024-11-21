@@ -13,7 +13,12 @@ export default {
    
         customSkyblue: "rgba(58, 123, 213, 1)",
    customRed: '#FF6B6B',
-   customDarkgrey: '#333333'
+   customDarkgrey: '#333333',
+   customlightpink: '#FFF0F0',
+   customlightgray: '#757575',
+     customdarkblue: '#2F3B4C',
+     customGreySech: '#757575',
+   
  
 
 
