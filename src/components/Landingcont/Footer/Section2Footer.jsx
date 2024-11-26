@@ -10,7 +10,7 @@ const Section2Footer = () => {
   return (
     <>
     <section>
-        <div className="parent flex flex-col lg:flex-row gap-[50px] pt-[40px] pl pl-[40px] lg:pl-[80px] pr-[20px] pb-[60px] w-full">
+        <div className="parent flex flex-col lg:flex-row gap-[50px] pt-[40px] w-full">
             <div className="box1">
                 <img src={logoFooter} alt="" />
                 <p className='w-full lg:w-[453px] text-left text-[18px] mt-[32px] font-light text-[#F3F3F3]'>Alvent is a global self-service ticketing platform for live experiences that allows anyone to create, share, find and attend events that fuel their passions and enrich their lives.</p>
