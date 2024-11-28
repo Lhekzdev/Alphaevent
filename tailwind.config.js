@@ -18,6 +18,7 @@ export default {
    customlightgray: '#757575',
      customdarkblue: '#2F3B4C',
      customGreySech: '#757575',
+     customLighterGray: '#D2D2D280',
    
  
 

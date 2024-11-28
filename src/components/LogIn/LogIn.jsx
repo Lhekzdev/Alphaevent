@@ -13,6 +13,9 @@ import { Link } from 'react-router-dom';
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
   password: Yup.string().min(8, 'Must contain 8 characters').required('Required'),
+
+
+
 });
 
 export const LogIn = () => {
@@ -67,10 +70,33 @@ export const LogIn = () => {
               password: '',
             }}
             validationSchema={SignupSchema}
-            onSubmit={(values, { resetForm }) => {
-              // Simulate submission and show a toast
-              toast.success('Login Successful!');
-              resetForm(); // Reset the form values
+            onSubmit={async(values, { resetForm }) => {
+              
+              try {
+    
+                const response = await fetch('https://alphaeventappdevmode.onrender.com/new&User', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ ...values, confirmPassword: values.confirmPassword }),
+                });
+
+                if (response.ok) {
+                  // channged this const reDirectPg=Link()    to ==   
+
+
+
+                  toast.success('Log in  Successful!');
+                  // reDirectPg('/dashboard')
+                  navigate('/OnboardingMain');
+                  resetForm();
+                } else {
+                  const { msg } = await response.json();
+                  toast.error(msg || 'Log in Failed');
+                }
+              } catch (error) { toast.error('ERR OCCURED') }
+
             }}
           >
             {({ errors, touched }) => (
@@ -107,14 +133,14 @@ export const LogIn = () => {
                 </div>
 
                 {/* Submit Button */}
-            <Link to="/onboardingleft">
+          
   <button
     type="submit"
-    className="w-full bg-[#D8E5F7] text-[#7CA7E3] hover:text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+    className="w-full mt-5 bg-[#D8E5F7] text-[#7CA7E3] hover:text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300"
   >
     Proceed
   </button>
-</Link>
+
              
 
                 {/* Terms and Signup Link */}

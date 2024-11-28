@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { toast, ToastContainer } from 'react-toastify';
@@ -8,7 +8,8 @@ import passwordEye from '../../assets/passwordEye.svg';
 import passwordEyeOpen from '../../assets/passwordEyeOpen.svg';
 import logoSU from '../../assets/logoSU.svg';
 import { Image } from 'cloudinary-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -16,19 +17,21 @@ const SignupSchema = Yup.object().shape({
     .max(50, 'Too Long!')
     .required('Required'),
   email: Yup.string().email('Invalid email').required('Required'),
-  password: Yup.string()
+  passWd: Yup.string()
     .min(8, 'Must Contain 8 Characters')
     .matches(/^(?=.*[a-z])/, 'Must Contain One Lowercase Character')
     .matches(/^(?=.*[A-Z])/, 'Must Contain One Uppercase Character')
     .matches(/^(?=.*[0-9])/, 'Must Contain One Number Character')
     .matches(/^(?=.*[!@#\$%\^&\*])/, 'Must Contain One Special Character')
     .required('Required'),
+
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('Required'),
+    .oneOf([Yup.ref('passWd'), null], 'Passwords must match')
+    .required('Required')
 });
 
 export const SignUp = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -36,27 +39,51 @@ export const SignUp = () => {
   const toggleConfirmPasswordVisibility = () =>
     setShowConfirmPassword(!showConfirmPassword);
 
+
+
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+
+    if (token) {
+      // Store the token
+      localStorage.setItem('authToken', token);
+
+      // Navigate to the dashboard
+      navigate('OnboardingMain/');
+    }
+  }, [navigate]);
+
+
+
   return (
     <>
       <div className="flex w-full min-h-screen bg-white ">
         <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
 
-      
+
         {/* Form Section */}
         <div className="flex flex-col items-center w-full lg:w-1/2 max-w-md mx-auto p-8  rounded-lg">
-        <div className="text-center">
-              <Link to="/"><img src={logoSU} alt="Logo" className="w-[82px] mx-auto mb-4" /></Link>
-              <h1 className="text-[35px] font-bold">Join Us Today!</h1>
-              <p className="text-gray-600 text-sm mt-2 mb-[25px]">
-                Create your account to unlock seamless access to exciting events
-                and personalized experiences.
-                </p>
+          <div className="text-center">
+            <Link to="/"><img src={logoSU} alt="Logo" className="w-[82px] mx-auto mb-4" /></Link>
+            <h1 className="text-[35px] font-bold">Join Us Today!</h1>
+            <p className="text-gray-600 text-sm mt-2 mb-[25px]">
+              Create your account to unlock seamless access to exciting events
+              and personalized experiences.
+            </p>
           </div>
 
           <div className="flex justify-center items-center gap-[10px] mb-4 rounded-[36px] w-full max-w-[250px] border-2 border-[#3A7BD5] mx-auto">
-            <button className="text-[#3A7BD5] py-2 px-4 flex items-center justify-center">
+            <a href='https://alphaeventappdevmode.onrender.com/auth/google'>{/*BACKEND TOUCH*/}
+              <button className="text-[#77abf5] py-2 px-4 flex items-center justify-center">
+                Sign in with Google
+              </button>
+            </a>
+
+            {/* <button className="text-[#3A7BD5] py-2 px-4 flex items-center justify-center">
             Sign in with Google
-            </button>
+            </button> */}
             <img
               src={googleSU}
               alt="Google Sign In"
@@ -72,14 +99,39 @@ export const SignUp = () => {
             initialValues={{
               name: '',
               email: '',
-              password: '',
-              confirmPassword: '',
+              passWd: '',
+              // confirmPassword: '',
             }}
             validationSchema={SignupSchema}
-            onSubmit={(values, { resetForm }) => {
-              toast.success('Sign Up Successful!');
-              resetForm();
+            onSubmit={async (values, { resetForm }) => {
+
+              try {
+                { /BACKEND TOUCH/ }
+                const response = await fetch('https://alphaeventappdevmode.onrender.com/new&User', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ ...values, confirmPassword: values.confirmPassword }),
+                });
+
+                if (response.ok) {
+                  // channged this const reDirectPg=Link()    to ==   
+
+
+
+                  toast.success('Sign Up Successful!');
+                  // reDirectPg('/dashboard')
+                  navigate('/OnboardingMain');
+                  resetForm();
+                } else {
+                  const { msg } = await response.json();
+                  toast.error(msg || 'Sign Up Failed');
+                }
+              } catch (error) { toast.error('ERR OCCURED') }
+
             }}
+
           >
             {({ errors, touched }) => (
               <Form className="space-y-6 w-full">
@@ -112,7 +164,7 @@ export const SignUp = () => {
                 {/* Password */}
                 <div className="relative">
                   <Field
-                    name="password"
+                    name="passWd"
                     type={showPassword ? 'text' : 'password'}
                     placeholder="Password"
                     className="w-full border rounded-lg py-2 px-4 text-sm"
@@ -149,40 +201,52 @@ export const SignUp = () => {
                   )}
                 </div>
 
-  {/* Terms and Conditions */}
-  <p className="text-gray-500 text-xs text-center">
-                    By continuing, you agree to Alvent’s{' '}
-                    <a href="#" className="text-blue-500">
-                      Terms of Service
-                    </a>{' '}
-                    and{' '}
-                    <a href="#" className="text-blue-500">
-                      Privacy Policy
-                    </a>
-                    .
-                  </p>
+                {/* Terms and Conditions */}
+                <p className="text-gray-500 text-xs text-center">
+                  By continuing, you agree to Alvent’s{' '}
+                  <a href="#" className="text-blue-500">
+                    Terms of Service
+                  </a>{' '}
+                  and{' '}
+                  <a href="#" className="text-blue-500">
+                    Privacy Policy
+                  </a>
+                  .
+                </p>
+
+
+
                 {/* Submit Button */}
                 <button
-                    type="submit"
-                    className="w-full bg-[#D8E5F7] text-[#7CA7E3] hover:text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-                  >
-                    Sign Up
+                  type="submit"
+                  className="w-full bg-[#D8E5F7] text-[#7CA7E3] hover:text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+                >
+                  Sign Up
                 </button>
+
+
+
+                {/* Submit Button */}
+                {/* <a href="https://alphaeventappdevmode.onrender.com/auth/google">
+                  <button className="text-[#77abf5] py-2 px-4 flex items-center justify-center">
+                    Sign in with Google
+                  </button>
+                </a> */}
 
                 {/* Terms and Signup Link */}
                 <p className="text-center text-gray-600 text-sm">
-                    Already have an account?{' '}
-                    
-                    <a  className="text-blue-500"><Link to="/LogIn">Log in</Link></a>
-                 
-                    
-                  </p>
+                  Already have an account?{' '}
+
+                  <a className="text-blue-500"><Link to="/LogIn">Log in</Link></a>
+
+
+                </p>
               </Form>
             )}
           </Formik>
         </div>
-          {/* Image Section */}
-          <div className="hidden lg:flex w-1/2">
+        {/* Image Section */}
+        <div className="hidden lg:flex w-1/2">
           <Image
             className="w-full h-auto"
             cloudName="dqtyrjpeh"

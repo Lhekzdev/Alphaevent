@@ -6,15 +6,13 @@ import FeacturedEvents from '../../Landingcont/FeacturedEvents/FeacturedEvents.j
 import TrendingEvent from '../../Landingcont/TrendingEvent/TrendingEvent.jsx'
 const Landing = () => {
   return (
-    <div> 
+    <div>
 
-         <Herocontainer /> 
-         <Amazing/>
-         <Eventcoming/>
+      <Herocontainer />
       <Amazing />
       <FeacturedEvents />
       <TrendingEvent />
-     
+      <Eventcoming />
     </div>
   )
 }

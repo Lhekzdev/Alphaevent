@@ -1,4 +1,5 @@
 import React from 'react'
+import Onboardingleft from '../onboardingleft/Onboardingleft.jsx'
 import ProfileSearchBar from '../../dashboard/OnBoarding/ProfileSearchBar.jsx'
 import OnBoarding from '../../dashboard/OnBoarding/OnBoarding.jsx'
 
@@ -6,9 +7,10 @@ const OnboardingMain = () => {
   return (
     <>
     <section>
-        <div >
-        <ProfileSearchBar />
-        <OnBoarding />
+        <div className='flex' >
+          <div><Onboardingleft/></div>
+       <div><ProfileSearchBar />
+        <OnBoarding /></div> 
         </div>
     </section>
     </>

@@ -5,7 +5,10 @@ const Landing = lazy(() => import("./components/Landingcont/landing/Landing.jsx"
 const Eventshome = lazy(() => import("./components/events/eventshome/Eventshome.jsx"));
 const ExploreEvents = lazy(() => import("./components/events/exploreEvents/ExploreEvents.jsx"));
 const Eventsdetailshome = lazy(() => import("./components/eventdetails/eventsdetailshome/Eventsdetailshome.jsx"));
-const Onboardingleft= lazy(() => import("./components/dashboard/onboardingleft/Onboardingleft.jsx"));
+const OnboardingMain= lazy(() => import("./components/dashboard/OnboardingMain/OnboardingMain.jsx"));
+const OnboardingEvent= lazy(() => import("./components/dashboard/onboardingEvent/OnboardingEvent.jsx"));
+const OnboardEvent= lazy(() => import("./components/dashboard/OnboardEvent/OnboardEvent.jsx"));
+
 import { SignUp } from "./components/signup/SignUp.jsx";
 import { LogIn } from "./components/LogIn/LogIn.jsx";
 
@@ -75,7 +78,9 @@ function App() {
           {/* Standalone SignUp route */}
           <Route path="/signup" element={<SignUp />} />
           <Route path="/Login" element={<LogIn />} />
-          <Route path="/onboardingleft" element={<Onboardingleft />} />
+          <Route path="/OnboardingMain" element={<OnboardingMain />} />
+          <Route path="/onboardingEvent" element={<OnboardingEvent />} />
+          <Route path="/OnboardEvent" element={<OnboardEvent />} />
         
 
 

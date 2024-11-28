@@ -7,7 +7,7 @@ import paymentIcon from "../../../assets/paymentIcon.svg"
 import settingIcon from "../../../assets/settingIcon.svg"
 import supportIcon from "../../../assets/supportIcon.svg"
 import createEventIcon from "../../../assets/createEventIcon.svg"
-import OnboardingMain from "../OnboardingMain/OnboardingMain.jsx"
+
 
 import { Link } from 'react-router-dom';
 
@@ -52,14 +52,14 @@ const Onboardingleft = () => {
 
           <ol className="gap-y-[59px] md:gap-y-[304px] font-bold text-[24px] font-Lato flex flex-col">
             <ol className="flex font-bold text-customGreySech text-[24px] flex-col gap-y-[10px]">
-              <li className="flex items-center w-[228px] h-[60px] gap-[20px] rounded-[12px] pl-[24px] hover:text-white hover:bg-customSkyblue">
+        <Link to="/OnboardingMain">  <li className="flex items-center w-[228px] h-[60px] gap-[20px] rounded-[12px] pl-[24px] hover:text-white hover:bg-customSkyblue">
                 <img src={dashboardWhite} alt="dashboardWhite" />
                 <h3>Dashboard</h3>
-              </li>
+              </li></Link> 
 
               <li className="hover:bg-customSkyblue hover:text-white flex items-center rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px]">
                 <img src={eventIcon} alt="eventIcon" />
-                <h3>Event</h3>
+                <h3><Link to="/OnboardEvent">Event</Link></h3>
               </li>
               <li className="items-center flex hover:text-white hover:bg-customSkyblue rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px]">
                 <img src={reportIcon} alt="" />
@@ -81,7 +81,7 @@ const Onboardingleft = () => {
               </li>
             </ol>
             <ol className="flex w-[238px] h-[60px] hover:text-white rounded-[12px] bg-customSkyblue pl-[24px] items-center gap-[20px]">
-              <button className="w-[140px] items-center leading-[24px] h-[24px]">Create Event</button>
+              <button className="w-[140px] items-center leading-[24px] h-[24px]"><Link to="/onboardingEvent">Create Event</Link></button>
               <img className="w-[16.33px] h-[16.33px]" src={createEventIcon} alt="" />
             </ol>
           </ol>
@@ -91,7 +91,7 @@ const Onboardingleft = () => {
       {/* Button to Toggle the Visibility on small screens */}
       <button
         onClick={toggleMenu}
-        className="flex md:hidden absolute top-[75.5px] z-40 left-2 px-2 py-1 bg-customRed text-white rounded-md"
+        className="flex md:hidden absolute top-[70.5px] z-40 left-1 px-1 py-1 bg-customDarkgrey text-white rounded-md"
       >
         {!isMenuVisible ? (
           <span className="text-xl">☰</span> // Hamburger icon
@@ -100,7 +100,7 @@ const Onboardingleft = () => {
         )}
       </button>
 
-      <OnboardingMain />
+     
     </div>
   );
 };

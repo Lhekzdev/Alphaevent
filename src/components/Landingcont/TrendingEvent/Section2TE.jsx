@@ -8,8 +8,9 @@ import { Link } from 'react-router-dom';
 const Section3 = () => {
   return (
     <>
-      <section className="mt-[24px]">
-        <div className="w-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-[20px] sm:gap-[30px] lg:gap-[40px] overflow-hidden"> {/* Made the grid responsive */}
+      <section className="mt-[24px] px-[30px]">
+        <div className="w-full grid grid-cols-1 px-[
+      380px] sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-[20px] sm:gap-[30px] lg:gap-[40px] overflow-hidden"> {/* Made the grid responsive */}
           
         
           {data.trendingEvent.map((event) => (

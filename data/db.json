@@ -290,8 +290,86 @@
   "profilData": [
     {
       "id": 1,
-      "profilePic": "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1731979103/Image_8_n6l5l5.png",
+      "profilePic": "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1732165226/Icon_Pack_bj0bcg.png",
       "userName": "Fred"
+    }
+  ],
+  "existingEvent": [
+    {
+      "id": 1,
+      "bg": "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1731979103/Image_8_n6l5l5.png",
+      "day": "8",
+      "month": "JAN",
+      "date": "08-01-2025",
+      "location": "City Conference Hall, Abuja",
+      "by": "Renewed Conference"
+    },
+
+    {
+      "id": 2,
+      "bg": "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1731979102/Image_9_hgr71c.png",
+      "day": "12",
+      "month": "DEC",
+      "date": "12-12-2024",
+      "location": "City Conference Hall, Abuja",
+      "by": "Vibez D\" Fest"
+    },
+    {
+      "id": 3,
+      "bg": "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1731979102/Image_10_ldh8mh.png",
+      "day": "8",
+      "month": "JAN",
+      "date": "08-01-2025",
+      "location": "City Conference Hall, Abuja",
+      "by": "Renewed Conference"
+    },
+    {
+      "id": 4,
+      "bg": "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1731979102/Image_11_drl4t8.png",
+      "day": "8",
+      "month": "JAN",
+      "date": "08-01-2025",
+      "location": "City Conference Hall, Abuja",
+      "by": "Renewed Conference"
+    }
+  ],
+  "myEvent": [
+    {
+      "id": 1,
+      "bg": "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1731979102/Image_9_hgr71c.png",
+      "day": "12",
+      "month": "DEC",
+      "date": "12-12-2024",
+      "location": "City Conference Hall, Abuja",
+      "by": "Vibez D\" Fest"
+    },
+
+    {
+      "id": 2,
+      "bg": "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1731979103/Image_8_n6l5l5.png",
+      "day": "8",
+      "month": "JAN",
+      "date": "08-01-2025",
+      "location": "City Conference Hall, Abuja",
+      "by": "Renewed Conference"
+    },
+    {
+      "id": 3,
+      "bg": "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1731979102/Image_11_drl4t8.png",
+      "day": "8",
+      "month": "JAN",
+      "date": "08-01-2025",
+      "location": "City Conference Hall, Abuja",
+      "by": "Renewed Conference"
+    },
+    {
+      "id": 4,
+      "bg": "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1731979102/Image_10_ldh8mh.png",
+      "day": "8",
+      "month": "JAN",
+      "date": "08-01-2025",
+      "location": "City Conference Hall, Abuja",
+      "by": "Renewed Conference"
     }
   ]
 }
