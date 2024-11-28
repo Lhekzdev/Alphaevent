@@ -53,6 +53,18 @@ export const LogIn = () => {
           </button>
           <img src={googleSU} alt="Google Sign In" className="w-[16px] sm:w-auto ml-2" />
         </div>
+        <div className="flex justify-center items-center gap-[10px] mb-4 rounded-[36px] w-full max-w-[250px] border-2 border-[#3A7BD5] mx-auto">
+          <button className="text-[#3A7BD5] py-2 px-4 flex items-center justify-center">
+            Continue with Google
+          </button>
+          <img src={googleSU} alt="Google Sign In" className="w-[16px] sm:w-auto ml-2" />
+        </div>
+        <div className="flex justify-center items-center gap-[10px] mb-4 rounded-[36px] w-full max-w-[250px] border-2 border-[#3A7BD5] mx-auto">
+          <button className="text-[#3A7BD5] py-2 px-4 flex items-center justify-center">
+            Continue with Google
+          </button>
+          <img src={googleSU} alt="Google Sign In" className="w-[16px] sm:w-auto ml-2" />
+        </div>
 
         {/* Separator */}
         <div className="text-center mb-[18px] mt-[18px]">
