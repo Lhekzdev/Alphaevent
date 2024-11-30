@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
+import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/swiper-bundle.css';
 import googleSU from '../../assets/googleSU.svg';
 import passwordEye from '../../assets/passwordEye.svg';
@@ -33,7 +33,8 @@ export const LogIn = () => {
       {/* Sliding Image Section */}
       <div className="hidden lg:flex w-1/2">
         <Swiper
-          modules={[Autoplay]}
+          modules={[Navigation, Autoplay]}
+          navigation
           autoplay={{ delay: 3000 }}
           loop={true}
           className="w-full h-full"
