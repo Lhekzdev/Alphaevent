@@ -13,7 +13,7 @@ const SignUpSchema = Yup.object().shape({
 
 export const SignUp = () => (
   <section className="w-full   font-Lato">
-    <div className="max-w-[1280px]  bg-[#FFFFFF] flex flex-wrap gap-[160px] rounded-[30px] px-[40px] overflow-hidden shadow-md">
+    <div className="max-w-[1280px] pt-6  bg-[#FFFFFF] flex flex-wrap gap-[160px] rounded-[30px] px-[40px] overflow-hidden shadow-md">
       {/* Text and Form Section */}
       <div className="w-full lg:w-1/2 flex flex-col justify-center items-start ">
         <p className="text-[18px] font-light text-[#333333]">Don’t miss out on future updates!</p>

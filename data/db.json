@@ -228,24 +228,24 @@
   "totalRevenue": [
     {
       "id": 1,
-      "amount": "24,000",
-      "percentage": "12"
+      "amount": "0",
+      "percentage": "0"
     }
   ],
 
   "ticketsSold": [
     {
       "id": 1,
-      "quantity": "436",
-      "percentage": "12"
+      "quantity": "0",
+      "percentage": "0"
     }
   ],
 
   "engagementRate": [
     {
       "id": 1,
-      "Rate": "49",
-      "percentage": "12"
+      "Rate": "0",
+      "percentage": "0"
     }
   ],
   "upcomingEvent": [

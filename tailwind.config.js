@@ -20,6 +20,8 @@ export default {
      customGreySech: '#757575',
      customLighterGray: '#D2D2D280',
    
+     customRed: '#D71919',
+   
  
 
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { toast, ToastContainer } from 'react-toastify';
@@ -18,6 +18,9 @@ const SignupSchema = Yup.object().shape({
 
 });
 
+
+
+  
 export const LogIn = () => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -25,13 +28,43 @@ export const LogIn = () => {
     setShowPassword(!showPassword);
   };
 
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+const images = [
+      "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1731619932/Images_4_qubhel.png",
+      "https://res.cloudinary.com/dzyvwxh7n/image/upload/v1732892772/Images_2_wqgwnp.png",
+      "https://res.cloudinary.com/dzyvwxh7n/image/upload/v1732892772/Images_gkw7pr.png",
+      "https://res.cloudinary.com/dzyvwxh7n/image/upload/v1732892772/Images_1_lfigsw.png",
+    ];
+    const nextSlide = () => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    };
+  
+    // Auto-slide every 3 seconds
+    useEffect(() => {
+      const interval = setInterval(nextSlide, 3000); // 3 seconds interval
+      return () => clearInterval(interval); // Cleanup interval on unmount
+    }, []);
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <div className="flex w-full min-h-screen bg-white">
       {/* Toast Notification Container */}
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
 
       {/* Image Section */}
-      <div className="hidden lg:flex w-1/2">
+      {/* <div className="hidden lg:flex w-1/2">
         <Image
           className="w-full h-auto"
           cloudName="dqtyrjpeh"
@@ -39,7 +72,7 @@ export const LogIn = () => {
           loading="lazy"
           alt="Login Background"
         />
-      </div>
+      </div> */}
 
       {/* Login Form Section */}
       <div className="flex flex-col items-center w-full lg:w-1/2 max-w-md mx-auto p-8 bg-white  rounded-lg">
@@ -168,6 +201,39 @@ export const LogIn = () => {
           </Formik>
         </div>
       </div>
+
+
+
+
+      
+<div className="relative hidden lg:flex lg:flex-nowrap w-1/2 h-auto mx-auto overflow-hidden">
+      <div
+        className="flex transition-transform duration-1000 ease-in-out"
+        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+      >
+        {images.map((src, index) => (
+          <img
+            key={index}
+            src={src}
+            alt={`Slide ${index + 1}`}
+            className="w-full h-auto object-cover flex-shrink-0" // flex-shrink-0 prevents image from shrinking
+          />
+        ))}
+      </div>
+      
+      {/* Dot Indicators */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        {images.map((_, index) => (
+          <div
+            key={index}
+            className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-300 ${
+              index === currentIndex ? 'bg-gray-700' : 'bg-gray-400'
+            }`}
+            onClick={() => setCurrentIndex(index)} // Allow dot navigation
+          ></div>
+        ))}
+      </div>
+    </div>
     </div>
   );
 };
