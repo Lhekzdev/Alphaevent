@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
-import cloudIcon from "../.././../assets/cloudIcon.svg"
-import Section1 from '../OnBoarding/Section1'
-import Onboardingleft from '../onboardingleft/Onboardingleft'
-import ProfileSearchBar from '../OnBoarding/ProfileSearchBar'
+import cloudIcon from "../../../assets/cloudIcon.svg"
+// import Section1 from './Section1
+import Onboardingleft from "../onboardingleft/Onboardingleft";
+import ProfileSearchBar from "../../dashboard/OnBoarding/ProfileSearchBar"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
@@ -13,17 +13,14 @@ import axios from "axios";
 
 
 
-
-const OnboradingEvent = () => {
+const CreateEvent = () => {
   // Ref to programmatically trigger the file input
   const fileInputRef = useRef(null);
-
 
   const [uploadedImage, setUploadedImage] = useState(null);
   const [isToggled, setIsToggled] = useState(true);
 
   const [selectedDate, setSelectedDate] = useState(null);
-
 
   // Handle file upload
   const handleFileChange = (event) => {
@@ -50,17 +47,12 @@ const handleSubmit = async (event) => {
   event.preventDefault();
   console.log("Submitting form...");
 
-
-
-  {eventTitle,eventDesc,eventStart,eventEnd,eventType,eventVenue,eventCity,eventCountry,tickeType,ticketPrice}
-
-
   const formData = new FormData();
 
   formData.append("eventTitle", event.target.eventTitle?.value || "");
-  formData.append("eventDesc", event.target.eventDesc?.value || "");
+  formData.append("description", event.target.description?.value || "");
   formData.append("eventCategory", event.target.eventCategory?.value || "");
-  formData.append("eventType", event.target.eventType?.value || "");
+  formData.append("eventFormat", event.target.eventFormat?.value || "");
   if (selectedDate) formData.append("eventDate", selectedDate.toISOString());
   formData.append("isPrivate", isToggled);
   formData.append("eventCapacity", event.target.eventCapacity?.value || "");
@@ -74,7 +66,7 @@ const handleSubmit = async (event) => {
   }
 
   try {
-    const response = await axios.post("http://localhost:5000/api/events", formData, {
+    const response = await axios.post("http://localhost:5001/api/events", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -86,7 +78,6 @@ const handleSubmit = async (event) => {
     alert("Failed to submit form. Please try again.");
   }
 };
-
 
 
 
@@ -108,7 +99,6 @@ const handleSubmit = async (event) => {
           </div>
 
 
-
           <div className='max-w-[1032px]   flex  h-[56px] mt-[8px]  p-[8px] rounded-[12px] border-[1px] justify-between  border-customLighterGray'>
             <div className='w-[508px]  h-[40px] place-items-center rounded-[8px]  hover:bg-customSkyblue '   ><h6 className='pt-[4px] text-center  font-bold w-[51px] h-[16px] '>Details</h6></div>
             <div className='w-[508px] h-[40px]  place-items-center rounded-[8px]  hover:bg-customSkyblue '   ><h6 className='pt-[4px]  font-bold w-[51px] h-[16px] '>Ticketing</h6></div>
@@ -117,7 +107,6 @@ const handleSubmit = async (event) => {
             <div><h4 className='font-bold  text-[18px] mb-[16px] '>
               Event Banner
             </h4></div>
-
 
             {/* select image section */}
             <div className=' items-center text-center max-w-[952px] h-[200px] rounded-[12px] border-[0.8px] '>
@@ -133,7 +122,7 @@ const handleSubmit = async (event) => {
                 ) : (<div>
                   <ol className='mx-auto flex  flex-col'><img className='mx-auto ' src={cloudIcon} alt="cloudIcon" /></ol>
                   <ol className=''>
-                    <li>Click to upload or drag and drop</li>
+                    <li>Click to upload or drag and drop</li>
                     <li>PNG, JPG or GIF (MAX. 800x400px)</li>
                   </ol></div>)}
               </div>
@@ -147,11 +136,9 @@ const handleSubmit = async (event) => {
                 className="hidden"
               />
 
-
             </div>
 
           </div>
-
 
           {/* Form input */}
 
@@ -174,10 +161,10 @@ const handleSubmit = async (event) => {
 
               {/* Description */}
               <div>
-                <label htmlFor="eventDesc" className="block font-medium mb-2">Description</label>
+                <label htmlFor="description" className="block font-medium mb-2">Description</label>
                 <textarea
-                  id="eventDesc"
-                  name="eventDesc"
+                  id="description"
+                  name="description"
                   placeholder="Enter event description"
                   className="w-full  border-customLighterGray border rounded-[12px] px-[20px]  focus:outline-none focus:ring-2 focus:ring-blue-500"
                   rows="3"
@@ -201,7 +188,7 @@ const handleSubmit = async (event) => {
                 <div>
                   {/* <label htmlFor="eventFormat" className="block font-medium mb-2">Event Format</label> */}
                   <select
-                    id="eventType" name ="eventType"
+                    id="eventFormat" name ="eventFormat"
                     className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
 
@@ -260,7 +247,6 @@ const handleSubmit = async (event) => {
             </ol>
           </div>
 
-
           {/* Event capacity*/}
           <div>
             <label htmlFor="eventcapacity"   className="block  font-medium mb-2">Event capacity</label>
@@ -304,7 +290,6 @@ const handleSubmit = async (event) => {
           </div>
 
 
-
         </div>
 
     </section>
@@ -312,4 +297,4 @@ const handleSubmit = async (event) => {
   )
 }
 
-export default OnboradingEvent
+export default CreateEvent

@@ -6,7 +6,7 @@ const Eventshome = lazy(() => import("./components/events/eventshome/Eventshome.
 const ExploreEvents = lazy(() => import("./components/events/exploreEvents/ExploreEvents.jsx"));
 const Eventsdetailshome = lazy(() => import("./components/eventdetails/eventsdetailshome/Eventsdetailshome.jsx"));
 const OnboardingMain= lazy(() => import("./components/dashboard/OnboardingMain/OnboardingMain.jsx"));
-const OnboardingEvent= lazy(() => import("./components/dashboard/onboardingEvent/OnboardingEvent.jsx"));
+const CreateEvent= lazy(() => import("./components/dashboard/createEvent/CreateEvent.jsx"));
 const OnboardEvent= lazy(() => import("./components/dashboard/OnboardEvent/OnboardEvent.jsx"));
 
 import { SignUp } from "./components/signup/SignUp.jsx";
@@ -79,7 +79,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/Login" element={<LogIn />} />
           <Route path="/OnboardingMain" element={<OnboardingMain />} />
-          <Route path="/onboardingEvent" element={<OnboardingEvent />} />
+          <Route path="/createEvent" element={<CreateEvent />} />
           <Route path="/OnboardEvent" element={<OnboardEvent />} />
         
 

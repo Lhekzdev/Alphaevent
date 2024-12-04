@@ -4,16 +4,16 @@ import * as Yup from 'yup';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Image } from "cloudinary-react";
-import envelopeFooter from '../../../assets/envelopeFooter.svg';
-import arrowwhiteright from '../../../assets/arrowwhiteright.svg';
+import envelopeFooter from '../../assets/envelopeFooter.svg';
+import arrowwhiteright from '../../assets/arrowwhiteright.svg';
 
 const SignUpSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
 });
 
 export const SignUp = () => (
-  <section className="w-full   font-Lato">
-    <div className="max-w-[1280px] pt-6  bg-[#FFFFFF] flex flex-wrap gap-[160px] rounded-[30px] px-[40px] overflow-hidden shadow-md">
+  <section className="w-full px-4 lg:px-0 font-Lato">
+    <div className="max-w-[1280px]  bg-[#FFFFFF] flex flex-wrap gap-[160px] rounded-[30px] px-[40px] overflow-hidden shadow-md">
       {/* Text and Form Section */}
       <div className="w-full lg:w-1/2 flex flex-col justify-center items-start ">
         <p className="text-[18px] font-light text-[#333333]">Don’t miss out on future updates!</p>

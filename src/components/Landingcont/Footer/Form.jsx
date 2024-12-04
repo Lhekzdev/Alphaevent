@@ -10,9 +10,9 @@ const SignupSchema = Yup.object().shape({
 });
 
 export const Form = () => (
-  <div className='w-full'>
+  <div className='w-full  '>
    
-    <div>
+    <div className='pt-6'>
         <p>Don’t miss out on future update!</p>
         <p>Subscribe to our newsletter today!</p>
     </div>

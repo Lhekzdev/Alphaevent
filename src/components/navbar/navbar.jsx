@@ -74,7 +74,7 @@ const Navbar = () => {
 
 
         <ol>
-          <button onClick={toggleMenu} className="items-center md:hidden inline-flex justify-center border ml-3 px-1 mt-2 text-sm font-medium text-gray-700   rounded-[40px] shadow-sm hover:bg-customSkyblue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          <button onClick={toggleMenu} className="items-center md:hidden justify-center border ml-3 px-1 mt-2 text-sm font-medium text-gray-700   rounded-[40px] shadow-sm hover:bg-customSkyblue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             id="menu-button" aria-expanded="true" aria-haspopup="true">
             {/* <!-- Cloudinary Image --> */}
             <img src={harburgermenu} alt="harburgermenu" class="w-10  rounded-[100%] h-8 " />

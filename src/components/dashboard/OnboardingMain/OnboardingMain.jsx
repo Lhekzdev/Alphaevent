@@ -9,7 +9,7 @@ const OnboardingMain = () => {
     <section>
         <div className='flex' >
           <div><Onboardingleft/></div>
-       <div><ProfileSearchBar />
+       <div className='w-full'><ProfileSearchBar />
         <OnBoarding /></div> 
         </div>
     </section>
