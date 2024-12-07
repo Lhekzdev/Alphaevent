@@ -97,11 +97,11 @@ const CreateEvent = () => {
             <ol className="rounded-[8px] w-[285px] h-[5px] bg-black"></ol>
           </div>
 
-          <div className="max-w-[1032px] flex h-[56px] mt-[8px] p-[8px] rounded-[12px] border-[1px] justify-between border-[#757575]">
+          <div className="max-w-[1032px] flex h-[56px] mt-[8px] p-[8px] rounded-[12px] border-[1px] justify-between border-[#757575] text-black">
             <div
               id="details"
               onClick={() => setActiveTab("details")}
-              className={`w-[508px] h-[40px] place-items-center rounded-[8px] hover:bg-customSkyblue cursor-pointer ${
+              className={`w-[508px] h-[40px] place-items-center rounded-[8px]  cursor-pointer ${
                 activeTab === "details" ? "bg-customSkyblue text-white"  : ""
               }`}
             >
@@ -110,7 +110,7 @@ const CreateEvent = () => {
             <div
               id="ticketing"
               onClick={() => setActiveTab("ticketing")}
-              className={`w-[508px] h-[40px] place-items-center rounded-[8px] hover:bg-customSkyblue cursor-pointer ${
+              className={`w-[508px] h-[40px] place-items-center rounded-[8px]  cursor-pointer ${
                 activeTab === "ticketing" ? "bg-customSkyblue text-white" : ""
               }`}
             >
@@ -118,6 +118,8 @@ const CreateEvent = () => {
             </div>
           </div>
         </div>
+
+        {/* hover:bg-customSkyblue hover:text-white */}
 
         {/* Render the active tab's content */}
         {activeTab === "details" && <Details />}

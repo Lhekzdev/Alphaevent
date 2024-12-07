@@ -12,14 +12,21 @@ import questionIcon from "../../../assets/questionIcon.svg";
 import discountIcon from "../../../assets/discountIcon.svg";
 import pencilBlue from "../../../assets/pencilBlue.svg";
 
-const Ticketing = () => {
+import "react-datepicker/dist/react-datepicker.css";
+
+
+const Ticketing = ({ pencilBlue }) => {
   // Ref to programmatically trigger the file input
   const fileInputRef = useRef(null);
+  const [startDate, setStartDate] = useState(new Date()); // For "Valid from"
+  const [endDate, setEndDate] = useState(new Date()); // For "Valid until"
 
   const [uploadedImage, setUploadedImage] = useState(null);
   const [isToggled, setIsToggled] = useState(true);
 
   const [selectedDate, setSelectedDate] = useState(null);
+
+  
 
   // Handle file upload
   const handleFileChange = (event) => {
@@ -228,31 +235,46 @@ const Ticketing = () => {
   
   {/* checked */}
   <div className="calenderContainer mt-[44px] flex flex-col lg:flex-row gap-[80px] lg:gap-[160px]">
-  <div className="calender1">
-    <p>Valid from</p>
-    <div className="flex">
-      <input
-        type="text"
-        placeholder="Date"
-        className="w-[245px] border-none border-b-2 border-[#CAC4D0] shadow-[0_4px_4px_0_#CAC4D0] focus:shadow-[0_6px_6px_0_#CAC4D0] focus:border-b-[#928D9A] transition duration-300 outline-none"
-      />
-      <img src={pencilBlue} alt="" />
-    </div>
-  </div>
+      {/* Valid From */}
+      <div className="calender1">
+        <p>Valid from</p>
+        <div className="flex items-center">
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)} // Update the selected date
+            dateFormat="yyyy-MM-dd" // Format for the displayed date
+            placeholderText="Select a date"
+            className="w-[245px] border-none border-b-2 border-[#CAC4D0] shadow-[0_4px_4px_0_#CAC4D0] outline-none"
+          />
+          <img
+            src={pencilBlue}
+            alt="Edit date"
+            onClick={() => document.querySelector(".react-datepicker__input-container input").focus()}
+            className="cursor-pointer ml-2"
+          />
+        </div>
+      </div>
 
-  <div className="calender2">
-    <p>Valid until</p>
-    <div className="flex">
-      <input
-        type="text"
-        placeholder="Date"
-        className="w-[245px] border-none border-b-2 border-[#CAC4D0] shadow-[0_4px_4px_0_#CAC4D0] focus:shadow-[0_6px_6px_0_#CAC4D0] focus:border-b-[#928D9A] transition duration-300 outline-none"
-      />
-      <img src={pencilBlue} alt="" />
+      {/* Valid Until */}
+      <div className="calender2">
+        <p>Valid until</p>
+        <div className="flex items-center">
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => setEndDate(date)} // Update the selected date
+            dateFormat="yyyy-MM-dd" // Format for the displayed date
+            placeholderText="Select a date"
+            className="w-[245px] border-none border-b-2 border-[#CAC4D0] shadow-[0_4px_4px_0_#CAC4D0] outline-none"
+          />
+          <img
+            src={pencilBlue}
+            alt="Edit date"
+            onClick={() => document.querySelectorAll(".react-datepicker__input-container input")[1].focus()}
+            className="cursor-pointer ml-2"
+          />
+        </div>
+      </div>
     </div>
-  </div> 
-</div>
-
 </div>
 
 <div>
