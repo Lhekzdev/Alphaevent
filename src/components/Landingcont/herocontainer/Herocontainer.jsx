@@ -1,11 +1,55 @@
-import React from 'react'
+import { useState,useEffect  } from "react";
 import locatn from "/locatn.svg"
 import arrowd from "/arrowd.svg"
 import line from "/line.svg"
 import search from "/search.svg"
 
 
+                 
+const states = [
+  "Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi", "Bayelsa", 
+  "Benue", "Borno", "Cross River", "Delta", "Ebonyi", "Edo", 
+  "Ekiti", "Enugu", "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", 
+  "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa", 
+  "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", 
+  "Sokoto", "Taraba", "Yobe", "Zamfara", "FCT (Abuja)"
+];
+
+
+// Mock search functionality
+
+
 const Herocontainer = () => {
+
+  const [states, setStates] = useState([]);
+  const [selectedState, setSelectedState] = useState("");
+  const [events, setEvents] = useState([]);
+
+
+
+    // Fetch states from backend
+    useEffect(() => {
+      fetch('/api/states') // Replace with your backend endpoint
+        .then(response => response.json())
+        .then(data => setStates(data))
+        .catch(error => console.error("Error fetching states:", error));
+    }, []);
+
+     // Handle search button click
+
+      // Handle search button click
+  const searchEvents = () => {
+    if (!selectedState) {
+      alert("Please select a state!");
+      return;
+    }
+
+    fetch(`/api/events?state=${selectedState}`) // Replace with your backend endpoint
+      .then(response => response.json())
+      .then(data => setEvents(data))
+      .catch(error => console.error("Error fetching events:", error));
+  };
+
   return (
     <div className='px-5 md:px-[80px] pt-[60px] my-[60px] '>
  
@@ -26,11 +70,27 @@ const Herocontainer = () => {
               <li className='w-[24px] h-[24px]'>
                 <img src={locatn} alt="locatn" />
                 </li>
-             <ol className=''><li className='w-[99px] h-[24px]'>Port Harcourt</li>
+             
+             
+             <ol className=' text-black ' >    <select
+          className=" border-customdarkblue text-white bg-transparent  rounded-md p-3"
+          value={selectedState}
+          onChange={(e) => setSelectedState(e.target.value)}
+        >
+          <option value="" disabled>Select a state</option>
+          {states.map((state, index) => (
+            <option className="bg-customdarkblue" key={index} value={state}>
+              {state}
+            </option>
+          ))}
+        </select>
                </ol>
+
+
+
+               
             {/* arrow section */}
-            <ol className='w-[11.41px] h-[7.12px]'>
-              <img src={arrowd} alt="arrowd" /></ol>
+           
           </ol></ol> 
 
           <ol>
@@ -39,8 +99,16 @@ const Herocontainer = () => {
             <img className='hidden mr-5 md:flex' src={line} alt="line" /></ol>
 
           <ol className='flex justify-between w-[254px] items-center'>
-            <li className='  w-[138px] h-[24px]'>Search for an event</li>
-           <li className='w-[35px] h-[35px] md:w-[40px] md:h-[40px]'> <img className='' src={search} alt="search" /></li>
+
+          <button
+          className=" flex gap-6 w-full text-white px-4 py-2 rounded-md"
+          onClick={searchEvents}
+        >
+    <li>Search for an event</li> 
+     <li className='w-[35px] h-[35px] md:w-[40px] md:h-[40px]'> <img className='' src={search} alt="search" /></li>
+        </button>
+            {/* <li className='  w-[138px] h-[24px]'>Search for an event</li> */}
+           {/* <li className='w-[35px] h-[35px] md:w-[40px] md:h-[40px]'> <img className='' src={search} alt="search" /></li> */}
           </ol>
 
         </div>

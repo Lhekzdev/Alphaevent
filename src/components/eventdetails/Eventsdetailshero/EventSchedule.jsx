@@ -4,7 +4,7 @@ function EventSchedule() {
   const [event, setEvent] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/eventSchedule/1')
+    fetch('http://localhost:5004/eventSchedule/1')
       .then((response) => response.json())
       .then((data) => setEvent(data))
       .catch((error) => console.error("Error fetching data:", error));

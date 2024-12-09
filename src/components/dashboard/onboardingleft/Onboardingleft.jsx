@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import logoOnboard from "../../../assets/logoOnboard.svg"
 import dashboardWhite from "../../../assets/dashboardWhite.svg"
+import dashboardGrayIcon from "../../../assets/dashboardGrayIcon.svg"
 import eventIcon from "../../../assets/eventIcon.svg"
+import eventWhiteIcon from "../../../assets/eventWhiteIcon.svg"
 import reportIcon from "../../../assets/reportIcon.svg"
+import reportIconWhite from "../../../assets/reportIconWhite.svg"
 import paymentIcon from "../../../assets/paymentIcon.svg"
 import settingIcon from "../../../assets/settingIcon.svg"
+import settingIconWhite from "../../../assets/settingIconWhite.svg"
 import supportIcon from "../../../assets/supportIcon.svg"
+import supportWhiteIcon from "../../../assets/supportWhiteIcon.svg"
 import createEventIcon from "../../../assets/createEventIcon.svg"
 
 
@@ -41,61 +46,150 @@ const Onboardingleft = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
 
+  const [activeLink, setActiveLink] = useState("Dashboard");
+
+  const handleClick = (link) => {
+    setActiveLink(link);
+  };
+
+  const linkStyle = (link) =>
+    activeLink === link
+      ? "bg-[#3A7BD533] text-white"
+      : "text-[#757575] bg-transparent";
+
+  const iconStyle = (link, grayIcon, whiteIcon) =>
+    activeLink === link ? whiteIcon : grayIcon;
+
   return (
     <div className="flex">  <div
 
-       onMouseLeave={handleMouseLeave}
-        className={`${isMenuOpen ? "block" : "hidden"
-          } absolute transition-all opacity-100 sm:duration-500 sm:ease-in-out top-20 md:top-0  md:flex md:relative pt-[24px] pr-[10px] pb-[151px] pl-[28px] bg-customdarkblue z-10 w-[280px] h-40md:h-[1024px] hover:opacity-100 md:opacity-100`}
-      >
-        {/* dashboard with icons section */}
-        <div className="flex flex-col md:gap-y-[40px] font-Lato  text-white">
-          <ol className="px-[24px] py-[12px] w-[258px]">
-            <Link to="/"> <img
-              className="pt-[12px] w-[200px] px-[24px] h-[48px]"
-              src={logoOnboard}
-              alt="alvent-logo"
-            /></Link>
+      onMouseLeave={handleMouseLeave}
+      className={`${isMenuOpen ? "block" : "hidden"
+        } absolute transition-all opacity-100 sm:duration-500 sm:ease-in-out top-20 md:top-0  md:flex md:relative pt-[24px] pr-[10px] pb-[151px] pl-[28px] bg-customdarkblue z-10 w-[280px] h-40md:h-[1024px] hover:opacity-100 md:opacity-100`}
+    >
+      {/* dashboard with icons section */}
+      <div className="flex flex-col md:gap-y-[40px] font-Lato  text-white">
+        <ol className=" w-[258px]">
+          <Link to="/"> <img
+            className="pt-[12px] w-[200px] px-[24px] h-[48px]"
+            src={logoOnboard}
+            alt="alvent-logo"
+          /></Link>
+        </ol>
+
+        <ol className="gap-y-[59px] md:gap-y-[304px] font-bold text-[24px] font-Lato flex flex-col">
+          <ol className="flex font-bold text-customGreySech text-[24px] flex-col gap-y-[10px]">
+            <Link to="/OnboardingMain"><li
+              className={`flex items-center w-[228px] h-[60px] gap-[20px] rounded-[12px] pl-[24px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
+                "Dashboard"
+              )}`}
+              onClick={() => handleClick("Dashboard")}
+            >
+              <img
+                src={iconStyle("Dashboard", dashboardGrayIcon, dashboardWhite)}
+                alt="Dashboard Icon"
+                className="icon"
+              />
+
+              <h3>Dashboard</h3>
+
+            </li>
+            </Link>
+
+
+            <Link to="/OnboardEvent"><li
+              className={`flex items-center rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
+                "Event"
+              )}`}
+              onClick={() => handleClick("Event")}
+            >
+              <img
+                src={iconStyle("Event", eventIcon, eventWhiteIcon)}
+                alt="Event Icon"
+                className="icon"
+              />
+
+              <h3>Event</h3>
+            </li>
+            </Link>
+
+
+            <li
+              className={`items-center flex rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
+                "Report"
+              )}`}
+              onClick={() => handleClick("Report")}
+            >
+              <img
+                src={iconStyle("Report", reportIcon, reportIconWhite)}
+                alt="Report Icon"
+                className="icon"
+              />
+              <h3>Report</h3>
+            </li>
+
+
+            <li className="flex hover:text-white items-center hover:bg-customSkyblue rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px]">
+              <img src={paymentIcon} alt="" />
+              <h3>Payment</h3>
+            </li>
+
+            <li
+              className={`items-center flex rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
+                "Settings"
+              )}`}
+              onClick={() => handleClick("Settings")}
+            >
+              <img
+                src={iconStyle("Settings", settingIcon, settingIconWhite)}
+                alt="Settings Icon"
+                className="icon"
+              />
+
+              <h3>Settings</h3>
+            </li>
+
+            <li
+              className={`items-center flex rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
+                "Support"
+              )}`}
+              onClick={() => handleClick("Support")}
+            >
+              <img
+                src={iconStyle("Support", supportIcon, supportWhiteIcon)}
+                alt="Support Icon"
+                className="icon"
+              />
+
+              <h3>Support</h3>
+            </li>
           </ol>
 
-          <ol className="gap-y-[59px] md:gap-y-[304px] font-bold text-[24px] font-Lato flex flex-col">
-            <ol className="flex font-bold text-customGreySech text-[24px] flex-col gap-y-[10px]">
-              <Link to="/OnboardingMain">  <li className="flex items-center w-[228px] h-[60px] gap-[20px] rounded-[12px] pl-[24px] hover:text-white hover:bg-customSkyblue">
-                <img src={dashboardWhite} alt="dashboardWhite" />
-                <h3>Dashboard</h3>
-              </li></Link>
+          <ol className={`flex w-[238px] h-[60px] hover:text-white rounded-[12px]  pl-[15px] items-center gap-[10px]
+              ${linkStyle(
+            "createEvent"
+          )}`}
+            onClick={() => handleClick("createEvent")}
+          >
 
-              <li className="hover:bg-customSkyblue hover:text-white flex items-center rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px]">
-                <img src={eventIcon} alt="eventIcon" />
-                <h3><Link to="/OnboardEvent">Event</Link></h3>
-              </li>
-              <li className="items-center flex hover:text-white hover:bg-customSkyblue rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px]">
-                <img src={reportIcon} alt="" />
-                <h3>Report</h3>
-              </li>
+            
+            <Link to="/createEvent"> <button className="items-center  h-[24px] flex gap-4  cursor-pointer hover:text-white"    >
 
-              <li className="flex hover:text-white items-center hover:bg-customSkyblue rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px]">
-                <img src={paymentIcon} alt="" />
-                <h3>Payment</h3>
-              </li>
+        
+              Create Event
+              <img
+                src={iconStyle("createEvent", createEventIcon, createEventIcon)}
+                alt="Create Event Icon"
+                className="icon w-[16px] h-[16px]"
+              /></button>
+            </Link>
 
-              <li className="flex hover:text-white items-center hover:bg-customSkyblue w-[228px] rounded-[12px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px]">
-                <img src={settingIcon} alt="" />
-                <h3>Settings</h3>
-              </li>
-              <li className="items-center hover:text-white hover:bg-customSkyblue flex w-[228px] rounded-[12px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px]">
-                <img src={supportIcon} alt="" />
-                <h3>Support</h3>
-              </li>
-            </ol>
-            <ol className="flex w-[238px] h-[60px] hover:text-white rounded-[12px] bg-customSkyblue pl-[24px] items-center gap-[20px]">
-              <button className="w-[140px] items-center leading-[24px] h-[24px]"><Link to="/createEvent">Create Event</Link></button>
-              <img className="w-[16.33px] h-[16.33px]" src={createEventIcon} alt="" />
-            </ol>
+
           </ol>
-        </div>
-
+        </ol>
       </div>
+
+    </div>
 
 
       {/* Button to Toggle the Visibility on small screens */}
