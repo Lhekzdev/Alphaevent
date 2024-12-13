@@ -1,64 +1,33 @@
 import React, { useState, useRef } from "react";
-import cloudIcon from "../../../assets/cloudIcon.svg";
-// import Section1 from './Section1
-import Onboardingleft from "../onboardingleft/Onboardingleft";
-import ProfileSearchBar from "../../dashboard/OnBoarding/ProfileSearchBar";
-
-import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import cloudIcon from "../../../assets/cloudIcon.svg";
 import arrowOption from "../../../assets/arrowOption.svg";
 import delectIcon from "../../../assets/delectIcon.svg";
 import questionIcon from "../../../assets/questionIcon.svg";
 import discountIcon from "../../../assets/discountIcon.svg";
 import pencilBlue from "../../../assets/pencilBlue.svg";
-import DatePicker from "react-datepicker";
-import { LocalizationProvider,DatePicker as MuiDatePicker} from '@mui/x-date-pickers-pro';
-import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
-
-import { TextField } from "@mui/material";
 
 const Ticketing = () => {
-  // Ref to programmatically trigger the file input
   const fileInputRef = useRef(null);
+  const ticketTypes1Ref = useRef(null);
+  const ticketTypes2Ref = useRef(null);
 
   const [uploadedImage, setUploadedImage] = useState(null);
   const [isToggled, setIsToggled] = useState(true);
-
-
-
-  // const [isEditable, setIsEditable] = useState(false);
-
-  // const handleImageClick = () => {
-  //   setIsEditable(true); // Enable editing on image click
-  // }
-
-
-
-
-
-  //for Valid date
-  const [validStartDate, setValidStartDate] = useState(null);
-  const [validEndDate, setValidEndDate] = useState(null);
-
-//for sales date
-const [salesStartDate, setSalesStartDate] = useState(null);
-const [salesEndDate, setSalesEndDate] = useState(null);
-
-
-
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [showMessageBox1, setShowMessageBox1] = useState(false);
+  const [showMessageBox2, setShowMessageBox2] = useState(false);
 
   // Handle file upload
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      console.log("Selected file:", file.name); // Handle the uploaded file here
-      // Create a preview URL for the uploaded image
       const previewURL = URL.createObjectURL(file);
       setUploadedImage(previewURL);
     }
   };
 
-  // Programmatically click the hidden input
+  // Trigger file input programmatically
   const handleUploadClick = () => {
     fileInputRef.current.click();
   };
@@ -67,11 +36,45 @@ const [salesEndDate, setSalesEndDate] = useState(null);
     setIsToggled(!isToggled);
   };
 
+  // Clear inputs in ticketTypes1 container
+  const clearTicketTypes1Inputs = () => {
+    const inputs = ticketTypes1Ref.current.querySelectorAll("input");
+    const select = ticketTypes1Ref.current.querySelector("select");
+
+    // Clear all input fields
+    inputs.forEach((input) => (input.value = ""));
+
+    // Reset the select field to its default option
+    if (select) {
+      select.value = "selectEventType";
+    }
+  };
+
+  // Clear inputs in ticketTypes2 container
+  const clearTicketTypes2Inputs = () => {
+    const inputs = ticketTypes2Ref.current.querySelectorAll("input");
+    inputs.forEach((input) => (input.value = ""));
+  };
+
+  // Show and hide message box 1
+  const handleAddTicketType = () => {
+    setShowMessageBox1(true);
+    setTimeout(() => {
+      setShowMessageBox1(false);
+    }, 3000);
+  };
+
+  // Show and hide message box 2
+  const handleCreateEvent = () => {
+    setShowMessageBox2(true);
+    setTimeout(() => {
+      setShowMessageBox2(false);
+    }, 3000);
+  };
+
   // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Submitting form...");
-
     const formData = new FormData();
 
     formData.append("eventTitle", event.target.eventTitle?.value || "");
@@ -82,8 +85,8 @@ const [salesEndDate, setSalesEndDate] = useState(null);
     formData.append("isPrivate", isToggled);
     formData.append("eventCapacity", event.target.eventCapacity?.value || "");
     formData.append(
-      "maximumattedees",
-      event.target.maximumattedees?.value || ""
+      "maximumattendees",
+      event.target.maximumattendees?.value || ""
     );
     formData.append("customTags", event.target.customTags?.value || "");
     formData.append(
@@ -115,288 +118,113 @@ const [salesEndDate, setSalesEndDate] = useState(null);
   };
 
   return (
-   <>
-    
-      
-
-      {/* Ticket tpye container */}
-           
-           <div id="ticketType" className="max-w-[1144px]  min-h-[1017px]" >
-           <form action="">
-           <div  className="ticketTypes border-[1px] border- rounded-[12px] w-full lg:max-w-[1032px] mt-[28px] h-auto px-[40px] pt-[24px] pb-[48px]  py-[16px]">
-              {/* Ticket tpye container */}
-              <div className="ticketType ">
-                <div>
-                  <p className="text-[18px] font-bold">Ticket type</p>
-                </div>
-                <div className="flex relative justify-between  mt-[36px]">
-                  <div className="inputOption flex border border-[#3A7BD5]  rounded-tl-[8px] rounded-tr-[8px]">
-                    <select name="eventType" id="eventType" className="text-12px] content- font-normal">
-                      <option value="selectEventType">Select Ticket Type</option>
+    <>
+      <section className="flex w-full overflow-hidden mt-[28px]">
+        {/* Ticket type container */}
+        <div id="ticketType" className="ticketTypes w-full">
+          <form onSubmit={handleSubmit}>
+            {/* Ticket Types 1 */}
+            <div
+              ref={ticketTypes1Ref}
+              className="ticketTypes1 border border-[#757575] rounded-[12px] w-full lg:w-[738px] px-[16px] py-[16px] mr-[45px]"
+            >
+              <div className="ticketType">
+                <p className="text-[18px] font-bold">Ticket type</p>
+                <div className="flex flex-col lg:flex-row gap-[10px] mt-[36px] w-full">
+                  <div className="inputOption flex border border-[#3A7BD5] px-[10px] rounded-tl-[8px] rounded-tr-[8px] w-full lg:w-[352px]">
+                    <select
+                      name="eventType"
+                      id="eventType"
+                      className="text-[12px] font-normal w-full lg:w-[352px] focus:outline-none"
+                    >
+                      <option value="selectEventType">
+                        Select Ticket Type
+                      </option>
                       <option value="earlyBird">Early Bird</option>
                       <option value="vip">VIP</option>
                       <option value="others">Regular</option>
                     </select>
-                    {/* <img src={arrowOption} alt="" /> */}
                   </div>
                   <div>
-                    <img src={delectIcon} alt="" />
+                    <img
+                      src={delectIcon}
+                      alt="Delete Icon"
+                      className="deleteIcon1 cursor-pointer"
+                      onClick={clearTicketTypes1Inputs}
+                    />
                   </div>
                 </div>
               </div>
-  
-              <div className="lg:flex w-full lg:flex-row flex-col gap-3 items-center lg:space-y-0 space-y-7 lg:h-[74px] justify-between mt-[30px]">
+
+              <div className="flex flex-col lg:flex-row gap-[40px] mt-[120px]">
                 <fieldset>
-                  <label htmlFor="price" className="pl-[8px] text-[16px] font-bold block text-[#525252]">Price</label><br />
-                  <input type="text" placeholder="0" className="border  border-[#BEBEBE] rounded-[12px] w-full h-[52px] pl-[20px] pr-[150px] py-[18px]" />
-                 </fieldset>
-                 <fieldset>
-                  <label htmlFor="price" className="pr-[8px] text-[16px] block font-bold text-[#525252]">Quantity</label><br />
-                  <input type="text" placeholder="0" className="border  border-[#BEBEBE] rounded-[12px] w-full h-[52px] p-[20px] pr-[150px]  py-[18px]" />
-                 </fieldset>
+                  <label
+                    htmlFor="price"
+                    className="px-[8px] text-[16px] font-bold text-[#525252]"
+                  >
+                    Price
+                  </label>
+                  <br />
+                  <input
+                    type="text"
+                    placeholder="0"
+                    className="border border-[#BEBEBE] rounded-[12px] w-full lg:w-[217px] h-[52px] px-[20px] py-[18px]"
+                  />
+                </fieldset>
+                <fieldset>
+                  <label
+                    htmlFor="quantity"
+                    className="px-[8px] text-[16px] font-bold text-[#525252]"
+                  >
+                    Quantity
+                  </label>
+                  <br />
+                  <input
+                    type="text"
+                    placeholder="0"
+                    className="border border-[#BEBEBE] rounded-[12px] w-full lg:w-[217px] h-[52px] px-[20px] py-[18px]"
+                  />
+                </fieldset>
               </div>
-  
-  {/* sales section */}
-              <div className="mt-[30px] text-[#2F3B4C] text-[18px] font-bold">
-                <p>Sales period</p>
+
+
+            {/* Message Box 1 */}
+            {showMessageBox1 && (
+              <div className="messageBox1 bg-green-500 text-white p-4 rounded mt-4">
+                Ticket Type Added Successfully
               </div>
-  
-  {/* checked */}
-              <div className="flex justify-between ">
-             
-               
-              </div>
-  
-      {/* checked */}
-      {/* <LocalizationProvider dateAdapter={AdapterDayjs}> */}
-  
-       <div className="lg:flex space-y-4 lg:space-y-0 justify-between ">
-     <div> <div className="items-center  text-[#2F3B4C] text-[16px] font-light">  <p>Starts</p></div>
-      <div className="border flex flex-col border-b-[#8D8D8D] w-full lg:w-[270px] px-[16px] py-[13px] bg-[#d6d6d6]">
-               
-                  <div className="flex gap-3">
-                  <p className="text-[12px] flex flex-col gap-y-0 font-light text-[#525252]">
-                  Label (mm/dd/yyyy)</p>
-                  <img src={questionIcon} alt="" /></div> 
-                 <DatePicker
-                selected={salesStartDate}
-                onChange={(date) => setSalesStartDate(date)}
-                dateFormat="MM/dd/yyyy"
-                placeholderText="mm/dd/yyyy"
-                className=" bg-gray-100 text-gray-700 text-sm border-none focus:outline-none"
-              />
+            )}
+
+            <button
+              type="button"
+              onClick={handleAddTicketType}
+              className="bg-[#3A7BD5] text-[#FFFFFF] mt-[32px] w-full lg:w-[201px] px-[16px] py-[16px] text-center rounded-[8px]"
+            >
+              Add ticket type
+            </button>
          
-                  
-                </div>
-              
-             
-             </div>
+            </div>
 
-<div>
-             <div className="text-[#2F3B4C] text-[16px] font-light"><p>Ends</p></div>
-              <div className="border flex flex-col border-b-[#8D8D8D] w-full lg:w-[270px] px-[16px] py-[13px] bg-[#d6d6d6]">
-              
-          
-                 <div className="flex gap-3"><p className="text-[12px] font-light text-[#525252]">
-                  Label (mm/dd/yyyy)   </p>
 
-                  <img src={questionIcon} alt="" /> </div>
-                  <DatePicker
-                selected={salesEndDate}
-                onChange={(date) => setSalesEndDate(date)}
-                dateFormat="MM/dd/yyyy"
-                placeholderText="mm/dd/yyyy"
-                className="  bg-gray-100 text-gray-700 text-sm border-none focus:outline-none"
-              />
-             
-                        
-           
-                
-             
+
+            {/* Message Box 2 */}
+            {showMessageBox2 && (
+              <div className="messageBox2 bg-green-500 text-white p-4 rounded mt-4">
+                You have Successfully Publish an Event
               </div>
-      </div>
-</div> 
+            )}
 
-{/* </LocalizationProvider> */}
-
-
-
-<div className="bg-[#3A7BD5] text-[#FFFFFF] mt-[32px] rounded-[8px] max-w-full text-center py-[16px]">
-        <button className=" ">
-           Add ticket type
+            <button
+              type="button"
+              onClick={handleCreateEvent}
+              className="bg-[#3A7BD5] text-[#FFFFFF] mt-[32px] w-full lg:w-[700px] px-[16px] py-[16px] text-center rounded-[8px]"
+            >
+              Publish Event
             </button>
-      </div>
-
-      </div>
-
-
-      
-             
-       
-           
-{/* checked */}
-          {/* next form */}
-  
-  <div className="ticketTypes border  rounded-[12px] w-full lg:max-w-[1032px] px-[40px] py-[16px] mt-[28px]">
-  
-  
-  <div className="flex items-center justify-between w-full lg:max-w-[1032px]">
-    <div>
-      <p>Discount Codes</p>
-    </div>
-    <div className="bg-[#3A7BD5] w-[230px] flex justify-center items-center px-[20px] py-[10px] gap-[22px] rounded-[8px]">
-      <img src={discountIcon} alt="" />
-      <p>Add Discount Code</p>
-    </div>
-  </div>
-
-
-
-  {/* checked */}
-  <div className="flex flex-wrap  justify-between mt-[32px] w-full items-center">
-  <fieldset className="w-full sm:w-[45%] mb-4">
-    <label htmlFor="price" className="pl-[8px] block">Discount Code</label>
-    <input
-      type="text"
-      placeholder="DISCOUNTCODE"
-      className="border border-[#BEBEBE] rounded-[12px] w-full h-[52px] pl-[20px] py-[18px]"
-    />
-  </fieldset>
-  <fieldset className="w-full sm:w-[45%] mb-4">
-    <label htmlFor="percentage" className="pl-[8px] block">Percentage</label>
-    <input
-      type="text"
-      placeholder="Discount Percentage"
-      className="border border-[#BEBEBE] rounded-[12px] w-full h-[52px] pl-[20px] py-[18px]"
-    />
-  </fieldset>
-  <div className="w-full sm:w-auto flex justify-center ">
-    <img
-      src={delectIcon}
-      alt="Delete Icon"
-      className="min-w-[30px]  max-w-[50px] h-auto"
-    />
-  </div>
-</div>
-
-
-           
-     
-        {/* Start Date Picker */}
-        {/* <div>
-          <h4 className="text-center mb-2 text-gray-500">Valid from</h4>
-          <DatePicker
-            label="Start Date"
-            value={startDate}
-            onChange={(newValue) => setStartDate(newValue)}
-            
-            renderInput={(params) => (
-              <TextField {...params} fullWidth variant="outlined" 
-              
-              
-              />
-
-              
-            )}
-          />
-        </div> */}
-
-        {/* End Date Picker */}
-        {/* <div>
-          <h4 className="text-center mb-2 text-gray-500">Valid until</h4>
-          <DatePicker
-            label="End Date"
-            value={endDate}
-            onChange={(newValue) => setEndDate(newValue)}
-            renderInput={(params) => (
-              <TextField {...params} fullWidth variant="outlined" />
-            )}
-          />
-        </div> */}
-
-         <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div className="calenderContainer mt-[44px] text-black flex flex-col gap-y-7 lg:flex-row justify-between lg:gap-[160px]">
-  <div className="calender1">
-    <p>Valid from</p>
-    
-    <div className="flex ">
-    <MuiDatePicker
-            label="Start Date"
-            value={validStartDate}
-            onChange={(newValue) => setValidStartDate(newValue)}
-            
-            renderInput={(params) => (
-              <TextField {...params} fullWidth variant="outlined" /> 
-              
-            )}
-             />
-      <img src={pencilBlue} alt="" />
-    </div>
-  </div>
-
-  <div className="calender2">
-    <p>Valid until</p>
-    <div className="flex">
-    <MuiDatePicker
-            label="End Date"
-            value={validEndDate}
-            
-            onChange={(newValue) => setValidEndDate(newValue)}
-            renderInput={(params) => (
-              <TextField {...params} fullWidth variant="outlined" 
-              // disabled={!isEditable}
-               />
-              
-            )}
-          />
-      <img src={pencilBlue} alt=""  />
-    </div>
-  </div> 
-</div>
-
-
-      
-      
-    
-    </LocalizationProvider>
-  
-  {/* checked */}
-              {/* <div className="calenderContainer mt-[44px] flex gap-[160px]">
-                <div className="calender1">
-                  <p>Valid from</p>
-                  <div className="flex">
-                    <input type="text" placeholder="Date" className="w-[245px]" />
-                    <img src={pencilBlue} alt="" />
-                  </div>
-                </div>
-  
-                <div className="calender2">
-                  <p>Valid until</p>
-                  <div className="flex">
-                    <input type="text" placeholder="Date" className="w-[245px]" />
-                    <img src={pencilBlue} alt="" />
-                  </div>
-                </div>
-              </div> */}
-
-
-
-
-
-
-</div>
-<div className="bg-[#3A7BD5] text-[#FFFFFF] mt-[32px]  w-full  py-[16px] text-center rounded-[8px]">
-        <button className="">
-            Create event
-            </button>
-      </div>
-
-  
-    </form>
-      </div>
-   
-   
-   </>
+          </form>
+        </div>
+      </section>
+    </>
   );
 };
 

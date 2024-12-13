@@ -27,3 +27,6 @@ dist-ssr
 
 echo ".env" 
 
+# components
+/src/components/keep.jsx
+/src/keep.js
