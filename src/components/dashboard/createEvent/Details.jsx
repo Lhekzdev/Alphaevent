@@ -8,7 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import questionmark from "../../../assets/questionmark.svg"
-
+import delectIcon from "../../../assets/delectIcon.svg";
 
 
 
@@ -150,6 +150,18 @@ const CreateEvent = () => {
 
 
   // Ref to programmatically trigger the file input
+
+
+
+
+
+  const [ticketType, setTicketType] = useState("");
+  const [price, setPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
+
+
+
+
   const fileInputRef = useRef(null);
 
 
@@ -232,6 +244,9 @@ formData.append("eventType", event.target.eventType?.value || "");
 formData.append("maximumAttendees", event.target.maximumattedees?.value || "");
 formData.append("customTags", event.target.customTags?.value || "");
 formData.append("accessibilityOption", event.target.accessibilityOption?.value || "");
+formData.append("ticketType", event.target.eventType?.value || "");
+formData.append("price", event.target.price?.value || "");
+formData.append("quantity", event.target.quantity?.value || "");
 
 // Event dates
 if (startDate) {
@@ -263,7 +278,7 @@ try {
     },
   });
   console.log(response.data);
-  alert("Form submitted successfully!");
+  alert("Event published successfully!");
 } catch (error) {
   console.error("Error submitting form:", error.response || error.message);
   alert("Failed to submit form. Please try again.");
@@ -691,9 +706,13 @@ const [selectedState, setSelectedState] = useState("");     // Se
             class="border rounded-md px-2 py-1  lg:max-w-[9vw] text-sm text-gray-800 w-36 focus:outline-none focus:ring focus:ring-indigo-200"
      
          >
+            <option>West Africa time (WAT)</option>
+            <option>Central Africa time (CAT)</option>
+            <option>East Africa time (EAT)</option>
             <option>Eastern time (ET)</option>
             <option>Central time (CT)</option>
             <option>Pacific time (PT)</option>
+          
           </select>
         </div>
       </div>
@@ -747,6 +766,9 @@ const [selectedState, setSelectedState] = useState("");     // Se
             id="end-timezone"
             class="border rounded-md mt-2 px-2 py-1 lg:max-w-[9vw] text-sm text-gray-800 focus:outline-none focus:ring focus:ring-indigo-200"
           >
+             <option>West Africa time (WAT)</option>
+            <option>Central Africa time (CAT)</option>
+            <option>East Africa time (EAT)</option>
             <option>Eastern time (ET)</option>
             <option>Central time (CT)</option>
             <option>Pacific time (PT)</option>
@@ -787,14 +809,79 @@ const [selectedState, setSelectedState] = useState("");     // Se
 
         {/* </div> */}
 
+
+ <div
+           
+              className="ticketTypes1 border border-[#757575] rounded-[12px] w-full lg:w-[738px] px-[16px] py-[16px] mr-[45px]"
+            >
+              
+              <div className="ticketType">
+      <p className="text-[18px] font-bold">Ticket type</p>
+      <div className="flex flex-col lg:flex-row gap-[10px] mt-[36px] w-full">
+        <div className="inputOption flex border border-[#3A7BD5] px-[10px] rounded-tl-[8px] rounded-tr-[8px] w-full lg:w-[352px]">
+          <select
+            name="eventType"
+            id="eventType"
+            className="text-[12px] font-normal w-full lg:w-[352px] focus:outline-none"
+          >
+            <option value="">Select Ticket Type</option>
+            <option value="earlyBird">Early Bird</option>
+            <option value="vip">VIP</option>
+            <option value="regular">Regular</option>
+          </select>
+        </div>
+        <div>
+          <img
+            src={delectIcon} // Replace with actual path
+            alt="Delete Icon"
+            className="deleteIcon1 cursor-pointer"
+          />
+        </div>
+      </div>
+    </div>
+
+    <label htmlFor="price" className="px-[8px] text-[16px] font-bold text-[#525252]">
+      Price
+    </label>
+    <br />
+    <input
+      type="text"
+      name="price"
+      placeholder="0"
+      className="border border-[#BEBEBE] rounded-[12px] w-full lg:w-[217px] h-[52px] px-[20px] py-[18px]"
+    />
+
+    <fieldset>
+      <label htmlFor="quantity" className="px-[8px] text-[16px] font-bold text-[#525252]">
+        Quantity
+      </label>
+      <br />
+      <input
+        type="text"
+        name="quantity"
+        placeholder="0"
+        className="border border-[#BEBEBE] rounded-[12px] w-full lg:w-[217px] h-[52px] px-[20px] py-[18px]"
+      />
+    </fieldset>
+            
+            
+                 
+               
+              </div>
+
+
         <button
                 type="submit"
                 className="w-full h-[56px] py-3 mt-4 bg-customSkyblue text-white font-semibold rounded-[8px]"
               >
-                Proceed</button>
+              Publish Event</button>
         
         {/* <div className="max-w-full mt-[32px] mb-[60px] mx-[10px] text-center rounded-[8px] px-[32px] py-[16px] text-white text-[20px] items-center  bg-customSkyblue"><button className="">Proceed</button></div> */}
-     
+    
+    
+    
+    
+    
       </form>
 
 

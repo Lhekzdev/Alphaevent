@@ -14,6 +14,7 @@ import pencilBlue from "../../../assets/pencilBlue.svg";
 import Details from '../../../components/dashboard/createEvent/Details';
 import Ticketing from '../../../components/dashboard/createEvent/Ticketing';
 
+
 const CreateEvent = () => {
   const fileInputRef = useRef(null);
 
@@ -74,7 +75,7 @@ const CreateEvent = () => {
           },
         }
       );
-      alert("Form submitted successfully!");
+      alert("Event Published successfully!");
     } catch (error) {
       alert("Failed to submit form. Please try again.");
     }
