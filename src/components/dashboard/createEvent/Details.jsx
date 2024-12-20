@@ -28,6 +28,8 @@ const CreateEvent = () => {
   // const [eventDate, setEventDate] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [StartTime, setStartTime] = useState(null);
+  const [EndTime, setEndTime] = useState(null);
   const [eventurl, setUrl] = useState(null);
   const [eventType, setEventType] = useState("");
   const [file, setFile] = useState(null);
@@ -231,6 +233,9 @@ const handleSubmit = async (event) => {
   formData.append("eventTitle", eventTitle || "");
   formData.append("eventDesc", eventDesc || "");
   //formData.append("eventCat", event.target.eventCategory?.value || "");
+  formData.append("eventType", eventType || "");
+  formData.append("StartTime", StartTime || "");
+  formData.append("EndTime", EndTime || "");
   formData.append("eventType", eventType || "");
  
   formData.append("maximumattedees", maximumattedees );
@@ -596,13 +601,13 @@ const handleSubmit = async (event) => {
               </label>
               <DatePicker
                 selected={startDate}
-                // onChange={(date) => setStartDate(date)}
+                onChange={(date) => setStartDate(date)}
                 dateFormat="MM/dd/yyyy"
                 placeholderText="mm/dd/yyyy"
                 className="w-full bg-gray-100 text-gray-700 text-sm border-none focus:outline-none"
                  id="eventDate"
           name="eventDate"
-         onChange={(event) => setStartDate (event.target.value)}  
+       
              />
             </div>
           
@@ -657,10 +662,12 @@ const handleSubmit = async (event) => {
         <div class="flex h-[64px] w-[100px]  flex-col">
           <label class="text-xs font-medium  text-gray-600" for="start-time">Time</label>
           <input
-            id="start-time"
+          name="startTime"
+            id="startTime"
            type="time"
             placeholder="hh:mm"
             class="border rounded-md  py-1 text-sm text-gray-800 w-20 focus:outline-none focus:ring focus:ring-indigo-200"
+            onChange={(event) => setStartTime(event.target.value)}
           />
         </div>
       
@@ -685,11 +692,13 @@ const handleSubmit = async (event) => {
         <div class="flex h-[64px] w-[100px]  flex-col">
           <label class="text-xs font-medium  text-gray-600" for="end-time">Time</label>
           <input
-            id="end-time"
+          name="EndTime"
+            id="EndTime"
             type="time"
             placeholder="hh:mm"
             class="border rounded-md  py-1 text-sm text-gray-800 w-20 focus:outline-none focus:ring focus:ring-indigo-200"
-          />
+            onChange={(event) => setEndTime(event.target.value)}
+                  />
         </div>
       
       
