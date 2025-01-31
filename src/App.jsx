@@ -16,6 +16,8 @@ import VerifyAcc from './components/signup/VerifyAcc.jsx';
 import VerifyAcc2 from './components/signup/VerifyAcc2.jsx';
 import SetAcc from './components/signup/SetAcc.jsx';
 import ForgotPassword from './components/signup/ForgotPassword.jsx';
+import TermsSer from './components/TermsSer/TermsSer.jsx';
+import PrivacyPolicy from './components/PrivacyPolicy/PrivacyPolicy.jsx';
 import CreateAcc from './components/signup/CreateAcc.jsx';
 import SuccessAcc from './components/signup/SuccessAcc.jsx';
 
@@ -100,6 +102,8 @@ function App() {
           <Route path="/SuccessAcc" element={<SuccessAcc />} />
           <Route path="/ForgotPassword" element={<ForgotPassword />} />
           <Route path="/Login" element={<LogIn />} />
+          <Route path="/TermsSer" element={<TermsSer />} />
+          <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
           <Route path="/OnboardingMain" element={<OnboardingMain />} />
           <Route path="/createEvent" element={<CreateEvent />} />
           <Route path="/OnboardEvent" element={<OnboardEvent />} />

@@ -30,6 +30,7 @@ export const LogIn = () => {
   };
 
 const navigate = useNavigate();
+let redir = useNavigate();
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -179,19 +180,19 @@ const images = [
                 {/* Terms and Signup Link */}
                 <div className="text-center text-gray-500 text-[12px] mb-4">
                   By proceeding, you agree to Alvent’s{' '}
-                  <a href="#" className="text-blue-500">
+                  <button onClick={()=> redir('/termsSer')} className="text-[#333333] underline font-light">
                     Terms of Service
-                  </a>{' '}
+                  </button>{' '}
                   and{' '}
-                  <a href="#" className="text-blue-500">
+                  <button onClick={()=> redir('/PrivacyPolicy')}  className="text-[#333333] underline font-light">
                     Privacy Policy
-                  </a>
+                  </button>
                   .
                 </div>
                 <div className="text-center mt-4 text-[12px]">
                   <p className="text-[#757575]">
                     Don’t have an account?{' '}
-                    <a className="text-blue-500"><Link to="/signUp">Sign up</Link>
+                    <a className="text-[#2D6CCF]"><Link to="/signUp">Sign up</Link>
 
                     </a>
                   </p>

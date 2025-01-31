@@ -37,6 +37,7 @@ export const SignUp = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  let redir = useNavigate();
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
   const toggleConfirmPasswordVisibility = () =>
@@ -228,15 +229,15 @@ export const SignUp = () => {
                 </div>
 
                 {/* Terms and Conditions */}
-                <p className="text-gray-500 text-xs text-center">
+                <p className="text-gray-500 text-[12px] text-center">
                   By continuing, you agree to Alvent’s{' '}
-                  <a href="#" className="text-blue-500">
+                  <button onClick={()=> redir('/termsSer')} className="text-[#333333] underline font-light">
                     Terms of Service
-                  </a>{' '}
+                  </button>{' '}
                   and{' '}
-                  <a href="#" className="text-blue-500">
+                  <button onClick={()=> redir('/PrivacyPolicy')}  className="text-[#333333] underline font-light">
                     Privacy Policy
-                  </a>
+                  </button>
                   .
                 </p>
 
@@ -251,7 +252,7 @@ export const SignUp = () => {
                 <p className="text-center text-gray-600 text-sm">
                   Already have an account?{' '}
 
-                  <a className="text-blue-500"><Link to="/LogIn">Log in</Link></a>
+                  <a className="text-[#2D6CCF]"><Link to="/LogIn">Log in</Link></a>
 
 
                 </p>
