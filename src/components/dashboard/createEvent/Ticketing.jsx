@@ -210,7 +210,7 @@ const Ticketing = () => {
             {/* Message Box 2 */}
             {showMessageBox2 && (
               <div className="messageBox2 bg-green-500 text-white p-4 rounded mt-4">
-                You have Successfully Publish an Event
+                You have Successfully Purchase A Ticket
               </div>
             )}
 
@@ -219,7 +219,7 @@ const Ticketing = () => {
               onClick={handleCreateEvent}
               className="bg-[#3A7BD5] text-[#FFFFFF] mt-[32px] w-full lg:w-[700px] px-[16px] py-[16px] text-center rounded-[8px]"
             >
-              Publish Event
+              Purchase Ticket
             </button>
           </form>
         </div>

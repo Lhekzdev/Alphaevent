@@ -7,6 +7,7 @@ import googleSU from '../../assets/googleSU.svg';
 import passwordEye from '../../assets/passwordEye.svg';
 import passwordEyeOpen from '../../assets/passwordEyeOpen.svg';
 import logoSU from '../../assets/logoSU.svg';
+import arrowBack from '../../assets/arrowBack.svg';
 import { Image } from 'cloudinary-react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -76,8 +77,13 @@ const images = [
       {/* Login Form Section */}
       <div className="flex flex-col items-center w-full lg:w-1/2 max-w-md mx-auto p-8 bg-white  rounded-lg">
         {/* Logo Section */}
+        <div className="flex justify-between w-full mb-[100px]">
+  <img src={logoSU} alt="Logo" className="w-[82px] mb-4" />
+  <img src={arrowBack} onClick={()=> redir('/Landing')} alt="arrowBack" className="w-[44px] mb-4" />
+</div>
+
         <div className="flex flex-col items-center mb-6">
-          <Link to="/"><img src={logoSU} alt="Logo" className="w-[82px] mb-4" /></Link>
+          {/* <Link to="/"><img src={logoSU} alt="Logo" className="w-[82px] mb-4" /></Link> */}
           <h1 className="text-[35px] font-bold mb-2">Welcome Back!</h1>
         </div>
 

@@ -46,6 +46,16 @@ function App() {
               </Applayout>
             }
           />
+       
+          {/* Routes wrapped with Applayout */}
+          <Route
+            path="/Landing"
+            element={
+              <Applayout>
+                <Landing />
+              </Applayout>
+            }
+          />
           <Route
             path="/eventshome"
             element={
@@ -95,6 +105,7 @@ function App() {
 
           {/* Standalone SignUp route */}
           <Route path="/signup" element={<SignUp />} />
+          {/* <Route path="/Landing" element={<Landing />} /> */}
           <Route path="/VerifyAcc" element={<VerifyAcc />} />
           <Route path="/VerifyAcc2" element={<VerifyAcc2 />} />
           <Route path="/SetAcc" element={<SetAcc />} />
