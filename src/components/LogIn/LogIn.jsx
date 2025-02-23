@@ -7,6 +7,7 @@ import googleSU from '../../assets/googleSU.svg';
 import passwordEye from '../../assets/passwordEye.svg';
 import passwordEyeOpen from '../../assets/passwordEyeOpen.svg';
 import logoSU from '../../assets/logoSU.svg';
+import arrowBack from '../../assets/arrowBack.svg';
 import { Image } from 'cloudinary-react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -30,6 +31,7 @@ export const LogIn = () => {
   };
 
 const navigate = useNavigate();
+let redir = useNavigate();
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -75,8 +77,13 @@ const images = [
       {/* Login Form Section */}
       <div className="flex flex-col items-center w-full lg:w-1/2 max-w-md mx-auto p-8 bg-white  rounded-lg">
         {/* Logo Section */}
+        <div className="flex justify-between w-full mb-[100px]">
+  <img src={logoSU} alt="Logo" className="w-[82px] mb-4" />
+  <img src={arrowBack} onClick={()=> redir('/Landing')} alt="arrowBack" className="w-[44px] mb-4" />
+</div>
+
         <div className="flex flex-col items-center mb-6">
-          <Link to="/"><img src={logoSU} alt="Logo" className="w-[82px] mb-4" /></Link>
+          {/* <Link to="/"><img src={logoSU} alt="Logo" className="w-[82px] mb-4" /></Link> */}
           <h1 className="text-[35px] font-bold mb-2">Welcome Back!</h1>
         </div>
 
@@ -179,19 +186,19 @@ const images = [
                 {/* Terms and Signup Link */}
                 <div className="text-center text-gray-500 text-[12px] mb-4">
                   By proceeding, you agree to Alvent’s{' '}
-                  <a href="#" className="text-blue-500">
+                  <button onClick={()=> redir('/termsSer')} className="text-[#333333] underline font-light">
                     Terms of Service
-                  </a>{' '}
+                  </button>{' '}
                   and{' '}
-                  <a href="#" className="text-blue-500">
+                  <button onClick={()=> redir('/PrivacyPolicy')}  className="text-[#333333] underline font-light">
                     Privacy Policy
-                  </a>
+                  </button>
                   .
                 </div>
                 <div className="text-center mt-4 text-[12px]">
                   <p className="text-[#757575]">
                     Don’t have an account?{' '}
-                    <a className="text-blue-500"><Link to="/signUp">Sign up</Link>
+                    <a className="text-[#2D6CCF]"><Link to="/signUp">Sign up</Link>
 
                     </a>
                   </p>
