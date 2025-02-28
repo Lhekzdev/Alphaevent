@@ -17,7 +17,7 @@ const Amazing = () => {
   return (
     <div className=' font-Lato px-5 md:px-[80px] w-full  items-center py-[60px]'>
       <div className='h-full md:h-[87px] mb-[40px] md:mb-[60px] w-full mx-auto items-center  text-center  '>
-        <h4 className='text-[25px] w-full text- md:text-[28px] lg:text-[30px] leading-[25px] md:leading-[36px] mb-[10px]  md:mb-[25px]  md:h-[36px] lg:mb-3 font-bold'>Find Your Next <span className='text-customRed'>  Amazing  </span>Experience Right Here</h4>
+        <h4 className='text-[25px] w-full text- md:text-[28px] lg:text-[30px] leading-[25px] md:leading-[36px] mb-[10px]  md:mb-[25px]  md:h-[36px] lg:mb-3 font-bold'>Find Your Next <span className='text-[#FF6B6B]'>  Amazing  </span>Experience Right Here</h4>
         <p className='font-light w-full leading-[20px]  md:leading-normal text-customDarkgrey  md:text-[18px] h-[36px]     text-[18px]   '>Dive into Creativity and Fun—hands-on workshops, vibrant events, and more for everyone!</p>
       </div>
 
@@ -30,7 +30,7 @@ const Amazing = () => {
           return (
             <div
               key={article.id}
-              className="bg-white items-center shadow text-center w-full   rounded-[20px]  h-[253px]  "
+              className="bg-white items-center shadow text-center w-full hover:text-white hover:bg-[#2F3B4C]   rounded-[20px]  h-[253px]  "
             >
               <div className="image-container  gap-x-[20px]">
                 <img

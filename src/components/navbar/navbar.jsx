@@ -20,7 +20,7 @@ const Navbar = () => {
   };
 
 
-    
+
 
   return (
 
@@ -36,11 +36,11 @@ const Navbar = () => {
             <Link to="/"> <img className='sm:min-w-[100px]  items-center place-content-center sm:h-[20px] md:w-[140px] lg:h-[33px]' src={logo} alt="alventlogo" /></Link>
           </div>
 
-       
+
 
           <div className='  items-center justify-between text-center md:w-full md:flex'>
 
-            <ol className='hidden font-Roboto text-nowrap items-center md:flex "   h-[32px] sm:gap-2 md:gap-2   lg:gap-[1.3vw] '>
+            <ol className='hidden font-Roboto text-nowrap items-center md:flex "   h-[32px] sm:gap-2 md:gap-2   lg:gap-[4.7vw] '>
               <li className='hover:border-b-2 hover:border-customSkyblue' > <Link to="/">Explore events</Link></li>
               <li className=' hover:border-b-2 hover:border-customSkyblue '><Link to="/">My Ticket</Link></li>
               <li className='hover:border-b-2 hover:border-customSkyblue '><Link to="/">About</Link></li>
@@ -48,21 +48,21 @@ const Navbar = () => {
             </ol>
 
 
-            
+
             <div className=' flex  gap-[12px] items-center'>
 
-<ol className='md:flex hidden gap-[10px]'>
-  <h4 className='text-customSkyblue'><Link to="/LogIn">Login</Link></h4>
-  <img className='w-[10.67px] h-[10p.67px]' src={arrowRight} alt="" />
-</ol>
-            <ol className="hidden  md:flex">
+              <ol className='md:flex pr-[34px] hidden gap-[10px]'>
+                <h4 className='text-customSkyblue'><Link to="/LogIn">Login</Link></h4>
+                <img className='w-[10.67px] h-[10p.67px]' src={arrowRight} alt="" />
+              </ol>
+              <ol className="hidden  md:flex">
 
-<button className='items-center py-1 px-5 md md:py-[14px] text-white rounded-[10px] lg:px-[32px]  bg-customSkyblue text-nowrap'><Link to="/SignUp">Sign up</Link></button>
+                <button className=' items-center py-1 px-5 md  text-white text-center  rounded-[10px] lg:px-[32px] h-[44px] w-[117px] bg-customSkyblue text-nowrap'><Link to="/SignUp">Sign up</Link></button>
 
-</ol>
-       </div>
-       </div>
-       </div>
+              </ol>
+            </div>
+          </div>
+        </div>
 
 
 
@@ -88,9 +88,9 @@ const Navbar = () => {
           {isOpen && (<div className="md:hidden z-50   flex flex-col absolute right-0 mt-6 w-56 origin-top-right bg-white border  border-gray-200 divide- divide-gray-100 rounded-md shadow-lg outline-none" role="menu"  >
             <div class="py-1  " onMouseLeave={closeMenu}>
               <div className="text-left w-40">
-              <a href="#" className="text-gray-700 block px-4 py-1 text-lg hover:border-b-2 w-[150px]  hover:border-customSkyblue" role="menuitem"><Link to="/">Explore events</Link></a>
-              <a href="#" className="text-gray-700 block px-4 py-1 text-lg hover:border-b-2 w-28 hover:border-customSkyblue" role="menuitem"> <Link to="/">My Ticket</Link></a>
-              <a href="#" className="text-gray-700 block px-4 py-1 mb-4 text-lg hover:border-b-2 w-20 hover:border-customSkyblue" role="menuitem"><Link to="/">About</Link></a>
+                <a href="#" className="text-gray-700 block px-4 py-1 text-lg hover:border-b-2 w-[150px]  hover:border-customSkyblue" role="menuitem"><Link to="/">Explore events</Link></a>
+                <a href="#" className="text-gray-700 block px-4 py-1 text-lg hover:border-b-2 w-28 hover:border-customSkyblue" role="menuitem"> <Link to="/">My Ticket</Link></a>
+                <a href="#" className="text-gray-700 block px-4 py-1 mb-4 text-lg hover:border-b-2 w-20 hover:border-customSkyblue" role="menuitem"><Link to="/">About</Link></a>
               </div><div className="flex">  <a href="#" className='flex text-gray-700  px-4 py-1 text-sm gap-[10px]'>
                 <h4 className='hover:text-customSkyblue text-xl mb-3 text-sky-900'> <Link to="/LogIn">Login</Link></h4>
                 <img className='w-[10.67px] h-[10p.67px]' src={arrowRight} alt="" /></a>
@@ -101,8 +101,8 @@ const Navbar = () => {
 
           </div>)}
         </ol> </div>
-  
-     </div>
+
+    </div>
 
 
 
