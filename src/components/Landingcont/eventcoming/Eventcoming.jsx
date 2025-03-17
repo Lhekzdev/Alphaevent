@@ -10,7 +10,7 @@ const Eventcoming = () => {
 <ol className='text-white text-center items-center md:items-end max-w-[361px] px-8 md:px-0 md:max-w-[361px]   lg:max-w-[361px] flex flex-col  gap-y-[32px] h-[223px] md:h-[169px] md:mr-[88px] '>
     <h2 className='font-bold font-Lato w-[280px] md:w-[382px] text-[32px] te' >Have an Event Coming Up?</h2>
     <p className='h-[28px] md:w-[35vw] text-center md:text-right lg:max-w-[361px] text-[16px] font-lato font-light leading-[14px]'>Create awreness for your events with ease, fast track ticket sales  by listing your event on Alvent</p>
-    <button className='border font-normal  bg-white py-[14px] px-[32px] w-[155px] text-customRed h-[50px] text-[16px] leading-[16px]  rounded-[10px] text-left items-end'> <Link to="/signUp">Create Event</Link> </button>
+    <button className='border font-normal  bg-white py-[14px] px-[32px] w-[155px] text-customRed h-[50px] text-[16px] leading-[16px]  rounded-[10px] text-center items-end'> <Link to="/signUp">Create Event</Link> </button>
 </ol>
 
 
