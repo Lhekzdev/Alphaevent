@@ -5,8 +5,19 @@ import apple from '../../../assets/apple.svg'
 import twitter from '../../../assets/twitter.svg'
 import instergram from '../../../assets/instergram.svg'
 import honri from '../../../assets/honri.svg'
-
+import { useNavigate} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 const Section2Footer = () => {
+    const navigate = useNavigate();
+    let redir = useNavigate();
+
+
+    
+    const handleForgotPassword = () => {
+        // Navigate to the VerifyAcc page
+        navigate("/ForgotPassword");
+      };
+  
   return (
     <>
     <section>
@@ -29,10 +40,10 @@ const Section2Footer = () => {
                     <div className='pt-[45px]'>
                     <img src={honri} alt="" />
                     </div>
-                    <ul className='text-left text-[18px] font-light text-[#F3F3F3]'>
+                    <ul className='text-left flex flex-col items-start text-[18px] font-light text-[#F3F3F3]'>
                     <h2 className='text-[18px] font-bold text-[#F3F3F3]'>Useful Links</h2>
-                        <li className='mt-[12px]'>Login</li>
-                        <li className='mt-[12px]'>Register</li>
+                      <button> <li onClick={()=> redir('/LogIn')} className='mt-[12px]'>Login</li></button> 
+                      <button>  <li onClick={()=> redir('/signup')}className='mt-[12px]'>Register</li></button>
                         <li className='mt-[12px]'>About Alvent</li>
                         <li className='mt-[12px]'>Contact</li>
                     </ul>
@@ -45,11 +56,11 @@ const Section2Footer = () => {
                    <div className='pt-[45px]'>
                    <img src={honri} alt="" />
                    </div>
-                    <ul className='text-left text-[18px] font-light text-[#F3F3F3]'>
+                    <div className='text-left flex  flex-col text-[18px] font-light text-[#F3F3F3]'>
                     <h2 className='text-[18px] font-bold text-[#F3F3F3]'>Legal</h2>
-                        <li className='mt-[15px]'>Terms of Service</li>
-                        <li className='mt-[15px]'>Privacy Policy</li>
-                    </ul>
+                    <button onClick={()=> redir('/termsSer')} className='mt-[15px]'>Terms of Service</button>
+                    <button onClick={()=> redir('/privacypolicy')} className='mt-[15px] text-left '>Privacy Policy</button>
+                    </div>
                 </div>
                </div>
             </div>
