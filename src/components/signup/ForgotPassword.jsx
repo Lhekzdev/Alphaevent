@@ -9,22 +9,66 @@ import forgotKeyLock from '../../assets/forgotKeyLock.svg';
 import verifyArrowRight from '../../assets/verifyArrowRight.svg';
 import { Image } from "cloudinary-react";
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
 
 const VerifyAcc = () => {
+  const [email, setEmail] = useState("");
     const [activeInput, setActiveInput] = useState(5); 
     const navigate = useNavigate();
-
+    const [otp, setOtp] = useState(Array(6).fill("")); // ✅ Fix: Ensure OTP is stored
+    
     useEffect(() => {
         // Focus the last input when the component mounts
         document.getElementById(`input-${activeInput}`)?.focus();
       }, [activeInput]);
 
 
-      const handleVerify2 = () => {
-        // Navigate to the VerifyAcc page
-        navigate("/VerifyAcc2");
-      };
+      // const handleVerify2 = () => {
+      //   // Navigate to the VerifyAcc page
+      //   navigate("/VerifyAcc2");
+      // };
 
+      const handleSendOTP = async () => {
+        // console.log("Email entered:", email);
+    
+        if (!email) {
+            toast.error("Please enter your email!");
+            return;
+        }
+    
+        try {
+            const response = await fetch(" https://alphaeventappdevmode.onrender.com/forgtPassword", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email }),
+            });
+    
+            const data = await response.json();
+            // console.log("Server response:", data); // Debugging
+    
+            if (response.ok) {
+            
+                toast.success("OTP sent successfully! Check your email.");
+                navigate("/VerifyAcc2", { state: { email } }); // Pass email to OTP page
+                // console.log("Navigating to VerifyAcc2...");
+
+              } else {
+                toast.error(data.msg || "Something went wrong!");
+            }
+    
+        } catch (error) {
+          // console.error("Error:", error); // ✅ See full error in console
+            toast.error("Failed to send OTP.");
+        }
+    };
+    
+      
+
+
+      
   return (
     <section>
       <div className="background w-full h-full bg-[#444444] pt-[25px] pb-[25px]">
@@ -58,20 +102,30 @@ const VerifyAcc = () => {
              
                 <p className="text-left ml-[190px]">Email</p>
               
-                    <input type="text" placeholder='Enter your email' className='border border-[#BEBEBE] w-[414px] rounded-[12px] py-[16.5px] px-[20px] mb-[16px]'/>
+                <input
+    type="email"
+    value={email}
+    onChange={(e) => {
+        // console.log("Entered Email:", e.target.value); // ✅ Debugging log
+        setEmail(e.target.value);
+    }}
+    placeholder="Enter your email"
+    className="border border-[#BEBEBE] w-full max-w-[414px] rounded-[12px] py-[16.5px] px-[20px] mb-[16px] text-left"
+/>
                     </fieldset>
 
             </div>
 
             {/* Verify button */}
             <div className="w-[416px] mx-auto bg-[#3A7BD5] rounded-[12px] mb-[55px]">
-              <button className="flex items-center justify-center gap-[5px] py-[16px] px-[120px]" onClick={handleVerify2}>
+              <button type="button"  className="flex items-center justify-center gap-[5px] py-[16px] px-[120px]" onClick={handleSendOTP}>
                 <p className="font-bold text-[20px] text-white">Send OTP code</p>
                 <img
                   src={verifyArrowRight}
                   alt="verifyArrowRight"
                   className="w-[16px] pt-[8px]"
                 />
+                
               </button>
             </div>
           </div>

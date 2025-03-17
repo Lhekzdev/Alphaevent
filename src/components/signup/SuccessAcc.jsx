@@ -8,15 +8,16 @@ import verifyGit from '../../assets/verifyGit.svg';
 import verifyTwitter from '../../assets/verifyTwitter.svg';
 import verifyLinkedin from '../../assets/veifyLinkedin.svg';
 import { Image } from 'cloudinary-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,Link} from 'react-router-dom';
 
 const SuccessAcc = () => {
   const navigate = useNavigate();
-
-  const handleLoginBack = () => {
-    // Navigate to the OnboardingMain page
-    navigate('/LogIn');
-  };
+//  let redir = useNavigate();
+  // const handleLoginBack = () => {
+  //   // Navigate to the OnboardingMain page
+    
+  //   navigate('/LogIn');
+  // };
 
   return (
     <section>
@@ -47,17 +48,15 @@ const SuccessAcc = () => {
           </div>
 
           {/* Button to proceed */}
-         <div className="w-[416px] mx-auto bg-[#3A7BD5] cursor-pointer rounded-[12px] mb-[55px]" onClick={handleLoginBack}>
-                       <button className="flex items-center justify-center gap-[5px] py-[16px] px-[90px] cursor-pointer" >
-                         <p className="font-bold text-[20px] text-white">Proceed to Log in</p>
-                         <img
-                           src={verifyArrowRight}
-                           alt="verifyArrowRight"
-                           className="w-[20px] pt-[8px]"
-                         />
-                       </button>
-                     </div>
-
+         <div className="w-[416px] mx-auto bg-[#3A7BD5] cursor-pointer rounded-[12px] mb-[55px] " 
+    >
+                   <Link to="/login">
+  <button className="flex items-center justify-center gap-[5px] py-[16px] px-[90px] cursor-pointer">
+    <p className="font-bold text-[20px] text-white">Proceed to Log in</p>
+    <img src={verifyArrowRight} alt="verifyArrowRight" className="w-[20px] pt-[8px]" />
+  </button>
+</Link>
+</div>
           {/* Decorative background image */}
           <Image
             className="backgroundImage absolute top-0  right-0 w-[450px] h-[635px] "

@@ -1,18 +1,34 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import verifyLogo from "../../assets/verifyLogo.svg";
 import strongPassword from "../../assets/strongPassword.svg";
 import createPasswordIcon from "../../assets/createPasswordIcon.svg";
 import passwordEye from "../../assets/passwordEye.svg";
 import passwordEyeOpen from "../../assets/passwordEyeOpen.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
+import { toast } from "react-toastify"; // ✅ Import toast notifications
 
 const CreateAcc = () => {
+
+
+
+
+
+
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordCriteria, setPasswordCriteria] = useState([false, false, false]);
+
+
+
   const navigate = useNavigate();
+  const location = useLocation(); // ✅ Initialize useLocation
+
+
+  const [userEmail, setUserEmail] = useState(location.state?.userEmail || "");
+
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
   const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
@@ -36,13 +52,83 @@ const CreateAcc = () => {
     setConfirmPassword(e.target.value);
   };
 
-  const handleCreateAcc = () => {
-    if (passwordCriteria.every((criterion) => criterion) && password === confirmPassword) {
-      navigate("/SuccessAcc");
-    } else {
-      alert("Ensure your password meets all criteria and matches the confirmation password.");
+
+
+
+  
+  
+  // console.log("Received email in SetAcc:", userEmail);
+
+
+  // ✅ Retrieve userEmail from localStorage if missing
+useEffect(() => {
+  if (!userEmail) {
+    const storedEmail = localStorage.getItem("resetEmail");
+    if (storedEmail) {
+      setUserEmail(storedEmail);
     }
+  }
+}, []);
+
+// ✅ Save userEmail to localStorage when it's set
+useEffect(() => {
+  if (userEmail) {
+    localStorage.setItem("resetEmail", userEmail);
+  }
+}, [userEmail]);
+
+
+
+
+  const handleResetPassword = async () => {
+    
+ // ✅ Ensure userEmail is available
+ if (!userEmail) {
+  toast.error("Email is missing. Try again.");
+  return;
+}
+
+      // Password length validation
+      if (!password || password.length < 6) {
+        toast.error("Password must be at least 6 characters long!");
+        return;  // ✅ Stops execution here if password is invalid
+      }
+    
+      // Check if all password criteria are met & passwords match
+      if (!passwordCriteria.every((criterion) => criterion) || password !== confirmPassword) {
+        toast.error("Ensure your password meets all criteria and matches the confirmation password.");
+        return;  // ✅ Stops execution here if criteria aren't met
+      }
+    
+  
+    try {
+      const response = await fetch(`https://alphaeventappdevmode.onrender.com/resetPasswd/${userEmail}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ newPassword: password }), // ✅ Proper JSON format
+      });
+  
+      const data = await response.json();
+      // console.log("Server response:", data);
+  
+      if (response.ok && data.msg === "Password successfully reset") { 
+        toast.success("Password reset successfully!");
+        // console.log("Navigating to SuccessAcc...");
+        setTimeout(() => {
+          navigate("/SuccessAcc");  // 🚀 Check if this runs
+        }, 1000);
+      } else {
+        // console.log("Failed to reset password:", data.message);
+        toast.error(data.message);
+      }
+      
+    } catch (error) {
+      toast.error("Password reset failed. Try again!");
+    }
+
+    // console.log("Sending to backend:", { userEmail, newPassword: password });
   };
+  
 
   return (
     <section>
@@ -156,7 +242,7 @@ const CreateAcc = () => {
               <button
                 type="button"
                 className="flex items-center justify-center gap-[5px] py-[16px] px-[167.5px] text-[#7CA7E3] hover:text-white text-[16px] font-normal"
-                onClick={handleCreateAcc}
+                onClick={handleResetPassword }
               >
                 Proceed
               </button>

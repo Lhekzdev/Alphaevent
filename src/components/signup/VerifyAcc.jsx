@@ -6,23 +6,64 @@ import verifyLinkedin from '../../assets/veifyLinkedin.svg';
 import verifyEnvelop from '../../assets/verifyEnvelop.svg';
 import verifyArrowRight from '../../assets/verifyArrowRight.svg';
 import { Image } from "cloudinary-react";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link,useLocation, useNavigate } from 'react-router-dom';
 
 const VerifyAcc = () => {
-    const [activeInput, setActiveInput] = useState(5); 
+    const [code, setCode] = useState(["", "", "", "", "", ""]);
+    const [activeInput, setActiveInput] = useState(0); 
+    const [userEmail, setUserEmail] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
+              // Fetch user email from local storage
+        const storedEmail = localStorage.getItem("userEmail");
+        if (storedEmail) {
+        setUserEmail(storedEmail);}
         // Focus the last input when the component mounts
         document.getElementById(`input-${activeInput}`)?.focus();
       }, [activeInput]);
+      //console.log("User Email:", userEmail);
+      // Function to handle input change{BACKEND TOUCH}
+    const handleChange = (index, value) => {
+        if (value.length > 1) return; // Prevent entering more than one digit
 
+        const newCode = [...code];
+        newCode[index] = value;
+        setCode(newCode);
+              // Move to next input if value is entered
+              if (value !== "" && index < 5) {
+                setActiveInput(index + 1);
+            }};
+            
+      const handleVerify = async(e) => {
+        e.preventDefault();
 
-      const handleVerify = () => {
+        const verificationCode = code.join(""); // Convert array to string
+        //console.log("Entered Verification Code:", verificationCode);
+        //console.log("Entered mail:", userEmail);
         // Navigate to the VerifyAcc page
-        navigate("/SetAcc");
+        //navigate("/SetAcc");
+            // Send to backend
+            try {
+              const response = await fetch(`https://alphaeventappdevmode.onrender.com/verifyOTp/${userEmail}`, { // Update URL as needed
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({verificationCode}),
+              });
+              const result = await response.json();
+              //console.log("Server Response:", result);
+  
+              if (response.ok) {
+                  navigate("/SetAcc");  // Navigate on success
+              } else {
+                  alert("Verification failed. Please try again.");
+              }
+          } catch (error) {
+              // console.error("Error verifying code:", error);
+          }
       };
-
   return (
     <section>
       <div className="background w-full h-full bg-[#444444] pt-[25px] pb-[25px]">
@@ -61,6 +102,7 @@ const VerifyAcc = () => {
           id={`input-${index}`}
           type="text"
           placeholder={placeholder}
+          onChange={(e) => handleChange(index, e.target.value)}
           className={`w-[60px] border-[1px] border-[#BEBEBE] rounded-[12px] py-[15px] px-[18px] text-[24px] text-[#333333] focus:outline-none focus:ring-2 focus:ring-[#3A7BD5] ${
             activeInput === index ? "ring-2 ring-[#3A7BD5]" : ""
           }`}

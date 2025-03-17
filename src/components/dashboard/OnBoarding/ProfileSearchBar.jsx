@@ -4,53 +4,58 @@ import profileIcon from '../../../assets/profileIcon.svg';
 import arrowdownDashboard from '../../../assets/arrowdownDashboard.svg';
 import searchIcon from '../../../assets/searchIcon.svg';
 import { Link } from "react-router-dom";
-
+import {jwtDecode} from "jwt-decode"; 
 const ProfileSearchBar = () => {
 
   const [userName, setUserName] = useState('User');
-  const [userEmail, setUserEmail] = useState('');
+  // const [userEmail, setUserEmail] = useState('');
 
 
+  // ✅ Fetch username when the component loads
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        // Extract the token from the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get('token'); // Ensure token is included in the URL query params
-        console.log("token:",token)
+        const token = localStorage.getItem("authToken");
+        console.log("Stored Token in localStorage:", token);
+
         if (!token) {
-          console.error('Token not found in URL.');
+          console.error("❌ Token not found in localStorage.");
           return;
         }
-                // Store the token locally for subsequent use (optional)
-                localStorage.setItem('authToken', token);
 
-                // Fetch user info using the token
-                const response = await fetch('https://alphaeventappdevmode.onrender.com/userInfo', {
-                  method: 'GET',
-                  headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                  },
-                });
-                if (response.ok) {
-                  const { data } = await response.json();
-                  console.log(data)
-                  setUserName(data.name);
-                  setUserEmail(data.email);
+        const decodedToken = jwtDecode(token);
+        console.log("Decoded Token from Storage:", decodedToken);
 
-                  localStorage.setItem('userEmail', data.email);
+        if (!decodedToken?.name) {
+          console.warn("❌ Username missing in token payload!");
+        } else {
+          setUserName(decodedToken.name);
+        }
 
-                  console.log('User info fetched successfully:', data);
-                } else {
-                  console.error('Failed to fetch user info:', response.statusText);
-                }
-              } catch (error) {
-                console.error('Error fetching user info:', error);
-              }
-            };
-            fetchUserInfo();
-          }, []);
+        const response = await fetch("https://alphaeventappdevmode.onrender.com/userInfo", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        const responseData = await response.json();
+        console.log("User Info Response:", responseData);
+
+        if (response.ok) {
+          console.log("✅ User info fetched successfully:", responseData.data);
+          setUserName(responseData.data?.name || "Unknown User");
+        } else {
+          console.error("❌ Failed to fetch user info:", responseData);
+        }
+      } catch (error) {
+        console.error("❌ Error fetching user info:", error);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
 
         
 

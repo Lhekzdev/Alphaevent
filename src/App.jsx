@@ -21,9 +21,13 @@ import { LogIn } from "./components/LogIn/LogIn.jsx";
 import VerifyAcc from './components/signup/VerifyAcc.jsx';
 import SetAcc from './components/signup/SetAcc.jsx';
 import ForgotPassword from './components/signup/ForgotPassword.jsx';
+import TermsSer from './components/TermsSer/TermsSer.jsx';
+import Privacypolicy from './components/privacypolicy/Privacypolicy.jsx';
 import VerifyAcc2 from './components/signup/VerifyAcc2.jsx';
 import CreateAcc from './components/signup/CreateAcc.jsx';
 import SuccessAcc from './components/signup/SuccessAcc.jsx';
+import Herocontainer from "./components/Landingcont/herocontainer/Herocontainer.jsx";
+
 
 
 import "./App.css";
@@ -90,7 +94,8 @@ function App() {
           />
 
 
-          {/* Standalone SignUp route */}
+          {/* Standalone  route */}
+          <Route path="/states/:countryId" element={<Herocontainer />} /> 
           <Route path="/signup" element={<SignUp />} />
           <Route path="/VerifyAcc" element={<VerifyAcc />} />
           <Route path="/SetAcc" element={<SetAcc />} />
@@ -99,11 +104,16 @@ function App() {
           <Route path="/CreateAcc" element={<CreateAcc />} />
           <Route path="/SuccessAcc" element={<SuccessAcc />} />
           <Route path="/Login" element={<LogIn />} />
+          <Route path="/TermsSer" element={<TermsSer />} />
+          <Route path="/privacypolicy" element={<Privacypolicy />} />
           <Route path="/OnboardingMain" element={<OnboardingMain />} />
           <Route path="/createEvent" element={<CreateEvent />} />
           <Route path="/OnboardEvent" element={<OnboardEvent />} />
+          <Route path="/createEvent" element={<CreateEvent />} />
+         
+         
 
-
+       
           {/* Define the route here */}
 
 

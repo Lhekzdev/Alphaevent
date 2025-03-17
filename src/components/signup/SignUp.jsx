@@ -7,9 +7,10 @@ import googleSU from '../../assets/googleSU.svg';
 import passwordEye from '../../assets/passwordEye.svg';
 import passwordEyeOpen from '../../assets/passwordEyeOpen.svg';
 import logoSU from '../../assets/logoSU.svg';
+import arrowBack from '../../assets/arrowBack.svg';
 import { Image } from 'cloudinary-react';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { AiOutlineLoading3Quarters } from "react-icons/ai"
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -32,11 +33,13 @@ const SignupSchema = Yup.object().shape({
 
 export const SignUp = () => {
 
-  
+  const [isSubmitted,setIsSubmitted] =useState("")
+
   const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  let redir = useNavigate();
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
   const toggleConfirmPasswordVisibility = () =>
@@ -55,10 +58,41 @@ export const SignUp = () => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     };
   
-    
-  const handleSignUp = () => {
-    // Navigate to the VerifyAcc page
-    navigate("/VerifyAcc");
+  // data from server request
+  const handleSignUp = async   (values, { resetForm })  => {
+   
+    setIsSubmitted(true);
+     {
+      //console.log("Formik Values:", values);
+      try {
+     
+        const response = await fetch(`https://alphaeventappdevmode.onrender.com/new&User`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        });
+
+        if (response.ok) {
+          // channged this const reDirectPg=Link()    to ==   
+          localStorage.setItem('userEmail', values.email);
+
+
+          toast.success('Sign Up Successful!');
+          // reDirectPg('/dashboard')
+          // navigate('/OnboardingMain');
+          navigate('/VerifyAcc');
+          resetForm();
+        } else {
+          const { msg } = await response.json();
+          toast.error(msg || 'Sign Up Failed');
+          setIsSubmitted(false); // ✅ Reset button state
+
+        }
+      } catch (error) { toast.error('ERR OCCURED') }
+      setIsSubmitted(false); // ✅ Reset button state
+    }
   };
     // Auto-slide every 3 seconds
     useEffect(() => {
@@ -78,7 +112,8 @@ export const SignUp = () => {
       localStorage.setItem('authToken', token);
 
       // Navigate to the dashboard
-      navigate('OnboardingMain/');
+      // navigate('OnboardingMain/');{backend touch}
+      navigate('VerifyAcc/');
     }
   }, [navigate]);
 
@@ -91,8 +126,17 @@ export const SignUp = () => {
 
         {/* Form Section */}
         <div className="flex flex-col items-center w-full lg:w-1/2 max-w-md mx-auto p-8  rounded-lg">
+       
+         {/* Logo Section */}
+           <div className="flex justify-between items-center w-full mb-[60px]">
+     <Link to="/">
+       <img src={logoSU} alt="Logo" className="w-[82px]" />
+     </Link>
+     <img src={arrowBack} onClick={() => redir('/')} alt="arrowBack" className="w-[44px] cursor-pointer" />
+   </div>
+   
           <div className="text-center">
-            <Link to="/"><img src={logoSU} alt="Logo" className="w-[82px] mx-auto mb-4" /></Link>
+           
             <h1 className="text-[35px] font-bold">Join Us Today!</h1>
             <p className="text-gray-600 text-sm mt-2 mb-[25px]">
               Create your account to unlock seamless access to exciting events
@@ -129,34 +173,7 @@ export const SignUp = () => {
               // confirmPassword: '',
             }}
             validationSchema={SignupSchema}
-            onSubmit={async (values, { resetForm }) => {
-
-              try {
-                { /BACKEND TOUCH/ }
-                const response = await fetch('https://alphaeventappdevmode.onrender.com/new&User', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({ ...values, confirmPassword: values.confirmPassword }),
-                });
-
-                if (response.ok) {
-                  // channged this const reDirectPg=Link()    to ==   
-
-
-
-                  toast.success('Sign Up Successful!');
-                  // reDirectPg('/dashboard')
-                  navigate('/OnboardingMain');
-                  resetForm();
-                } else {
-                  const { msg } = await response.json();
-                  toast.error(msg || 'Sign Up Failed');
-                }
-              } catch (error) { toast.error('ERR OCCURED') }
-
-            }}
+            onSubmit={handleSignUp}
 
           >
             {({ errors, touched }) => (
@@ -201,8 +218,8 @@ export const SignUp = () => {
                     onClick={togglePasswordVisibility}
                     className="absolute top-3 right-3 w-5 cursor-pointer"
                   />
-                  {errors.password && touched.password && (
-                    <div className="text-red-500 text-[10px]">{errors.password}</div>
+                  {errors.passWd && touched.passWd && (
+                    <div className="text-red-500 text-[10px]">{errors.passWd}</div>
                   )}
                 </div>
 
@@ -228,23 +245,55 @@ export const SignUp = () => {
                 </div>
 
                 {/* Terms and Conditions */}
-                <p className="text-gray-500 text-xs text-center">
+                <p className="text-gray-500 text-[12px] text-center">
                   By continuing, you agree to Alvent’s{' '}
-                  <a href="#" className="text-blue-500">
+                  <button onClick={()=> redir('/termsSer')} className="text-[#333333] underline font-light">
                     Terms of Service
-                  </a>{' '}
+                  </button>{' '}
                   and{' '}
-                  <a href="#" className="text-blue-500">
+                  <button onClick={()=> redir('/PrivacyPolicy')}  className="text-[#333333] underline font-light">
                     Privacy Policy
-                  </a>
+                  </button>
                   .
                 </p>
 
                 {/* Submit Button */}
 
-  <button type="button" className="w-full bg-[#D8E5F7] text-[#7CA7E3] hover:text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300" onClick={handleSignUp}>
-    Sign Up
-  </button>
+                <button
+  type="submit"
+  className="w-full flex items-center justify-center px-6 bg-[#D8E5F7] text-[#7CA7E3] hover:text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300 relative"
+  onClick={handleSignUp}
+  disabled={isSubmitted}
+>
+  {/* Keep the text centered */}
+  <span className="text-center">
+    {isSubmitted ? "Signing up" : "Sign Up"}</span>
+
+  {/* SVG positioned at the right end */}
+  {isSubmitted && (
+    <svg
+      className="animate-spin h-5 w-5 text-white absolute right-4"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <circle
+        className="opacity-25"
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="currentColor"
+        strokeWidth="4"
+      ></circle>
+      <path
+        className="opacity-75"
+        fill="currentColor"
+        d="M4 12a8 8 0 018-8v8H4z"
+      ></path>
+    </svg>
+  )}
+</button>
+
 
 
                 {/* Terms and Signup Link */}

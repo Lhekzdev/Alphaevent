@@ -1,5 +1,5 @@
 import React from 'react'
-import Section2Footer from '../Footer/Section2Footer.jsx'
+import Section2Footer from './Section2Footer.jsx'
 import {SignUp} from './SignUp.jsx'
 
 

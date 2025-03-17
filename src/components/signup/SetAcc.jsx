@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState  } from 'react';
 import verifyLogo from '../../assets/verifyLogo.svg';
 import verifyGit from '../../assets/verifyGit.svg';
 import verifyTwitter from '../../assets/verifyTwitter.svg';
@@ -12,11 +12,29 @@ import { useNavigate } from 'react-router-dom';
 const SetAcc = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
+  const [email, setEmail] = useState('');
+  const [passWd, setPassword] = useState('');
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
-  const handleLoginNow = () => {
-    navigate('/OnboardingMain');
+
+  const handleLoginNow = async (e) => {
+    e.preventDefault();
+
+   
+    const response = await fetch('https://alphaeventappdevmode.onrender.com/loginUser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, passWd }),
+    });
+    //console.log('payload:', { email, passWd });
+    const data = await response.json();
+   //console.log('Login successful:', data);  
+      //navigate(`/OnboardingMain?token=${data.token}`);
+      navigate(`/OnboardingMain?token=${data.token}`);
+
   };
 
   // Generate colorful petals for the animation
@@ -65,8 +83,10 @@ const SetAcc = () => {
       <div className="background w-full h-full bg-[#444444] pt-[25px] pb-[25px]">
         {/* Form container */}
         <form
+          onSubmit={handleLoginNow}
           action=""
           className="container w-[850px] mx-auto bg-white rounded-[12px] p-8 relative"
+          
         >
           {/* Logo container */}
           <div className="logoContainer absolute top-15 left-15">
@@ -106,6 +126,7 @@ const SetAcc = () => {
                 <input
                   type="text"
                   placeholder="Email"
+                  value={email} onChange={(e) => setEmail(e.target.value)}
                   className="border border-[#BEBEBE] w-[414px] rounded-[12px] py-[16.5px] px-[20px] mb-[16px]"
                 />
                 {/* Password */}
@@ -114,6 +135,7 @@ const SetAcc = () => {
                     name="passWd"
                     type={showPassword ? 'text' : 'password'}
                     placeholder="Password"
+                    value={passWd} onChange={(e) => setPassword(e.target.value)}
                     className="border border-[#BEBEBE] w-[414px] rounded-[12px] py-[16.5px] px-[20px]"
                   />
                   <img
@@ -129,8 +151,10 @@ const SetAcc = () => {
             {/* Log in button */}
             <div className="w-[416px] mx-auto hover:bg-[#3A7BD5] bg-[#D8E5F7] rounded-[12px] mb-[55px]">
               <button
+                type="submit"
+                //onSubmit={handleLoginNow}
                 className="flex items-center justify-center gap-[5px] py-[16px] px-[167.5px] text-[#7CA7E3] hover:text-white text-[16px] font-normal"
-                onClick={handleLoginNow}
+                //onClick={handleLoginNow}
               >
                 Log in
               </button>
