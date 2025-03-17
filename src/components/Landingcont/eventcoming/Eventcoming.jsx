@@ -7,9 +7,9 @@ const Eventcoming = () => {
 <ol className=' lg:ml-[82px] mb-6 lg:mb-20 md:object-contain  flex shrink-0 max-w-[300px] md:max-w-[400px] lg:max-w-[543px] h-[304px]'>
     <img  loading='lazy' src={manwoman} alt="" /></ol>
 
-<ol className='text-white md:items-end max-w-[361px] px-8 md:px-0 md:max-w-[361px]   lg:max-w-[361px] flex flex-col gap-y-[16px] h-[169px] md:mr-[88px] '>
-    <h2 className='font-bold font-Lato w-[382px] text-[32px] te' >Have an Event Coming Up?</h2>
-    <p className='h-[28px] md:w-[35vw] text-right lg:max-w-[361px] text-[16px] font-lato font-light leading-[14px]'>Create awreness for your events with ease, fast track ticket sales  by listing your event on Alvent</p>
+<ol className='text-white text-center items-center md:items-end max-w-[361px] px-8 md:px-0 md:max-w-[361px]   lg:max-w-[361px] flex flex-col  gap-y-[32px] h-[223px] md:h-[169px] md:mr-[88px] '>
+    <h2 className='font-bold font-Lato w-[280px] md:w-[382px] text-[32px] te' >Have an Event Coming Up?</h2>
+    <p className='h-[28px] md:w-[35vw] text-center md:text-right lg:max-w-[361px] text-[16px] font-lato font-light leading-[14px]'>Create awreness for your events with ease, fast track ticket sales  by listing your event on Alvent</p>
     <button className='border font-normal  bg-white py-[14px] px-[32px] w-[155px] text-customRed h-[50px] text-[16px] leading-[16px]  rounded-[10px] text-left items-end'> <Link to="/signUp">Create Event</Link> </button>
 </ol>
 
