@@ -129,6 +129,10 @@ const images = [
     }
   };
 
+  const handleLoginAuth = () => {
+    window.location.href = 'https://alphaeventappdevmode.onrender.com/auth/google';
+  };
+
     
 
   return (
@@ -199,10 +203,10 @@ const images = [
         </div>
 
         {/* Continue with Google */}
-        <div className="flex justify-center items-center gap-[10px] mb-4 rounded-[36px] w-full max-w-[250px] border-2 border-[#3A7BD5] mx-auto">
-          <button className="text-[#3A7BD5] py-2 px-4 flex items-center justify-center">
+      <div className="flex justify-center items-center gap-[10px] mb-4 rounded-[36px] w-full max-w-[250px] border-2 border-[#3A7BD5] mx-auto">
+         <a onClick={handleLoginAuth}>  <button className="text-[#3A7BD5] py-2 px-4 flex items-center justify-center">
             Continue with Google
-          </button>
+          </button></a> 
           <img src={googleSU} alt="Google Sign In" className="w-[16px] sm:w-auto ml-2" />
         </div>
 

@@ -128,7 +128,7 @@ const Onboardingleft = () => {
         <div className="flex flex-col md:gap-y-[40px] font-Lato  text-white">
           <ol className=" w-[258px]">
            <img
-              className="pt-[12px] w-[200px] px-[24px] h-[48px]"
+              className="pt-[12px] w-[200px] px-[24px] pb-10 h-auto"
               src={logoOnboard}
               alt="alvent-logo"
             />
