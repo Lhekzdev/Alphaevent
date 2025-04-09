@@ -40,12 +40,12 @@ const CreateEvent = () => {
             <ol className="rounded-[8px] w-[285px] h-[5px] bg-black"></ol>
           </div>
 
-          <div className="max-w-[1032px] flex h-[56px] mt-[8px] p-[8px] rounded-[12px] border-[1px] justify-between border-[#757575] text-black">
+          <div className="max-w-[1032px] flex h-[56px] mt-[8px] p-[8px] rounded-[12px] border-[1px]  justify-between border-[#757575] text-black">
             <div
               id="details"
               onClick={() => setActiveTab("details")}
               className={`w-[508px] h-[40px] place-items-center rounded-[8px]  cursor-pointer ${
-                activeTab === "details" ? "bg-customSkyblue text-white"  : ""
+                activeTab === "details" ? "bg-customSkyblue text-white mx-auto"  : ""
               }`}
             >
               <h6 className="pt-[4px] text-center font-bold w-[51px] h-[16px]">Details</h6>
