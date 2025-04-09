@@ -409,13 +409,14 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
         <div className='max-w-[1032px] mt-[32px] rounded-[12px] border-customLighterGray pt-[52px] pb-[40px] px-[40px] h-[335px]'>
           <h4 className='font-bold text-[18px] mb-[16px]'>Event Banner</h4>
           <div className='items-center text-center max-w-[952px] h-[200px] rounded-[12px] border-[0.8px]'>
-            <div className='w-[284px] mx-auto py-[46.5px] flex flex-col gap-y-[24px] h-[107px]' onClick={() => fileInputRef.current.click()}>
+            <div className='w-[284px] items-center relative mx-auto py-[46.5px] flex flex-col gap-y-[24px] h-[107px]' onClick={() => fileInputRef.current.click()}>
               {imagePreview ? (
-                <img src={imagePreview} alt="Preview" className="w-full object-cover h-32 rounded-[12px]" />
+                <img src={imagePreview} alt="Preview" className="w-full object-cover h-full rounded-[12px]" />
               ) : (
-                <div>
+                <div className="absolute max-w-32 place-content-center 
+                text-center mx-auto"  >
                   <img className="mx-auto" src={cloudIcon} alt="cloudIcon" />
-                  <p>Click to upload or drag and drop</p>
+                 <p>Click to upload or drag and drop</p>
                   <p>PNG, JPG or GIF (MAX. 800x400px)</p>
                 </div>
               )}
