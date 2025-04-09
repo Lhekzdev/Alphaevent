@@ -408,28 +408,35 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
         {/* <div className="max-w-[1140px] pt-[48px] h-auto"> */}
         <div className='max-w-[1032px] mt-[32px] rounded-[12px] border-customLighterGray pt-[52px] pb-[40px] px-[40px] h-[335px]'>
           <h4 className='font-bold text-[18px] mb-[16px]'>Event Banner</h4>
-          <div className='items-center text-center max-w-[952px] h-[200px] rounded-[12px] border-[0.8px]'>
-            <div className='w-[284px] items-center relative mx-auto py-[46.5px] flex flex-col gap-y-[24px] h-[107px]' onClick={() => fileInputRef.current.click()}>
-              {imagePreview ? (
-                <img src={imagePreview} alt="Preview" className="w-full object-cover h-full rounded-[12px]" />
-              ) : (
-                <div className="absolute max-w-32 place-content-center 
-                text-center mx-auto"  >
-                  <img className="mx-auto" src={cloudIcon} alt="cloudIcon" />
-                 <p>Click to upload or drag and drop</p>
-                  <p>PNG, JPG or GIF (MAX. 800x400px)</p>
-                </div>
-              )}
-            </div>
-            <input
-              type="file"
-              accept="image/png, image/jpeg, image/gif"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-              className="hidden"
+          <div className='items-center text-center max-w-[952px] h-[200px] rounded-[12px] border-[0.8px] mx-auto flex justify-center'>
+  <div 
+    className='w-[284px] h-[107px] relative flex items-center justify-center cursor-pointer' 
+    onClick={() => fileInputRef.current.click()}
+  >
+    {imagePreview ? (
+      <img 
+        src={imagePreview} 
+        alt="Preview" 
+        className="w-full h-full object-cover rounded-[12px]" 
+      />
+    ) : (
+      <div className="flex flex-col items-center text-center gap-y-1 overflow-hidden">
+        <img className="mx-auto max-h-[40px]" src={cloudIcon} alt="cloudIcon" />
+        <p className="text-xs leading-tight break-words">Click to upload or drag and drop</p>
+        <p className="text-xs leading-tight break-words">PNG, JPG or GIF (MAX. 800x400px)</p>
+      </div>
+    )}
+  </div>
 
-            />
-          </div>
+  <input
+    type="file"
+    accept="image/png, image/jpeg, image/gif"
+    ref={fileInputRef}
+    onChange={handleFileChange}
+    className="hidden"
+  />
+</div>
+
         </div>
 
 
