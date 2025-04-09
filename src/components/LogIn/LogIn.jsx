@@ -234,7 +234,7 @@ const images = [
                     name="email"
                         type="email"
                     placeholder="Email"
-                    className="w-full border border-[#BEBEBE] px-[20px] py-[6px] rounded-[12px] text-[16px] text-[#C5C5C5]"
+                    className="w-full border border-[#BEBEBE] px-[20px] py-[6px] rounded-[12px] text-[16px] text-black"
                 
                 />
                   {errors.email && touched.email ? (
@@ -249,7 +249,7 @@ const images = [
                   
                     type={showPassword ? 'text' : 'password'}
                     placeholder="Password"
-                    className="w-full border border-[#BEBEBE] px-[20px] py-[6px] rounded-[12px] text-[16px] placeholder-gray-400"
+                    className="w-full border border-[#BEBEBE] px-[20px] py-[6px] rounded-[12px] text-black text-[16px] placeholder-gray-400"
                   />
                   <img
                     src={showPassword ? passwordEyeOpen : passwordEye}
