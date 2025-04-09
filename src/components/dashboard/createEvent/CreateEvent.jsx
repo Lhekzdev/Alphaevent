@@ -32,8 +32,8 @@ const CreateEvent = () => {
       <div className="pl-8 pr-6 overflow-auto">
         <ProfileSearchBar />
         <div className="font-Lato pt-[10px] bg-white h-auto">
-          <div className="pb-[8px] items-center justify-between flex h-[38px] max-w-[1032px]">
-            <h2 className="font-bold text-[32px] leading-[38.4px]">Create an event</h2>
+          <div className="pb-[8px]  items-center justify-between flex h-auto max-w-[1032px]">
+            <h2 className="font-bold text-[25px] md:text-[32px] leading-[38.4px]">Create an event</h2>
             <h2 className="font-light font-leading-[16px]">All changes saved</h2>
           </div>
           <div className="max-w-[1032px] h-[5px] rounded-[8px] border border-customLighterGray">
