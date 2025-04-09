@@ -35,6 +35,7 @@ const Section2Footer = () => {
             <div className="box2 flex flex-col md:flex-row md:gap-[80px] lg:flex-row  gap-[50px]">
                <div className='' >
                {/* <h2 className='text-[18px] font-bold text-[#F3F3F3]'>Useful Links</h2> */}
+               
                 <div className='flex gap-[50px] mt-[35px]' >
                    
                     <div className='pt-[45px]'>

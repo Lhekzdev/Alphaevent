@@ -10,74 +10,47 @@ import axios from "axios";
 import questionmark from "../../../assets/questionmark.svg"
 import Ticketing from "./Ticketing";
 //import React from "react";
-import { useEventForm } from "../../context/context";
-
-import { Link, useNavigate } from 'react-router-dom';
 
 
+const CreateEvent = () => {
+  const [formData, setFormData] = useState({
 
-
-const CreateEvent = ({ onNext, setActiveTab }) => {
-
-
-  const handleProceed = () => {
-    // ✅ validate or save details if needed
-
-    // Go to Ticketing tab
-    setActiveTab("ticketing");
-  };
-  let redir = useNavigate();
-  // const [formData, setFormData] = useState({
-
-  //   eventTitle: "",
-  //   eventDesc: "",
-  //   eventType: "", // Now inside formData
-  //   tickeType: "",
-  //   eventCountry: "",
-  //   eventState: "",
-  //   eventCity: "",
-  //   eventVenue: "",
-  //   maximumAttendees: "",
-  //   startDate: null,
-  //   endDate: null,
-  //   eventImgURL: "", // Ensure this is part of formData
-  //   url: '',
-  //   country: '',
-  //   state: '',
-  //   city: '',
-  //   address: '',
-  //   })
-
-
-
-  const {
-    formData, setFormData,
-    selectedCountry, setSelectedCountry,
-    selectedState, setSelectedState,
-    selectedCity, setSelectedCity,
-    file, setFile,
-    imagePreview, setImagePreview,
-    uploadedImage, setUploadedImage,
-    userID, setUserID
-  } = useEventForm();
-
+    eventTitle: "",
+    eventDesc: "",
+    eventType: "", // Now inside formData
+    tickeType: "",
+    ticketPrice: "",
+    eventCountry: "",
+    eventState: "",
+    eventCity: "",
+    eventVenue: "",
+    maximumAttendees: "",
+    startDate: null,
+    endDate: null,
+    eventImgURL: "", // Ensure this is part of formData
+    url: '',
+    country: '',
+    state: '',
+    city: '',
+    address: '',
+  })
 
 
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
-  // const [selectedCountry, setSelectedCountry] = useState("");
-  // const [selectedState, setSelectedState] = useState("");
-  // const [selectedCity, setSelectedCity] = useState("");
-  // const [file, setFile] = useState(null);
-  // const [imagePreview, setImagePreview] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [file, setFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
   // const [imageUrl, setImageUrl] = useState("");
 
   const [showMessageBox1, setShowMessageBox1] = useState(false);
   const [showMessageBox2, setShowMessageBox2] = useState(false);
 
-  // const [uploadedImage, setUploadedImage] = useState(null);
-  // const [userID, setUserID] = useState("");
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const [userID, setUserID] = useState("");
 
 
   const [isLoading, setIsLoading] = useState(false)
@@ -176,15 +149,8 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
 
   const handleCountryChange = (e) => {
     const countryId = e.target.value;
-    const countryName = e.target.options[e.target.selectedIndex].text;
     console.log("Selected Country ID:", countryId); // Debugging log
     setSelectedCountry(countryId);
-
-    setFormData((prevData) => ({
-      ...prevData,
-      eventCountry: countryName,}))
-    
-
 
     fetch(`https://alphaeventappdevmode.onrender.com/states/${countryId}`)
       .then((response) => {
@@ -202,14 +168,9 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
 
   const handleStateChange = (e) => {
     const stateId = e.target.value;
-    const stateName = e.target.options[e.target.selectedIndex].text;
     console.log("Selected State ID:", stateId); // Debugging log
     setSelectedState(stateId);
-    
-    setFormData((prevData) => ({
-      ...prevData,
-      eventState: stateName,}))
-   
+
 
     fetch(`https://alphaeventappdevmode.onrender.com/cities/${stateId}`)
       .then((response) => {
@@ -238,15 +199,8 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
 
   const handleCityChange = (e) => {
     const cityId = e.target.value;
-    const cityName = e.target.options[e.target.selectedIndex].text;
     console.log("Selected State ID:", cityId); // Debugging log
     setSelectedCity(cityId);
-    
-
-    setFormData((prevData) => ({
-      ...prevData,
-      eventCity: cityName,}))
-
   }
 
   //  Handle file upload
@@ -323,13 +277,13 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
     SubmitFormData.append("eventType", formData.eventType || "");
     SubmitFormData.append("eventDesc", formData.eventDesc || "");
     SubmitFormData.append("tickeType", formData.tickeType || "");
+    SubmitFormData.append("ticketPrice", formData.ticketPrice || "");
     SubmitFormData.append("maximumAttendees", formData.maximumAttendees || "");
     SubmitFormData.append("eventVenue", formData.eventVenue || "");
     SubmitFormData.append("url", formData.url || "");
     // ✅ Correctly format event dates as ISO strings
     if (formData.startDate) {
       SubmitFormData.append("eventStart", formData.startDate.toISOString());
-      
     }
     if (formData.endDate) {
       SubmitFormData.append("eventEnd", formData.endDate.toISOString());
@@ -341,11 +295,41 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     console.log("Submitting Data:", Object.fromEntries(SubmitFormData.entries())); // Debugging
 
     try {
       const response = await axios.post(
-        `https://alphaeventappdevmode.onrender.com/createVnt/${userID}`,
+        // `http://localhost:5001/createVnt`,
+        ` https://alphaeventappdevmode.onrender.com/createVnt/${userID}`,
         SubmitFormData,
         {
           headers: { "Content-Type": "application/json" },
@@ -764,16 +748,10 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
                       <div class="flex h-[64px] w-[100px]  flex-col">
                         <label class="text-xs font-medium  text-gray-600" for="start-time">Time</label>
                         <input
-                          name="startTime"
-                          id="startTime"
+                          id="start-time"
                           type="time"
                           placeholder="hh:mm"
-
-                          value={formData.startTime}
-                          onChange={handleChange}
                           class="border rounded-md  py-1 text-sm text-gray-800 w-20 focus:outline-none focus:ring focus:ring-indigo-200"
-
-
                         />
                       </div>
 
@@ -827,12 +805,9 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
                       <div class="flex h-[64px] w-[100px]  flex-col">
                         <label class="text-xs font-medium  text-gray-600" for="end-time">Time</label>
                         <input
-                          name="endTime"
-                          id="endTime"
+                          id="end-time"
                           type="time"
                           placeholder="hh:mm"
-                          value={formData.endTime}
-                          onChange={handleChange}
                           class="border rounded-md  py-1 text-sm text-gray-800 w-20 focus:outline-none focus:ring focus:ring-indigo-200"
                         />
                       </div>
@@ -906,19 +881,125 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
                 Proceed</button> */}
 
           {/* <div className="max-w-full mt-[32px] mb-[60px] mx-[10px] text-center rounded-[8px] px-[32px] py-[16px] text-white text-[20px] items-center  bg-customSkyblue"><button className="">Proceed</button></div> */}
+          <section className="flex w-full overflow-hidden mt-[28px]">
+            {/* Ticket type container */}
+            <div id="tickeType" className="ticketTypes w-full">
 
-          {/* Ticket type container */}
-          <div id="tickeType" className="ticketTypes w-full">
+              {/* Ticket Types 1 */}
+              <div
+                ref={ticketTypes1Ref}
+                className="ticketTypes1 border border-[#757575] rounded-[12px] w-full lg:w-[738px] px-[16px] py-[16px] mr-[45px]"
+              >
+                <div className="tickeType">
+                  <p className="text-[18px] font-bold">Ticket type</p>
+                  <div className="flex flex-col lg:flex-row gap-[10px] mt-[36px] w-full">
+                    <div className="inputOption flex border border-[#3A7BD5] px-[10px] rounded-tl-[8px] rounded-tr-[8px] w-full lg:w-[352px]">
+                      <select
+                        name="tickeType"
+                        id="tickeType"
+                        className="text-[12px] font-normal w-full lg:w-[352px] focus:outline-none"
+                        value={formData.tickeType}
+                        onChange={handleChange}
+                      >
+                        <option value="selectEventType">
+                          Select Ticket Type
+                        </option>
+                        {/* <option value="earlyBird">Early Bird</option> */}
+                        <option value="vip">Vip</option>
+                        <option value="others">Regular</option>
+                      </select>
+                    </div>
+                    <div>
+                      <img
+                        src={delectIcon}
+                        alt="Delete Icon"
+                        className="deleteIcon1 cursor-pointer"
+                        onClick={clearTicketTypes1Inputs}
+                      />
+                    </div>
+                  </div>
+                </div>
 
-            <button
-              type="button"
-              className="w-full h-[56px] py-3 mt-4 bg-customSkyblue text-white font-semibold rounded-[8px]"
-              onClick={handleProceed}
-            >
-              Proceed</button>
+                <div className="flex flex-col lg:flex-row gap-[40px] mt-[120px]">
+                  <fieldset>
+                    <label
+                      htmlFor="ticketPrice"
+                      className="px-[8px] text-[16px] font-bold text-[#525252]"
+                    >
+                      Ticket Price
+                    </label>
+                    {/* <br /> */}
+                    <input
+                      name="ticketPrice"
+                      id="ticketPrice"
+                      value={formData.ticketPrice}
+                      onChange={handleChange}
+                      type="text"
+                      placeholder="0"
+                      className="border border-[#BEBEBE] rounded-[12px] w-full lg:w-[217px] h-[52px] px-[20px] py-[18px]"
 
-          </div>
 
+                    />
+                  </fieldset>
+                  {/* <fieldset>
+                       <label
+                         htmlFor="quantity"
+                         className="px-[8px] text-[16px] font-bold text-[#525252]"
+                       >
+                         Quantity
+                       </label>
+                       <br />
+                       <input
+                         type="text"
+                         placeholder="0"
+                         className="border border-[#BEBEBE] rounded-[12px] w-full lg:w-[217px] h-[52px] px-[20px] py-[18px]"
+                       />
+                     </fieldset> */}
+                </div>
+
+
+                {/* Message Box 1 */}
+                {showMessageBox1 && (
+                  <div className="messageBox1 bg-green-500 text-white p-4 rounded mt-4">
+                    Ticket Type Added Successfully
+                  </div>
+                )}
+
+                {/* <button
+                   type="button"
+                   onClick={handleAddTicketType}
+                   className="bg-[#3A7BD5] text-[#FFFFFF] mt-[32px] w-full lg:w-[201px] px-[16px] py-[16px] text-center rounded-[8px]"
+                 >
+                   Add ticket type
+                 </button> */}
+
+              </div>
+
+
+
+              {/* Message Box 2 */}
+              {showMessageBox2 && (
+                <div className="messageBox2 bg-green-500 text-white p-4 rounded mt-4">
+                  You have Successfully Publish an Event
+                </div>
+              )}
+
+              {/* <button
+                   type="button"
+                   onClick={handleCreateEvent}
+                   className="bg-[#3A7BD5] text-[#FFFFFF] mt-[32px] w-full lg:w-[700px] px-[16px] py-[16px] text-center rounded-[8px]"
+                 >
+                   Publish Event
+                 </button> */}
+              <button
+                type="submit"
+                className="w-full h-[56px] py-3 mt-4 bg-customSkyblue text-white font-semibold rounded-[8px]"
+                onClick={handleSubmit}
+              >
+                Proceed</button>
+
+            </div>
+          </section>
 
 
 
@@ -940,3 +1021,130 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
 }
 
 export default CreateEvent
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ticketing
+
+(
+    <>
+      <section className="flex w-full overflow-hidden mt-[28px]">
+        {/* Ticket type container */}
+        <div id="ticketType" className="ticketTypes w-full">
+          <form onSubmit={handleSubmit}>
+            {/* Ticket Types 1 */}
+            <div
+              ref={ticketTypes1Ref}
+              className="ticketTypes1 border border-[#757575] rounded-[12px] w-full lg:w-[738px] px-[16px] py-[16px] mr-[45px]"
+            >
+              {/* <div className="ticketType">
+                <p className="text-[18px] font-bold">Ticket type</p>
+                <div className="flex flex-col lg:flex-row gap-[10px] mt-[36px] w-full">
+                  <div className="inputOption flex border border-[#3A7BD5] px-[10px] rounded-tl-[8px] rounded-tr-[8px] w-full lg:w-[352px]">
+                    <select
+                      name="eventType"
+                      id="eventType"
+                      className="text-[12px] font-normal w-full lg:w-[352px] focus:outline-none"
+                    >
+                      <option value="selectEventType">
+                        Select Ticket Type
+                      </option>
+                      <option value="earlyBird">Early Bird</option>
+                      <option value="vip">VIP</option>
+                      <option value="others">Regular</option>
+                    </select>
+                  </div>
+                  <div>
+                    <img
+                      src={delectIcon}
+                      alt="Delete Icon"
+                      className="deleteIcon1 cursor-pointer"
+                      onClick={clearTicketTypes1Inputs}
+                    />
+                  </div>
+                </div>
+              </div> */}
+
+              {/* <div className="flex flex-col lg:flex-row gap-[40px] mt-[120px]">
+                <fieldset>
+                  <label
+                    htmlFor="price"
+                    className="px-[8px] text-[16px] font-bold text-[#525252]"
+                  >
+                    Price
+                  </label>
+                  <br />
+                  <input
+                    type="text"
+                    placeholder="0"
+                    className="border border-[#BEBEBE] rounded-[12px] w-full lg:w-[217px] h-[52px] px-[20px] py-[18px]"
+                  />
+                </fieldset>
+                <fieldset>
+                  <label
+                    htmlFor="quantity"
+                    className="px-[8px] text-[16px] font-bold text-[#525252]"
+                  >
+                    Quantity
+                  </label>
+                  <br />
+                  <input
+                    type="text"
+                    placeholder="0"
+                    className="border border-[#BEBEBE] rounded-[12px] w-full lg:w-[217px] h-[52px] px-[20px] py-[18px]"
+                  />
+                </fieldset>
+              </div> */}
+
+
+            {/* Message Box 1 */}
+            {/* {showMessageBox1 && (
+              <div className="messageBox1 bg-green-500 text-white p-4 rounded mt-4">
+                Ticket Type Added Successfully
+              </div>
+            )} */}
+
+            {/* <button
+              type="button"
+              onClick={handleAddTicketType}
+              className="bg-[#3A7BD5] text-[#FFFFFF] mt-[32px] w-full lg:w-[201px] px-[16px] py-[16px] text-center rounded-[8px]"
+            >
+              Add ticket type
+            </button> */}
+         
+            </div>
+
+
+
+            {/* Message Box 2 */}
+            {showMessageBox2 && (
+              <div className="messageBox2 bg-green-500 text-white p-4 rounded mt-4">
+                You have Successfully Publish an Event
+              </div>
+            )}
+
+            <button
+              type="button"
+              onClick={handleCreateEvent}
+              className="bg-[#3A7BD5] text-[#FFFFFF] mt-[32px] w-full lg:w-[700px] px-[16px] py-[16px] text-center rounded-[8px]"
+            >
+              Publish Event
+            </button>
+          </form>
+        </div>
+      </section>
+    </>
+  );

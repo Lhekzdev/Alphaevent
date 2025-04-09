@@ -27,7 +27,7 @@ import VerifyAcc2 from './components/signup/VerifyAcc2.jsx';
 import CreateAcc from './components/signup/CreateAcc.jsx';
 import SuccessAcc from './components/signup/SuccessAcc.jsx';
 import Herocontainer from "./components/Landingcont/herocontainer/Herocontainer.jsx";
-
+import ReviewEvent from "./components/dashboard/createEvent/ReviewEvent.jsx";
 
 
 import "./App.css";
@@ -109,8 +109,9 @@ function App() {
           <Route path="/OnboardingMain" element={<OnboardingMain />} />
           <Route path="/createEvent" element={<CreateEvent />} />
           <Route path="/OnboardEvent" element={<OnboardEvent />} />
-          <Route path="/createEvent" element={<CreateEvent />} />
-         
+          {/* <Route path="/createEvent" element={<CreateEvent />} /> */}
+          <Route path="/ReviewEvent" element={<ReviewEvent />} />
+
          
 
        

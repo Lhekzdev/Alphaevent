@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import verifyLogo from '../../assets/verifyLogo.svg';
 import verifyGit from '../../assets/verifyGit.svg';
 import verifyTwitter from '../../assets/verifyTwitter.svg';
@@ -7,33 +7,67 @@ import verifyEnvelop from '../../assets/verifyEnvelop.svg';
 import verifyArrowRight from '../../assets/verifyArrowRight.svg';
 import { Image } from "cloudinary-react";
 import { Link,useLocation, useNavigate } from 'react-router-dom';
-
+import CountdownTimer from "./CountdownTimer/CountdownTimer";
 const VerifyAcc = () => {
-    const [code, setCode] = useState(["", "", "", "", "", ""]);
-    const [activeInput, setActiveInput] = useState(0); 
-    const [userEmail, setUserEmail] = useState("");
-    const navigate = useNavigate();
 
-    useEffect(() => {
-              // Fetch user email from local storage
-        const storedEmail = localStorage.getItem("userEmail");
-        if (storedEmail) {
-        setUserEmail(storedEmail);}
-        // Focus the last input when the component mounts
-        document.getElementById(`input-${activeInput}`)?.focus();
-      }, [activeInput]);
+    const [activeInput, setActiveInput] = useState(0); 
+ const inputRefs = useRef([]); // Store input refs for navigation
+    const navigate = useNavigate();
+    const location = useLocation(); // ✅ Initialize useLocation
+     const [otp, setOtp] = useState(Array(6).fill("")); // Initialize with 6 empty values
+      const [otpSent, setOtpSent] = useState(false);
+      // const [userEmail, setUserEmail] = useState(location.state?.userEmail || "");
+      const userEmail = location.state?.email || "";
+  
+  
+      useEffect(() => {
+    const sent = localStorage.getItem("otpSent");
+    if (sent === "true") {
+      setOtpSent(true); // ✅ Only then show timer
+    }
+  }, []);
+
+
+
       //console.log("User Email:", userEmail);
       // Function to handle input change{BACKEND TOUCH}
-    const handleChange = (index, value) => {
-        if (value.length > 1) return; // Prevent entering more than one digit
+    
+      const handleChange = (e, index) => {
+        const value = e.target.value;
+    
+        // Allow only one digit and numbers
+        if (!/^\d?$/.test(value)) return;
+    
+        // Update OTP state
+        const newOtp = [...otp];
+        newOtp[index] = value;
+        setOtp(newOtp);
+    
+        // console.log("Updated OTP:", newOtp.join("")); // Debugging OTP updates
+        // Move to next input if a digit is entered
+        if (value && index < otp.length - 1) {
+          document.getElementById(`input-${index + 1}`)?.focus();
+        }
+    
+      }
+    
+      const handleKeyDown = (e, index) => {
+        if (e.key === "Backspace") {
+          if (otp[index] === "" && index > 0) {
+            inputRefs.current[index - 1].focus(); // Move back
+          }
+          const newOtp = [...otp];
+          newOtp[index] = "";
+          setOtp(newOtp);
+        } else if (e.key === "ArrowRight" && index < 5) {
+          inputRefs.current[index + 1]?.focus();
+        } else if (e.key === "ArrowLeft" && index > 0) {
+          inputRefs.current[index - 1]?.focus();
+        }
+      };
+    
 
-        const newCode = [...code];
-        newCode[index] = value;
-        setCode(newCode);
-              // Move to next input if value is entered
-              if (value !== "" && index < 5) {
-                setActiveInput(index + 1);
-            }};
+
             
       const handleVerify = async(e) => {
         e.preventDefault();
@@ -44,6 +78,8 @@ const VerifyAcc = () => {
         // Navigate to the VerifyAcc page
         //navigate("/SetAcc");
             // Send to backend
+           
+           
             try {
               const response = await fetch(`https://alphaeventappdevmode.onrender.com/verifyOTp/${userEmail}`, { // Update URL as needed
                   method: "POST",
@@ -56,6 +92,10 @@ const VerifyAcc = () => {
               //console.log("Server Response:", result);
   
               if (response.ok) {
+                  // ✅ Clear the OTP-related data
+  localStorage.removeItem("otpSent");
+  localStorage.removeItem("otpStartTime");
+
                   navigate("/SetAcc");  // Navigate on success
               } else {
                   alert("Verification failed. Please try again.");
@@ -64,6 +104,19 @@ const VerifyAcc = () => {
               // console.error("Error verifying code:", error);
           }
       };
+
+
+      const maskEmail = (email) => {
+        const [name, domain] = email.split("@");
+        if (!name || !domain) return email;
+      
+        const maskedName = name.length > 4
+          ? `${name.slice(0, 3)}****${name.slice(-2)}`
+          : `${name[0]}****`;
+          
+        return `${maskedName}@${domain}`;
+      };
+
   return (
     <section>
       <div className="background w-full h-full bg-[#444444] pt-[25px] pb-[25px]">
@@ -86,30 +139,35 @@ const VerifyAcc = () => {
                 Verify your account!
               </p>
               <p className="text-[16px] font-light text-[#333333] w-[416px] mx-auto">
-                A 6-digit verification code has been sent to your email <br />
-                address. Please enter the code sent <br />
-                to ade****45@gmail.com
-              </p>
+  A 6-digit verification code has been sent to your email <br />
+  address. Please enter the code sent to<br />
+   {userEmail ? <span className="font-bold">{maskEmail(userEmail)}</span> : "your email"}
+</p>
+
             </div>
 
             {/* Input fields for the 6-digit verification code */}
             <div className="inputContainer flex justify-center gap-[11px] my-6 ">
              {/* Input fields for code - Centered */}
              <div className="inputContainer flex justify-center gap-[11px] my-6 relative z-10">
-      {["3", "7", "0", "1", "7", "2"].map((placeholder, index) => (
-        <input
-          key={index}
-          id={`input-${index}`}
-          type="text"
-          placeholder={placeholder}
-          onChange={(e) => handleChange(index, e.target.value)}
-          className={`w-[60px] border-[1px] border-[#BEBEBE] rounded-[12px] py-[15px] px-[18px] text-[24px] text-[#333333] focus:outline-none focus:ring-2 focus:ring-[#3A7BD5] ${
-            activeInput === index ? "ring-2 ring-[#3A7BD5]" : ""
-          }`}
-          onFocus={() => setActiveInput(index)} // Update activeInput on focus
-        />
-      ))}
-    </div>
+                {otp.map((digit, index) => (
+                  <input
+                    key={index}
+                    id={`input-${index}`}
+                    type="text"
+                    ref={(el) => (inputRefs.current[index] = el)} // Store ref for each input
+                    onKeyDown={(e) => handleKeyDown(e, index)}
+                    value={digit}
+                    onChange={(e) => handleChange(e, index)}
+                    maxLength="1" // Allow only one character per box
+                    className={`w-[60px] border-[1px] border-[#BEBEBE] rounded-[12px] py-[15px] px-[18px] text-[24px] text-[#333333] focus:outline-none focus:ring-2 focus:ring-[#3A7BD5] ${activeInput === index ? "ring-2 ring-[#3A7BD5]" : ""
+                      }`}
+                    onFocus={() => setActiveInput(index)} // Update activeInput on focus
+                  />
+                ))}
+
+
+              </div>
             </div>
 
             {/* Resend link section */}
@@ -119,7 +177,7 @@ const VerifyAcc = () => {
                 <a href="#" className="text-[#E65757]">
                   Resend link
                 </a>{" "}
-                in 30 seconds
+                {localStorage.getItem("otpSent") === "true" && <CountdownTimer totalSeconds={150} />}
               </p>
             </div>
 

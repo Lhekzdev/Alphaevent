@@ -15,91 +15,13 @@ import Details from './Details';
 import Ticketing from './Ticketing';
 
 const CreateEvent = () => {
-  const fileInputRef = useRef(null);
 
-  const [uploadedImage, setUploadedImage] = useState(null);
-  const [isToggled, setIsToggled] = useState(true);
-  const [selectedDate, setSelectedDate] = useState(null);
+
+
   const [activeTab, setActiveTab] = useState("details"); // Track active tab
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const previewURL = URL.createObjectURL(file);
-      setUploadedImage(previewURL);
-    }
-  };
 
-  const handleUploadClick = () => {
-    fileInputRef.current.click();
-  };
 
-  const handleToggle = () => {
-    setIsToggled(!isToggled);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const formData = new FormData();
-
-    formData.append("eventTitle", event.target.eventTitle?.value || "");
-    formData.append("eventDesc", event.target.description?.value || "");
-    formData.append("eventCat", event.target.eventCategory?.value || "");
-    formData.append("eventType", event.target.eventFormat?.value || "");
-    if (selectedDate) formData.append("eventDate",{
-      eventStart: selectedDate?.startDate?.toISOString() || "", // Use proper date range
-      eventEnd: selectedDate?.endDate?.toISOString() || "",
-    });
-    formData.append("isPrivate", isToggled);
-    formData.append("eventCapacity", event.target.eventCapacity?.value || "");
-    formData.append("maximumattedees",event.target.maximumattedees?.value || "");
-    formData.append("customTags", event.target.customTags?.value || "");
-    formData.append("accessibilityOption",event.target.accessibilityOption?.value || "");
-    formData.append(
-      "eventVenue", event.target.eventVenue?.value || "",
-    );
-    formData.append(
-      "eventState", event.target.eventState?.value || "",
-    );
-    formData.append(
-      "eventCity", event.target.eventCity?.value || "",
-    );
-    formData.append(
-      "eventCountry", event.target.eventCountry?.value || "",
-    );
-    formData.append(
-      "tickeType", event.target.tickeType?.value || "",
-    );
-    formData.append(
-      "ticketPrice", event.target.ticketPrice?.value || "",
-    );
-
-    if (uploadedImage) {
-      const imageFile = fileInputRef.current.files[0];
-      formData.eventImgURL = imageFile; // Add to formData
-    }
-
-    // if (uploadedImage) {
-    //   const imageFile = fileInputRef.current.files[0];
-    //   formData.append("image", imageFile);
-    // }
-
-    try {
-      const response = await axios.post(
-      
-        `https://alphaeventappdevmode.onrender.com/createVnt/${userID}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      alert("Event created successfully!");
-    } catch (error) {
-      alert("Failed to create event. Please try again.");
-    }
-  };
 
   return (
     <section className="flex w-[100%] overflow-hidden">
@@ -128,6 +50,8 @@ const CreateEvent = () => {
             >
               <h6 className="pt-[4px] text-center font-bold w-[51px] h-[16px]">Details</h6>
             </div>
+        
+        
             <div
               id="ticketing"
               onClick={() => setActiveTab("ticketing")}
@@ -143,7 +67,7 @@ const CreateEvent = () => {
         {/* hover:bg-customSkyblue hover:text-white */}
 
         {/* Render the active tab's content */}
-        {activeTab === "details" && <Details />}
+        {activeTab === "details" && <Details setActiveTab={setActiveTab}/>}
         {activeTab === "ticketing" && <Ticketing />}
       </div>
     </section>
