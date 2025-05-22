@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom';
 import logo from "/logo.svg"
 import arrowRight from "/arrowRight.svg"
 
-
-
-
 const harburgermenu = "https://res.cloudinary.com/dzyvwxh7n/image/upload/v1731299161/hamburger_hod9qo.png"
 const Navbar = () => {
 
@@ -18,10 +15,6 @@ const Navbar = () => {
   const closeMenu = () => {
     setIsOpen(false);
   };
-
-
-    
-
   return (
 
 
@@ -35,19 +28,14 @@ const Navbar = () => {
 
             <Link to="/"> <img className='sm:min-w-[100px]  items-center place-content-center sm:h-[20px] md:w-[140px] lg:h-[33px]' src={logo} alt="alventlogo" /></Link>
           </div>
-
-       
-
           <div className='  items-center justify-between text-center md:w-full md:flex'>
 
             <ol className='hidden font-Roboto text-nowrap items-center md:flex "   h-[32px] sm:gap-2 md:gap-2   lg:gap-[1.3vw] '>
-              <li className='hover:border-b-2 hover:border-customSkyblue' > <Link to="/">Explore events</Link></li>
+              <li className='hover:border-b-2 hover:border-customSkyblue' > <Link to="/OnboardEvent">Explore events</Link></li>
               <li className=' hover:border-b-2 hover:border-customSkyblue '><Link to="/">My Ticket</Link></li>
               <li className='hover:border-b-2 hover:border-customSkyblue '><Link to="/">About</Link></li>
 
             </ol>
-
-
             
             <div className=' flex  gap-[12px] items-center'>
 
@@ -63,26 +51,12 @@ const Navbar = () => {
        </div>
        </div>
        </div>
-
-
-
-
-
-
-
-
-
-
         <ol>
           <button onClick={toggleMenu} className="items-center md:hidden justify-center border ml-3 px-1 mt-2 text-sm font-medium text-gray-700   rounded-[40px] shadow-sm hover:bg-customSkyblue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             id="menu-button" aria-expanded="true" aria-haspopup="true">
             {/* <!-- Cloudinary Image --> */}
             <img src={harburgermenu} alt="harburgermenu" class="w-10  rounded-[100%] h-8 " />
-
-
-
           </button>
-
           {/* <!-- Dropdown menu --> */}
 
           {isOpen && (<div className="md:hidden z-50   flex flex-col absolute right-0 mt-6 w-56 origin-top-right bg-white border  border-gray-200 divide- divide-gray-100 rounded-md shadow-lg outline-none" role="menu"  >

@@ -54,7 +54,7 @@ const Onboardingleft = () => {
 
   const linkStyle = (link) =>
     activeLink === link
-      ? "bg-[#3A7BD533] text-white"
+      ? "bg-[#3A7BD5] text-white"
       : "text-[#757575] bg-transparent";
 
   const iconStyle = (link, grayIcon, whiteIcon) =>
@@ -65,20 +65,20 @@ const Onboardingleft = () => {
 
       onMouseLeave={handleMouseLeave}
       className={`${isMenuOpen ? "block" : "hidden"
-        } absolute transition-all opacity-100 sm:duration-500 sm:ease-in-out top-20 md:top-0  md:flex md:relative pt-[24px] pr-[10px] pb-[151px] pl-[28px] bg-customdarkblue z-10 w-[280px] h-40md:h-[1024px] hover:opacity-100 md:opacity-100`}
+        } absolute transition-all opacity-100 sm:duration-500 sm:ease-in-out top-20 md:top-0  md:flex md:relative pt-[24px] pr-[10px] pb-[151px] pl-[28px] bg-[#EBEAEA] z-10 w-[280px] h-40md:h-[1024px] hover:opacity-100 md:opacity-100`}
     >
       {/* dashboard with icons section */}
       <div className="flex flex-col md:gap-y-[40px] font-Lato  text-white">
         <ol className=" w-[258px]">
           <Link to="/"> <img
-            className="pt-[12px] w-[200px] px-[24px] h-[48px]"
-            src={logoOnboard}
+            className="pt-[12px] w-[112px] px-[24px] h-[24px]"
+            src={"https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747615311/ALVENT_1_omcg0v.png"}
             alt="alvent-logo"
           /></Link>
         </ol>
 
         <ol className="gap-y-[59px] md:gap-y-[304px] font-bold text-[24px] font-Lato flex flex-col">
-          <ol className="flex font-bold text-customGreySech text-[24px] flex-col gap-y-[10px]">
+          <ol className="flex font-bold text-[#757575] text-[24px] flex-col gap-y-[10px]">
             <Link to="/OnboardingMain"><li
               className={`flex items-center w-[228px] h-[60px] gap-[20px] rounded-[12px] pl-[24px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
                 "Dashboard"
@@ -173,7 +173,7 @@ const Onboardingleft = () => {
           >
 
             
-            <Link to="/createEvent"> <button className="items-center  h-[24px] flex gap-4  cursor-pointer hover:text-white"    >
+            <Link to="/createEvent"> <button className="items-center   flex gap-[25px] cursor-pointer hover:text-white bg-[#3A7BD5] text-[#FFFFFF] w-[187px] h-[60px] rounded-[12px] py-[16px] px-[24px] text-[16px]"    >
 
         
               Create Event

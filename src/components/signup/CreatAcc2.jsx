@@ -145,4 +145,4 @@ const CreateAcc = () => {
   );
 };
 
-export default CreateAcc;  
+export default CreateAcc;   

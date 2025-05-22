@@ -8,9 +8,9 @@ const OnboardingMain = () => {
     <>
     <section>
         <div className='flex' >
-          <div><Onboardingleft/></div>
+          {/* <div><Onboardingleft/></div>
        <div className='w-full'><ProfileSearchBar />
-        <OnBoarding /></div> 
+        <OnBoarding /></div>  */}
         </div>
     </section>
     </>

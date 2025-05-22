@@ -1,64 +1,58 @@
-import React from 'react';
-import data from '../../../../data/db.json'; // Import the data
-import ellipsisHorizontal from '../../../assets/ellipsisHorizontal.svg';
-import calender from '../../../assets/calender.svg';
-import location from '../../../assets/location.svg';
+import React from "react";
 
 const Section2 = () => {
   return (
-    <>
-     <section className="font-lato">
-  <div className="flex flex-col lg:flex-row flex-wrap gap-[16px] pl-[30px] pr-[20px]">
-    {data.myEvent.map((event) => (
-      <div
-        className="parentContainer w-full lg:w-[240px] bg-[#FFFFFF] rounded-[10px] p-[8px] shadow-md"
-        key={event.id}
-      >
-        <div className="image">
-          <img src={event.bg} alt="Event Background" className='w-full'/>
-        </div>
-        <div className="dataInfo pl-[10px] pr-[8px]">
-          <div className="flex justify-between items-center">
-            <p className="text-[32px] font-normal text-[#333333]">
-              {event.day}{" "}
-              <span className="text-[12px] font-light text-[#333333]">
-                {event.month}
-              </span>
-            </p>
-            <img src={ellipsisHorizontal} alt="More options" />
-          </div>
-          <div>
-            <p className="text-[16px] font-bold text-[#333333] mt-[4px] mb-[4px]">
-              {event.by}
-            </p>
-            <div className="flex gap-[8px] items-center">
-              <img
-                src={calender}
-                alt="Calendar icon"
-                className="w-[13.33px] h-[13.33px]"
-              />
-              <p className="text-[10px] font-light text-[#333333]">
-                {event.date}
-              </p>
-            </div>
-            <div className="flex gap-[8px] items-center mt-[4px]">
-              <img
-                src={location}
-                alt="Location icon"
-                className="w-[13.33px] h-[13.33px]"
-              />
-              <p className="text-[10px] font-light text-[#333333]">
-                {event.location}
-              </p>
-            </div>
-          </div>
+    <section className="font-lato px-4 py-3">
+      <div className="bg-white rounded-[12px]  shadow-sm w-full max-w-full">
+      <div className="flex gap-[740px]  border-b-[1px] border-b-[#ABABAB] px-[32px] py-[18px]">
+      <p className="text-[20px] text-[#000000] ">Recent Registrations</p>
+            <img
+              src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747835248/Menu_Vertical_k3jkky.png"
+              className="w-[40px] h-[40px] "
+              alt="Menu Icon"
+            />
+</div>
+
+
+        <div className="overflow-x-auto px-[32px] py-[20px] ">
+          <table className="min-w-full  text-left">
+            <thead className="">
+              <tr>
+                <th className="py-2 px-4 border-b">Name</th>
+                <th className="py-2 px-4 border-b">Event</th>
+                <th className="py-2 px-4 border-b">Ticket Type</th>
+                <th className="py-2 px-4 border-b">Purchase Date</th>
+                <th className="py-2 px-4 border-b">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="hover:bg-gray-50 text-[14px] text-[#ABABAB]">
+              <td className="py-2 px-4 border-b">John Reinhard</td>
+                <td className="py-2 px-4 border-b">Event Name</td>
+                <td className="py-2 px-4 border-b">VIP Pass</td>
+                <td className="py-2 px-4 border-b">February 25</td>
+                <td className="py-2 px-4 border-b text-[#2A8212] font-bold">Successful</td>
+              </tr>
+              <tr className="hover:bg-gray-50 text-[14px] text-[#ABABAB]">
+              <td className="py-2 px-4 border-b">Mich Scofield</td>
+                <td className="py-2 px-4 border-b">Event Name</td>
+                <td className="py-2 px-4 border-b">REGULAR  Pass</td>
+                <td className="py-2 px-4 border-b">February 12</td>
+                <td className="py-2 px-4 border-b text-[#2A8212] font-bold">Pending</td>
+              </tr>
+              <tr className="hover:bg-gray-50 text-[14px] text-[#ABABAB]">
+              <td className="py-2 px-4 border-b">Annabelle  </td>
+                <td className="py-2 px-4 border-b">Event Name</td>
+                <td className="py-2 px-4 border-b">EARLY BIRD  Pass</td>
+                <td className="py-2 px-4 border-b">January 25</td>
+                <td className="py-2 px-4 border-b text-[#2A8212] font-bold">Successful</td>
+              </tr>
+              
+            </tbody>
+          </table>
         </div>
       </div>
-    ))}
-  </div>
-</section>
-
-    </>
+    </section>
   );
 };
 
