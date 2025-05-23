@@ -27,8 +27,8 @@ const ProfileSearchBar = () => {
   }, []);
 
   return (
-    <section className="p-4 bg-[#EBEAEA] w-full lg:pl-[30px] pr-4 lg:pr-[20px]">
-    <div className="flex items-center w-full justify-start gap-[650px]">
+    <section className="p-4 w-full h-[48px] mt-[20px] mb-[20px]">
+    <div className="flex items-center justify-start gap-[650px] bg-[#FFFFFF] rounded-[8px] w-[1020px] px-[20px]  ">
       
       {/* Side-A */}
       <div className="flex gap-3 items-center">
