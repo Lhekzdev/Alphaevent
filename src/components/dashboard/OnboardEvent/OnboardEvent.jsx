@@ -19,10 +19,10 @@ const OnboardEvent = () => {
           <div>
 
             <Section1a />
-            {/* <Section1 /> */}
+       
             <Section2a />
-          
             <Section2 /> 
+            <Section1 />
           </div></div>
       </section>
 

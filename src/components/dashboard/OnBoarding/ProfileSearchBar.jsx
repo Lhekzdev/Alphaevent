@@ -90,11 +90,11 @@ const ProfileSearchBar = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="text-left flex flex-col gap-y-2 pl-3">
-                <li className="py-[10px] px-[15px] hover:scale-105 rounded-lg hover:bg-customlightpink">Profile</li>
-                <li className="py-[10px] px-[15px] hover:scale-105 rounded-lg hover:bg-customlightpink">Settings</li>
-                <li className="py-[10px] px-[15px] hover:scale-105 rounded-lg hover:bg-customlightpink">Help</li>
+                <li className="py-[10px] px-[15px] hover:scale-105 rounded-lg hover:bg-customlightpink list-none">Profile</li>
+                <li className="py-[10px] px-[15px] hover:scale-105 rounded-lg hover:bg-customlightpink list-none">Settings</li>
+                <li className="py-[10px] px-[15px] hover:scale-105 rounded-lg hover:bg-customlightpink list-none">Help</li>
                 <Link to="/">
-                  <li className="py-[10px] px-[15px] hover:scale-105 text-customRed">Log Out</li>
+                  <li className="py-[10px] px-[15px] hover:scale-105 text-customRed list-none">Log Out</li>
                 </Link>
               </div>
             </div>

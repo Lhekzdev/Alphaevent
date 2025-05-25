@@ -28,7 +28,7 @@ const Section1 = () => {
       <p className="text-[#ABABAB] text-[10px] font-medium">Tickets Sold</p>
           <div className="mt-2">
           <p className="text-[24px] text-[#333333] font-semibold leading-none">1455</p>
-          <p className="text-[#2A8212] text-[12px] font-medium leading-none mt-2">↑ 8% vs Last week</p>
+          <p className="text-[#2A8212] text-[12px] font-medium leading-none">↑ 8% vs Last week</p>
           </div>
         </div>
         <div>
@@ -46,7 +46,7 @@ const Section1 = () => {
         <p className="text-[#ABABAB] text-[10px] font-medium">Engagement Rate</p>
           <div className="mt-2">
           <p className="text-[24px] text-[#333333] font-semibold leading-none">40<span>%</span></p>
-            <p className="text-[#2A8212] text-[12px] font-medium leading-none mt-2"> 0.5% vs Last week</p>
+            <p className="text-[#2A8212] text-[12px] font-medium leading-none"> 0.5% vs Last week</p>
           </div>
         </div>
         <div>
@@ -65,7 +65,7 @@ const Section1 = () => {
           <div className="mt-2">
         <div className='flex'>  
         <p className="text-[24px] flex text-[#333333] font-semibold leading-none">4.5<span>/</span><p>5</p></p></div>
-        <p className="text-[#2A8212] text-[12px] font-medium leading-none mt-2">↑ 2.5% vs Last week</p>
+        <p className="text-[#2A8212] text-[12px] font-medium leading-none">↑ 2.5% vs Last week</p>
           </div>
         </div>
         <div>

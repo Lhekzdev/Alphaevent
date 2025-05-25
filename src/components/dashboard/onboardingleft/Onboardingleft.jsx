@@ -65,7 +65,7 @@ const Onboardingleft = () => {
 
       onMouseLeave={handleMouseLeave}
       className={`${isMenuOpen ? "block" : "hidden"
-        } absolute transition-all opacity-100 sm:duration-500 sm:ease-in-out top-20 md:top-0  md:flex md:relative pt-[24px] pr-[10px] pb-[151px] pl-[28px] bg-[#FFFFFF] z-10 w-[280px] h-40md:h-[1024px] hover:opacity-100 md:opacity-100`}
+        } absolute transition-all opacity-100 sm:duration-500 sm:ease-in-out top-20 md:top-0  md:flex md:relative pt-[24px] pr-[10px] pb-[151px] pl-[28px] bg-[#FFFFFF] z-10 w-[280px] h-[900px] hover:opacity-100 md:opacity-100`}
     >
       {/* dashboard with icons section */}
       <div className="flex flex-col md:gap-y-[40px] font-Lato  text-white">
