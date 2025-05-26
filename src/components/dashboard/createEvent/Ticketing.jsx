@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const Ticketing = () => {
+const TicketConfiguration = () => {
 const navigate = useNavigate()
   const fileInputRef = useRef(null);
   const ticketTypes1Ref = useRef(null);
@@ -240,6 +240,6 @@ const isDataComplete = requiredFields.every(field => {
   )
 };
 
-export default Ticketing;
+export default TicketConfiguration;
 
 

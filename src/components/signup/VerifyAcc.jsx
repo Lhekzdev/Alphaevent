@@ -72,7 +72,8 @@ const VerifyAcc = () => {
       const handleVerify = async(e) => {
         e.preventDefault();
 
-        const verificationCode = code.join(""); // Convert array to string
+        const verificationCode = otp.join("")
+        // Convert array to string
         //console.log("Entered Verification Code:", verificationCode);
         //console.log("Entered mail:", userEmail);
         // Navigate to the VerifyAcc page
@@ -91,7 +92,10 @@ const VerifyAcc = () => {
               const result = await response.json();
               //console.log("Server Response:", result);
   
-              if (response.ok) {
+              console.log("Response OK?", response.ok);
+                if (response.ok) {
+                  console.log("OTP verified, navigating...");
+                  navigate("/SetAcc");
                   // ✅ Clear the OTP-related data
   localStorage.removeItem("otpSent");
   localStorage.removeItem("otpStartTime");
@@ -121,7 +125,7 @@ const VerifyAcc = () => {
     <section>
       <div className="background w-full h-full bg-[#444444] pt-[25px] pb-[25px]">
         {/* Form container centered with a width of 850px */}
-        <form action="" className="container w-[850px] mx-auto bg-white rounded-[12px] p-8 relative">
+        <form  className="container w-[850px] mx-auto bg-white rounded-[12px] p-8 relative">
           
           {/* Logo container - Positioned at the top-left */}
           <div className="logoContainer absolute top-15 left-15 ">

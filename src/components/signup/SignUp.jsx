@@ -79,10 +79,10 @@ export const SignUp = () => {
           localStorage.setItem('userEmail', values.email);
 
 
-          toast.success('Sign Up Successful!');
+          toast.info('Check your email for the OTP to complete registration');
           // reDirectPg('/dashboard')
           // navigate('/OnboardingMain');
-          navigate('/VerifyAcc');
+          navigate('/VerifyAcc', { state: { email: values.email } });
           resetForm();
         } else {
           const { msg } = await response.json();
@@ -113,7 +113,7 @@ export const SignUp = () => {
 
       // Navigate to the dashboard
       // navigate('OnboardingMain/');{backend touch}
-      navigate('VerifyAcc/');
+      navigate('VerifyAcc/',{ state: { email: email } });
     }
   }, [navigate]);
 

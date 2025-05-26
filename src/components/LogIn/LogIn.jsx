@@ -276,6 +276,12 @@ const images = [
 
    {/* Submit Button */}
   <button
+
+
+// onClick={()=> redir('/createEvent')}
+
+
+
   type="submit"
   className="w-full flex items-center justify-center px-6 bg-[#D8E5F7] text-[#7CA7E3] hover:text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300 relative"
 

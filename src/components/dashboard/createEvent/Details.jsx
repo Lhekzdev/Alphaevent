@@ -182,8 +182,9 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
 
     setFormData((prevData) => ({
       ...prevData,
-      eventCountry: countryName,}))
-    
+      eventCountry: countryName,
+    }))
+
 
 
     fetch(`https://alphaeventappdevmode.onrender.com/states/${countryId}`)
@@ -205,11 +206,12 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
     const stateName = e.target.options[e.target.selectedIndex].text;
     console.log("Selected State ID:", stateId); // Debugging log
     setSelectedState(stateId);
-    
+
     setFormData((prevData) => ({
       ...prevData,
-      eventState: stateName,}))
-   
+      eventState: stateName,
+    }))
+
 
     fetch(`https://alphaeventappdevmode.onrender.com/cities/${stateId}`)
       .then((response) => {
@@ -241,11 +243,12 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
     const cityName = e.target.options[e.target.selectedIndex].text;
     console.log("Selected State ID:", cityId); // Debugging log
     setSelectedCity(cityId);
-    
+
 
     setFormData((prevData) => ({
       ...prevData,
-      eventCity: cityName,}))
+      eventCity: cityName,
+    }))
 
   }
 
@@ -329,7 +332,7 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
     // ✅ Correctly format event dates as ISO strings
     if (formData.startDate) {
       SubmitFormData.append("eventStart", formData.startDate.toISOString());
-      
+
     }
     if (formData.endDate) {
       SubmitFormData.append("eventEnd", formData.endDate.toISOString());
@@ -407,35 +410,35 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
 
         {/* <div className="max-w-[1140px] pt-[48px] h-auto"> */}
         <div className='max-w-[1032px] mt-[32px] rounded-[12px] border-customLighterGray pt-[52px] pb-[40px] px-[40px] h-[335px]'>
-          <h4 className='font-bold text-[18px] mb-[16px]'>Event Banner</h4>
+          <h4 className='font-bold text-[18px] mb-[16px]'>Event Ticket</h4>
           <div className='items-center text-center max-w-[952px] h-[200px] rounded-[12px] border-[0.8px] mx-auto flex justify-center'>
-  <div 
-    className='w-[284px] h-[107px] relative flex items-center justify-center cursor-pointer' 
-    onClick={() => fileInputRef.current.click()}
-  >
-    {imagePreview ? (
-      <img 
-        src={imagePreview} 
-        alt="Preview" 
-        className="w-full h-full object-cover rounded-[12px]" 
-      />
-    ) : (
-      <div className="flex flex-col items-center text-center gap-y-1 overflow-hidden">
-        <img className="mx-auto max-h-[40px]" src={cloudIcon} alt="cloudIcon" />
-        <p className="text-xs leading-tight break-words">Click to upload or drag and drop</p>
-        <p className="text-xs leading-tight break-words">PNG, JPG or GIF (MAX. 800x400px)</p>
-      </div>
-    )}
-  </div>
+            <div
+              className='w-[284px] h-[107px] relative flex items-center justify-center cursor-pointer'
+              onClick={() => fileInputRef.current.click()}
+            >
+              {imagePreview ? (
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  className="w-full h-full object-cover rounded-[12px]"
+                />
+              ) : (
+                <div className="flex flex-col items-center text-center gap-y-1 overflow-hidden">
+                  <img className="mx-auto max-h-[40px]" src={cloudIcon} alt="cloudIcon" />
+                  <p className="text-xs leading-tight break-words">Click to upload or drag and drop</p>
+                  <p className="text-xs leading-tight break-words">PNG, JPG or GIF (MAX. 800x400px)</p>
+                </div>
+              )}
+            </div>
 
-  <input
-    type="file"
-    accept="image/png, image/jpeg, image/gif"
-    ref={fileInputRef}
-    onChange={handleFileChange}
-    className="hidden"
-  />
-</div>
+            <input
+              type="file"
+              accept="image/png, image/jpeg, image/gif"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              className="hidden"
+            />
+          </div>
 
         </div>
 
@@ -451,7 +454,7 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
 
 
           <div>
-            <label htmlFor="eventTitle" className="block font-medium mb-2">Event Title</label>
+            <label htmlFor="eventTitle" className="block font-medium mb-2">Event Name</label>
             <input
               name="eventTitle"
               type="text"
@@ -482,7 +485,7 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
             <input
               type="text"
               id="maximumAttendees" name="maximumAttendees"
-              placeholder="Maximum attedees"
+              placeholder="e.g, 2000"
               className="w-full   focus:ring-2 border-customLighterGray h-[52px] border rounded-[12px] px-[20px]  focus:outline-none  focus:ring-blue-500  placeholder:text-[16px] "
               rows="3"
               value={formData.maximumAttendees}
@@ -490,144 +493,186 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
             />
           </div>
 
-          {/* Event type section */}
-
-          <div className="mt-4 max-w-[325px] h-[78px]  ">
-            <label htmlFor="eventType" className="block text-sm font-medium text-gray-700 mb-1">Event Type</label>
-            <select
-              id="eventType"
-              name="eventType"
-              className="w-full border h-[52px] border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              value={formData.eventType}
+          <div>
+            <label htmlFor="eventTags" className="block  font-medium mb-2">Event Tags</label>
+            <input
+              type="text"
+              id="eventTags" name="eventTags"
+              placeholder="e.g., innovative, growth"
+              className="w-full   focus:ring-2 border-customLighterGray h-[52px] border rounded-[12px] px-[20px]  focus:outline-none  focus:ring-blue-500  placeholder:text-[16px] "
+              rows="3"
+              value={formData.eventTags}
               onChange={handleChange}
-            >
-              <option value="">Select Event Type</option>
-              <option value="online">Online</option>
-              <option value="physical">Physical</option>
-            </select>
+            />
           </div>
 
-          {formData.eventType === 'online' && (
-            <div className="mt-4">
-              <label htmlFor="url" className="block text-sm  font-medium text-gray-700 mb-1">URL</label>
-              <input
-                type="url"
-                id="url"
-                name="url"
-                value={formData.url}
-                onChange={handleChange}
-                placeholder="eg. https://meet.google.com/xyz"
-                className="w-full border border-gray-300 h-[52px] pl-2 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-          )}
 
-          {formData.eventType === 'physical' && (
-            <div className="max-w-[1032px] mt-[32px] rounded-[12px] border-[0.8px] p-[40px] gap-[20px]">
-              <div className="font-bold leading-[27px] text-[18px]">
-                <h5>Venue Information</h5>
-              </div>
+          <div className="flex-none  md:flex md:gap-x-[16px] justify-between  mt-4  w-full h-auto">
 
-              <div className="grid grid-cols-1  md:grid-cols-2 gap-4">
-                {/* Country Dropdown */}
-                <div>
-                  <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">
-                    Country
-                  </label>
-                  <select
-                    id="country"
-                    name="country"
-                    className="w-full border h-[52px] border-gray-300 rounded-md  shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    value={selectedCountry}
-                    onChange={handleCountryChange}
-                  >
-                    <option className="" value="">Select Country</option>
-                    {countries.map((country) => (
-                      <option key={country.geonameId} value={country.geonameId}> {/* Use country.id as unique key */}
-                        {country.countryName}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* State Dropdown */}
-                <div>
-                  <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">
-                    State
-                  </label>
-                  <select
-                    id="state"
-                    name="state"
-                    className="w-full border h-[52px] border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    value={selectedState}
-                    onChange={handleStateChange}
-                    disabled={states.length === 0} // Disable if no states available
-                  >
-                    <option value="">Select State</option>
-                    {states.length > 0 ? (
-                      states.map((state) => (
-                        <option key={state.geonameId} value={state.geonameId}> {/* Use state.id as unique key */}
-                          {state.stateName}
-                        </option>
-                      ))
-                    ) : (
-                      <option>No states available</option>
-                    )}
-                  </select>
-                </div>
-
-                {/* City Dropdown */}
-                <div>
-                  <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
-                    City
-                  </label>
-                  <select
-                    id="city"
-                    name="city"
-                    className="w-full border h-[52px] border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    disabled={cities.length === 0} // Disable if no cities available
-                    value={selectedCity}
-                    onChange={handleCityChange}
-                  >
-                    <option value="">Select City</option>
-                    {cities.length > 0 ? (
-                      cities.map((city) => (
-                        <option key={city.geonameId} value={city.geonameId}> {/* Use city.id if available */}
-                          {city.cityName}
-                        </option>
-                      ))
-                    ) : (
-                      <option>No cities available</option>
-                    )}
-                  </select>
-                </div>
-
-
-              </div>
-
-
-              {/* Address Dropdown */}
-              <div className="mt-3">
-                <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
-                  Address
-                </label>
-                <input type="text"
-                  id="eventVenue"
-                  name="eventVenue"
-                  placeholder="address"
-                  className="w-full border h-[52px] pl-2 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                  value={formData.eventVenue}
+            {/* Event type section */}
+            <div className="w-full h-auto">
+              <div className="h-[78px] ">
+                <label htmlFor="eventType" className="block text-sm font-medium text-gray-700 mb-1">Event Type</label>
+                <select
+                  id="eventType"
+                  name="eventType"
+                  className="w-full border h-[52px] border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={formData.eventType}
                   onChange={handleChange}
-                />
-
-
+                >
+                  <option disabled value="">Select Event Type</option>
+                  <option value="online">Online</option>
+                  <option value="physical">Physical</option>
+                </select>
               </div>
+
+
+
+
+
+              {formData.eventType === 'online' && (
+                <div className="mt-4">
+                  <label htmlFor="url" className="block text-sm  font-medium text-gray-700 mb-1">URL</label>
+                  <input
+                    type="url"
+                    id="url"
+                    name="url"
+                    value={formData.url}
+                    onChange={handleChange}
+                    placeholder="eg. https://meet.google.com/xyz"
+                    className="w-full border border-gray-300 h-[52px] pl-2 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+              )}
+
+              {formData.eventType === 'physical' && (
+                <div className="max-w-[1032px] mt-[32px] rounded-[12px] border-[0.8px] p-[40px] gap-[20px]">
+                  <div className="font-bold leading-[27px] text-[18px]">
+                    <h5>Venue Information</h5>
+                  </div>
+
+                  <div className="grid grid-cols-1  md:grid-cols-2 gap-4">
+                    {/* Country Dropdown */}
+                    <div>
+                      <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">
+                        Country
+                      </label>
+                      <select
+                        id="country"
+                        name="country"
+                        className="w-full border h-[52px] border-gray-300 rounded-md  shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        value={selectedCountry}
+                        onChange={handleCountryChange}
+                      >
+                        <option className="" value="">Select Country</option>
+                        {countries.map((country) => (
+                          <option key={country.geonameId} value={country.geonameId}> {/* Use country.id as unique key */}
+                            {country.countryName}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* State Dropdown */}
+                    <div>
+                      <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">
+                        State
+                      </label>
+                      <select
+                        id="state"
+                        name="state"
+                        className="w-full border h-[52px] border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        value={selectedState}
+                        onChange={handleStateChange}
+                        disabled={states.length === 0} // Disable if no states available
+                      >
+                        <option value="">Select State</option>
+                        {states.length > 0 ? (
+                          states.map((state) => (
+                            <option key={state.geonameId} value={state.geonameId}> {/* Use state.id as unique key */}
+                              {state.stateName}
+                            </option>
+                          ))
+                        ) : (
+                          <option>No states available</option>
+                        )}
+                      </select>
+                    </div>
+
+                    {/* City Dropdown */}
+                    <div>
+                      <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
+                        City
+                      </label>
+                      <select
+                        id="city"
+                        name="city"
+                        className="w-full border h-[52px] border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        disabled={cities.length === 0} // Disable if no cities available
+                        value={selectedCity}
+                        onChange={handleCityChange}
+                      >
+                        <option value="">Select City</option>
+                        {cities.length > 0 ? (
+                          cities.map((city) => (
+                            <option key={city.geonameId} value={city.geonameId}> {/* Use city.id if available */}
+                              {city.cityName}
+                            </option>
+                          ))
+                        ) : (
+                          <option>No cities available</option>
+                        )}
+                      </select>
+                    </div>
+
+
+                  </div>
+
+
+                  {/* Address Dropdown */}
+                  <div className="mt-3">
+                    <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
+                      Address
+                    </label>
+                    <input type="text"
+                      id="eventVenue"
+                      name="eventVenue"
+                      placeholder="address"
+                      className="w-full border h-[52px] pl-2 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                      value={formData.eventVenue}
+                      onChange={handleChange}
+                    />
+
+
+                  </div>
+                </div>
+              )}
             </div>
-          )}
+
+            {/* Event Category section */}
+
+            <div className=" w-full   ">
+              <label htmlFor="eventCategory" className="block text-sm font-medium text-gray-700 mb-1">Event Category</label>
+              <select
+                id="eventCategory"
+                placeholder=""
+                name="eventCategory"
+                className="w-full border h-[52px] border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                value={formData.eventCategory}
+                onChange={handleChange}
+              >
+                <option disabled value="">Select Category</option>
+                <option value="Premium">Premium</option>
+                <option value="Education">Education</option>
+                <option value="Attractions">Attractions</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Sports">Sports</option>
+              </select>
+            </div>
 
 
 
-
+          </div>
 
 
 
@@ -718,50 +763,60 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
           </div>
 
           <div class="">
+
             <h2 class="text-lg font-semibold mb-4">Event Time</h2>
 
             {/* <!-- Starts Section --> */}
-            <div class="grid grid-cols-1 gap-2 lg:grid-cols-2 justify-between">
+            <div className="text-sm font-medium w-full flex justify-between mb-2">
+              <h3 >Starts</h3>
+              <h3 >End</h3>
+            </div>
+            <div class="grid items-center grid-cols-1 gap-6 lg:grid-cols-2 border-red-950 justify-between">
+
+
+
+              {/* <div className="w-full justify-between flex gap-x-[176px] min-h-[74px] "> */}
+              <div class="flex  w-full border rounded-md shadow-sm px-2 box-content border-900 bg-[#F4F4F4]          items-center gap-2 place-items-center  h-[64px] ">
+                <div class="flex flex-col">
+                  <label class="text-xs  font-medium text-gray-600" for="start-time">Time</label>
+                  <input
+                    id="startTime"
+                    type="time"
+                    placeholder="hh:mm"
+                    class="border  rounded-md px-2 py-1 text-sm text-gray-800  focus:outline-none focus:ring focus:ring-indigo-200"
+                  />
+                </div>
+                <div class="flex  flex-col">
+                  <ul className="flex gap-4 items-center">
+                     <ol><label class="text-xs font-medium text-gray-600" for="start-clock">Clock</label></ol>
+                    <ol><img src={questionmark} alt="" /></ol>
+                  </ul>
+
+                  <select
+                    id="startClock"
+                    class="border rounded-md  px-2 py-1 lg:max-w-[9vw] text-sm text-gray-800 focus:outline-none focus:ring focus:ring-indigo-200"
+                 
+                 >
+                    <option>AM</option>
+                    <option>PM</option>
+                  </select>
+                </div>
+                <div class="flex flex-col">
+                  <label class="text-xs font-medium text-gray-600" for="start-timezone">Timezone</label>
+                  <select
+                    id="startTimezone"
+                    class="border rounded-md px-2 py-1 text-sm text-gray-800 w-36 focus:outline-none focus:ring focus:ring-indigo-200"
+                  >
+                    <option>Eastern time (ET)</option>
+                    <option>Central time (CT)</option>
+                    <option>Pacific time (PT)</option>
+                  </select>
+                </div>
+              </div>
+              {/* </div> */}
+
 
               {/* <div >
-      <h3 class="text-sm font-medium mb-2">Starts</h3>
-      <div className=" ">
-      <div class="flex items-center gap-2 border bg-[#F4F4F4] rounded-md mt-9  shadow-sm">
-        <div class="flex flex-col">
-          <label class="text-xs font-medium text-gray-600" for="start-time">Time</label>
-          <input
-            id="start-time"
-            type="text"
-            placeholder="hh:mm"
-            class="border rounded-md px-2 py-1 text-sm text-gray-800 w-20 focus:outline-none focus:ring focus:ring-indigo-200"
-          />
-        </div>
-        <div class="flex  flex-col">
-          <label class="text-xs font-medium text-gray-600" for="start-clock">Clock</label>
-          <select
-            id="start-clock"
-            class="border rounded-md px-2 py-1 text-sm text-gray-800 w-20 focus:outline-none focus:ring focus:ring-indigo-200"
-          >
-            <option>AM</option>
-            <option>PM</option>
-          </select>
-        </div>
-        <div class="flex flex-col">
-          <label class="text-xs font-medium text-gray-600" for="start-timezone">Timezone</label>
-          <select
-            id="start-timezone"
-            class="border rounded-md px-2 py-1 text-sm text-gray-800 w-36 focus:outline-none focus:ring focus:ring-indigo-200"
-          >
-            <option>Eastern time (ET)</option>
-            <option>Central time (CT)</option>
-            <option>Pacific time (PT)</option>
-          </select>
-        </div>
-      </div>
-      </div>
-    </div> */}
-
-              <div >
                 <h3 class="text-sm font-medium mb-2">Starts</h3>
                 <div>
                   <div className="pt-3 border rounded-md shadow-sm px-2 border-900 bg-[#F4F4F4]">
@@ -783,11 +838,11 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
 
 
                         />
-                      </div>
+                      </div> */}
 
 
 
-                      {/* <div class="flex border-r-[1px]  gap-y-2 border-l-[1px]  border-t-0 border-b-0 border h-[64px] w-[100px] items-center   flex-col">
+              {/* <div class="flex border-r-[1px]  gap-y-2 border-l-[1px]  border-t-0 border-b-0 border h-[64px] w-[100px] items-center   flex-col">
         <div className="flex place-content-center w-[100px] "> <ol> <label class="text-xs flex w-[56px]  font-medium text-gray-600" for="start-clock">
             
             Clock
@@ -805,7 +860,7 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
 
 
 
-                      {/* <div class="flex w-full flex-col">
+              {/* <div class="flex w-full flex-col">
           <label class="text-xs font-medium pl-2 text-gray-600" for="start-timezone">Timezone</label>
           <select
             id="start-timezone"
@@ -817,70 +872,71 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
             <option>Pacific time (PT)</option>
           </select>
         </div> */}
-                    </div>
+              {/* </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
 
               {/* <!-- Ends Section --> */}
-              <div >
-                <h3 class="text-sm font-medium mb-2">Ends</h3>
-                <div>
-                  <div className="pt-3 border rounded-md shadow-sm px-2 box-content border-900 bg-[#F4F4F4]">
-                    <div class="flex items-center gap-2 place-items-center  h-[64px] ">
 
 
 
-                      <div class="flex h-[64px] w-[100px]  flex-col">
-                        <label class="text-xs font-medium  text-gray-600" for="end-time">Time</label>
-                        <input
-                          name="endTime"
-                          id="endTime"
-                          type="time"
-                          placeholder="hh:mm"
-                          value={formData.endTime}
-                          onChange={handleChange}
-                          class="border rounded-md  py-1 text-sm text-gray-800 w-20 focus:outline-none focus:ring focus:ring-indigo-200"
-                        />
-                      </div>
+              {/* <div className="pt-3 w-full border rounded-md shadow-sm px-2 box-content border-900 bg-[#F4F4F4]"> */}
+              <div class="flex  w-full border rounded-md shadow-sm px-2 box-content border-900 bg-[#F4F4F4]          items-center gap-2 place-items-center  h-[64px] ">
 
 
 
-                      {/* <div class="flex border-r-[1px]  gap-y-2 border-l-[1px]  border-t-0 border-b-0 border h-[64px] w-[100px] items-center   flex-col">
-        <div className="flex place-content-center w-[100px] "> <ol> <label class="text-xs flex w-[56px]  font-medium text-gray-600" for="end-clock">
-            
-            Clock
-          
-       </label></ol> 
-       <ol>   <img src={questionmark} alt="" /></ol></div>
-          <select
-            id="end-clock"
-            class="border rounded-md px-2 py-1 text-sm text-gray-800 w-20 focus:outline-none focus:ring focus:ring-indigo-200"
-          >
-            <option>AM</option>
-            <option>PM</option>
-          </select>
-        </div> */}
+                <div class="flex h-[64px] w-[100px]  flex-col">
+                  <label class="text-xs font-medium  text-gray-600" for="end-time">Time</label>
+                  <input
+                    name="endTime"
+                    id="endTime"
+                    type="time"
+                    placeholder="hh:mm"
+                    value={formData.endTime}
+                    onChange={handleChange}
+                    class="border rounded-md  py-1 text-sm text-gray-800 w-20 focus:outline-none focus:ring focus:ring-indigo-200"
+                  />
+                </div>
 
 
 
-                      {/* <div class="flex  flex-col">
-          <label class="text-xs font-medium pl-2 text-gray-600" for="end-timezone">Timezone</label>
-          <select
-            id="end-timezone"
-            class="border rounded-md mt-2 px-2 py-1 lg:max-w-[9vw] text-sm text-gray-800 focus:outline-none focus:ring focus:ring-indigo-200"
-          >
-            <option>Eastern time (ET)</option>
-            <option>Central time (CT)</option>
-            <option>Pacific time (PT)</option>
-          </select>
-        </div> */}
-                    </div>
-                  </div>
+                <div class="flex border-r-[1px]  gap-y-2 border-l-[1px]  border-t-0 border-b-0 border h-[64px] w-[100px] items-center   flex-col">
+                  <div className="flex place-content-center w-[100px] ">
+                    <ol> <label class="text-xs flex w-[56px]  font-medium text-gray-600" for="end-clock">
+
+                      Clock
+
+                    </label></ol>
+                    <ol>   <img src={questionmark} alt="" /></ol></div>
+                  <select
+                    id="endClock"
+                    class="border rounded-md px-2 py-1 text-sm text-gray-800 w-20 focus:outline-none focus:ring focus:ring-indigo-200"
+                  >
+                    <option>AM</option>
+                    <option>PM</option>
+                  </select>
+                </div>
+
+
+
+                <div class="flex  flex-col">
+                  <label class="text-xs font-medium pl-2 text-gray-600" for="end-timezone">Timezone</label>
+                  <select
+                    id="endTimezone"
+                    class="border rounded-md mt-2 px-2 py-1 lg:max-w-[9vw] text-sm text-gray-800 focus:outline-none focus:ring focus:ring-indigo-200"
+                  >
+                    <option>Eastern time (ET)</option>
+                    <option>Central time (CT)</option>
+                    <option>Pacific time (PT)</option>
+                  </select>
                 </div>
               </div>
             </div>
+
+
+            {/* </div> */}
           </div>
 
 
@@ -916,14 +972,59 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
           {/* <div className="max-w-full mt-[32px] mb-[60px] mx-[10px] text-center rounded-[8px] px-[32px] py-[16px] text-white text-[20px] items-center  bg-customSkyblue"><button className="">Proceed</button></div> */}
 
           {/* Ticket type container */}
-          <div id="tickeType" className="ticketTypes w-full">
+
+
+          <div className="w-full h-[197px] rounded-[12px] mt-[24px] border-[1px] border-[#75757580] pt-[36px] pr-[40px] pl-[40px] pb-[36px] font-Lato leading-[150%">
+            <div className=" flex flex-col gap-[24px]">
+              <h5 className="w-[976px] font-[700px] text-[18px] ">Social Details</h5>
+              <div className="flex gap-[12px]">
+                <div className="w-full" >
+
+
+                  <label htmlFor="facebook" className="w-[482px] h-[16px] pr-[8px] pl-[8px]">
+                    Facebook
+                  </label>
+                  <input type="text"
+                    id="facebook"
+                    name="facebook"
+                    placeholder="Facebook"
+                    className="w-full border h-[52px] pl-2 border-[#BEBEBE] rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    value={formData.facebook}
+                    onChange={handleChange}
+                  />
+
+                </div>
+                <div className="w-full">
+                  <label htmlFor="instagram" className="w-[482px] h-[16px] pr-[8px] pl-[8px]">
+                    Instagram
+                  </label>
+                  <input type="text"
+                    id="instagram"
+                    name="instagram"
+                    placeholder="Instagram"
+                    className="w-full border h-[52px] pl-2 border-[#BEBEBE] rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    value={formData.Instagram}
+                    onChange={handleChange}
+                  />
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+
+
+
+          <div id="tickeType" className="flex  ticketTypes   items-end w-full">
 
             <button
               type="button"
-              className="w-full h-[56px] py-3 mt-4 bg-customSkyblue text-white font-semibold rounded-[8px]"
+              className="ml-auto transition-all ease-out duration-300 hover:scale-105 w-[92px] right-0 h-[48px] py-3 mt-4 bg-customSkyblue text-white font-semibold rounded-[8px]"
               onClick={handleProceed}
             >
-              Proceed</button>
+              Next</button>
 
           </div>
 

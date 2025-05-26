@@ -12,7 +12,7 @@ import questionIcon from "../../../assets/questionIcon.svg";
 import discountIcon from "../../../assets/discountIcon.svg";
 import pencilBlue from "../../../assets/pencilBlue.svg";
 import Details from './Details';
-import Ticketing from './Ticketing';
+import TicketConfiguration from "./Ticketing";
 
 const CreateEvent = () => {
 
@@ -48,18 +48,18 @@ const CreateEvent = () => {
                 activeTab === "details" ? "bg-customSkyblue text-white mx-auto"  : ""
               }`}
             >
-              <h6 className="pt-[4px] text-center font-bold w-[51px] h-[16px]">Details</h6>
+              <h6 className="pt-[4px] text-center font-bold w-[502px] h-[16px]">Details</h6>
             </div>
         
         
             <div
-              id="ticketing"
-              onClick={() => setActiveTab("ticketing")}
+              id="ticketConfiguration"
+              onClick={() => setActiveTab("ticketConfiguration")}
               className={`w-[508px] h-[40px] place-items-center rounded-[8px]  cursor-pointer ${
-                activeTab === "ticketing" ? "bg-customSkyblue text-white" : ""
+                activeTab === "ticketConfiguration" ? "bg-customSkyblue text-white" : ""
               }`}
             >
-              <h6 className="pt-[4px] font-bold w-[51px] h-[16px]">Ticketing</h6>
+              <h6 className="pt-[4px] text-center font-bold w-[502px] h-[16px]">Ticket configuration</h6>
             </div>
           </div>
         </div>
@@ -68,7 +68,7 @@ const CreateEvent = () => {
 
         {/* Render the active tab's content */}
         {activeTab === "details" && <Details setActiveTab={setActiveTab}/>}
-        {activeTab === "ticketing" && <Ticketing />}
+        {activeTab === "ticketConfiguration" && <TicketConfiguration />}
       </div>
     </section>
   );

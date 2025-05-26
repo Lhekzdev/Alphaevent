@@ -1,35 +1,11 @@
-import React from "react";
+import React from 'react'
 
-const Section2a = () => {
+const EventWeek = () => {
   return (
-    <>
-      <section className="flex flex-wrap gap-5 font-lato px-4 py-3">
-        {/* Sales Performance */}
-        <div className=" bg-white w-[498px] h-[392px] rounded-[12px] px-[28px] py-[28px]  shadow-sm">
-          <p className="text-[20px] text-[#000000]">Sales Performance</p>
-          <div>
-            <img
-              src={
-                "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747834771/BarLineChart_xdotxg.png"
-              }
-              alt="Sales Chart"
-            />
-          </div>
-        </div>
-
-        {/* Upcoming Event */}
-        <div className=" bg-white w-[498px] h-[392px] rounded-[12px] px-[28px] py-[28px]  shadow-sm">
-          {/* up container */}
-          <div className="flex gap-[250px] mb-[34px] border-b-[1px] border-b-[#ABABAB]">
-            <p className="text-[20px] text-[#000000] mb-[8px]">Upcoming Event</p>
-            <img
-              src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747835248/Menu_Vertical_k3jkky.png"
-              className="w-[40px] h-[40px] mb-[8px]"
-              alt="Menu Icon"
-            />
-          </div>
-
-              <div className="eventContainer flex gap-[85px]">
+   <>
+   <section>
+    <div>
+    <div className="eventContainer flex gap-[130px]">
               <div className="events">
                 {/* firist Row */}
           <div className="mainContainer">
@@ -68,18 +44,12 @@ const Section2a = () => {
                     />
                     <p className="text-[#ABABAB] text-[16px]">Time</p>
                   </div>
-                  <div className="flex gap-[12px] items-center">
-                    <img
-                      src={
-                        "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_location_ayfnzy.svg"
-                      }
-                      className="w-[20px] h-[20px]"
-                      alt=""
-                    />
-                    <p className="text-[#ABABAB] text-[16px]">Location</p>
-                  </div>
+        
                 </div>
               </div>
+                   {/* <div>
+                    <p>jjkkkkkk</p>
+                </div> */}
             </div>
           </div>
 
@@ -120,16 +90,7 @@ const Section2a = () => {
                     />
                     <p className="text-[#ABABAB] text-[16px]">Time</p>
                   </div>
-                  <div className="flex gap-[12px] items-center">
-                    <img
-                      src={
-                        "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_location_ayfnzy.svg"
-                      }
-                      className="w-[20px] h-[20px]"
-                      alt=""
-                    />
-                    <p className="text-[#ABABAB] text-[16px]">Location</p>
-                  </div>
+                 
                 </div>
               </div>
             </div>
@@ -172,27 +133,19 @@ const Section2a = () => {
                     />
                     <p className="text-[#ABABAB] text-[16px]">Time</p>
                   </div>
-                  <div className="flex gap-[12px] items-center">
-                    <img
-                      src={
-                        "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_location_ayfnzy.svg"
-                      }
-                      className="w-[20px] h-[20px]"
-                      alt=""
-                    />
-                    <p className="text-[#ABABAB] text-[16px]">Location</p>
-                  </div>
+                  
                 </div>
               </div>
             </div>
           </div>
-        </div>       
-          <img src={"https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747839932/Slider_c6mexo.png"} alt="" />
-          </div>
-        </div>
-      </section>
-    </>
-  );
-};
+        </div>     
+        {/* vertical scroll ba   */}
+          {/* <img src={"https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747839932/Slider_c6mexo.png"} alt="" /> */}
+          </div> 
+    </div>
+   </section>
+   </>
+  )
+}
 
-export default Section2a;
+export default EventWeek

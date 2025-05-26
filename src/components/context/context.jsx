@@ -7,6 +7,7 @@ export const EventFormProvider = ({ children }) => {
   const [formData, setFormData] = useState({
     eventTitle: "",
     eventDesc: "",
+    eventTags:"",
     eventType: "",
     eventCountry: "",
     eventState: "",
@@ -52,6 +53,7 @@ if (!uploadedImage) {
 
   SubmitFormData.append("eventImgURL", formData.eventImgURL || "");
   SubmitFormData.append("eventTitle", formData.eventTitle || "");
+  SubmitFormData.append("eventTags", formData.eventTags || "");
   SubmitFormData.append("eventType", formData.eventType || "");
   SubmitFormData.append("eventDesc", formData.eventDesc || "");
   SubmitFormData.append("tickeType", formData.tickeType || "");
@@ -92,6 +94,7 @@ SubmitFormData.append("eventEnd", formData.endDate.toISOString());
     setFormData({
       eventTitle: "",
       eventDesc: "",
+      eventTags:"",
       eventType: "",
       tickeType: "",
       eventCountry: "",
