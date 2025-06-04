@@ -154,20 +154,20 @@ const eventTypeThree = () => {
 {/* Content */}
 <div className=' flex flex-col w-full h[99px] gap-y-[16px]'>
   <ul className='flex w-[254px] items-center gap-[8px]'>
-    <li><img className='w-[12px] h-[12px]' src="../../../../public/calender.svg" alt="Calendar" /></li>
+    <li><img className='w-[12px] h-[12px]' src="/calender.svg" alt="Calendar" /></li>
     <li>{`${formData.startDate ? new Date(formData.startDate).toLocaleDateString() : 'N/A'} - `}</li>
     <li>{`${formData.endDate ? new Date(formData.endDate).toLocaleDateString() : 'N/A'}  `}</li>
     
     </ul>
   <ul className='gap-[8px] flex items-center'>
-    <li><img className='w-[12px] h-[12px]' src="../../../../public/clock.svg" alt="Clock" /></li>
+    <li><img className='w-[12px] h-[12px]' src="/clock.svg" alt="Clock" /></li>
     <li>{`${formData.startTime}  ${formData.startClock} ${formData.startTimezone } `} - {`${formData.endTime}  ${formData.endClock} ${formData.endTimezone } `}</li>
   </ul>
 
 
   
   <ul className='flex items-center'>
-    <li><img className='w-[12px] h-[12px]' src="../../../../public/quantity.svg" alt="quantity" /></li>
+    <li><img className='w-[12px] h-[12px]' src="/quantity.svg" alt="quantity" /></li>
     {formData.tickets.map(
       (ticket,index)=>(
 <li key ={index}>
@@ -196,7 +196,7 @@ const eventTypeThree = () => {
 </div>
 
   <ul className='flex gap-[8px]'>
-    <li><img className='w-[12px] h-[12px]' src="../../../../public/location.svg" alt="Icon / map" />
+    <li><img className='w-[12px] h-[12px]' src="/location.svg" alt="Icon / map" />
     </li>
   <li className=' w-[840px]  border-white border-2'>
 <ul className='flex bg-slate-300 justify-between px-4 py-1'>
@@ -237,7 +237,7 @@ const eventTypeThree = () => {
 <div className='w-full h-[52px] flex  gap-[10px] place-content-end '>
 <button type='button' onClick={() => navigate("/createEvent")} className='flex rounded-[8px] justify-center items-center gap-[20px]  text-[20px] text-center text-[#2D6CCF] w-[188px] border-[#2D6CCF] border-[1px]' >
   <h4>Edit Event</h4> 
-  <img src="../../../../public/editevent.svg" alt="edit event" />
+  <img src="/editevent.svg" alt="edit event" />
 </button>
 
 <button type='submit' onClick={async (e) => {
