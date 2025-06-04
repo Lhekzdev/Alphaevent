@@ -71,11 +71,11 @@ const Onboardingleft = () => {
       {/* dashboard with icons section */}
       <div className="flex lg:fixed flex-col  gap-y-[20px] md:gap-y-[40px] h-[952px] font-Lato md:text-white">
         <ol className=" w-[258px]">
-          <Link to="/"> <img
+           <img
             className="pt-[12px] w-[112px] px-[24px] h-[24px]"
             src={"https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747615311/ALVENT_1_omcg0v.png"}
             alt="alvent-logo"
-          /></Link>
+          />
         </ol>
 
         <ol className="gap-y-[59px] md:gap-y-[80px] font-bold text-[20px] font-Lato flex flex-col">
