@@ -137,7 +137,7 @@ const eventTypeThree = () => {
   }, [formData.eventCountry , formData.eventState, formData.eventCity]);
 
   return (
-<section className=' pt-12 mx-auto w-[929px] font-Lato h-auto bg-[#F8F9FC] p-[40px] flex flex-col gap-y-[20px]'>
+<section className=' pt-12 mx-auto md:w-[929px] font-Lato h-auto bg-[#F8F9FC] p-[40px] flex flex-col gap-y-[20px]'>
 
 
 <div className='font-bold text-[20px] items-center' >
