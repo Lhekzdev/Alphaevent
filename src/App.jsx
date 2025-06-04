@@ -33,15 +33,29 @@ import ReviewEvent from "./components/dashboard/createEvent/ReviewEvent.jsx";
 import "./App.css";
 import Applayout from "./components/Landingcont/layout/Applayout.jsx";
 
+
+  const Spinner =()=> {
+  return (
+    <div className="flex justify-center items-center h-screen bg-white">
+      <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid border-r-transparent"></div>
+    </div>
+  );
+}
+
 function App() {
+
+
+
+
 
   return (
     <>
       <Suspense
         fallback={
-          <div className="font-poppins text-center text-4xl font-semibold text-red-600">
-            Please wait...
-          </div>
+          Spinner()
+          // <div className="font-poppins text-center text-4xl font-semibold text-red-600">
+          //   Please wait...
+          // </div>
         }
       >
 
