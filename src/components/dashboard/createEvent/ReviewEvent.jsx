@@ -183,9 +183,9 @@ const eventTypeThree = () => {
 </div>
 
 {/* Description */}
-<div className='w-[840px] h-auto flex flex-col border-b-[1px] border-red-800 border-y-[#ABABAB] gap-[20px]'>
-<h3 className="text-[24px] text-bold">Description</h3>
-<p className='text-[16px]  text-[#ABABAB] ' >{formData.eventDesc} </p>
+<div className='w-full  h-auto flex flex-col border-b-[1px] border-red-800 border-y-[#ABABAB] gap-y-[20px]'>
+<h3 className="text-[24px] font-bold">Description</h3>
+<p className='text-[16px] break-words md:w-[840px]  text-[#ABABAB] ' >{formData.eventDesc} </p>
 </div>
 
 {/* Tags */}
