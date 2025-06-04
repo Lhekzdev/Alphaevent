@@ -261,7 +261,8 @@ const images = [
                     <div className="text-red-500 text-[10px]">{errors.password}</div>
                   ) : null}
                 </div>
-<div  onClick={()=> redir('/OnboardEvent')} className="forget w-full flex items-end justify-end">
+                {/* onClick={()=> redir('/OnboardEvent')} */}
+<div   className="forget w-full flex items-end justify-end">
   
   <p className='text-[#FF6B6B] text-[12px] right-8 cursor-pointer' onClick={handleForgotPassword}>Forgot Password?</p>
 </div>
