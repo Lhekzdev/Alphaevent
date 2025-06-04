@@ -37,7 +37,7 @@ import Applayout from "./components/Landingcont/layout/Applayout.jsx";
   const Spinner =()=> {
   return (
     <div className="flex justify-center items-center h-screen bg-white">
-      <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid border-r-transparent"></div>
+      <div className="animate-spin rounded-full h-24 w-24 border-t-8 border-blue-500 border-solid border-r-transparent"></div>
     </div>
   );
 }
