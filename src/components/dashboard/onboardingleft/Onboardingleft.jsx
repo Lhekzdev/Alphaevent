@@ -61,7 +61,7 @@ const Onboardingleft = () => {
     activeLink === link ? whiteIcon : grayIcon;
 
   return (
-    <div className="   lg:w-[278px] h-auto  "> 
+    <div className="   lg:w-[278px] h-auto   "> 
      <div
 
       onMouseLeave={handleMouseLeave}
@@ -69,7 +69,7 @@ const Onboardingleft = () => {
         } absolute transition-all opacity-100 sm:duration-500 sm:ease-in-out top-20 md:top-0  md:flex md:relative pt-[24px] pr-[10px] pb-[151px] pl-[28px] bg-[#FFFFFF] z-10 w-[280px] h-[900px] hover:opacity-100 md:opacity-100`}
     >
       {/* dashboard with icons section */}
-      <div className="flex lg:fixed flex-col md:gap-y-[40px] font-Lato md:text-white">
+      <div className="flex lg:fixed flex-col  gap-y-[20px] md:gap-y-[40px] h-[952px] font-Lato md:text-white">
         <ol className=" w-[258px]">
           <Link to="/"> <img
             className="pt-[12px] w-[112px] px-[24px] h-[24px]"
