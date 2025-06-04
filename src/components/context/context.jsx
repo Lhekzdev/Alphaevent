@@ -33,8 +33,7 @@ export const EventFormProvider = ({ children }) => {
     startTimezone: null,
     endClock: null,
     endTimezone: null,
-    ticketPrice: "",
-    ticketType: "",
+  
     tickets: [{tickeType: '', PriceType: '', ticketPrice: '', quantity: ''}]
   });
 

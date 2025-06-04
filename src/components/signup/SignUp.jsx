@@ -145,7 +145,7 @@ export const SignUp = () => {
           </div>
 
           <div className="flex justify-center items-center gap-[10px] mb-4 rounded-[36px] w-full max-w-[250px] border-2 border-[#3A7BD5] mx-auto">
-            <a href='https://alphaeventappdevmode.onrender.com/auth/google'>{/*BACKEND TOUCH*/}
+            <a href='https://alphaeventappdevmode.onrender.com/auth/google'>{/* google Auth sign in*/}
               <button className="text-[#77abf5] py-2 px-4 flex items-center justify-center">
                 Sign in with Google
               </button>
