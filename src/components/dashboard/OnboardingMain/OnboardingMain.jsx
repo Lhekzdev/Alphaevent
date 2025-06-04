@@ -8,8 +8,8 @@ const OnboardingMain = () => {
     <>
     <section>
         <div className='flex' >
-          <div><Onboardingleft/></div>
-       <div className='w-full'><ProfileSearchBar />
+          <div className=''><Onboardingleft/></div>
+       <div className=''><ProfileSearchBar />
         <OnBoarding /></div> 
         </div>
     </section>

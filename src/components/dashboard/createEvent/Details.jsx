@@ -24,7 +24,7 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
     // ✅ validate or save details if needed
 
     // Go to Ticketing tab
-    setActiveTab("ticketing");
+    setActiveTab("ticketConfiguration");
   };
   let redir = useNavigate();
   // const [formData, setFormData] = useState({
@@ -328,6 +328,7 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
     SubmitFormData.append("tickeType", formData.tickeType || "");
     SubmitFormData.append("maximumAttendees", formData.maximumAttendees || "");
     SubmitFormData.append("eventVenue", formData.eventVenue || "");
+    SubmitFormData.append("facebook", formData.facebook || "");
     SubmitFormData.append("url", formData.url || "");
     // ✅ Correctly format event dates as ISO strings
     if (formData.startDate) {
@@ -410,7 +411,7 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
 
         {/* <div className="max-w-[1140px] pt-[48px] h-auto"> */}
         <div className='max-w-[1032px] mt-[32px] rounded-[12px] border-customLighterGray pt-[52px] pb-[40px] px-[40px] h-[335px]'>
-          <h4 className='font-bold text-[18px] mb-[16px]'>Event Ticket</h4>
+          <h4 className='font-bold text-[18px] mb-[16px]'>Event Ticket <span className="text-customRed">*</span> </h4>
           <div className='items-center text-center max-w-[952px] h-[200px] rounded-[12px] border-[0.8px] mx-auto flex justify-center'>
             <div
               className='w-[284px] h-[107px] relative flex items-center justify-center cursor-pointer'
@@ -445,7 +446,7 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
 
         {/* Third section */}
         <div className="max-w-[1032px] mt-[24px] min-h-[750px]  border-[0.8px] rounded-[12px] px-[40px] py-[40px]">
-          <h2 className="font-semibold text-lg mb-4">Basic Information</h2>
+          <h2 className="font-semibold text-lg mb-4">Basic Information<span className="text-customRed">*</span></h2>
 
 
 
@@ -483,7 +484,7 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
           <div>
             <label htmlFor="maximumattedees" className="block  font-medium mb-2">Event capacity</label>
             <input
-              type="text"
+              type="number"
               id="maximumAttendees" name="maximumAttendees"
               placeholder="e.g, 2000"
               className="w-full   focus:ring-2 border-customLighterGray h-[52px] border rounded-[12px] px-[20px]  focus:outline-none  focus:ring-blue-500  placeholder:text-[16px] "
@@ -776,27 +777,34 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
 
 
               {/* <div className="w-full justify-between flex gap-x-[176px] min-h-[74px] "> */}
-              <div class="flex  w-full border rounded-md shadow-sm px-2 box-content border-900 bg-[#F4F4F4]          items-center gap-2 place-items-center  h-[64px] ">
-                <div class="flex flex-col">
-                  <label class="text-xs  font-medium text-gray-600" for="start-time">Time</label>
+              <div class="flex  w-full border rounded-md shadow-sm px-2 box-content border-900 bg-[#F4F4F4] gap-2 place-items-center  h-[64px] ">
+                <div class="flex  flex-col">
+                  <label class="text-xs text- font-medium text-gray-600" for="startTime">Time</label>
                   <input
+                  name="startTime"
                     id="startTime"
                     type="time"
                     placeholder="hh:mm"
                     class="border  rounded-md px-2 py-1 text-sm text-gray-800  focus:outline-none focus:ring focus:ring-indigo-200"
+                    value={formData.startTime}
+                    onChange={handleChange}
                   />
                 </div>
+
+
                 <div class="flex  flex-col">
                   <ul className="flex gap-4 items-center">
-                     <ol><label class="text-xs font-medium text-gray-600" for="start-clock">Clock</label></ol>
+                    <ol><label class="text-xs font-medium text-gray-600" for="start-clock">Clock</label></ol>
                     <ol><img src={questionmark} alt="" /></ol>
                   </ul>
 
                   <select
+                    name="startClock"
                     id="startClock"
-                    class="border rounded-md  px-2 py-1 lg:max-w-[9vw] text-sm text-gray-800 focus:outline-none focus:ring focus:ring-indigo-200"
-                 
-                 >
+                    class="border rounded-md   lg:max-w-[9vw] text-sm text-gray-800 focus:outline-none focus:ring focus:ring-indigo-200"
+                    value={formData.startClock}
+                    onChange={handleChange}
+                  >
                     <option>AM</option>
                     <option>PM</option>
                   </select>
@@ -804,8 +812,11 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
                 <div class="flex flex-col">
                   <label class="text-xs font-medium text-gray-600" for="start-timezone">Timezone</label>
                   <select
+                  name="startTimezone"
                     id="startTimezone"
                     class="border rounded-md px-2 py-1 text-sm text-gray-800 w-36 focus:outline-none focus:ring focus:ring-indigo-200"
+                   value={formData.startTimezone}
+                    onChange={handleChange}
                   >
                     <option>Eastern time (ET)</option>
                     <option>Central time (CT)</option>
@@ -814,6 +825,9 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
                 </div>
               </div>
               {/* </div> */}
+
+
+              
 
 
               {/* <div >
@@ -913,7 +927,12 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
                   <select
                     id="endClock"
                     class="border rounded-md px-2 py-1 text-sm text-gray-800 w-20 focus:outline-none focus:ring focus:ring-indigo-200"
-                  >
+              name="endClock"
+            value={formData.endClock}
+            onChange={handleChange}
+
+
+                 >
                     <option>AM</option>
                     <option>PM</option>
                   </select>
@@ -924,9 +943,12 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
                 <div class="flex  flex-col">
                   <label class="text-xs font-medium pl-2 text-gray-600" for="end-timezone">Timezone</label>
                   <select
+                  name="endTimezone"
                     id="endTimezone"
                     class="border rounded-md mt-2 px-2 py-1 lg:max-w-[9vw] text-sm text-gray-800 focus:outline-none focus:ring focus:ring-indigo-200"
-                  >
+                  value={formData.endTimezone}
+                    onChange={handleChange}
+                 >
                     <option>Eastern time (ET)</option>
                     <option>Central time (CT)</option>
                     <option>Pacific time (PT)</option>
@@ -1003,7 +1025,7 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
                     name="instagram"
                     placeholder="Instagram"
                     className="w-full border h-[52px] pl-2 border-[#BEBEBE] rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    value={formData.Instagram}
+                    value={formData.instagram}
                     onChange={handleChange}
                   />
                 </div>

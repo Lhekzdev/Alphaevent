@@ -9,56 +9,95 @@ import pencilBlue from "../../../assets/pencilBlue.svg";
 import { useEventForm } from "../../context/context";
 import { useNavigate } from "react-router-dom";
 
+import TicketingForm from "./ticketing/ticketingForm";
+import { Formik, Form, FieldArray } from 'formik';
+import * as Yup from 'yup';
+
+
+
+// Using Formik
 
 
 
 const TicketConfiguration = () => {
-const navigate = useNavigate()
+
+    // const [selected, setSelected] = useState('free')
+
+  const navigate = useNavigate()
   const fileInputRef = useRef(null);
   const ticketTypes1Ref = useRef(null);
   const ticketTypes2Ref = useRef(null);
 
   const {
     formData, setFormData,
-  
-    uploadedImage, userID ,// ✅ include uploadedImage here
-    selectedCountry,setSelectedCountry,
-    setSelectedState, selectedState,
-    selectedCity,setSelectedCity,file, setFile,imagePreview, setImagePreview, setUploadedImage, setUserID
-
-
   } = useEventForm();
 
+const tickets = formData.tickets || [];
+  // Define required fields
+  const requiredFields = formData.eventType === 'online'
+    ? ['eventType', 'eventTitle', 'startDate', 'endDate', 'url']
+    : ['eventType', 'eventTitle', 'startDate', 'endDate', 'eventCountry', 'eventState', 'eventCity', 'eventVenue'];
 
-// Define required fields
-const requiredFields = formData.eventType === 'online'
-  ? ['eventType', 'eventTitle', 'startDate', 'endDate', 'url']
-  : ['eventType', 'eventTitle', 'startDate', 'endDate', 'eventCountry', 'eventState', 'eventCity', 'eventVenue'];
+  // Log the required fields for debugging
+  console.log("Required Fields:", requiredFields);
 
-// Log the required fields for debugging
-console.log("Required Fields:", requiredFields);
-
-// ✅ Check if required fields are filled
-const isDataComplete = requiredFields.every(field => {
-  const value = formData[field];
-  console.log(`${field}: ${value}`); // Debugging: log each field value
-  return value !== null &&
-    value !== undefined &&
-    value.toString().trim() !== '';
-});
-
-
+  // ✅ Check if required fields are filled
+  const isDataComplete = requiredFields.every(field => {
+    const value = formData[field];
+    console.log(`${field}: ${value}`); // Debugging: log each field value
+    return value !== null &&
+      value !== undefined &&
+      value.toString().trim() !== '';
+  });
 
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-  
-  
+// Update ticket input (select, input, etc.)
+const handleChange = (index, e) => {
+  const updatedTickets = [...formData.tickets];
+  updatedTickets[index][e.target.name] = e.target.value;
+
+  setFormData((prev) => ({
+    ...prev,
+    tickets: updatedTickets,
+  }));
+};
+
+  const addTicket =()=>{
+    setFormData((prev)=>({
+...prev, 
+tickets : [
+  ...(prev.tickets || []),
+  { tickeType: '', PriceType: '', ticketPrice: '', quantity: '' },
+
+]
+    })
+
+    )
+  }
+
+// Remove a ticket
+const removeTicket = (index) => {
+  if (formData.tickets.length > 1) {
+    const updatedTickets = [...formData.tickets];
+    updatedTickets.splice(index, 1);
+    setFormData({ ...formData, tickets: updatedTickets });
+  } else {
+    alert("At least one ticket must be present.");
+  }
+};
+
+// Set selected price type (free/paid)
+const setSelected = (index, value) => {
+  const updatedTickets = [...formData.tickets];
+  updatedTickets[index].PriceType = value;
+
+  setFormData((prev) => ({
+    ...prev,
+    tickets: updatedTickets,
+  }));
+};
+
+
 
   const [showMessageBox1, setShowMessageBox1] = useState(false);
   const [showMessageBox2, setShowMessageBox2] = useState(false);
@@ -102,141 +141,76 @@ const isDataComplete = requiredFields.every(field => {
     }, 3000);
   };
 
+
+
+
+
+  // handle number change
+  const [value, setValue] = useState(0);
+  const increase = () => setValue(prev => prev + 1);
+  const decrease = () => setValue(prev => (prev > 0 ? prev - 1 : 0)); // prevent going below 0
+
+
+
+
+  return (
+    <section>
+      {/* Ticket type container  */}
+   
+   {formData.tickets.map((ticket, index) => (
+  <TicketingForm
+    key={index}
+    ticket={ticket}
+    index={index}
+    handleChange={handleChange}
+    setSelected={setSelected}
+    removeTicket={removeTicket}
+    selected={ticket.PriceType}
  
-
-  return (
-
-    <section className="flex w-full overflow-hidden mt-[28px]">
-{/* Ticket type container */}
-<div id="tickeType" className="ticketTypes w-full">
-
-  {/* Ticket Types 1 */}
-  <div
-    ref={ticketTypes1Ref}
-    className="ticketTypes1 border border-[#757575] rounded-[12px] w-full lg:w-[738px] px-[16px] py-[16px] mr-[45px]"
-  >
-    <div className="tickeType">
-      <p className="text-[18px] font-bold">Ticket type</p>
-      <div className="flex flex-col lg:flex-row gap-[10px] mt-[36px] w-full">
-        <div className="inputOption flex border border-[#3A7BD5] px-[10px] rounded-tl-[8px] rounded-tr-[8px] w-full lg:w-[352px]">
-          <select
-            name="tickeType"
-            id="tickeType"
-            className="text-[12px] font-normal w-full lg:w-[352px] focus:outline-none"
-            value={formData.tickeType}
-            onChange={handleChange}
-          >
-            <option value="selectEventType">
-              Select Ticket Type
-            </option>
-            {/* <option value="earlyBird">Early Bird</option> */}
-            <option value="vip">Vip</option>
-            <option value="others">Regular</option>
-          </select>
-        </div>
-        <div>
-          <img
-            src={delectIcon}
-            alt="Delete Icon"
-            className="deleteIcon1 cursor-pointer"
-            onClick={clearTicketTypes1Inputs}
-          />
-        </div>
-      </div>
-    </div>
-
-    <div className="flex flex-col lg:flex-row gap-[40px] mt-[120px]">
-      <fieldset>
-        <label
-          htmlFor="ticketPrice"
-          className="px-[8px] text-[16px] font-bold text-[#525252]"
-        >
-          Ticket Price
-        </label>
-        {/* <br /> */}
-        <input
-        id="ticketPrice"
-        name="ticketPrice"
-          type="text"
-          placeholder="0"
-          className="border border-[#BEBEBE] rounded-[12px] w-full lg:w-[217px] h-[52px] px-[20px] py-[18px]"
-          value={formData.ticketPrice}
-          onChange={handleChange}
-        
-      />
-      </fieldset>
-      {/* <fieldset>
-           <label
-             htmlFor="quantity"
-             className="px-[8px] text-[16px] font-bold text-[#525252]"
-           >
-             Quantity
-           </label>
-           <br />
-           <input
-             type="text"
-             placeholder="0"
-             className="border border-[#BEBEBE] rounded-[12px] w-full lg:w-[217px] h-[52px] px-[20px] py-[18px]"
-           />
-         </fieldset> */}
-    </div>
-
-
-    {/* Message Box 1 */}
-    {showMessageBox1 && (
-      <div className="messageBox1 bg-green-500 text-white p-4 rounded mt-4">
-        Ticket Type Added Successfully
-      </div>
-    )}
-
-    {/* <button
-       type="button"
-       onClick={handleAddTicketType}
-       className="bg-[#3A7BD5] text-[#FFFFFF] mt-[32px] w-full lg:w-[201px] px-[16px] py-[16px] text-center rounded-[8px]"
-     >
-       Add ticket type
-     </button> */}
-
-  </div>
+  />
+))}
+   
+   
 
 
 
-  {/* Message Box 2 */}
-  {showMessageBox2 && (
-    <div className="messageBox2 bg-green-500 text-white p-4 rounded mt-4">
-      You have Successfully Publish an Event
-    </div>
-  )}
 
-   <button
-       type="button"
-     
-       onClick={() => {
-        if (isDataComplete) {
-          navigate("/reviewEvent");
-       
+ 
+      <div className="flex flex-col float-end gap-y-[40px] mt-[20px]">
+        <button 
+        type="button"
+        onClick={addTicket}
+
+        className="text-center bg-[#008000]  rounded-[8px] h-[48px] w-[147px]" >
+          + Add Ticket
+        </button>
+
+        <button
+          type="button"
           
-        } else {
-          alert("Please complete all required fields before proceeding.");
-        }
-      }}
-      
-      
+
+          onClick={() => {
+            // if (isDataComplete) {
+              navigate("/reviewEvent");
+
+
+            // } else {
+            //   alert("Please complete all required fields before proceeding.");
+            // }
+          }}
+
+
+
+          className="bg-[#3A7BD5] text-[#FFFFFF]     text-center rounded-[8px] w-[121px]  h-[48px]"
+        >
+          Preview 
+        </button>
+
+
+      </div>
     
-       className="bg-[#3A7BD5] text-[#FFFFFF] mt-[32px] w-full lg:w-[700px] px-[16px] py-[16px] text-center rounded-[8px]"
-     >
-    Review Event
-     </button> 
-  {/* <button
-    type="submit"
-    className="w-full h-[56px] py-3 mt-4 bg-customSkyblue text-white font-semibold rounded-[8px]"
-    onClick={handleSubmit}
-  >
-    Proceed</button> */}
-
-</div>
+   
 </section>
-
   )
 };
 

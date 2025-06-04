@@ -61,14 +61,15 @@ const Onboardingleft = () => {
     activeLink === link ? whiteIcon : grayIcon;
 
   return (
-    <div className="flex">  <div
+    <div className=" w-[278px] h-[952px]  "> 
+     <div
 
       onMouseLeave={handleMouseLeave}
       className={`${isMenuOpen ? "block" : "hidden"
         } absolute transition-all opacity-100 sm:duration-500 sm:ease-in-out top-20 md:top-0  md:flex md:relative pt-[24px] pr-[10px] pb-[151px] pl-[28px] bg-[#FFFFFF] z-10 w-[280px] h-[900px] hover:opacity-100 md:opacity-100`}
     >
       {/* dashboard with icons section */}
-      <div className="flex flex-col md:gap-y-[40px] font-Lato  text-white">
+      <div className="flex  fixed flex-col md:gap-y-[40px] font-Lato  text-white">
         <ol className=" w-[258px]">
           <Link to="/"> <img
             className="pt-[12px] w-[112px] px-[24px] h-[24px]"
@@ -77,10 +78,12 @@ const Onboardingleft = () => {
           /></Link>
         </ol>
 
-        <ol className="gap-y-[59px] md:gap-y-[304px] font-bold text-[24px] font-Lato flex flex-col">
-          <ol className="flex font-bold text-[#757575] text-[24px] flex-col gap-y-[10px]">
-            <Link to="/OnboardingMain"><li
-              className={`flex items-center w-[228px] h-[60px] gap-[20px] rounded-[12px] pl-[24px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
+        <ol className="gap-y-[59px] md:gap-y-[80px] font-bold text-[20px] font-Lato flex flex-col">
+          <ol className="flex font-bold text-[#757575] h-[332px]  text-[20px] w-[258px] flex-col gap-y-[8px]">
+            {/* <Link to="/OnboardingMain"><li */}
+            <Link to="/OnboardEvent">
+            <li
+              className={`flex items-center   w-[228px] h-[45px] gap-[20px] rounded-[12px] pl-[24px] cursor-pointer transition-transform duration-300 hover:translate-x-2 hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
                 "Dashboard"
               )}`}
               onClick={() => handleClick("Dashboard")}
@@ -98,7 +101,7 @@ const Onboardingleft = () => {
 
 
             <Link to="/OnboardEvent"><li
-              className={`flex items-center rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
+              className={`flex items-center rounded-[12px] w-[228px] h-[45px] py-[16px] pr-[48px] pl-[24px] gap-[20px] cursor-pointer transition-transform duration-300 hover:translate-x-2 hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
                 "Event"
               )}`}
               onClick={() => handleClick("Event")}
@@ -115,7 +118,7 @@ const Onboardingleft = () => {
 
 
             <li
-              className={`items-center flex rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
+              className={`items-center flex rounded-[12px] w-[228px] h-[45px] py-[16px] pr-[48px] transition-transform duration-300 hover:translate-x-2 pl-[24px] gap-[20px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
                 "Report"
               )}`}
               onClick={() => handleClick("Report")}
@@ -129,13 +132,13 @@ const Onboardingleft = () => {
             </li>
 
 
-            <li className="flex hover:text-white items-center hover:bg-customSkyblue rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px]">
+            <li className="flex hover:text-white items-center transition-transform duration-300 hover:translate-x-2 hover:bg-[#3A7BD533] rounded-[12px] w-[228px] h-[45px] py-[16px] pr-[48px] pl-[24px] gap-[20px]">
               <img src={paymentIcon} alt="" />
               <h3>Payment</h3>
             </li>
 
             <li
-              className={`items-center flex rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
+              className={`items-center flex rounded-[12px] w-[228px] transition-transform duration-300 hover:translate-x-2 h-[45px] py-[16px] pr-[48px] pl-[24px] gap-[20px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
                 "Settings"
               )}`}
               onClick={() => handleClick("Settings")}
@@ -150,7 +153,7 @@ const Onboardingleft = () => {
             </li>
 
             <li
-              className={`items-center flex rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
+              className={`items-center flex transition-transform duration-300 hover:translate-x-2 rounded-[12px] t w-[228px] h-[45px] py-[16px] pr-[48px] pl-[24px] gap-[20px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
                 "Support"
               )}`}
               onClick={() => handleClick("Support")}
@@ -165,7 +168,7 @@ const Onboardingleft = () => {
             </li>
           </ol>
 
-          <ol className={`flex w-[238px] h-[60px] hover:text-white rounded-[12px]  pl-[15px] items-center gap-[10px]
+          <ol className={`flex w-[238px] h-[45px] hover:text-white transition-transform duration-300 hover:translate-x-2 rounded-[12px]  pl-[15px] items-center gap-[10px]
               ${linkStyle(
             "createEvent"
           )}`}
@@ -173,7 +176,7 @@ const Onboardingleft = () => {
           >
 
             
-            <Link to="/createEvent"> <button className="items-center   flex gap-[25px] cursor-pointer hover:text-white bg-[#3A7BD5] text-[#FFFFFF] w-[187px] h-[60px] rounded-[12px] py-[16px] px-[24px] text-[16px]"    >
+            <Link to="/createEvent"> <button className="items-center transition-transform duration-300 hover:translate-x-2  flex gap-[25px] cursor-pointer hover:text-white bg-[#3A7BD5] text-[#FFFFFF] w-[187px] h-[45px] rounded-[12px] py-[16px] px-[24px] text-[16px]"    >
 
         
               Create Event

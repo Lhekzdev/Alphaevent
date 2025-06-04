@@ -38,14 +38,14 @@ const Section2 = () => {
                 <td className="py-2 px-4 border-b">Event Name</td>
                 <td className="py-2 px-4 border-b">REGULAR  Pass</td>
                 <td className="py-2 px-4 border-b">February 12</td>
-                <td className="py-2 px-4 border-b text-[#2A8212] font-bold">Pending</td>
+                <td className="py-2 px-4 border-b text-[#FFB35C] font-bold">Pending</td>
               </tr>
               <tr className="hover:bg-gray-50 text-[14px] text-[#ABABAB]">
               <td className="py-2 px-4 border-b">Annabelle  </td>
                 <td className="py-2 px-4 border-b">Event Name</td>
                 <td className="py-2 px-4 border-b">EARLY BIRD  Pass</td>
                 <td className="py-2 px-4 border-b">January 25</td>
-                <td className="py-2 px-4 border-b text-[#2A8212] font-bold">Successful</td>
+                <td className="py-2 px-4 border-b text-[#FF0000] font-bold">Failed</td>
               </tr>
               
             </tbody>

@@ -1148,3 +1148,138 @@ export default CreateEvent
       </section>
     </>
   );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // keep keep 
+     {formData.tickets.map((ticket,index)=>(
+   <div id="tickeType" className=" ticketTypes font-Lato h-auto rounded-[12px] border-[1.4px] border-red-600 px-[20px] py-[20px] w-full overflow-hidden mt-[28px]">
+
+      <h4 className="float-end text-[12px] cursor-pointer text-customRed w-[43px] h-[12px]"onClick={() => removeTicket(index)}> Remove</h4>
+
+      {/* Ticket Types 1 */}
+      <div
+        ref={ticketTypes1Ref}
+        className="ticketTypes1 border flex flex-col mt-6 border-[#2b2929] gap-y-[20px] rounded-[12px] w-full lg:w-[738px] px-[16px] py-[16px] mr-[45px]"
+      >
+
+        <p className="text-[18px] font-bold">Ticket Category</p>
+
+
+        <div className="inputOption  flex border border-[#3A7BD5] px-[10px] rounded-tl-[8px] rounded-tr-[8px] w-full lg:w-[352px]">
+          <select
+            name="tickeType"
+            id="tickeType"
+            className="text-[12px] font-normal w-full lg:w-[352px] focus:outline-none"
+            value={ticket.tickeType}
+            onChange={(e) => handleChange(index, e)}
+          >
+            <option disabled value="selectEventType">
+              Select Ticket Type
+            </option>
+            {/* <option value="earlyBird">Early Bird</option> */}
+            <option value="vip">Vip</option>
+            <option value="others">Regular</option>
+          </select>
+        </div>
+    
+
+
+        <div className="flex items-center text-center mt-[10px] w-full h-[48px] p-[4px] gap-x-[24px]" >
+          <h4>Price Type:</h4>
+
+
+
+          <button onClick={() => {
+            setSelected(index, 'free');
+            handleChange({
+              target: {
+                name: 'PriceType',
+                value: 'free',
+              },
+            });
+          }} className={` rounded-[68px] w-[108px] h-[48px]  ${selected === 'free' ? 'bg-[#2D6CCF] text-[white]' : 'text-[black]  '}`}> <span className=" items-center w-[44px] h-[16px] text-[16px] font-bold">free</span></button>
+         
+         
+          <button onClick={() => {
+            setSelected(index, 'paid');
+            handleChange({
+              target: {
+                name: 'PriceType',
+                value: 'paid',
+              },
+            });
+          }} className={` rounded-[68px] w-[108px] h-[48px]  ${selected === 'paid' ? 'bg-[#2D6CCF] text-[white]' : 'bg-white text-[black]'}`}> <span className="w-[44px] h-[16px] text-[16px] font-bold">paid</span></button>
+
+        </div>
+
+        <div className="flex h-auto  flex-col lg:flex-row  ">
+
+          <label
+            htmlFor="ticketPrice"
+            className="px-[8px] text-[16px] font-bold text-[#525252]"
+          >
+            Price (₦)
+          </label>
+
+          <input
+            id="ticketPrice"
+            name="ticketPrice"
+            type="number"
+            placeholder="e.g 0000"
+            className="border border-[#BEBEBE] rounded-[12px] w-full lg:w-[217px] h-[52px] px-[20px] py-[18px]"
+            value={ticket.ticketPrice}
+            onChange={(e) => handleChange(index, e)}
+
+          />
+
+
+          <label
+            htmlFor="quantity"
+            className="px-[8px] text-[16px] mt-[20px] font-bold text-[#525252]"
+
+          >Maximum Quantity   </label>
+
+
+          <input
+            id="quantity"
+            name="quantity"
+            className="border border-[#BEBEBE] rounded-[12px] w-full lg:w-[217px] h-[52px] px-[20px] py-[18px]"
+            value={ticket.quantity}
+            onChange={(e) => handleChange(index, e)}
+            placeholder="e.g 100"
+            type="number"
+            min={0}
+            step={1}
+          />
+        </div>
+
+
+      </div>
+
+</div>
+    
+   )
+
+    
+   )}

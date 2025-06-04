@@ -24,12 +24,12 @@ const CreateEvent = () => {
 
 
   return (
-    <section className="flex w-[100%] overflow-hidden">
-      <div className="max-w-[50%]">
+    <section className="flex w-full overflow-hidden">
+      
         <Onboardingleft />
-      </div>
+    
 
-      <div className="pl-8 pr-6 overflow-auto">
+      <div className="pl-8 w-full bg-[#F8F9FC] overflow-auto">
         <ProfileSearchBar />
         <div className="font-Lato pt-[10px] bg-white h-auto">
           <div className="pb-[8px]  items-center justify-between flex h-auto max-w-[1032px]">
@@ -44,22 +44,22 @@ const CreateEvent = () => {
             <div
               id="details"
               onClick={() => setActiveTab("details")}
-              className={`w-[508px] h-[40px] place-items-center rounded-[8px]  cursor-pointer ${
+              className={`w-full h-[40px] place-items-center rounded-[8px]  cursor-pointer ${
                 activeTab === "details" ? "bg-customSkyblue text-white mx-auto"  : ""
               }`}
             >
-              <h6 className="pt-[4px] text-center font-bold w-[502px] h-[16px]">Details</h6>
+              <h6 className="pt-[4px] text-center font-bold w-full h-[16px]">Details</h6>
             </div>
         
         
             <div
               id="ticketConfiguration"
               onClick={() => setActiveTab("ticketConfiguration")}
-              className={`w-[508px] h-[40px] place-items-center rounded-[8px]  cursor-pointer ${
+              className={`w-full h-[40px] place-items-center rounded-[8px]  cursor-pointer ${
                 activeTab === "ticketConfiguration" ? "bg-customSkyblue text-white" : ""
               }`}
             >
-              <h6 className="pt-[4px] text-center font-bold w-[502px] h-[16px]">Ticket configuration</h6>
+              <h6 className="pt-[4px] text-center font-bold w-full h-[16px]">Ticket configuration</h6>
             </div>
           </div>
         </div>
