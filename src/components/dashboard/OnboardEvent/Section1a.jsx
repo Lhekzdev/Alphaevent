@@ -12,7 +12,7 @@ const Section1 = () => {
         <div className="flex gap-[112px] mb-[34px] border-b-[1px] border-b-[#ABABAB]">
           <p className="text-[20px] text-[#000000] mb-[8px]">Ticket Sold</p>
           <div className="flex gap-[8px]">
-            <button
+            {/* <button
               className={`w-[98px] h-[32px] rounded-[10px] px-[9px] py-[5px] text-[14px] ${
                 activeTab === "thisWeek"
                   ? "bg-[#2D6CCF] text-white"
@@ -21,8 +21,8 @@ const Section1 = () => {
               onClick={() => setActiveTab("thisWeek")}
             >
               This Week
-            </button>
-            <button
+            </button> */}
+            {/* <button
               className={`w-[125px] h-[32px] rounded-[10px] px-[9px] py-[5px] text-[14px] ${
                 activeTab === "previousWeek"
                   ? "bg-[#2D6CCF] text-white"
@@ -31,7 +31,7 @@ const Section1 = () => {
               onClick={() => setActiveTab("previousWeek")}
             >
               Previous Week
-            </button>
+            </button> */}
           </div>
         </div>
 

@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  transition: opacity 0.3s;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+}
+
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: #a0aec0;
+}
+
+.custom-scrollbar:not(:hover)::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+/* In your CSS file */
+.react-datepicker {
+  background-color: white !important;
+  /* border: 1px solid #ccc; */
+  font-family: inherit;
+}
+
+.react-datepicker__year-dropdown {
+  background-color: white;
+}

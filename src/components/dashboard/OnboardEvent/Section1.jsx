@@ -46,7 +46,7 @@ const Section1 = () => {
         <p className="text-[#ABABAB] text-[10px] font-medium">Engagement Rate</p>
           <div className="mt-2">
           <p className="text-[24px] text-[#333333] font-semibold leading-none">40<span>%</span></p>
-            <p className="text-[#2A8212] text-[12px] font-medium leading-none"> 0.5% vs Last week</p>
+            <p className="text-[#821212] text-[12px] font-medium leading-none">↓ 0.5% vs Last week</p>
           </div>
         </div>
         <div>

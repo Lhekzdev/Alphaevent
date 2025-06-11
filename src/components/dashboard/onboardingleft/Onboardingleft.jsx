@@ -1,215 +1,97 @@
-import React, { useState } from "react";
-import logoOnboard from "../../../assets/logoOnboard.svg"
-import dashboardWhite from "../../../assets/dashboardWhite.svg"
-import dashboardGrayIcon from "../../../assets/dashboardGrayIcon.svg"
-import eventIcon from "../../../assets/eventIcon.svg"
-import eventWhiteIcon from "../../../assets/eventWhiteIcon.svg"
-import reportIcon from "../../../assets/reportIcon.svg"
-import reportIconWhite from "../../../assets/reportIconWhite.svg"
-import paymentIcon from "../../../assets/paymentIcon.svg"
-import settingIcon from "../../../assets/settingIcon.svg"
-import settingIconWhite from "../../../assets/settingIconWhite.svg"
-import supportIcon from "../../../assets/supportIcon.svg"
-import supportWhiteIcon from "../../../assets/supportWhiteIcon.svg"
-import createEventIcon from "../../../assets/createEventIcon.svg"
-
-
-import { Link } from 'react-router-dom';
-
-
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+// import eventIcon from "../../../assets/eventIcon.svg";
+// import eventWhiteIcon from "../../../assets/eventWhiteIcon.svg";
+// import finance from "../../../assets/finance.svg";
+// import reportIconWhite from "../../../assets/reportIconWhite.svg";
+// import settingIcon from "../../../assets/settingIcon.svg";
+// import settingIconWhite from "../../../assets/settingIconWhite.svg";
+import createEventIcon from "../../../assets/createEventIcon.svg";
+import { ActiveLinkContext } from "../OnboardEvent/ActiveLinkContext";
 
 const Onboardingleft = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { activeLink, setActiveLink, sidebarLinks } = useContext(ActiveLinkContext);
+  const navigate = useNavigate();
 
-
-
-  const handleMouseLeave = () => {
-    if (window.innerWidth >= 300) {
-      setTimeout(() => {
-        setIsMenuOpen(false);
-      }, 100);
-    }
-  };
-
-
-  const [isLeftComponentVisible, setIsLeftComponentVisible] = useState(false);
-
-  const toggleLeftComponent = () => {
-    setIsLeftComponentVisible((prevState) => !prevState);
-  };
-
-
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
-
-
-  const toggleMenu = () => {
-    setIsMenuOpen((prevState) => !prevState);
-  };
-
-  const [activeLink, setActiveLink] = useState("Dashboard");
-
-  const handleClick = (link) => {
-    setActiveLink(link);
-  };
-
-  const linkStyle = (link) =>
-    activeLink === link
+  const linkStyle = (linkName) =>
+    activeLink.name === linkName
       ? "bg-[#3A7BD5] text-white"
-      : "text-[#757575] bg-transparent";
+      : "text-[#757575] hover:bg-[#3A7BD533] hover:text-white";
 
-  const iconStyle = (link, grayIcon, whiteIcon) =>
-    activeLink === link ? whiteIcon : grayIcon;
+  const iconSource = (linkName, grayIcon, whiteIcon) =>
+    activeLink.name === linkName ? whiteIcon : grayIcon;
 
   return (
-    <div className="flex">  <div
+    <div className="flex">
+      {/* Sidebar Menu */}
+      <div
+        className={`${isMenuOpen ? "block" : "hidden"} absolute md:flex md:relative top-20 md:top-0 z-10 transition-all bg-white w-[280px] h-[900px] pt-6 pr-2 pb-[151px] pl-7`}
+      >
+        <div className="flex flex-col font-Lato text-white gap-y-10">
+          {/* Logo */}
+          <div className="w-[258px]">
+            <img
+              src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747615311/ALVENT_1_omcg0v.png"
+              alt="Alvent Logo"
+              className="pt-3 w-[112px] px-6 h-[24px] cursor-pointer"
+              onClick={() => navigate("/")}
+            />
+          </div>
 
-      onMouseLeave={handleMouseLeave}
-      className={`${isMenuOpen ? "block" : "hidden"
-        } absolute transition-all opacity-100 sm:duration-500 sm:ease-in-out top-20 md:top-0  md:flex md:relative pt-[24px] pr-[10px] pb-[151px] pl-[28px] bg-[#FFFFFF] z-10 w-[280px] h-[900px] hover:opacity-100 md:opacity-100`}
-    >
-      {/* dashboard with icons section */}
-      <div className="flex flex-col md:gap-y-[40px] font-Lato  text-white">
-        <ol className=" w-[258px]">
-          <Link to="/"> <img
-            className="pt-[12px] w-[112px] px-[24px] h-[24px]"
-            src={"https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747615311/ALVENT_1_omcg0v.png"}
-            alt="alvent-logo"
-          /></Link>
-        </ol>
+          {/* Navigation Links */}
+          <ul className="flex flex-col gap-y-3 w-[238px] mb-[380px]">
+            {sidebarLinks.map((link) => {
+              return (
+                <li key={link.name}>
+                  <div
+                    className={`flex items-center gap-4 px-4 py-3 rounded-lg cursor-pointer ${linkStyle(link.name)}`}
+                    onClick={() => {
+                      setActiveLink({
+                        name: link.name,
+                        icon: link.iconWhite,
+                        iconBlue: link.iconBlue || link.iconWhite,
+                      });
+                      navigate(link.route);
+                    }}
+                  >
+                    <img
+                      src={iconSource(link.name, link.iconGray, link.iconWhite)}
+                      alt={`${link.name} Icon`}
+                      className="w-6 h-6"
+                    />
+                    <span>{link.name}</span>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
 
-        <ol className="gap-y-[59px] md:gap-y-[304px] font-bold text-[24px] font-Lato flex flex-col">
-          <ol className="flex font-bold text-[#757575] text-[24px] flex-col gap-y-[10px]">
-            <Link to="/OnboardingMain"><li
-              className={`flex items-center w-[228px] h-[60px] gap-[20px] rounded-[12px] pl-[24px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
-                "Dashboard"
-              )}`}
-              onClick={() => handleClick("Dashboard")}
-            >
-              <img
-                src={iconStyle("Dashboard", dashboardGrayIcon, dashboardWhite)}
-                alt="Dashboard Icon"
-                className="icon"
-              />
-
-              <h3>Dashboard</h3>
-
-            </li>
-            </Link>
-
-
-            <Link to="/OnboardEvent"><li
-              className={`flex items-center rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
-                "Event"
-              )}`}
-              onClick={() => handleClick("Event")}
-            >
-              <img
-                src={iconStyle("Event", eventIcon, eventWhiteIcon)}
-                alt="Event Icon"
-                className="icon"
-              />
-
-              <h3>Event</h3>
-            </li>
-            </Link>
-
-
-            <li
-              className={`items-center flex rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
-                "Report"
-              )}`}
-              onClick={() => handleClick("Report")}
-            >
-              <img
-                src={iconStyle("Report", reportIcon, reportIconWhite)}
-                alt="Report Icon"
-                className="icon"
-              />
-              <h3>Report</h3>
-            </li>
-
-
-            <li className="flex hover:text-white items-center hover:bg-customSkyblue rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px]">
-              <img src={paymentIcon} alt="" />
-              <h3>Payment</h3>
-            </li>
-
-            <li
-              className={`items-center flex rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
-                "Settings"
-              )}`}
-              onClick={() => handleClick("Settings")}
-            >
-              <img
-                src={iconStyle("Settings", settingIcon, settingIconWhite)}
-                alt="Settings Icon"
-                className="icon"
-              />
-
-              <h3>Settings</h3>
-            </li>
-
-            <li
-              className={`items-center flex rounded-[12px] w-[228px] h-[60px] py-[16px] pr-[48px] pl-[24px] gap-[20px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
-                "Support"
-              )}`}
-              onClick={() => handleClick("Support")}
-            >
-              <img
-                src={iconStyle("Support", supportIcon, supportWhiteIcon)}
-                alt="Support Icon"
-                className="icon"
-              />
-
-              <h3>Support</h3>
-            </li>
-          </ol>
-
-          <ol className={`flex w-[238px] h-[60px] hover:text-white rounded-[12px]  pl-[15px] items-center gap-[10px]
-              ${linkStyle(
-            "createEvent"
-          )}`}
-            onClick={() => handleClick("createEvent")}
-          >
-
-            
-            <Link to="/createEvent"> <button className="items-center   flex gap-[25px] cursor-pointer hover:text-white bg-[#3A7BD5] text-[#FFFFFF] w-[187px] h-[60px] rounded-[12px] py-[16px] px-[24px] text-[16px]"    >
-
-        
+          {/* Create Event Button */}
+          <div onClick={() => {
+            setActiveLink({ name: "createEvent" });
+            navigate("/createEvent");
+          }}>
+            <button className="flex items-center justify-between w-[238px] h-[60px] bg-[#3A7BD5] text-white rounded-[12px] px-6 text-[16px] hover:bg-[#2D6CCF]">
               Create Event
               <img
-                src={iconStyle("createEvent", createEventIcon, createEventIcon)}
+                src={createEventIcon}
                 alt="Create Event Icon"
-                className="icon w-[16px] h-[16px]"
-              /></button>
-            </Link>
-
-
-          </ol>
-        </ol>
+                className="w-[16px] h-[16px]"
+              />
+            </button>
+          </div>
+        </div>
       </div>
 
-    </div>
-
-
-      {/* Button to Toggle the Visibility on small screens */}
-
-
-
-
-
+      {/* Toggle Button */}
       <button
-        onClick={toggleMenu}
-        className="flex md:hidden absolute top-[79.5px] z-40 left-1 px-1 py-1 bg-customDarkgrey text-white rounded-md"
+        onClick={() => setIsMenuOpen((prev) => !prev)}
+        className="flex md:hidden absolute top-[79.5px] z-40 left-1 px-2 py-1 bg-customDarkgrey text-white rounded-md"
       >
-        {!isMenuOpen ? (
-          <span className="text-xl">☰</span> // Hamburger icon
-        ) : (
-          <span className="text-xl">X</span> // Close icon
-        )}
+        {isMenuOpen ? "X" : "☰"}
       </button>
     </div>
-
   );
 };
 
