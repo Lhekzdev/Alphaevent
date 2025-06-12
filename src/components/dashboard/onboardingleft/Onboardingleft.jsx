@@ -136,8 +136,9 @@ const Onboardingleft = () => {
               <img src={paymentIcon} alt="" />
               <h3>Payment</h3>
             </li>
+<Link to = "/settingsPage">
 
-            <li
+ <li
               className={`items-center flex rounded-[12px] w-[228px] transition-transform duration-300 hover:translate-x-2 h-[45px] py-[16px] pr-[48px] pl-[24px] gap-[20px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(
                 "Settings"
               )}`}
@@ -150,7 +151,8 @@ const Onboardingleft = () => {
               />
 
               <h3>Settings</h3>
-            </li>
+            </li></Link>
+           
 
             <li
               className={`items-center flex transition-transform duration-300 hover:translate-x-2 rounded-[12px] t w-[228px] h-[45px] py-[16px] pr-[48px] pl-[24px] gap-[20px] cursor-pointer hover:text-white hover:bg-[#3A7BD533] ${linkStyle(

@@ -262,7 +262,7 @@ const images = [
                   ) : null}
                 </div>
 {/* onClick={()=> redir('/OnboardingMain')} */}
-<div   className="forget w-full flex items-end justify-end">
+<div    className="forget w-full flex items-end justify-end">
                   
   <p className='text-[#FF6B6B] text-[12px] right-8 cursor-pointer' onClick={handleForgotPassword}>Forgot Password?</p>
 </div>
@@ -343,6 +343,8 @@ const images = [
               </Form>
             )}
           </Formik>
+
+          
         </div>
       </div>
 

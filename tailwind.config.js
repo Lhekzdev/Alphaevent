@@ -1,6 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+        safelist: [
+    'gap-[100px]',
+    'gap-[120px]',
+    // Add other custom values you use
+  ],
   theme: {
     extend: {
       fontFamily: {
@@ -29,6 +34,8 @@ export default {
       boxShadow: {
         'custom-light': '0 4px 20px rgba(94, 94, 94, 0.1)',
       },
+
+
   },
   plugins: [],
 }

@@ -11,7 +11,7 @@ import delectIcon from "../../../assets/delectIcon.svg";
 import questionIcon from "../../../assets/questionIcon.svg";
 import discountIcon from "../../../assets/discountIcon.svg";
 import pencilBlue from "../../../assets/pencilBlue.svg";
-import Details from './Details';
+import Details from "./Details";
 import TicketConfiguration from "./Ticketing";
 
 const CreateEvent = () => {

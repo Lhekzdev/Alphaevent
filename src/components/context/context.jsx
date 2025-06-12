@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useRef } from "react";
 import axios from "axios";
+
 const EventFormContext = createContext();
 
 
@@ -7,7 +8,8 @@ export const EventFormProvider = ({ children }) => {
   const [formData, setFormData] = useState({
     eventTitle: "",
     eventDesc: "",
-    eventTags: "",
+
+    eventTags: [],    // And this
     eventType: "",
     eventCountry: "",
     eventState: "",
@@ -21,10 +23,6 @@ export const EventFormProvider = ({ children }) => {
     country: "",
     state: "",
     city: "",
-    address: "",
-    tickeType: "",     // e.g., VIP, Regular
-    ticketPrice: "",   // e.g., 5000
-    quantity: "",
     startTime: "",
     endTime: "",
     facebook: "",
@@ -33,9 +31,12 @@ export const EventFormProvider = ({ children }) => {
     startTimezone: null,
     endClock: null,
     endTimezone: null,
-  
-    tickets: [{tickeType: '', PriceType: '', ticketPrice: '', quantity: ''}]
+    eventCategory: null,
+
+    ticketCategory: [{ ticketType: 'selectEventType', PriceType: '', ticketPrice: '', ticketQty: '' }]
   });
+
+  const [eventTags, setEventTagsInput] = useState("");
 
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
@@ -51,6 +52,11 @@ export const EventFormProvider = ({ children }) => {
     event?.preventDefault(); // optional chaining, will only call if event exists
 
 
+    const tagsArray = Array.isArray(formData.eventTags)
+      ? formData.eventTags
+      : [];
+
+
     // Ensure image upload is completed before submitting the form
     if (!uploadedImage) {
       alert("Please upload an image before submitting.");
@@ -60,11 +66,13 @@ export const EventFormProvider = ({ children }) => {
     const SubmitFormData = new FormData();
 
     // Append each ticket's fields
-    formData.tickets.forEach((ticket, index) => {
-      SubmitFormData.append(`tickets[${index}][ticketType]`, ticket.tickeType || "");
-      SubmitFormData.append(`tickets[${index}][PriceType]`, ticket.PriceType || "");
-      SubmitFormData.append(`tickets[${index}][quantity]`, ticket.quantity || "");
+    formData.ticketCategory.forEach((ticket, index) => {
+      SubmitFormData.append(`tickets[${index}][ticketType]`, ticket.ticketType || "");
+      SubmitFormData.append(`tickets[${index}][PriceType]`, ticket.ticketPrice);
+      SubmitFormData.append(`tickets[${index}][quantity]`, ticket.ticketQty || "");
     });
+
+
 
     SubmitFormData.append("eventImgURL", formData.eventImgURL || "");
     SubmitFormData.append("eventTitle", formData.eventTitle || "");
@@ -74,8 +82,21 @@ export const EventFormProvider = ({ children }) => {
     SubmitFormData.append("startTimezone", formData.startTimezone || "");
     SubmitFormData.append("endClock", formData.endClock || "");
     SubmitFormData.append("endTimezone", formData.endTimezone || "");
-    SubmitFormData.append("eventTags", formData.eventTags || "");
-     SubmitFormData.append("eventType", formData.eventType || "");
+
+
+
+    // console.log("Raw eventTags value:", formData.eventTags, typeof formData.eventTags);
+
+
+
+
+    if (Array.isArray(formData.eventTags)) {
+      formData.eventTags.forEach(tag => {
+        SubmitFormData.append("eventTags[]", tag);
+      });
+    }
+
+    SubmitFormData.append("eventType", formData.eventType || "");
     SubmitFormData.append("eventCategory", formData.eventCategory || "");
     SubmitFormData.append("eventDesc", formData.eventDesc || "");
     // SubmitFormData.append("tickeType", formData.tickeType || "");
@@ -100,9 +121,10 @@ export const EventFormProvider = ({ children }) => {
 
 
 
-
-
-    console.log("Submitting Data:", Object.fromEntries(SubmitFormData.entries())); // Debugging
+    for (let [key, value] of SubmitFormData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
+    // console.log("Submitting Data:", Object.fromEntries(SubmitFormData.entries())); // Debugging
 
     try {
       const response = await axios.post(
@@ -120,12 +142,11 @@ export const EventFormProvider = ({ children }) => {
       setFormData({
         eventTitle: "",
         eventDesc: "",
-        eventTags: "",
+        eventTags: [],
         eventType: "",
         eventCategory: "",
         facebook: "",
         instagram: "",
-        tickeType: "",
         eventCountry: "",
         eventState: "",
         eventCity: "",
@@ -135,18 +156,15 @@ export const EventFormProvider = ({ children }) => {
         endDate: null,
         eventImgURL: "",
         url: "",
-        country: "",
-        state: "",
-        city: "",
-        address: "",
         startTime: null,
         startClock: null,
         startTimezone: null,
         endTime: null,
         endClock: null,
         endTimezone: null,
-        ticketType: "",
-        PriceType: ""
+        // ticketType: "",
+        // PriceType: "",
+        ticketCategory: [{ ticketType: 'selectEventType', PriceType: '', ticketPrice: '', ticketQty: '' }]
       });
 
       setSelectedCountry("");
@@ -189,7 +207,12 @@ export const EventFormProvider = ({ children }) => {
         uploadedImage,
         setUploadedImage,
         userID,
-        setUserID, handleSubmit
+        setUserID,
+        eventTags,
+        setEventTagsInput,
+
+
+        handleSubmit
       }}
     >
       {children}

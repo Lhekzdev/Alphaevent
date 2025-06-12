@@ -2,7 +2,7 @@ import {React,useState,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useEventForm } from '../../context/context'
 import axios from "axios";
-
+import { toast } from 'react-toastify';
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -11,83 +11,157 @@ import 'leaflet/dist/leaflet.css';
 
 const ReviewEvent = () => {
 
+
+
+  
+ const { formData,setFormData, handleSubmit } = useEventForm()
+  const navigate = useNavigate()
+
+ // 🚨 Enforce “paid tickets must have a price”
+
+  useEffect(() => {
+    let changed = false
+
+    const tickets = formData.ticketCategory.map(tk => {
+      // if it’s paid but has no price…
+      if (tk.PriceType === 'paid' && !tk.ticketPrice) {
+       toast.warning('⚠ Paid tickets require a price — this ticket has been switched to Free.', {
+  className: 'custom-toast',
+  icon: '⚠️', // or a custom component
+});
+        changed = true
+        return { ...tk, PriceType: 'free' }
+      }
+      return tk
+    })
+
+    if (changed) {
+      setFormData(f => ({
+        ...f,
+        ticketCategory: tickets
+      }))
+    }
+  }, [] )
+
+
 const myKey = import.meta.env.VITE_KEY;
 
 
 
 
 
-const eventTypeOne =()=>
-{
-  return formData.tickets.filter(ticket => ticket.tickeType === "Vip")
-  .map((ticket,index) =>{
-   
-   
-   { return(
-     <ul key={index} className='flex justify-between pl-[16px]  items-center w-full'>
-  <li>
-    <h6 className='font-bold text-[16px] '>{ticket.tickeType}</h6>
-    <h6 className='text-[10px] text-[#ABABAB] '>{ticket.ticketPrice? `₦ ${ticket.ticketPrice}` : 'Free Ticket'}</h6>
-    <h6 className='text-[10px] text-[#ABABAB]'>Max: 200 ticket(s)</h6>
-  </li>
-  <li className='w-[60px] h-[28px] text-white text-center rounded-[68px] bg-[#FF0000]'>{ticket.PriceType === "paid" && ticket.ticketPrice > 0 ? "Paid" : alert("Amount is needed for a paid ticket")}</li>
 
-</ul>
+const eventTypeOne = () => {
+  return formData.ticketCategory
+    .filter(tk => ["Vip", "Regular", "Early Bird"].includes(tk.ticketType))
+    .map((ticket, i) => {
+      const isPaidValid =
+        ticket.PriceType?.toLowerCase() === "paid" &&
+        Number(ticket.ticketPrice) > 0;
 
-)}
+      const maxTickets = ticket.ticketType === "Vip" ? 200 : 100;
 
-}
+      return (
+        <ul
+          key={i}
+          className="flex justify-between pl-[16px] items-center w-full mb-2"
+        >
+          <li>
+            <h6 className="font-bold text-[16px]">{ticket.ticketType}</h6>
+            <h6 className="text-[10px] text-[#ABABAB]">
+              {isPaidValid ? `₦ ${ticket.ticketPrice}` : "Free Ticket"}
+            </h6>
+            <h6 className="text-[10px] text-[#ABABAB]">
+              Max: {maxTickets} ticket(s)
+            </h6>
+          </li>
+          <li
+            className={`w-[60px] h-[28px] text-center text-white rounded-[68px] ${
+              isPaidValid ? "bg-[#FF0000]" : "bg-[#008000]"
+            }`}
+          >
+            {isPaidValid ? "Paid" : "Free"}
+          </li>
+        </ul>
+      );
+    });
+};
 
-  )}
+
 
 
 const eventTypeTwo =()=>
 {
-  return formData.tickets.filter(ticket => ticket.tickeType === "Regular")
-   .map((ticket,index) =>{
+  return formData.ticketCategory.filter(tk=> ["Vip", "Regular", "Early Bird"].includes(tk.ticketType) &&
+      tk.PriceType === "free")
+  .map((ticket,index) =>
    
    
-   { return(
-    
-    <ul key={index} className='flex justify-between pl-[16px]  items-center w-full'>
+(
+     <ul key={index} className='flex justify-between pl-[16px]  items-center w-full'>
   <li>
-    <h6 className='font-bold text-[16px] '>{ticket.tickeType}</h6>
+    <h6 className='font-bold text-[16px] '>{ticket.ticketType}</h6>
     <h6 className='text-[10px] text-[#ABABAB] '>{ticket.PriceType === "free" ? "Free Ticket": null}</h6>
-    <h6 className='text-[10px] text-[#ABABAB]'>Max: 100 ticket(s)</h6>
+    <h6 className='text-[10px] text-[#ABABAB]'>Max: 200 ticket(s)</h6>
   </li>
-  <li className='w-[60px] h-[28px] text-center text-white rounded-[68px] bg-[#008000]'>{(() => {
-  if (ticket.PriceType === "free" && ticket.ticketPrice <= 0) {
-    return "Free";
-  } else if (ticket.PriceType === "free" && ticket.ticketPrice > 0) {
-    alert("Regular Tickets are not paid for");
-    return "Error";
-  } else {
-    return "Paid";
-  }
-})()}</li>
+  <li className='w-[60px] h-[28px] text-center text-white rounded-[68px] bg-[#008000]'>{ticket.PriceType === "free" ? "free" : "paid"}</li>
 
 </ul>
 
-)}
+)
+ 
 
-}
 
   )}
 
 
+// const eventTypeTwo =()=>
+// {
+//   return formData.ticketCategory.filter(ticket => ticket.ticketType === "Regular")
+//    .map((ticket,index) =>{
+   
+   
+//    { return(
+    
+//     <ul key={index} className='flex justify-between pl-[16px]  items-center w-full'>
+//   <li>
+//     <h6 className='font-bold text-[16px] '>{ticket.ticketType}</h6>
+//     <h6 className='text-[10px] text-[#ABABAB] '>{ticket.PriceType === "free" ? "Free Ticket": null}</h6>
+//     <h6 className='text-[10px] text-[#ABABAB]'>Max: 100 ticket(s)</h6>
+//   </li>
+//   <li className='w-[60px] h-[28px] text-center text-white rounded-[68px] bg-[#008000]'>{(() => {
+//   if (ticket.PriceType === "free" && ticket.ticketPrice <= 0) {
+//     return "Free";
+//   } else if (ticket.PriceType === "free" && ticket.ticketPrice > 0) {
+//     alert("Regular Tickets are not paid for");
+//     return "Error";
+//   } else {
+//     return "Paid";
+//   }
+// })()}</li>
+
+// </ul>
+
+// )}
+
+// }
+
+//   )}
+
+
 
 const eventTypeThree = () => {
-  return formData.tickets
-    .filter(ticket => ticket.tickeType === "Regular" && ticket.tickeType === "Vip")
+  return formData.ticketCategory
+    .filter(ticket => ticket.ticketType === "Regular" && ticket.ticketType === "Vip")
     .map((ticket, index) => {
       const isPaid = ticket.PriceType === "paid" && Number(ticket.ticketPrice) > 0;
-      const maxTickets = ticket.tickeType === "Vip" ? 200 : 100;
+      const maxTickets = ticket.ticketType === "Vip" ? 200 : 100;
 
       return (
         <div key={index} className="w-full">
           <ul className="flex justify-between pl-[16px] items-center w-full">
             <li>
-              <h6 className="font-bold text-[16px]">{ticket.tickeType}</h6>
+              <h6 className="font-bold text-[16px]">{ticket.ticketType}</h6>
               <h6 className="text-[10px] text-[#ABABAB]">
                 {ticket.ticketPrice ? `₦ ${ticket.ticketPrice}` : 'Free Ticket'}
               </h6>
@@ -112,10 +186,9 @@ const eventTypeThree = () => {
 
 
 
-  const { formData, handleSubmit } = useEventForm()
-  const navigate = useNavigate()
-
  
+
+
   const [coords, setCoords] = useState(null);
 
   const handleLocate = async () => {
@@ -168,10 +241,10 @@ const eventTypeThree = () => {
   
   <ul className='flex items-center'>
     <li><img className='w-[12px] h-[12px]' src="/quantity.svg" alt="quantity" /></li>
-    {formData.tickets.map(
+    {formData.ticketCategory.map(
       (ticket,index)=>(
 <li key ={index}>
-{ticket.quantity}
+{ticket.ticketQty}
 </li>
 
 
@@ -189,10 +262,18 @@ const eventTypeThree = () => {
 </div>
 
 {/* Tags */}
-<div className='h-[79px] flex flex-col gap-y-[20px]'>
+<div className='h-[79px] flex-wrap flex flex-col gap-y-[20px]'>
 <h5>Tags</h5>
-<ul className='flex gap-[16px] bg-[#F1F1F1] border-b-[1px] border-y-[#ABABAB]'>
-  <h5 className='text-[16px] text-lg'>{formData.eventTags}</h5></ul>
+<ul className='flex h-[32px] gap-[16px] w-[88px]  border-b-[1px] border-y-[#F1F1F1]'>
+  {formData.eventTags?.map((tag, index)=>(
+ <li key={index} className='text-[18px]  font-bold place-content-center  text-center px-[10px] h-[32px]   bg-[#F1F1F1] rounded-[10px] shadow text-[#333333]'>{tag}</li>
+  ))}
+  
+  
+  </ul>
+
+
+
 </div>
 
   <ul className='flex gap-[8px]'>
@@ -217,8 +298,8 @@ const eventTypeThree = () => {
 <div className='h-[216px] flex flex-col gap-y-[20px] w-[800px] '>
   <h4 className='font-bold text-[20px]'>Tickets Summary</h4>
 <div>{eventTypeOne ()}</div>
-<div>{eventTypeTwo  ()}</div>
-<div>{eventTypeThree  ()}</div>
+ {/* <div>{eventTypeTwo  ()}</div> */}
+{/* <div>{eventTypeThree  ()}</div>  */}
 
 
 {/* <ul className='flex pl-[16px] justify-between items-center w-full'>

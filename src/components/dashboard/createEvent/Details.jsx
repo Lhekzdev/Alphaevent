@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import cloudIcon from "../../../assets/cloudIcon.svg"
 // import Section1 from './Section1
 import Onboardingleft from "../onboardingleft/Onboardingleft";
-import ProfileSearchBar from "../../dashboard/OnBoarding/ProfileSearchBar"
+import ProfileSearchBar from "../OnBoarding/ProfileSearchBar"
 import delectIcon from "../../../assets/delectIcon.svg";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -17,7 +17,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 
-const CreateEvent = ({ onNext, setActiveTab }) => {
+const Details = ({ onNext, setActiveTab}) => {
 
 
   const handleProceed = () => {
@@ -172,6 +172,27 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
   };
 
 
+
+// const [eventTags, setEventTagsInput] = useState(""); // stores typed string
+
+const handleEventTagChange =  (e) => {
+
+
+  const raw = e.target.value;
+  const parsed = raw.split(',').map(tag => tag.trim()).filter(Boolean);
+
+  setFormData(prev => {
+    console.log("Parsed:", parsed); // ✅ logs correct value
+    return {
+      ...prev,
+      eventTagsRaw: raw,
+      eventTags: parsed,
+    };
+  });
+}
+
+
+      
 
 
   const handleCountryChange = (e) => {
@@ -411,7 +432,7 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
 
         {/* <div className="max-w-[1140px] pt-[48px] h-auto"> */}
         <div className='max-w-[1032px] mt-[32px] rounded-[12px] border-customLighterGray pt-[52px] pb-[40px] px-[40px] h-[335px]'>
-          <h4 className='font-bold text-[18px] mb-[16px]'>Event Ticket <span className="text-customRed">*</span> </h4>
+          <h4 className='font-bold text-[18px] mb-[16px]'>Banner <span className="text-customRed">*</span> </h4>
           <div className='items-center text-center max-w-[952px] h-[200px] rounded-[12px] border-[0.8px] mx-auto flex justify-center'>
             <div
               className='w-[284px] h-[107px] relative flex items-center justify-center cursor-pointer'
@@ -496,15 +517,17 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
 
           <div>
             <label htmlFor="eventTags" className="block  font-medium mb-2">Event Tags</label>
-            <input
-              type="text"
-              id="eventTags" name="eventTags"
-              placeholder="e.g., innovative, growth"
-              className="w-full   focus:ring-2 border-customLighterGray h-[52px] border rounded-[12px] px-[20px]  focus:outline-none  focus:ring-blue-500  placeholder:text-[16px] "
-              rows="3"
-              value={formData.eventTags}
-              onChange={handleChange}
-            />
+ <input
+ className="w-full   focus:ring-2 border-customLighterGray h-[52px] border rounded-[12px] px-[20px]  focus:outline-none  focus:ring-blue-500  placeholder:text-[16px] "
+      type="text"
+      name="eventTags"
+       rows="3"
+      placeholder="e.g., Innovative, growth"
+      value={formData.eventTagsRaw || ""}
+      onChange={handleEventTagChange}
+    />
+  
+            
           </div>
 
 
@@ -821,6 +844,7 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
                     <option>Eastern time (ET)</option>
                     <option>Central time (CT)</option>
                     <option>Pacific time (PT)</option>
+                    <option>West African time (WAT)</option>
                   </select>
                 </div>
               </div>
@@ -952,6 +976,7 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
                     <option>Eastern time (ET)</option>
                     <option>Central time (CT)</option>
                     <option>Pacific time (PT)</option>
+                     <option>West African time (WAT)</option>
                   </select>
                 </div>
               </div>
@@ -1070,4 +1095,4 @@ const CreateEvent = ({ onNext, setActiveTab }) => {
   )
 }
 
-export default CreateEvent
+export default Details
