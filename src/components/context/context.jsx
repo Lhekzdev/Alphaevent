@@ -116,8 +116,9 @@ export const EventFormProvider = ({ children }) => {
    // Append each ticket's fields
     formData.ticketCategory.forEach((ticket, index) => {
       SubmitFormData.append(`tickets[${index}][ticketType]`, ticket.ticketType || "");
-      SubmitFormData.append(`tickets[${index}][PriceType]`, ticket.ticketPrice);
+      SubmitFormData.append(`tickets[${index}][ticketPrice]`, ticket.ticketPrice);
       SubmitFormData.append(`tickets[${index}][quantity]`, ticket.ticketQty || "");
+      SubmitFormData.append(`tickets[${index}][PriceType]`, ticket.PriceType || "");
     });
 
 
