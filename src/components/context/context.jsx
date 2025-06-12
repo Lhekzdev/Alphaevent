@@ -65,13 +65,7 @@ export const EventFormProvider = ({ children }) => {
 
     const SubmitFormData = new FormData();
 
-    // Append each ticket's fields
-    formData.ticketCategory.forEach((ticket, index) => {
-      SubmitFormData.append(`tickets[${index}][ticketType]`, ticket.ticketType || "");
-      SubmitFormData.append(`tickets[${index}][PriceType]`, ticket.ticketPrice);
-      SubmitFormData.append(`tickets[${index}][quantity]`, ticket.ticketQty || "");
-    });
-
+ 
 
 
     SubmitFormData.append("eventImgURL", formData.eventImgURL || "");
@@ -119,6 +113,12 @@ export const EventFormProvider = ({ children }) => {
     SubmitFormData.append("eventState", selectedState);
     SubmitFormData.append("eventCity", selectedCity || "");
 
+   // Append each ticket's fields
+    formData.ticketCategory.forEach((ticket, index) => {
+      SubmitFormData.append(`tickets[${index}][ticketType]`, ticket.ticketType || "");
+      SubmitFormData.append(`tickets[${index}][PriceType]`, ticket.ticketPrice);
+      SubmitFormData.append(`tickets[${index}][quantity]`, ticket.ticketQty || "");
+    });
 
 
     for (let [key, value] of SubmitFormData.entries()) {
