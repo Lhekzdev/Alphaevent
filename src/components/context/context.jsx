@@ -9,7 +9,7 @@ export const EventFormProvider = ({ children }) => {
     eventTitle: "",
     eventDesc: "",
 
-    eventTags: [],    // And this
+    eventTags: [],    
     eventType: "",
     eventCountry: "",
     eventState: "",
@@ -107,7 +107,7 @@ export const EventFormProvider = ({ children }) => {
     SubmitFormData.append("endTime", formData.endTime || "");
     SubmitFormData.append("startTime", formData.startTime || "");
     // SubmitFormData.append("ticketPrice", formData.ticketPrice || "");
-    SubmitFormData.append("PriceType", formData.PriceType || "");
+   
     // ✅ Correctly format event dates as ISO strings
     if (formData.startDate) {
       SubmitFormData.append("eventStart", formData.startDate.toISOString());
