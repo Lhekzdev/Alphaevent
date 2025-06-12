@@ -54,7 +54,7 @@ export const SignUp = () => (
                 {/* Submit Button */}
                 <button
   type="submit"
-  className="px-6 py-2 bg-[#FF6B6B] text-white rounded-[10px] hover:bg-[#FF3B3B] transition flex items-center justify-center gap-2"
+  className="px-6 py-2 bg-[#FF7F50] text-white rounded-[10px] hover:bg-[#2F3B4C] transition flex items-center justify-center gap-2"
 >
   Subscribe
   <img src={arrowwhiteright} alt="Arrow Right" className="w-4 h-4" />

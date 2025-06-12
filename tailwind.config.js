@@ -3,6 +3,15 @@ export default {
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
+      animation: {
+        zoom: 'zoom 10s ease-in-out infinite',
+      },
+      keyframes: {
+        zoom: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.05)' },
+        },
+      },
       fontFamily: {
         RedHatdisplay: ['Red Hat Display, sans-serif'],
         Roboto: ["Roboto, sans-serif"],

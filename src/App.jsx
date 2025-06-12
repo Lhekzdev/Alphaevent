@@ -26,6 +26,8 @@ import SuccessAcc from "./components/signup/SuccessAcc.jsx";
 import MyEvent from "./components/dashboard/OnboardEvent/MyEvent.jsx";
 import MyEventDetails from "./components/dashboard/OnboardEvent/MyEventDetails.jsx";
 import MyEventFullDetail from "./components/dashboard/OnboardEvent/MyEventFullDetail.jsx";
+import About from "./components/About/About.jsx";
+import Support from "./components/Landingcont/Footer/Support.jsx";
 
 import "./App.css";
 import Applayout from "./components/Landingcont/layout/Applayout.jsx";
@@ -59,6 +61,8 @@ function App() {
           <Route path="/Login" element={<LogIn />} />
           <Route path="/TermsSer" element={<TermsSer />} />
           <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+          <Route path="/Support" element={<Support />} />
+          <Route path="/About" element={<About />} />
 
           {/* Dashboard routes */}
           <Route path="/OnboardingMain" element={<OnboardingMain />} />

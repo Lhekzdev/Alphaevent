@@ -13,7 +13,7 @@ const SignUpSchema = Yup.object().shape({
 
 export const SignUp = () => (
   <section className="w-full   font-Lato">
-    <div className="max-w-[1280px] pt-6  bg-[#FFFFFF] flex flex-wrap gap-[160px] rounded-[30px] px-[40px] overflow-hidden shadow-md">
+    <div className="max-w-[1280px] pt-[5px]  bg-[#FFFFFF] flex flex-wrap gap-[330px] rounded-[30px] px-[40px] overflow-hidden shadow-md">
       {/* Text and Form Section */}
       <div className="w-full lg:w-1/2 flex flex-col justify-center items-start ">
         <p className="text-[18px] font-light text-[#333333]">Don’t miss out on future updates!</p>
@@ -54,7 +54,7 @@ export const SignUp = () => (
                 {/* Submit Button */}
                 <button
   type="submit"
-  className="px-6 py-2 bg-[#FF6B6B] text-white rounded-[10px] hover:bg-[#FF3B3B] transition flex items-center justify-center gap-2"
+  className="px-6 py-2 bg-[#FF7F50] text-white rounded-[10px] hover:bg-[#2F3B4C] transition flex items-center justify-center gap-2"
 >
   Subscribe
   <img src={arrowwhiteright} alt="Arrow Right" className="w-4 h-4" />
@@ -69,7 +69,7 @@ export const SignUp = () => (
       {/* Image Section */}
       <div className="">
         <Image
-          className=""
+          className="w-[200px]"
           cloudName="dqtyrjpeh"
           publicId="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1731255028/Flying-Envelope--Streamline-Ux.png_yfqmpw.png"
           loading="lazy"
