@@ -9,7 +9,7 @@ import { AdvancedImage } from '@cloudinary/react';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import './App.css'
 
 const Landing = lazy(() => import("./components/Landingcont/landing/Landing.jsx"));
 const Eventshome = lazy(() => import("./components/events/eventshome/Eventshome.jsx"));
@@ -19,7 +19,7 @@ const OnboardingMain = lazy(() => import("./components/dashboard/OnboardingMain/
 const CreateEvent = lazy(() => import("./components/dashboard/createEvent/CreateEvent.jsx"));
 const OnboardEvent = lazy(() => import("./components/dashboard/OnboardingMain/OnboardingMain.jsx"));
 const OnboardingMain1 = lazy(() => import("./components/dashboard/OnboardingMain1/OnboardingMain1.jsx"));
-const SettingsPage = lazy(() => import("../features/settings/SettingsPage.jsx"));
+// const SettingsPage = lazy(() => import("../features/settings/SettingsPage.jsx"));
 
 import { SignUp } from "./components/signup/SignUp.jsx";
 import { LogIn } from "./components/LogIn/LogIn.jsx";
@@ -34,9 +34,9 @@ import SuccessAcc from './components/signup/SuccessAcc.jsx';
 import Herocontainer from "./components/Landingcont/herocontainer/Herocontainer.jsx";
 import ReviewEvent from "./components/dashboard/createEvent/ReviewEvent.jsx";
 import Details from "./components/dashboard/createEvent/Detailsoldw.jsx";
-import "./App.css";
+import SettingsPage from "./components/dashboard/SettingsPage/SettingsPage.jsx";
 import Applayout from "./components/Landingcont/layout/Applayout.jsx";
-
+import AccountInfo from "./components/dashboard/SettingsPage/AccountInfo.jsx";
 
   const Spinner =()=> {
   return (
@@ -145,6 +145,7 @@ function App() {
           <Route path="/ReviewEvent" element={<ReviewEvent />} />
           <Route path="/Details" element={<Details />} />
 
+          <Route path="/settingsPage" element={<SettingsPage/>} />
           <Route path="/settingsPage" element={<SettingsPage/>} />
 
          

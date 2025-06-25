@@ -261,7 +261,9 @@ const images = [
                     <div className="text-red-500 text-[10px]">{errors.password}</div>
                   ) : null}
                 </div>
-{/* onClick={()=> redir('/OnboardingMain')} */}
+
+
+{/* onClick={()=> redir('/OnboardingMain')}  */}
 <div    className="forget w-full flex items-end justify-end">
                   
   <p className='text-[#FF6B6B] text-[12px] right-8 cursor-pointer' onClick={handleForgotPassword}>Forgot Password?</p>
@@ -340,6 +342,12 @@ const images = [
                     </a>
                   </p>
                 </div>
+<div className="flex gap-[20px]">
+    <button   className="w-32 hover:bg-[#4F86DC] border border-[#BEBEBE] h-[48px] rounded-[8px] text-center  bg-gray-200"
+          >Cancel</button>
+    <button className="w-[114px] h-[48px] hover:bg-[#4F86DC] border border-[#BEBEBE] rounded-[8px] text-center">Save</button>
+</div>
+                
               </Form>
             )}
           </Formik>

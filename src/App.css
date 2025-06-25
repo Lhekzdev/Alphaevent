@@ -1,4 +1,8 @@
-/* toastify.css override */
-.custom-toast { 
-  @apply bg-sky-700 border border-white text-white rounded-xl px-4 py-2 shadow-md font-medium text-sm;
+/* Hide scrollbar but allow scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
 }

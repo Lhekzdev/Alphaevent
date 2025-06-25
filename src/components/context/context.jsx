@@ -63,11 +63,10 @@ export const EventFormProvider = ({ children }) => {
       return;
     }
 
+    
     const SubmitFormData = new FormData();
 
  
-
-
     SubmitFormData.append("eventImgURL", formData.eventImgURL || "");
     SubmitFormData.append("eventTitle", formData.eventTitle || "");
     SubmitFormData.append("instagram", formData.instagram || "");
@@ -163,8 +162,7 @@ export const EventFormProvider = ({ children }) => {
         endTime: null,
         endClock: null,
         endTimezone: null,
-        // ticketType: "",
-        // PriceType: "",
+     
         ticketCategory: [{ ticketType: 'selectEventType', PriceType: '', ticketPrice: '', ticketQty: '' }]
       });
 
@@ -216,6 +214,7 @@ export const EventFormProvider = ({ children }) => {
         handleSubmit
       }}
     >
+      
       {children}
     </EventFormContext.Provider>
   );
