@@ -18,15 +18,17 @@ const sidebarLinks = [
   },
   {
     name: "Finance",
-    route: "/MyEventFullDetail",
-    iconGray: "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1749415313/icon_12_l0jrmw.png",
-    iconWhite: "https://res.cloudinary.com/youriconpath/financeWhite.svg",
+    route: "/Finance",
+    iconGray: "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1750162746/icon_15_egxmwz.png",
+    iconWhite: "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1750162745/Icon_Pack_8_mfqvpy.png",
+    iconBlue: "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1750162745/icon_14_gwygha.png"
   },
   {
-    name: "Settings",
-    route: "/settings",
-    iconGray: "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1749415312/Group_8_cejcwq.png",
-    iconWhite: "https://res.cloudinary.com/youriconpath/settingsWhite.svg",
+    name: "Setting",
+    route: "/Setting",
+    iconGray: "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1750181985/Icon_Pack_11_qrj2sw.png",
+    iconWhite: "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1750181983/Icon_Pack_9_v8nsdz.png",
+     iconBlue: "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1750181984/Icon_Pack_10_qc1ues.png"
   },
 ];
 

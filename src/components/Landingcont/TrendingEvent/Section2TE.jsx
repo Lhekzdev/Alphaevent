@@ -1,69 +1,107 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import heartWhite from '../../../assets/heartWhite.svg';
 import calenderWhite from '../../../assets/calenderWhite.svg';
 import locationWhite from '../../../assets/locationWhite.svg';
 import arrowblue from '../../../assets/arrowblue.svg';
-import data from '../../../../data/db.json'; // Import the data
-import { Link } from 'react-router-dom';
+
 const Section3 = () => {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchTrending() {
+      try {
+        const res = await fetch("https://alphaeventappdevmode.onrender.com/api/trndeventAllGet", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+
+        if (!res.ok) {
+          throw new Error(`Failed to fetch: ${res.status}`);
+        }
+
+        const json = await res.json();
+        setEvents(json.data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchTrending();
+  }, []);
+
+  if (loading) {
+    return <p className="text-center mt-10">Loading trending events...</p>;
+  }
+
+  if (error) {
+    return <p className="text-center mt-10 text-red-500">Error: {error}</p>;
+  }
+
   return (
-    <>
-      <section className="mt-[24px] px-[30px]">
-        <div className="w-full grid grid-cols-1 px-[
-      380px] sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-[20px] sm:gap-[30px] lg:gap-[40px] overflow-hidden"> {/* Made the grid responsive */}
-          
-        
-          {data.trendingEvent.map((event) => (
-            <Link key={event.id} to={`/eventsdetailshome/${event.id}`}>
-            <div key={event.id} className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col sm:flex-row w-full max-w-[500px] mx-auto">
-              <div className="relative sm:w-[200px] md:w-[230px] lg:w-[250px]">
-                <button className="absolute top-[20px] left-[20px] bg-[#3A7BD5] px-[10px] sm:px-[12px] py-[6px] rounded-[10px] text-[#FFFFFF] text-[12px] sm:text-[14px] z-10">
-                  {event.eventType}
+    <section className="mt-[24px] px-[30px]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px] sm:gap-[30px] lg:gap-[40px] overflow-hidden">
+        {events.map(event => (
+          <Link key={event.id} to={`/eventsdetailshome/${event.id}`}>
+            <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col sm:flex-row max-w-[522px] mx-auto">
+              {/* Left */}
+              <div className="relative w-[145px] flex-shrink-0">
+                <button className="absolute top-[20px] left-[10px] bg-[#3A7BD5] px-[10px] sm:px-[12px] py-[6px] rounded-[10px] text-white text-[12px] sm:text-[14px] z-10">
+                  Event Type
                 </button>
                 <img
-                  src={event.bg}
+                  src={event.eventImgURL}
+                  alt="event"
                   loading="lazy"
-                  alt="event background"
-                  className="w-full h-[150px] sm:h-full object-cover" /* Ensures image fits */
+                  className="w-[145px] h-[150px] sm:h-full object-cover"
                 />
               </div>
-              <div className="lightBlueBg bg-[#3A7BD5] w-full">
-                <div className="px-[12px] sm:px-[20px]">
-                  <div className="flex justify-between mt-[12px] sm:mt-[17px]">
+
+              {/* Right */}
+              <div className="bg-[#3A7BD5] w-[377px]">
+                <div className="px-[12px] sm:px-[20px] pt-[12px] sm:pt-[17px]">
+                  <div className="flex justify-between">
                     <p className="text-[18px] sm:text-[24px] font-bold text-[#FFF0F0]">
-                      {event.conference}
+                      {event.eventTitle}
                     </p>
-                    <img src={heartWhite} alt="heart icon" className="w-[16px] sm:w-auto" />
+                    <img src={heartWhite} alt="favorite" className="w-[16px]" />
                   </div>
-                  <div className="flex flex-col gap-[8px] sm:gap-[10px] mt-[10px] sm:mt-[16px]">
+                  <div className="mt-[10px] flex flex-col gap-[8px] sm:gap-[10px]">
                     <div className="flex gap-[5px]">
-                      <img src={calenderWhite} alt="calendar icon" />
-                      <p className="text-[12px] sm:text-[14px] text-[#FFF0F0] font-light">
-                        {event.date}
+                      <img src={calenderWhite} alt="date" />
+                      <p className="text-[12px] mt-[10px] sm:text-[14px] text-[#FFF0F0] font-light">
+                        {event.eventDate}
                       </p>
                     </div>
                     <div className="flex gap-[5px]">
-                      <img src={locationWhite} alt="location icon" />
-                      <p className="text-[12px] sm:text-[14px] text-[#FFF0F0] font-light">
-                        {event.location}
+                      <img src={locationWhite} alt="location" />
+                      <p className="text-[12px] sm:text-[14px] text-[#FFF0F0] font-light mt-[10px]">
+                        {event.venueInformation}
                       </p>
                     </div>
                   </div>
                 </div>
-                <div className="px-[12px] sm:px-[20px] mt-[10px] sm:mt-[12px]">
-                  <p className="text-left text-[#FFF0F0] font-bold text-[12px] sm:text-[14px]">
-                    Organized by <span className="text-white">{event.by}</span>
+                <div className="px-[12px] sm:px-[20px] pb-[12px] sm:pb-[17px] mt-[10px] sm:mt-[12px] flex justify-between items-center">
+                  <p className="text-[#FFF0F0] text-[14px] font-light mt-[10px] pl-[5px]">
+                    Organized by{" "}
+                    <span className="text-white font-bold text-[12px] sm:text-[14px]">
+                      {event.organizerName}
+                    </span>
                   </p>
-                  <div className="flex justify-between items-center mt-[8px] lg:mt-[40px]">
-                    <div className="flex gap-[5px] text-[#FFF0F0]">
-                      <p>
-                        $ <span>{event.initialAmount}</span>
-                      </p>
-                      <p>-</p>
-                      <p>
-                        $ <span>{event.lastAmount}</span>
-                      </p>
-                    </div>
+                  </div>
+                <div className="px-[12px] sm:px-[20px] pb-[12px] sm:pb-[17px] mt-[10px] sm:mt-[12px] flex justify-between items-center">
+                 
+                  <div className="flex items-center gap-[165px]">
+                    <span className="text-[#FFF0F0] text-[14px]">
+                
+              ₦{event.ticketprice}
+                    </span>
                     <button className="bg-[#3A7BD5] text-white border-2 border-[#FFF0F0] px-[16px] sm:px-[22px] py-[4px] sm:py-[6px] rounded-[10px]">
                       Get Ticket
                     </button>
@@ -71,25 +109,18 @@ const Section3 = () => {
                 </div>
               </div>
             </div>
-            </Link>
-            
-          ))}
-        </div>
-        <div className="flex justify-end mt-[30px] sm:mt-[42px] gap-[8px] sm:gap-[10px]">
-          <p className="text-[#3A7BD5] text-[12px] sm:text-[14px]"> <Link to="/ExploreEvents">SEE MORE EVENTS</Link></p>
-          <img src={arrowblue} alt="arrow" className="w-[12px] sm:w-auto" />
-        </div>
-      </section>
-    </>
+          </Link>
+        ))}
+      </div>
+
+      <div className="flex justify-end mt-[30px] sm:mt-[42px] gap-[8px] sm:gap-[10px]">
+        <Link to="/ExploreEvents" className="text-[#3A7BD5] text-[12px] sm:text-[14px]">
+          SEE MORE EVENTS
+        </Link>
+        <img src={arrowblue} alt="arrow" className="w-[12px] sm:w-auto" />
+      </div>
+    </section>
   );
 };
 
 export default Section3;
-
-
-
-
-
-
-
-

@@ -25,6 +25,12 @@ import CreateAcc from "./components/signup/CreateAcc.jsx";
 import SuccessAcc from "./components/signup/SuccessAcc.jsx";
 import MyEvent from "./components/dashboard/OnboardEvent/MyEvent.jsx";
 import MyEventDetails from "./components/dashboard/OnboardEvent/MyEventDetails.jsx";
+import Finance from "./components/dashboard/OnboardEvent/Finance.jsx";
+import Setting from "./components/dashboard/OnboardEvent/Setting.jsx";
+import WithdrawalHistory from "./components/dashboard/OnboardEvent/WithdrawalHistory.jsx";
+import WithdrawFund from "./components/dashboard/OnboardEvent/WithdrawFund.jsx";
+import ConfirmWithdrawal from "./components/dashboard/OnboardEvent/ConfirmWithdrawal.jsx";
+import WithdrawalSuccessfully from "./components/dashboard/OnboardEvent/WithdrawalSuccessfully.jsx";
 import MyEventFullDetail from "./components/dashboard/OnboardEvent/MyEventFullDetail.jsx";
 import About from "./components/About/About.jsx";
 import Support from "./components/Landingcont/Footer/Support.jsx";
@@ -71,6 +77,12 @@ function App() {
           <Route path="/MyEvent" element={<MyEvent />} />
           <Route path="/MyEventFullDetail" element={<MyEventFullDetail />} />
           <Route path="/MyEventDetails" element={<MyEventDetails />} />
+          <Route path="/Finance" element={<Finance />} />
+          <Route path="/Setting" element={<Setting />} />
+          <Route path="/WithdrawalHistory" element={<WithdrawalHistory />} />
+          <Route path="/WithdrawFund" element={<WithdrawFund />} />
+          <Route path="/ConfirmWithdrawal" element={<ConfirmWithdrawal />} />
+          <Route path="/WithdrawalSuccessfully" element={<WithdrawalSuccessfully />} />
           <Route path="/MyEventDetails/:id" element={<MyEventFullDetail />} />
         </Routes>
       </Suspense>

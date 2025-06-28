@@ -4,7 +4,7 @@ import logoSU from "../../assets/logoSU.svg";
 const TermsSer = () => {
   return (
     <>
-      <section className="ml-[160px] mt-[90px] mr-[160px]">
+      <section className="parent ml-[160px] mt-[90px] mr-[160px]">
         <div className="logo mb-[24px]">
           <img src={logoSU} alt="Logo" />
         </div>

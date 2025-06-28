@@ -5,7 +5,7 @@ import SalesChart from "./SalesChart"
 const Section2a = () => {
   return (
     <>
-      <section className="flex flex-wrap gap-5 font-lato px-4 py-3">
+      <section className="flex flex-wrap gap-[60px] font-lato px-4 py-3">
         <SalesChart />
         {/* Sales Performance */}
         {/* <div className=" bg-white w-[498px] h-[392px] rounded-[12px] px-[28px] py-[28px]  shadow-sm">
