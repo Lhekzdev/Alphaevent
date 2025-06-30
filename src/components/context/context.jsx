@@ -1,5 +1,6 @@
-import { createContext, useContext, useState, useRef } from "react";
+import { createContext, useContext, useState, useRef ,useEffect} from "react";
 import axios from "axios";
+import { LogIn } from "../LogIn/LogIn";
 
 const EventFormContext = createContext();
 
@@ -47,10 +48,55 @@ export const EventFormProvider = ({ children }) => {
   const [userID, setUserID] = useState("");
   const [fileInputRef] = useState(useRef(null)); // for file input reset
 
+const [isUserIDReady, setIsUserIDReady] = useState(false);
+
+  
+useEffect(() => {
+  const storedEmail = localStorage.getItem('userEmail');
+  console.log("Stored Email:", storedEmail); // ✅ check this
+  
+  if (storedEmail) {
+    fetchUserID(storedEmail);
+  }
+  else {
+    console.warn("No email found in localStorage");
+  }
+}, []);
+
+const fetchUserID = async (userEmail) => {
+  try {
+    const response = await fetch(`https://alphaeventappdevmode.onrender.com/userNamFetch/${userEmail}`);
+    const data = await response.json();
+    console.log("Response data from fetchUserID:", data); // ✅ log this
+
+    if (response.ok && data.data?.userID) {
+      setUserID(data.data.userID);
+      setIsUserIDReady(true);
+    } else {
+      console.error('Invalid or missing userID in response');
+    }
+  } catch (error) {
+    console.error('Error fetching user ID:', error);
+  }
+};
+
+
+
+  
   // Handle form submission
   const handleSubmit = async (event) => {
     event?.preventDefault(); // optional chaining, will only call if event exists
 
+
+
+//     if (!values.ticketIDs) {
+//   values.ticketIDs = `ticket_${Date.now()}`;
+// }
+
+    if (!isUserIDReady) {
+  alert("User ID not ready yet. Please try again in a moment.");
+  return;
+}
 
     const tagsArray = Array.isArray(formData.eventTags)
       ? formData.eventTags
@@ -62,6 +108,8 @@ export const EventFormProvider = ({ children }) => {
       alert("Please upload an image before submitting.");
       return;
     }
+
+
 
     
     const SubmitFormData = new FormData();
@@ -127,15 +175,17 @@ export const EventFormProvider = ({ children }) => {
     // console.log("Submitting Data:", Object.fromEntries(SubmitFormData.entries())); // Debugging
 
     try {
+      console.log("About to submit with userID:", userID);
+
       const response = await axios.post(
-        `https://alphaeventappdevmode.onrender.com/createVnt/${userID}`,
+        `https://alphaeventappdevmode.onrender.com/api/createVnt/${userID}`,
         SubmitFormData,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
+        // {
+        //   headers: { "Content-Type": "application/json" },
+        // }
       );
       console.log("formData Response:", response);
-      alert("Event created successfully!");
+      alert("Event created successfully!");LogIn
 
 
       //  CLEAR FORM 

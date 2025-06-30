@@ -37,7 +37,13 @@ import Details from "./components/dashboard/createEvent/Detailsoldw.jsx";
 import SettingsPage from "./components/dashboard/SettingsPage/SettingsPage.jsx";
 import Applayout from "./components/Landingcont/layout/Applayout.jsx";
 import AccountInfo from "./components/dashboard/SettingsPage/AccountInfo.jsx";
-
+import MyEvent from "./components/dashboard/OnboardingMain/MyEvent.jsx";
+import MyEventDetails from "./components/dashboard/OnboardingMain/MyEventDetails.jsx"
+import MyEventFullDetail from "./components/dashboard/OnboardingMain/MyEventFullDetail.jsx"
+import Support from "./components/Landingcont/Footer/Support.jsx";
+import About from "./components/About/About.jsx"
+import Footer from "./components/Landingcont/Footer/Footer.jsx";
+import Footer2 from "./components/Landingcont/Footer/Footer2.jsx";
   const Spinner =()=> {
   return (
     <div className="flex justify-center items-center h-screen bg-white">
@@ -124,6 +130,8 @@ function App() {
             }
           />
 
+        
+
 
           {/* Standalone  route */}
           <Route path="/states/:countryId" element={<Herocontainer />} /> 
@@ -135,8 +143,44 @@ function App() {
           <Route path="/CreateAcc" element={<CreateAcc />} />
           <Route path="/SuccessAcc" element={<SuccessAcc />} />
           <Route path="/Login" element={<LogIn />} />
-          <Route path="/TermsSer" element={<TermsSer />} />
+        
+        
+
+  <Route
+           path="/About"
+            element={
+           < div> 
+           <About/>
+              <Footer/>
+          
+            </div>}
+                       
+          />
+  <Route
+           path="/TermsSer"
+            element={
+           < div> 
+           <TermsSer />
+              <Footer2/>
+          
+            </div>}
+                       
+          />
+  <Route
+           path="/Privacypolicy"
+            element={
+           < div> 
+           <Privacypolicy />
+              <Footer2/>
+          
+            </div>}
+                       
+          />
+
+          {/* <Route path="/TermsSer" element={<TermsSer />} /> */}
           <Route path="/privacypolicy" element={<Privacypolicy />} />
+         
+         
           <Route path="/OnboardingMain" element={<OnboardingMain />} />
           <Route path="/OnboardingMain1" element={<OnboardingMain1 />} />
           <Route path="/createEvent" element={<CreateEvent />} />
@@ -145,8 +189,16 @@ function App() {
           <Route path="/ReviewEvent" element={<ReviewEvent />} />
           <Route path="/Details" element={<Details />} />
 
+
+          <Route path="/MyEvent" element={<MyEvent />} />
+          <Route path="/MyEventFullDetail" element={<MyEventFullDetail />} />
+          <Route path="/MyEventDetails" element={<MyEventDetails />} />
+          <Route path="/MyEventDetails/:id" element={<MyEventFullDetail />} />
+
           <Route path="/settingsPage" element={<SettingsPage/>} />
-          <Route path="/settingsPage" element={<SettingsPage/>} />
+    <Route path="/Support" element={<Support />} />
+          <Route path="/About" element={<About />} />
+
 
          
 

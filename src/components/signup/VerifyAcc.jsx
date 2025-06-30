@@ -187,13 +187,13 @@ const VerifyAcc = () => {
 
             {/* Verify button */}
             <div className="w-[416px] mx-auto bg-[#3A7BD5] rounded-[12px] mb-[55px]">
-              <button className="flex items-center justify-center gap-[5px] py-[16px] px-[167.5px]" onClick={handleVerify}>
+              <button type="submit" className="flex items-center justify-center gap-[5px] py-[16px] px-[167.5px]" onClick={handleVerify}>
                 <p className="font-bold text-[20px] text-white">Verify</p>
-                <img
+                {/* <img
                   src={verifyArrowRight}
                   alt="verifyArrowRight"
                   className="w-[16px] pt-[10px]"
-                />
+                /> */}
               </button>
             </div>
           </div>

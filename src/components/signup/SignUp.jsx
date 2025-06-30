@@ -59,14 +59,14 @@ export const SignUp = () => {
     };
   
   // data from server request
-  const handleSignUp = async   (values, { resetForm })  => {
+  const handleSignUp = async   (values, {resetForm})  => {
    
     setIsSubmitted(true);
      {
       //console.log("Formik Values:", values);
       try {
      
-        const response = await fetch(`https://alphaeventappdevmode.onrender.com/new&User`, {
+        const response = await fetch(`https://alphaeventappdevmode.onrender.com/api/new&User`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -74,17 +74,18 @@ export const SignUp = () => {
           body: JSON.stringify(values),
         });
 
-        if (response.ok) {
-          // channged this const reDirectPg=Link()    to ==   
-          localStorage.setItem('userEmail', values.email);
+      if (response.ok) {
+  const data = await response.json(); // ⬅️ Get backend response body
 
+  localStorage.setItem('userEmail', data.email || values.email);
+  localStorage.setItem('userID', data._id); // ⬅️ Store actual MongoDB ID
 
-          toast.info('Check your email for the OTP to complete registration');
-          // reDirectPg('/dashboard')
-          // navigate('/OnboardingMain');
-          navigate('/VerifyAcc', { state: { email: values.email } });
-          resetForm();
-        } else {
+  toast.info('Check your email for the OTP to complete registration');
+  navigate('/VerifyAcc', { state: { email: data.email || values.email } });
+  resetForm();
+}
+
+         else {
           const { msg } = await response.json();
           toast.error(msg || 'Sign Up Failed');
           setIsSubmitted(false); // ✅ Reset button state
@@ -100,7 +101,7 @@ export const SignUp = () => {
       return () => clearInterval(interval); // Cleanup interval on unmount
     }, []);
   
-
+  
   useEffect(() => {
 
     
@@ -262,7 +263,7 @@ export const SignUp = () => {
                 <button
   type="submit"
   className="w-full flex items-center justify-center px-6 bg-[#D8E5F7] text-[#7CA7E3] hover:text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300 relative"
-  onClick={handleSignUp}
+  // onClick={handleSignUp}
   disabled={isSubmitted}
 >
   {/* Keep the text centered */}
@@ -362,3 +363,9 @@ export const SignUp = () => {
     </>
   );
 };
+try {
+  
+  
+} catch (error) {
+  
+}

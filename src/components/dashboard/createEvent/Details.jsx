@@ -126,29 +126,29 @@ const Details = ({ onNext, setActiveTab}) => {
     }
   };
 
-  useEffect(() => {
-    const storedEmail = localStorage.getItem('userEmail');
-    if (storedEmail) {
-      setUserID(storedEmail);
-      fetchUserID(storedEmail);
-    }
-  }, []);
-  const fetchUserID = async (userEmail) => {
-    try {
-      const response = await fetch(`https://alphaeventappdevmode.onrender.com/userNamFetch/${userEmail}`);
-      //console.log("NEW:",response)
-      if (response.ok) {
-        const data = await response.json();
-        let useID = data.data.userID
-        console.log('Fetched ID:', useID);
-        setUserID(useID);
-      } else {
-        console.error('Failed to fetch total revenue:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error fetching total revenue:', error);
-    }
-  };
+  // useEffect(() => {
+  //   const storedEmail = localStorage.getItem('userEmail');
+  //   if (storedEmail) {
+  //     setUserID(storedEmail);
+  //     fetchUserID(storedEmail);
+  //   }
+  // }, []);
+  // const fetchUserID = async (userEmail) => {
+  //   try {
+  //     const response = await fetch(`https://alphaeventappdevmode.onrender.com/userNamFetch/${userEmail}`);
+  //     //console.log("NEW:",response)
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       let useID = data.data.userID
+  //       console.log('Fetched ID:', useID);
+  //       setUserID(useID);
+  //     } else {
+  //       console.error('Failed to fetch total revenue:', response.statusText);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching total revenue:', error);
+  //   }
+  // };
 
 
   // Fetch all countries
@@ -330,59 +330,59 @@ const handleEventTagChange =  (e) => {
     }
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
 
 
-    // Ensure image upload is completed before submitting the form
-    if (!uploadedImage) {
-      alert("Please upload an image before submitting.");
-      return;
-    }
+  //   // Ensure image upload is completed before submitting the form
+  //   if (!uploadedImage) {
+  //     alert("Please upload an image before submitting.");
+  //     return;
+  //   }
 
-    const SubmitFormData = new FormData();
+  //   const SubmitFormData = new FormData();
 
-    SubmitFormData.append("eventImgURL", formData.eventImgURL || "");
-    SubmitFormData.append("eventTitle", formData.eventTitle || "");
-    SubmitFormData.append("eventType", formData.eventType || "");
-    SubmitFormData.append("eventDesc", formData.eventDesc || "");
-    SubmitFormData.append("tickeType", formData.tickeType || "");
-    SubmitFormData.append("maximumAttendees", formData.maximumAttendees || "");
-    SubmitFormData.append("eventVenue", formData.eventVenue || "");
-    SubmitFormData.append("facebook", formData.facebook || "");
-    SubmitFormData.append("url", formData.url || "");
-    // ✅ Correctly format event dates as ISO strings
-    if (formData.startDate) {
-      SubmitFormData.append("eventStart", formData.startDate.toISOString());
+  //   SubmitFormData.append("eventImgURL", formData.eventImgURL || "");
+  //   SubmitFormData.append("eventTitle", formData.eventTitle || "");
+  //   SubmitFormData.append("eventType", formData.eventType || "");
+  //   SubmitFormData.append("eventDesc", formData.eventDesc || "");
+  //   SubmitFormData.append("tickeType", formData.tickeType || "");
+  //   SubmitFormData.append("maximumAttendees", formData.maximumAttendees || "");
+  //   SubmitFormData.append("eventVenue", formData.eventVenue || "");
+  //   SubmitFormData.append("facebook", formData.facebook || "");
+  //   SubmitFormData.append("url", formData.url || "");
+  //   // ✅ Correctly format event dates as ISO strings
+  //   if (formData.startDate) {
+  //     SubmitFormData.append("eventStart", formData.startDate.toISOString());
 
-    }
-    if (formData.endDate) {
-      SubmitFormData.append("eventEnd", formData.endDate.toISOString());
-    }
-    SubmitFormData.append("eventCountry", selectedCountry);
-    SubmitFormData.append("eventState", selectedState);
-    SubmitFormData.append("eventCity", selectedCity || "");
-
-
+  //   }
+  //   if (formData.endDate) {
+  //     SubmitFormData.append("eventEnd", formData.endDate.toISOString());
+  //   }
+  //   SubmitFormData.append("eventCountry", selectedCountry);
+  //   SubmitFormData.append("eventState", selectedState);
+  //   SubmitFormData.append("eventCity", selectedCity || "");
 
 
-    console.log("Submitting Data:", Object.fromEntries(SubmitFormData.entries())); // Debugging
 
-    try {
-      const response = await axios.post(
-        `https://alphaeventappdevmode.onrender.com/createVnt/${userID}`,
-        SubmitFormData,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      console.log("formData Response:", response);
-      alert("Event created successfully!");
-    } catch (error) {
-      console.error("Error creating event:", error?.response?.data || error);
-      alert("Failed to create event.");
-    }
-  };
+
+  //   console.log("Submitting Data:", Object.fromEntries(SubmitFormData.entries())); // Debugging
+
+  //   try {
+  //     const response = await axios.post(
+  //       `https://alphaeventappdevmode.onrender.com/createVnt/${userID}`,
+  //       SubmitFormData,
+  //       {
+  //         headers: { "Content-Type": "application/json" },
+  //       }
+  //     );
+  //     console.log("formData Response:", response);
+  //     alert("Event created successfully!");
+  //   } catch (error) {
+  //     console.error("Error creating event:", error?.response?.data || error);
+  //     alert("Failed to create event.");
+  //   }
+  // };
 
 
 
@@ -422,7 +422,7 @@ const handleEventTagChange =  (e) => {
 
 
   return (
-    <form className="space-y-4 " onSubmit={handleSubmit}  >
+    <form className="space-y-4 "  >
       <div className="max-w-[1140px] pt-[48px]   h-auto">
 
         {/* first section */}
@@ -545,8 +545,8 @@ const handleEventTagChange =  (e) => {
                   onChange={handleChange}
                 >
                   <option disabled value="">Select Event Type</option>
-                  <option value="online">Online</option>
-                  <option value="physical">Physical</option>
+                  <option value="Virtual">Virtual</option>
+                  <option value="Physical">Physical</option>
                 </select>
               </div>
 
@@ -554,7 +554,7 @@ const handleEventTagChange =  (e) => {
 
 
 
-              {formData.eventType === 'online' && (
+              {formData.eventType === 'Virtual' && (
                 <div className="mt-4">
                   <label htmlFor="url" className="block text-sm  font-medium text-gray-700 mb-1">URL</label>
                   <input
@@ -569,7 +569,7 @@ const handleEventTagChange =  (e) => {
                 </div>
               )}
 
-              {formData.eventType === 'physical' && (
+              {formData.eventType === 'Physical' && (
                 <div className="max-w-[1032px] mt-[32px] rounded-[12px] border-[0.8px] p-[40px] gap-[20px]">
                   <div className="font-bold leading-[27px] text-[18px]">
                     <h5>Venue Information</h5>

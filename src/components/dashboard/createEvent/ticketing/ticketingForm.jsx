@@ -28,7 +28,7 @@ const TicketingForm =({ ticket, index, handleChange, setSelected, removeTicket, 
             
              <option value="Early Bird">Early Bird</option>
              <option value="Regular">Regular</option>
-            <option value="Vip">Vip</option>
+            <option value="VIP">Vip</option>
            
           </select>
         </div>
@@ -41,24 +41,24 @@ const TicketingForm =({ ticket, index, handleChange, setSelected, removeTicket, 
 
           <button
             onClick={() => {
-              setSelected(index, 'free');
+              setSelected(index, 'Free');
               handleChange(index, {
-                target: { name: 'PriceType', value: 'free' }
+                target: { name: 'PriceType', value: 'Free' }
               });
             }}
-            className={`rounded-[68px]  w-[108px] h-[48px] ${ticket.PriceType === 'free' ? 'bg-[#2D6CCF] text-white' : 'text-black bg-white'}`}
+            className={`rounded-[68px]  w-[108px] h-[48px] ${ticket.PriceType === 'Free' ? 'bg-[#2D6CCF] text-white' : 'text-black bg-white'}`}
           >
             <span className="w-[44px] h-[16px] text-[16px] font-bold">Free</span>
           </button>
 
           <button
             onClick={() => {
-              setSelected(index, 'paid');
+              setSelected(index, 'Paid');
               handleChange(index, {
-                target: { name: 'PriceType', value: 'paid' }
+                target: { name: 'PriceType', value: 'Paid' }
               });
             }}
-            className={`rounded-[68px] w-[108px] h-[48px] ${ticket.PriceType === 'paid' ? 'bg-[#2D6CCF] text-white' : 'bg-white text-black'}`}
+            className={`rounded-[68px] w-[108px] h-[48px] ${ticket.PriceType === 'Paid' ? 'bg-[#2D6CCF] text-white' : 'bg-white text-black'}`}
           >
             <span className="w-[44px] h-[16px] text-[16px] font-bold">Paid</span>
           </button>

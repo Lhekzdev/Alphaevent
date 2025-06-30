@@ -37,6 +37,7 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^6.28.0",
     "react-toastify": "^10.0.6",
+    "recharts": "^3.0.2",
     "yup": "^1.4.0"
   },
   "devDependencies": {

@@ -13,15 +13,17 @@ const OnboardingMain = () => {
 
       <section className='flex'>
         <Onboardingleft />
-        <div className='bg-[#F8F9FC] '> 
-        
-        <div ><ProfileSearchBar /></div>
+        <div className='bg-[#F8F9FC] flex flex-col gap-y-[24px]'>
+
+          <div >
+            <ProfileSearchBar />
+          </div>
           <div>
 
             <Section1a />
-       
+
             <Section2a />
-            <Section2 /> 
+            <Section2 />
             <Section1 />
           </div></div>
       </section>
