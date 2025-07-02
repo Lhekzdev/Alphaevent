@@ -18,7 +18,7 @@ const sidebarLinks = [
   },
   {
     name: "Finance",
-    route: "/MyEventFullDetail",
+    route: "/Finance",
     iconGray: "https://res.cloudinary.com/dqtyrjpeh/image/upload/v1749415313/icon_12_l0jrmw.png",
     iconWhite: "https://res.cloudinary.com/youriconpath/financeWhite.svg",
   },

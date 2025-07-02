@@ -44,7 +44,14 @@ import Support from "./components/Landingcont/Footer/Support.jsx";
 import About from "./components/About/About.jsx"
 import Footer from "./components/Landingcont/Footer/Footer.jsx";
 import Footer2 from "./components/Landingcont/Footer/Footer2.jsx";
-  const Spinner =()=> {
+ import Finance from "./components/dashboard/OnboardingMain/Finance.jsx";
+import WithdrawalHistory from "./components/dashboard/OnboardingMain/WithdrawalHistory.jsx";
+import WithdrawFund from "./components/dashboard/OnboardingMain/WithdrawFund.jsx";
+import WithdrawalSuccessfully from "./components/dashboard/OnboardingMain/WithdrawalSuccessfully.jsx";
+import ConfirmWithdrawal from "./components/dashboard/OnboardingMain/ConfirmWithdrawal.jsx";
+
+
+const Spinner =()=> {
   return (
     <div className="flex justify-center items-center h-screen bg-white">
       <div className="animate-spin rounded-full h-24 w-24 border-t-8 border-blue-500 border-solid border-r-transparent"></div>
@@ -198,7 +205,11 @@ function App() {
           <Route path="/settingsPage" element={<SettingsPage/>} />
     <Route path="/Support" element={<Support />} />
           <Route path="/About" element={<About />} />
-
+  <Route path="/Finance" element={<Finance />} />
+  <Route path="/WithdrawalHistory" element={<WithdrawalHistory />} />
+  <Route path="/WithdrawFund" element={<WithdrawFund/>} />
+  <Route path="/WithdrawalSuccessfully" element={<WithdrawalSuccessfully/>} />
+  <Route path="/ConfirmWithdrawal" element={<ConfirmWithdrawal/>} />
 
          
 
