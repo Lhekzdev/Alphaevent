@@ -84,7 +84,13 @@ const Section3 = () => {
                 </p>
                 <div className="flex justify-between items-center mt-[8px] sm:mt-[8.5px] mb-[20px] sm:mb-[25px]">
                   <div className="flex gap-[5px] text-[#FF6B6B]">
-                  ₦{event.ticketprice}
+                  <p>
+                          ₦<span>{event.ticketpriceMIN}</span>
+                        </p>
+                        <p>-</p>
+                        <p>
+                        ₦<span>{event.ticketpriceMAX}</span>
+                        </p>
                   </div>
                   <button className="bg-[#3A7BD5] text-white px-[24px] sm:px-[32px] py-[10px] sm:py-[14px] rounded-[10px]">
                     Get Ticket

@@ -51,7 +51,7 @@ const Section3 = () => {
                   </div>
                   <div className="px-[12px] sm:px-[20px] mt-[10px] sm:mt-[12px]">
                     <p className="text-left text-[#FFF0F0] font-bold text-[12px] sm:text-[14px]">
-                      Organized by <span className="text-white">{event.by}</span>
+                      Organized  <span className="text-white">{event.by}</span>
                     </p>
                     <div className="flex justify-between items-center mt-[8px] lg:mt-[40px]">
                       <div className="flex gap-[5px] text-[#FFF0F0]">

@@ -97,11 +97,17 @@ const Section3 = () => {
                   </div>
                 <div className="px-[12px] sm:px-[20px] pb-[12px] sm:pb-[17px] mt-[10px] sm:mt-[12px] flex justify-between items-center">
                  
-                  <div className="flex items-center gap-[165px]">
-                    <span className="text-[#FFF0F0] text-[14px]">
-                
-              ₦{event.ticketprice}
-                    </span>
+                  <div className="flex items-center gap-[90px]">
+                  <div className="flex gap-[5px] text-[#FFF0F0]">
+                        <p>
+                          ₦<span>{event.ticketpriceMIN}</span>
+                        </p>
+                        <p>-</p>
+                        <p>
+                        ₦<span>{event.ticketpriceMAX
+                          }</span>
+                        </p>
+                      </div>
                     <button className="bg-[#3A7BD5] text-white border-2 border-[#FFF0F0] px-[16px] sm:px-[22px] py-[4px] sm:py-[6px] rounded-[10px]">
                       Get Ticket
                     </button>

@@ -1,6 +1,7 @@
 import React from 'react'
 import Section2Footer from '../Footer/Section2Footer.jsx'
-import {SignUp} from './SignUp.jsx'
+import Subscribe from '../../Subscribe/Subscribe.jsx'
+
 
 
 
@@ -9,7 +10,7 @@ const Footer = () => {
     <>
     <section className='bg-[#2F3B4C] w-full px-[30px] md:px-[100px] py-[60px] '>
     {/* <Form /> */}
-    <SignUp />
+    <Subscribe />
     <Section2Footer />
     </section>
     </>
