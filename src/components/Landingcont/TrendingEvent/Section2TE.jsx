@@ -1,116 +1,132 @@
 import React, { useEffect, useState } from "react";
-import heartRed from "../../../assets/heartRed.svg";
-import calender from "../../../assets/calender.svg";
-import location from "../../../assets/location.svg";
-import arrowblue from "../../../assets/arrowblue.svg";
 import { Link } from "react-router-dom";
+import heartWhite from '../../../assets/heartWhite.svg';
+import calenderWhite from '../../../assets/calenderWhite.svg';
+import locationWhite from '../../../assets/locationWhite.svg';
+import arrowblue from '../../../assets/arrowblue.svg';
 
 const Section3 = () => {
-  const [events, setEvents] = useState([]); // State to store fetched events
-  const [loading, setLoading] = useState(true); // State for loading
-  const [error, setError] = useState(null); // State for error handling
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Fetch events from the backend
   useEffect(() => {
-    const fetchEvents = async () => {
+    async function fetchTrending() {
       try {
-        const response = await fetch("https://alphaeventappdevmode.onrender.com/trndeventAllGet");
-        if (response.ok) {
-          const data = await response.json();
-          setEvents(data.evntty); // Update state with fetched events
-        } else {
-          throw new Error("Failed to fetch events");
+        const res = await fetch("https://alphaeventappdevmode.onrender.com/api/trndeventAllGet", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+
+        if (!res.ok) {
+          throw new Error(`Failed to fetch: ${res.status}`);
         }
+
+        const json = await res.json();
+        setEvents(json.data);
       } catch (err) {
         setError(err.message);
       } finally {
-        setLoading(false); // Stop loading
+        setLoading(false);
       }
-    };
+    }
 
-    fetchEvents();
+    fetchTrending();
   }, []);
 
-  if (loading) return <p>Loading events...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) {
+    return <p className="text-center mt-10">Loading trending events...</p>;
+  }
+
+  if (error) {
+    return <p className="text-center mt-10 text-red-500">Error: {error}</p>;
+  }
 
   return (
-    <>
-      <section className="mt-[24px] px-[30px] md:px-[80px]">
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Map through events dynamically */}
-          {events.map((event) => (
-            <Link key={event.eventID} to={`/Eventsdetailshome/${event.eventID}`}>
-              <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-                <div className="relative">
-                  <button className="absolute top-[26px] left-[26px] bg-[#3A7BD5] px-[10px] py-[6px] sm:py-[10px] rounded-[10px] text-[#FFFFFF] text-[12px] sm:text-[14px] z-10">
-                    {event.eventType || "General"}
-                  </button>
-                  <div className="w-full flex flex-col">
-                    <img
-                      src={event.eventImgURL || "default-image.jpg"}
-                      loading="lazy"
-                      alt="event background"
-                      className="w-full h-[180px] sm:h-auto object-cover"
-                    />
-                  </div>
-                </div>
-                <div className="px-[12px] sm:px-[20px]">
-                  <div className="flex justify-between mt-[10px] sm:mt-[17px]">
-                    <p className="text-[18px] sm:text-[24px] font-bold text-[#333333]">
-                      {event.eventTitle || "Event Title"}
+    <section className="mt-[24px] px-[30px]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px] sm:gap-[30px] lg:gap-[40px] overflow-hidden">
+        {events.map(event => (
+          <Link key={event.id} to={`/eventsdetailshome/${event.id}`}>
+            <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col sm:flex-row max-w-[522px] mx-auto">
+              {/* Left */}
+              <div className="relative w-[145px] flex-shrink-0">
+                <button className="absolute top-[20px] left-[10px] bg-[#3A7BD5] px-[10px] sm:px-[12px] py-[6px] rounded-[10px] text-white text-[12px] sm:text-[14px] z-10">
+                  Event Type
+                </button>
+                <img
+                  src={event.eventImgURL}
+                  alt="event"
+                  loading="lazy"
+                  className="w-[145px] h-[150px] sm:h-full object-cover"
+                />
+              </div>
+
+              {/* Right */}
+              <div className="bg-[#3A7BD5] w-[377px]">
+                <div className="px-[12px] sm:px-[20px] pt-[12px] sm:pt-[17px]">
+                  <div className="flex justify-between">
+                    <p className="text-[18px] sm:text-[24px] font-bold text-[#FFF0F0]">
+                      {event.eventTitle}
                     </p>
-                    <img src={heartRed} alt="heart icon" />
+                    <img src={heartWhite} alt="favorite" className="w-[16px]" />
                   </div>
-                  <div className="flex flex-col sm:flex-row gap-[10px] mt-[8px] sm:mt-[16px]">
+                  <div className="mt-[10px] flex flex-col gap-[8px] sm:gap-[10px]">
                     <div className="flex gap-[5px]">
-                      <img src={calender} alt="calendar icon" />
-                      <p className="text-[12px] sm:text-[14px] text-[#757575] font-light">
-                        {event.eventDate.eventStart}
+                      <img src={calenderWhite} alt="date" />
+                      <p className="text-[12px] mt-[10px] sm:text-[14px] text-[#FFF0F0] font-light">
+                        {event.eventDate}
                       </p>
                     </div>
                     <div className="flex gap-[5px]">
-                      <img src={location} alt="location icon" />
-                      <p className="text-[12px] sm:text-[14px] text-[#757575] font-light">
-                        {event.eventLocation.eventCity|| "Location"}
+                      <img src={locationWhite} alt="location" />
+                      <p className="text-[12px] sm:text-[14px] text-[#FFF0F0] font-light mt-[10px]">
+                        {event.venueInformation}
                       </p>
                     </div>
                   </div>
                 </div>
-                <div className="px-[12px] sm:px-[20px] mt-[10px] sm:mt-[12px]">
-                  <p className="text-left text-[#757575] font-light text-[12px] sm:text-[14px]">
+                <div className="px-[12px] sm:px-[20px] pb-[12px] sm:pb-[17px] mt-[10px] sm:mt-[12px] flex justify-between items-center">
+                  <p className="text-[#FFF0F0] text-[14px] font-light mt-[10px] pl-[5px]">
                     Organized by{" "}
-                    <span className="text-[#333333]">
-                      {event.organizerName || "Unknown Organizer"}
+                    <span className="text-white font-bold text-[12px] sm:text-[14px]">
+                      {event.organizerName}
                     </span>
                   </p>
-                  <div className="flex justify-between items-center mt-[8px] sm:mt-[8.5px] mb-[20px] sm:mb-[25px]">
-                    <div className="flex gap-[5px] text-[#FF6B6B]">
-                      <p>
-                        $ <span>{event.ticketPrice || "0"}</span>
-                      </p>
-                      {/* <p>-</p>
-                      <p>
-                        $ <span>{event.lastAmount || "0"}</span>
-                      </p> */}
-                    </div>
-                    <button className="bg-[#3A7BD5] text-white px-[24px] sm:px-[32px] py-[10px] sm:py-[14px] rounded-[10px]">
+                  </div>
+                <div className="px-[12px] sm:px-[20px] pb-[12px] sm:pb-[17px] mt-[10px] sm:mt-[12px] flex justify-between items-center">
+                 
+                  <div className="flex items-center gap-[90px]">
+                <div className="flex gap-[5px] text-[#FFF0F0]">
+                        <p>
+                          ₦<span>{event.ticketpriceMIN}</span>
+                        </p>
+                        <p>-</p>
+                        <p>
+                        ₦<span>{event.ticketpriceMAX
+                          }</span>
+                        </p>
+                      </div>
+
+                    <button className="bg-[#3A7BD5] text-white border-2 border-[#FFF0F0] px-[16px] sm:px-[22px] py-[4px] sm:py-[6px] rounded-[10px]">
                       Get Ticket
                     </button>
                   </div>
                 </div>
               </div>
-            </Link>
-          ))}
-        </div>
-        <div className="flex justify-end mt-[30px] sm:mt-[42px] gap-[8px] sm:gap-[10px]">
-          <p className="text-[#3A7BD5] text-[12px] sm:text-[14px]">
-            <Link to="/ExploreEvents">SEE MORE EVENTS</Link>
-          </p>
-          <img src={arrowblue} alt="" className="w-[16px] sm:w-auto" />
-        </div>
-      </section>
-    </>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      <div className="flex justify-end mt-[30px] sm:mt-[42px] gap-[8px] sm:gap-[10px]">
+        <Link to="/ExploreEvents" className="text-[#3A7BD5] text-[12px] sm:text-[14px]">
+          SEE MORE EVENTS
+        </Link>
+        <img src={arrowblue} alt="arrow" className="w-[12px] sm:w-auto" />
+      </div>
+    </section>
   );
 };
 
