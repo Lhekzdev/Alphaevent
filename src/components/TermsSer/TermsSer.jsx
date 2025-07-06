@@ -1,12 +1,14 @@
 import React from "react";
 import logoSU from "../../assets/logoSU.svg";
-
+import { useNavigate } from "react-router-dom";
 const TermsSer = () => {
+
+  let redir = useNavigate();
   return (
     <>
-      <section className="ml-[160px] mt-[90px] mr-[160px]">
+      <section className="ml-[160px] cursor-pointer mt-[90px] mr-[160px]">
         <div className="logo mb-[24px]">
-          <img src={logoSU} alt="Logo" />
+          <img onClick={()=> redir('/')}  src={logoSU} alt="Logo" />
         </div>
 
         <div className="content">
