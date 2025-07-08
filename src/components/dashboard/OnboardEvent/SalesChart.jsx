@@ -21,6 +21,7 @@ const SalesChart = () => {
       try {
         const response = await axios.get(
           `https://alphaeventappdevmode.onrender.com/api/dashboard-monthly-performance/${userID}`
+          
         );
 
         // Handle array extraction based on your backend's response structure

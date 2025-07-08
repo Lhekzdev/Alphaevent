@@ -17,7 +17,8 @@ const Section1 = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://alphaeventappdevmode.onrender.com/api/orGTotRev/${userID}`
+          `https://alphaeventappdevmode.onrender.com/api/dashboard-monthly-performance/${userID}`
+        
         );
         setData(response.data);
       } catch (error) {
@@ -45,7 +46,7 @@ const Section1 = () => {
             </p>
             <div className="mt-2">
               <p className="text-[24px] text-[#333333] font-semibold leading-none">
-                ${data.totalRevenue.toLocaleString()}
+              ${(data.totalRevenue ?? 0).toLocaleString()}
               </p>
               <p className="text-[#2A8212] text-[12px] font-medium leading-none mt-2">
                 ↑{data.revenuePercentage ?? 0}% vs Last week
@@ -88,55 +89,55 @@ const Section1 = () => {
           />
         </button>
 
-        {/* Card 3 - Static */}
-        <button className="flex bg-white w-[240px] h-[114px] rounded-[12px] px-[16px] py-[20px] justify-between items-center shadow-sm">
-          <div className="flex flex-col justify-center text-left gap-[4px] leading-none">
-            <p className="text-[#ABABAB] text-[10px] font-medium">
-              Engagement Rate
-            </p>
-            <div className="mt-2">
-              <p className="text-[24px] text-[#333333] font-semibold leading-none">
-                40%
-              </p>
-              <p className="text-[#821212] text-[12px] font-medium leading-none mt-2">
-                ↓0.5% vs Last week
-              </p>
-            </div>
-          </div>
-          <img
-            src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747786949/dashboard_engage_uuclzt.svg"
-            alt="icon"
-            className="w-[40px] h-[40px]"
-            onError={(e) =>
-              (e.currentTarget.src = "https://placehold.co/40x40?text=Icon")
-            }
-          />
-        </button>
+       {/* Card 3 - Engagement Rate from API */}
+<button className="flex bg-white w-[240px] h-[114px] rounded-[12px] px-[16px] py-[20px] justify-between items-center shadow-sm">
+  <div className="flex flex-col justify-center text-left gap-[4px] leading-none">
+    <p className="text-[#ABABAB] text-[10px] font-medium">Engagement Rate</p>
+    <div className="mt-2">
+      <p className="text-[24px] text-[#333333] font-semibold leading-none">
+        {data.engagementRate ?? 0}%
+      </p>
+      <p className={`text-[12px] font-medium leading-none mt-2 ${data.engagementChange >= 0 ? 'text-[#2A8212]' : 'text-[#821212]'}`}>
+        {data.engagementChange >= 0 ? '↑' : '↓'}
+        {Math.abs(data.engagementChange ?? 0)}% vs Last week
+      </p>
+    </div>
+  </div>
+  <img
+    src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747786949/dashboard_engage_uuclzt.svg"
+    alt="icon"
+    className="w-[40px] h-[40px]"
+    onError={(e) =>
+      (e.currentTarget.src = "https://placehold.co/40x40?text=Icon")
+    }
+  />
+</button>
 
-        {/* Card 4 - Static */}
-        <button className="flex bg-white w-[240px] h-[114px] rounded-[12px] px-[16px] py-[20px] justify-between items-center shadow-sm">
-          <div className="flex flex-col justify-center text-left gap-[4px] leading-none">
-            <p className="text-[#ABABAB] text-[10px] font-medium">
-              Satisfaction
-            </p>
-            <div className="mt-2">
-              <p className="text-[24px] text-[#333333] font-semibold leading-none">
-                4.5/5
-              </p>
-              <p className="text-[#2A8212] text-[12px] font-medium leading-none mt-2">
-                ↑2.5% vs Last week
-              </p>
-            </div>
-          </div>
-          <img
-            src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747787005/dashboard_satis_pkqkat.svg"
-            alt="icon"
-            className="w-[40px] h-[40px]"
-            onError={(e) =>
-              (e.currentTarget.src = "https://placehold.co/40x40?text=Icon")
-            }
-          />
-        </button>
+
+        {/* Card 4 - Satisfaction from API */}
+<button className="flex bg-white w-[240px] h-[114px] rounded-[12px] px-[16px] py-[20px] justify-between items-center shadow-sm">
+  <div className="flex flex-col justify-center text-left gap-[4px] leading-none">
+    <p className="text-[#ABABAB] text-[10px] font-medium">Satisfaction</p>
+    <div className="mt-2">
+      <p className="text-[24px] text-[#333333] font-semibold leading-none">
+        {data.satisfaction ?? 0}/5
+      </p>
+      <p className={`text-[12px] font-medium leading-none mt-2 ${data.satisfactionChange >= 0 ? 'text-[#2A8212]' : 'text-[#821212]'}`}>
+        {data.satisfactionChange >= 0 ? '↑' : '↓'}
+        {Math.abs(data.satisfactionChange ?? 0)}% vs Last week
+      </p>
+    </div>
+  </div>
+  <img
+    src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747787005/dashboard_satis_pkqkat.svg"
+    alt="icon"
+    className="w-[40px] h-[40px]"
+    onError={(e) =>
+      (e.currentTarget.src = "https://placehold.co/40x40?text=Icon")
+    }
+  />
+</button>
+
       </section>
     </>
   );

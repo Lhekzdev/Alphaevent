@@ -5,11 +5,11 @@ const Section2 = () => {
     <section className="font-lato px-4 py-3">
       <div className="bg-white rounded-[12px]  shadow-sm w-full max-w-full">
       <div className="flex gap-[740px]  border-b-[1px] border-b-[#ABABAB] px-[32px] py-[18px]">
-      <p className="text-[20px] text-[#000000] ">RecentRegistrations </p>
+      <p className="text-[20px] text-[#000000] ">Recent Registrations </p>
             <button>
             <img
               src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747835248/Menu_Vertical_k3jkky.png"
-              className="w-[40px] h-[40px] "
+              className="w-[40px] h-[40px]"
               alt="Menu Icon"
             />
             </button>
