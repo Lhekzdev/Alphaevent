@@ -20,7 +20,7 @@ const SettingsPage = () => {
      const [editing, setEditing] = useState(false);
    
      // To dim
-      const [isOpen, setIsOpen] = useState(false);
+  
     
 
 

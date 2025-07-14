@@ -82,11 +82,11 @@ const TicketingForm =({ ticket, index, handleChange, setSelected, removeTicket, 
             <label htmlFor="quantity" className="px-[8px] text-[16px] font-bold text-[#525252]">Maximum Quantity</label>
             <input
               id="quantity"
-              name="ticketQty"
+              name="quantity"
               type="number"
               placeholder="e.g 100"
               className="border border-[#BEBEBE] rounded-[12px] h-[52px] px-[20px] py-[18px]"
-              value={ticket.ticketQty}
+              value={ticket.quantity}
               onChange={(e) => handleChange(index, e)}
               min={0}
               step={1}

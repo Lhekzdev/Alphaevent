@@ -34,7 +34,7 @@ export const EventFormProvider = ({ children }) => {
     endTimezone: null,
     eventCategory: null,
 
-    ticketCategory: [{ ticketType: 'selectEventType', PriceType: '', ticketPrice: '', ticketQty: '' }]
+    tickets: [{ ticketType: 'selectEventType', PriceType: '', ticketPrice: '', quantity: '' }]
   });
 
   const [eventTags, setEventTagsInput] = useState("");
@@ -111,8 +111,44 @@ const fetchUserID = async (userEmail) => {
 
 
 
-    
+// Clean ticket data
+const cleanedTickets = formData.tickets.map(ticket => ({
+  ...ticket,
+  quantity: parseInt(ticket.quantity || 0, 10),
+  ticketPrice: ticket.PriceType === "Free" ? 0 : parseInt(ticket.ticketPrice || 0, 10),
+}));
+
+cleanedTickets.forEach(t => {
+  if (typeof t.quantity !== 'number' || isNaN(t.quantity)) {
+    console.error('Invalid ticket quantity:', t);
+  }
+});
+// Correct total quantity
+const totalTicketQuantity = cleanedTickets.reduce(
+  (total, ticket) => total + ticket.quantity,
+  0
+);
+
+
+
+// Convert both values to integers
+const maxAttendees = parseInt(formData.maximumAttendees, 10);
+
+// Compare user-provided maximumAttendees vs total ticket quantity
+if (maxAttendees !== totalTicketQuantity) {
+  alert(`Maximum attendees (${maxAttendees}) must equal the total number of ticket quantities (${totalTicketQuantity}).`);
+  return;
+}
+
+
+// Force-set in formData in case backend uses it
+formData.maximumAttendees = totalTicketQuantity;
+
+console.log("== FINAL VALUES ==");
+console.log("maximumAttendees (type):", totalTicketQuantity, typeof totalTicketQuantity);
+console.log("cleanedTickets:", cleanedTickets);
     const SubmitFormData = new FormData();
+// Force-set in formData in case backend uses it
 
  
     SubmitFormData.append("eventImgURL", formData.eventImgURL || "");
@@ -137,11 +173,18 @@ const fetchUserID = async (userEmail) => {
       });
     }
 
+
+
+
+
+
     SubmitFormData.append("eventType", formData.eventType || "");
     SubmitFormData.append("eventCategory", formData.eventCategory || "");
     SubmitFormData.append("eventDesc", formData.eventDesc || "");
     // SubmitFormData.append("tickeType", formData.tickeType || "");
-    SubmitFormData.append("maximumAttendees", formData.maximumAttendees || "");
+SubmitFormData.append("maximumAttendees", totalTicketQuantity.toString());
+
+SubmitFormData.append("tickets", JSON.stringify(cleanedTickets));
     SubmitFormData.append("eventVenue", formData.eventVenue || "");
     // SubmitFormData.append("quantity", formData.quantity || "");
     SubmitFormData.append("url", formData.url || "");
@@ -160,13 +203,7 @@ const fetchUserID = async (userEmail) => {
     SubmitFormData.append("eventState", selectedState);
     SubmitFormData.append("eventCity", selectedCity || "");
 
-   // Append each ticket's fields
-    formData.ticketCategory.forEach((ticket, index) => {
-      SubmitFormData.append(`tickets[${index}][ticketType]`, ticket.ticketType || "");
-      SubmitFormData.append(`tickets[${index}][ticketPrice]`, ticket.ticketPrice);
-      SubmitFormData.append(`tickets[${index}][quantity]`, ticket.ticketQty || "");
-      SubmitFormData.append(`tickets[${index}][PriceType]`, ticket.PriceType || "");
-    });
+   
 
 
     for (let [key, value] of SubmitFormData.entries()) {
@@ -213,7 +250,7 @@ const fetchUserID = async (userEmail) => {
         endClock: null,
         endTimezone: null,
      
-        ticketCategory: [{ ticketType: 'selectEventType', PriceType: '', ticketPrice: '', ticketQty: '' }]
+        tickets: [{ ticketType: 'selectEventType', PriceType: '', ticketPrice: '', quantity: '' }]
       });
 
       setSelectedCountry("");

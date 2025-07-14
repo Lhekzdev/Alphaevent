@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { ActiveLinkContext, ActiveLinkProvider } from "../OnboardingMain/ActiveLinkContext"
-
+import { useNavigate } from "react-router-dom";
 import notetificationIcon from "../../../assets/notetificationIcon.svg";
 import arrowdownDashboard from "../../../assets/arrowdownDashboard.svg";
 import Notifications from "../OnboardingMain/Notifications"
 
 const ProfileSearchBar = () => {
+  const redir =useNavigate()
   const menuRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -83,9 +84,9 @@ const ProfileSearchBar = () => {
                     <li className="py-1 px-4 hover:scale-105 w-[200px] rounded-lg hover:bg-[#EBF1F5] cursor-pointer">
                       Help
                     </li>
-                    <li className="py-1https://www.figma.com/design/nfuAgRIelueN2nMKccz3dJ/Alpha-Alvent?node-id=0-1&node-type=canvas&t=4ldRa9SVnXPlRbut-0 px-4 hover:scale-105 text-customRed cursor-pointer">
+                    <li onClick={()=>{redir("/")}} className="py-1 https://www.figma.com/design/nfuAgRIelueN2nMKccz3dJ/Alpha-Alvent?node-id=0-1&node-type=canvas&t=4ldRa9SVnXPlRbut-0 px-4 hover:scale-105 text-customRed cursor-pointer">
                       Log Out
-                    </li>
+                    </li> 
                   </ul>
                 </div>
               )}

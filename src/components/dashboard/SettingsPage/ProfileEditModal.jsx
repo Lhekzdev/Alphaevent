@@ -1,20 +1,49 @@
 import React, { useEffect, useState } from "react";
-
+import { useEventForm } from "../../context/context";
 const ProfileEditModal = ({ isOpen, onClose }) => {
 
-  const [formData, setFormData] = useState({
- socialMediaLinks: "", websiteURL:"",bio:"", phoneNumber:"", email:"", fullName:""
+// const {formData: eventFormData, setFormData: setEventFormData, } = useEventForm()
+
+  
+
+  const [contentFormData, setContentFormData] = useState({
+ socialMediaLinks:"", websiteURL:"",bio:"", phoneNumber:"", email:"", fullName:""
 
   }
 
 
   )
 
+useEffect(() => {
+  if (isOpen) {
+    setContentFormData({
+      websiteURL: "",
+      bio: "",
+      phoneNumber: "",
+      email: "",
+      fullName: "",
+      socialMediaLinks: ""
+    });
+  }
+}, [isOpen]);
 
+
+  const userID =
+  // "68545da4e864b5840ad97523"
+ 
+    
+     localStorage.getItem('userID');
+
+    if (!userID) {
+      console.error("User not logged in");
+      return;
+    }
+     
+  
   // handlechange
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
+setContentFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -25,35 +54,28 @@ const ProfileEditModal = ({ isOpen, onClose }) => {
 
 
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
 
     try {
-      const response = await fetch('http://localhost:5000/api/submit-form', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      const result = await response.json();
-      alert(result.message);
+        const response = await fetch(`https://alphaeventappdevmode.onrender.com/api/orgProfileUpdate/${userID}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json', // ✅ required for JSON
+      },
+      body: JSON.stringify(contentFormData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    alert(result.message);
 
 // clear Form
-useEffect(() => {
-  if (isOpen) {
-    setFormData({
-      websiteURL: "",
-      bio: "",
-      phoneNumber: "",
-      email: "",
-      fullName: "",
-      socialMediaLinks: ""
-    });
-  }
-}, [isOpen]);
+
 
     } catch (error) {
       console.error('Submission failed:', error);
@@ -153,7 +175,7 @@ useEffect(() => {
             </label>
             <select name="socialMediaLinks" onChange={handleChange}
              className="  px-[20px] h-[52px] border rounded-[12px]" 
-             id="socialMediaLinks " value={formData.socialMediaLinks}>
+             id="socialMediaLinks" value={formData.socialMediaLinks}>
 
             <option disabled className="text-[#525252]" >-- Select Platform -- </option>
             <option value="instagram"> Instagram </option>

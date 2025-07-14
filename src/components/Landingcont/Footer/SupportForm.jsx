@@ -164,7 +164,7 @@ const SupportForm = () => {
                       <Field
                         name={field.name}
                         type={field.type}
-                        className="mt-[5px] w-[420px] h-[32px] border border-gray-300 rounded-md p-2"
+                        className="mt-[5px] w-[420px] h-5 border border-gray-300 rounded-md p-2"
                         placeholder={field.placeholder}
                       />
                     )}

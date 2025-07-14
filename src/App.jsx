@@ -49,7 +49,7 @@ import WithdrawalHistory from "./components/dashboard/OnboardingMain/WithdrawalH
 import WithdrawFund from "./components/dashboard/OnboardingMain/WithdrawFund.jsx";
 import WithdrawalSuccessfully from "./components/dashboard/OnboardingMain/WithdrawalSuccessfully.jsx";
 import ConfirmWithdrawal from "./components/dashboard/OnboardingMain/ConfirmWithdrawal.jsx";
-
+import ChangePassword from "./components/dashboard/SettingsPage/ChangePassword.jsx";
 
 const Spinner =()=> {
   return (
@@ -210,6 +210,7 @@ function App() {
   <Route path="/WithdrawFund" element={<WithdrawFund/>} />
   <Route path="/WithdrawalSuccessfully" element={<WithdrawalSuccessfully/>} />
   <Route path="/ConfirmWithdrawal" element={<ConfirmWithdrawal/>} />
+  <Route path="/ChangePassword" element={<ChangePassword/>} />
 
          
 

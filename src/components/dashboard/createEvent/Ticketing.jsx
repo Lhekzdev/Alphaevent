@@ -53,21 +53,21 @@ const tickets = formData.tickets || [];
 
 // Update ticket input (select, input, etc.)
 const handleChange = (index, e) => {
-  const updatedTickets = [...formData.ticketCategory];
+  const updatedTickets = [...formData.tickets];
   updatedTickets[index][e.target.name] = e.target.value;
 
   setFormData((prev) => ({
     ...prev,
-    ticketCategory: updatedTickets,
+    tickets: updatedTickets,
   }));
 };
 
   const addTicket =()=>{
     setFormData((prev)=>({
 ...prev, 
-ticketCategory : [
-  ...(prev.ticketCategory || []),
-  { ticketType: '', PriceType: '', ticketPrice: '', ticketQty: '' },
+tickets : [
+  ...(prev.tickets || []),
+  { ticketType: '', PriceType: '', ticketPrice: '', quantity: '' },
 
 ]
     })
@@ -77,10 +77,10 @@ ticketCategory : [
 
 // Remove a ticket
 const removeTicket = (index) => {
-  if (formData.ticketCategory.length > 1) {
-    const updatedTickets = [...formData.ticketCategory];
+  if (formData.tickets.length > 1) {
+    const updatedTickets = [...formData.tickets];
     updatedTickets.splice(index, 1);
-    setFormData({ ...formData, ticketCategory: updatedTickets });
+    setFormData({ ...formData, tickets: updatedTickets });
   } else {
     alert("At least one ticket must be present.");
   }
@@ -88,12 +88,12 @@ const removeTicket = (index) => {
 
 // Set selected price type (free/paid)
 const setSelected = (index, value) => {
-  const updatedTickets = [...formData.ticketCategory];
+  const updatedTickets = [...formData.tickets];
   updatedTickets[index].PriceType = value;
 
   setFormData((prev) => ({
     ...prev,
-    ticketCategory: updatedTickets,
+    tickets: updatedTickets,
   }));
 };
 
@@ -157,7 +157,7 @@ const setSelected = (index, value) => {
     <section>
       {/* Ticket type container  */}
    
-   {formData.ticketCategory.map((ticket, index) => (
+   {formData.tickets.map((ticket, index) => (
   <TicketingForm
     key={index}
     ticket={ticket}

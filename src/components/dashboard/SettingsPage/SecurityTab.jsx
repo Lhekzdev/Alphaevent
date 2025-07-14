@@ -1,9 +1,12 @@
  import React, { useState } from "react"
- 
+import { Navigate, useNavigate } from "react-router-dom";
+ import ChangePassword from "./ChangePassword";
  
  const SecurityTab =()=>{
 
 
+ 
+const [eventModal,setEventModal] =useState(false)
     const [onToggle,setonToggle] =useState(false)
 
     const handleToggleClick =()=>{
@@ -15,18 +18,20 @@
     try {
 return( 
     
-    <div className="max-w-[1056px] flex flex-col gap-y-5 font-Lato h-auto px-[20px] py-[10px]">
+    <div className={`max-w-[1056px] relative flex flex-col gap-y-5 font-Lato h-auto px-[20px] py-[10px] ${eventModal ? "bg-black bg-opacity-50" : "block"}`}>
 
-<div className="flex w-[832px] justify-between  items-center ">
+
+<div onClick={()=>setEventModal(true) } className="flex w-[832px] cursor-pointer justify-between  items-center ">
 <ol className="flex flex-col gap-y-[4px]">
     <li className="text-[20px] font-bold ">Change Password</li>
     <li className="text-[#ABABAB] text-[16px] ">Create a new password</li>
 </ol>
-<ol><img src="/arrorright.svg" alt="arror-right" /></ol>
+
+<ol ><img  src="/arrorright.svg" alt="arror-right" className={eventModal ? "hidden" : "block"}/></ol>
+
+
 
 </div>
-
-
 
 {/* Two-Factor Authentication (2FA) */}
 
@@ -63,8 +68,14 @@ onClick={handleToggleClick}
 
     </ol>
     </div>
+    
+{/* "fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" */}
+<div className="absolute top-1/2  left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+{eventModal && <ChangePassword 
+ setClose ={setEventModal} 
 
-
+ />}
+</div>
 
 </div>
 )

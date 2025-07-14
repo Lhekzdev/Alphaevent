@@ -22,7 +22,7 @@ const ReviewEvent = () => {
   useEffect(() => {
     let changed = false
 
-    const tickets = formData.ticketCategory.map(tk => {
+    const tickets = formData.tickets.map(tk => {
       // if it’s paid but has no price…
       if (tk.PriceType === 'paid' && !tk.ticketPrice) {
        toast.warning('⚠ Paid tickets require a price — this ticket has been switched to Free.', {
@@ -38,7 +38,7 @@ const ReviewEvent = () => {
     if (changed) {
       setFormData(f => ({
         ...f,
-        ticketCategory: tickets
+        tickets: tickets
       }))
     }
   }, [] )
@@ -52,7 +52,7 @@ const myKey = import.meta.env.VITE_KEY;
 
 
 const eventTypeOne = () => {
-  return formData.ticketCategory
+  return formData.tickets
     .filter(tk => ["Vip", "Regular", "Early Bird"].includes(tk.ticketType))
     .map((ticket, i) => {
       const isPaidValid =
@@ -92,7 +92,7 @@ const eventTypeOne = () => {
 
 const eventTypeTwo =()=>
 {
-  return formData.ticketCategory.filter(tk=> ["Vip", "Regular", "Early Bird"].includes(tk.ticketType) &&
+  return formData.tickets.filter(tk=> ["Vip", "Regular", "Early Bird"].includes(tk.ticketType) &&
       tk.PriceType === "free")
   .map((ticket,index) =>
    
@@ -117,7 +117,7 @@ const eventTypeTwo =()=>
 
 // const eventTypeTwo =()=>
 // {
-//   return formData.ticketCategory.filter(ticket => ticket.ticketType === "Regular")
+//   return formData.tickets.filter(ticket => ticket.ticketType === "Regular")
 //    .map((ticket,index) =>{
    
    
@@ -151,7 +151,7 @@ const eventTypeTwo =()=>
 
 
 const eventTypeThree = () => {
-  return formData.ticketCategory
+  return formData.tickets
     .filter(ticket => ticket.ticketType === "Regular" && ticket.ticketType === "Vip")
     .map((ticket, index) => {
       const isPaid = ticket.PriceType === "paid" && Number(ticket.ticketPrice) > 0;
@@ -241,10 +241,10 @@ const eventTypeThree = () => {
   
   <ul className='flex items-center'>
     <li><img className='w-[12px] h-[12px]' src="/quantity.svg" alt="quantity" /></li>
-    {formData.ticketCategory.map(
+    {formData.tickets.map(
       (ticket,index)=>(
 <li key ={index}>
-{ticket.ticketQty}
+{ticket.quantity}
 </li>
 
 

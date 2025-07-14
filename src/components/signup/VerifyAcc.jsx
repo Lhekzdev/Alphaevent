@@ -8,7 +8,10 @@ import verifyArrowRight from '../../assets/verifyArrowRight.svg';
 import { Image } from "cloudinary-react";
 import { Link,useLocation, useNavigate } from 'react-router-dom';
 import CountdownTimer from "./CountdownTimer/CountdownTimer";
+
+
 const VerifyAcc = () => {
+  let redir =useNavigate()
 
     const [activeInput, setActiveInput] = useState(0); 
  const inputRefs = useRef([]); // Store input refs for navigation
@@ -82,7 +85,7 @@ const VerifyAcc = () => {
            
            
             try {
-              const response = await fetch(`https://alphaeventappdevmode.onrender.com/verifyOTp/${userEmail}`, { // Update URL as needed
+              const response = await fetch(`https://alphaeventappdevmode.onrender.com/api/confirmedToken/${userEmail}`, { // Update URL as needed
                   method: "POST",
                   headers: {
                       "Content-Type": "application/json",
@@ -90,12 +93,12 @@ const VerifyAcc = () => {
                   body: JSON.stringify({verificationCode}),
               });
               const result = await response.json();
-              //console.log("Server Response:", result);
+              console.log("Server Response:", result);
   
               console.log("Response OK?", response.ok);
                 if (response.ok) {
                   console.log("OTP verified, navigating...");
-                  navigate("/SetAcc");
+                  
                   // ✅ Clear the OTP-related data
   localStorage.removeItem("otpSent");
   localStorage.removeItem("otpStartTime");
@@ -105,7 +108,7 @@ const VerifyAcc = () => {
                   alert("Verification failed. Please try again.");
               }
           } catch (error) {
-              // console.error("Error verifying code:", error);
+              console.error("Error verifying code:", error);
           }
       };
 
@@ -128,7 +131,7 @@ const VerifyAcc = () => {
         <form  className="container w-[850px] mx-auto bg-white rounded-[12px] p-8 relative">
           
           {/* Logo container - Positioned at the top-left */}
-          <div className="logoContainer absolute top-15 left-15 ">
+          <div onClick={()=>{redir('/')}}  className="logoContainer absolute cursor-pointer top-15 left-15 ">
             <img src={verifyLogo} alt="verifyLogo" />
           </div>
 
@@ -137,8 +140,10 @@ const VerifyAcc = () => {
           {/* Main content container - Centered inside the form */}
           <div className="contentContainer text-center mt-[50px]">
             <div>
+
+         
               {/* Envelope icon and heading */}
-              <img src={verifyEnvelop} alt="verifyEnvelop" className="mx-auto mb-4" />
+             <img  src={verifyEnvelop} alt="verifyEnvelop" className="mx-auto mb-4 cursor-pointer" />
               <p className="text-[32px] font-bold w-[416px] mx-auto">
                 Verify your account!
               </p>
@@ -187,7 +192,7 @@ const VerifyAcc = () => {
 
             {/* Verify button */}
             <div className="w-[416px] mx-auto bg-[#3A7BD5] rounded-[12px] mb-[55px]">
-              <button type="submit" className="flex items-center justify-center gap-[5px] py-[16px] px-[167.5px]" onClick={handleVerify}>
+              <button type="button" className="flex items-center justify-center gap-[5px] py-[16px] px-[167.5px]" onClick={handleVerify}>
                 <p className="font-bold text-[20px] text-white">Verify</p>
                 {/* <img
                   src={verifyArrowRight}

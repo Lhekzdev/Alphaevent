@@ -3,13 +3,16 @@ import logoSU from "../../assets/logoSU.svg";
 import organizer from "../../assets/organizer.svg";
 import attendees from "../../assets/attendees.svg";
 import mission from "../../assets/mission.svg";
+import { useNavigate } from "react-router-dom";
 
 const About = () => {
+
+  let redir =useNavigate()
   return (
     <>
       <section className=" mt-[40px]  mb-[68px]">
-        <div className="logo mb-[24px] ml-[60px]">
-          <img src={logoSU} alt="Logo" />
+        <div onClick={()=>{redir('/') }}  className="logo mb-[24px] cursor-pointer ml-[60px]">
+          <img  src={logoSU} alt="Logo" />
         </div>
 
         {/* Heading */}
