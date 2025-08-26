@@ -90,7 +90,7 @@ const VerifyAcc = () => {
                   headers: {
                       "Content-Type": "application/json",
                   },
-                  body: JSON.stringify({verificationCode}),
+                body: JSON.stringify({ userToken: verificationCode }), // ✅ match backend
               });
               const result = await response.json();
               console.log("Server Response:", result);
