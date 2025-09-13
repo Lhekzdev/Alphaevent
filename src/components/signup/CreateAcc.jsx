@@ -102,7 +102,8 @@ useEffect(() => {
     
   
     try {
-      const response = await fetch(`https://alphaeventappdevmode.onrender.com/api/resetPasswd/${userEmail}`, {
+     
+      const response = await fetch(`https:localhost:7000/api/resetPasswd/${userEmail}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ newPassword: password }), // ✅ Proper JSON format
