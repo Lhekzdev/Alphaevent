@@ -85,8 +85,8 @@ const VerifyAcc = () => {
            
            
             try {
-              // const response = await fetch(`https://alphaeventappdevmode.onrender.com/api/confirmedToken/${userEmail}`, { // Update URL as needed
-              // const response = await fetch(`http://localhost:7000/api/confirmedToken/${userEmail}`, { // Update URL as needed
+              
+              
               const response = await fetch(`https://setup-6689.onrender.com/api/confirmedToken/${userEmail}`, { // Update URL as needed
                   method: "POST",
                   headers: {
