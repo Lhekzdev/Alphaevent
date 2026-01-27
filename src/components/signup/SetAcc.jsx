@@ -22,7 +22,9 @@ const SetAcc = () => {
     e.preventDefault();
 
    
-    const response = await fetch('https://alphaeventappdevmode.onrender.com/loginUser', {
+    const response = await fetch('https://setup-6689.onrender.com/api/loginUser', {
+    // const response = await fetch('http://localhost:7000/api/loginUser', {
+    // const response = await fetch('https://alphaeventappdevmode.onrender.com/loginUser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

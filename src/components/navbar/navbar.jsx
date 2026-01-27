@@ -42,7 +42,7 @@ const Navbar = () => {
 
             <ol className='hidden font-Roboto text-nowrap items-center md:flex "   h-[32px] sm:gap-2 md:gap-2   lg:gap-[4.7vw] '>
               <li className='hover:border-b-2 hover:border-customSkyblue' > <Link to="/">Explore events</Link></li>
-              <li className=' hover:border-b-2 hover:border-customSkyblue '><Link to="/">My Ticket</Link></li>
+              <li className=' hover:border-b-2 hover:border-customSkyblue '><Link to="/ticket">My Ticket</Link></li>
               <li className='hover:border-b-2 hover:border-customSkyblue '><Link to="/About">About</Link></li>
 
             </ol>

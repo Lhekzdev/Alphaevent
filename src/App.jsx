@@ -38,10 +38,11 @@ import SettingsPage from "./components/dashboard/SettingsPage/SettingsPage.jsx";
 import Applayout from "./components/Landingcont/layout/Applayout.jsx";
 import AccountInfo from "./components/dashboard/SettingsPage/AccountInfo.jsx";
 import MyEvent from "./components/dashboard/OnboardingMain/MyEvent.jsx";
-import MyEventDetails from "./components/dashboard/OnboardingMain/MyEventDetails.jsx"
-import MyEventFullDetail from "./components/dashboard/OnboardingMain/MyEventFullDetail.jsx"
+import MyEventDetails from "./components/dashboard/OnboardingMain/MyEventDetails.jsx";
+import MyEventFullDetail from "./components/dashboard/OnboardingMain/MyEventFullDetail.jsx";
 import Support from "./components/Landingcont/Footer/Support.jsx";
-import About from "./components/About/About.jsx"
+import MyTicket from "./components/ticket/MyTicket.jsx";
+import About from "./components/About/About.jsx";
 import Footer from "./components/Landingcont/Footer/Footer.jsx";
 import Footer2 from "./components/Landingcont/Footer/Footer2.jsx";
  import Finance from "./components/dashboard/OnboardingMain/Finance.jsx";
@@ -150,6 +151,7 @@ function App() {
           <Route path="/CreateAcc" element={<CreateAcc />} />
           <Route path="/SuccessAcc" element={<SuccessAcc />} />
           <Route path="/Login" element={<LogIn />} />
+          <Route path="/ticket" element={<MyTicket/>} />
         
         
 
