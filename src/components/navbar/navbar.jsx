@@ -89,7 +89,7 @@ const Navbar = () => {
             <div class="py-1  " onMouseLeave={closeMenu}>
               <div className="text-left w-40">
                 <a href="#" className="text-gray-700 block px-4 py-1 text-lg hover:border-b-2 w-[150px]  hover:border-customSkyblue" role="menuitem"><Link to="/">Explore events</Link></a>
-                <a href="#" className="text-gray-700 block px-4 py-1 text-lg hover:border-b-2 w-28 hover:border-customSkyblue" role="menuitem"> <Link to="/">My Ticket</Link></a>
+                <a href="#" className="text-gray-700 block px-4 py-1 text-lg hover:border-b-2 w-28 hover:border-customSkyblue" role="menuitem"> <Link to="/ticket">My Ticket</Link></a>
                 <a href="#" className="text-gray-700 block px-4 py-1 mb-4 text-lg hover:border-b-2 w-20 hover:border-customSkyblue" role="menuitem"><Link to="/">About</Link></a>
               </div><div className="flex">  <a href="#" className='flex text-gray-700  px-4 py-1 text-sm gap-[10px]'>
                 <h4 className='hover:text-customSkyblue text-xl mb-3 text-sky-900'> <Link to="/LogIn">Login</Link></h4>
