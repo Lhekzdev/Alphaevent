@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import heartWhite from '../../../assets/heartWhite.svg';
 import calenderWhite from '../../../assets/calenderWhite.svg';
 import locationWhite from '../../../assets/locationWhite.svg';
-import arrowblue from '../../../assets/arrowblue.svg';
+import arrowblue from '../../../assets/arrowblue.svg'; 
+import { IoMdArrowRoundForward } from "react-icons/io";
 
 const Section3 = () => {
   const [events, setEvents] = useState([]);
@@ -52,8 +53,8 @@ const Section3 = () => {
             <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col sm:flex-row max-w-[522px] mx-auto">
               {/* Left */}
               <div className="relative w-[145px] flex-shrink-0">
-                <button className="absolute top-[20px] left-[10px] bg-[#3A7BD5] px-[10px] sm:px-[12px] py-[6px] rounded-[10px] text-white text-[12px] sm:text-[14px] z-10">
-                  Event Type
+                <button className="absolute top-[20px] left-[10px] bg-white px-[10px] sm:px-[12px] py-[6px] rounded-[10px] text-[#123499] text-[12px] sm:text-[14px] z-10">
+                 Category
                 </button>
                 <img
                   src={event.eventImgURL}
@@ -64,54 +65,77 @@ const Section3 = () => {
               </div>
 
               {/* Right */}
-              <div className="bg-[#3A7BD5] w-[377px]">
-                <div className="px-[12px] sm:px-[20px] pt-[12px] sm:pt-[17px]">
-                  <div className="flex justify-between">
-                    <p className="text-[18px] sm:text-[24px] font-bold text-[#FFF0F0]">
-                      {event.eventTitle}
+              <div className=" text-[#333333] w-[377px] px-[12px] mt-[20px]">
+                <div className=" sm:px-[20px] pt-[12px] sm:pt-[17px]">
+                  <div className="flex items-center">
+                    <p className="text-[18px] sm:text-[24px] font-bold ">
+                      {/* {event.eventTitle} */}
+                      Event Name
                     </p>
-                    <img src={heartWhite} alt="favorite" className="w-[16px]" />
+                    {/* <img src={heartWhite} alt="favorite" className="w-[16px]" /> */}
                   </div>
-                  <div className="mt-[10px] flex flex-col gap-[8px] sm:gap-[10px]">
-                    <div className="flex gap-[5px]">
-                      <img src={calenderWhite} alt="date" />
-                      <p className="text-[12px] mt-[10px] sm:text-[14px] text-[#FFF0F0] font-light">
-                        {event.eventDate}
-                      </p>
-                    </div>
-                    <div className="flex gap-[5px]">
-                      <img src={locationWhite} alt="location" />
-                      <p className="text-[12px] sm:text-[14px] text-[#FFF0F0] font-light mt-[10px]">
-                        {event.venueInformation}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="px-[12px] sm:px-[20px] pb-[12px] sm:pb-[17px] mt-[10px] sm:mt-[12px] flex justify-between items-center">
-                  <p className="text-[#FFF0F0] text-[14px] font-light mt-[10px] pl-[5px]">
+                  <div className="mt-[15px]">
+                    <p className=" text-[14px] font-light mt-[10px] ">
                     Organized by{" "}
-                    <span className="text-white font-bold text-[12px] sm:text-[14px]">
+                    <span className=" font-bold text-[12px] sm:text-[14px]">
                       {event.organizerName}
                     </span>
                   </p>
                   </div>
+                  <div className="mt-[15px]">
+                        <p className="text-[12px] mt-[10px] sm:text-[14px]  font-light">
+                    DD-MM-YYYY • 00:00 GMT+1
+                    </p>
+                  </div>
+                  <div className="mt-[15px]">
+                    <p>Location</p>
+                  </div>
+                  <div className="mt-[15px]">
+
+                    <p>
+                         From $10.00 
+                    </p>
+                  </div>
+                  <div className="mt-[10px] flex flex-col gap-[8px] sm:gap-[10px]">
+                    {/* <div className="flex gap-[5px]">
+                      <img src={calenderWhite} alt="date" />
+                      <p className="text-[12px] mt-[10px] sm:text-[14px]  font-light">
+                        {event.eventDate}
+                      </p>
+                    </div> */}
+                    {/* <div className="flex gap-[5px]">
+                      <img src={locationWhite} alt="location" />
+                      <p className="text-[12px] sm:text-[14px] font-light mt-[10px]">
+                        {event.venueInformation}
+                      </p>
+                    </div> */}
+                  </div>
+                </div>
+                <div className="px-[12px] sm:px-[20px] pb-[12px] sm:pb-[17px] mt-[10px] sm:mt-[12px] flex justify-between items-center">
+                  {/* <p className=" text-[14px] font-light mt-[10px] pl-[5px]">
+                    Organized by{" "}
+                    <span className=" font-bold text-[12px] sm:text-[14px]">
+                      {event.organizerName}
+                    </span>
+                  </p> */}
+                  </div>
                 <div className="px-[12px] sm:px-[20px] pb-[12px] sm:pb-[17px] mt-[10px] sm:mt-[12px] flex justify-between items-center">
                  
                   <div className="flex items-center gap-[90px]">
-                <div className="flex gap-[5px] text-[#FFF0F0]">
-                        <p>
+                <div className="flex gap-[5px] ">
+                        {/* <p>
                           ₦<span>{event.ticketpriceMIN}</span>
                         </p>
                         <p>-</p>
                         <p>
                         ₦<span>{event.ticketpriceMAX
                           }</span>
-                        </p>
+                        </p> */}
                       </div>
 
-                    <button className="bg-[#3A7BD5] text-white border-2 border-[#FFF0F0] px-[16px] sm:px-[22px] py-[4px] sm:py-[6px] rounded-[10px]">
+                    {/* <button className="bg-[#3A7BD5]  border-2 border-[#FFF0F0] px-[16px] sm:px-[22px] py-[4px] sm:py-[6px] rounded-[10px]">
                       Get Ticket
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
@@ -120,11 +144,12 @@ const Section3 = () => {
         ))}
       </div>
 
-      <div className="flex justify-end mt-[30px] sm:mt-[42px] gap-[8px] sm:gap-[10px]">
-        <Link to="/ExploreEvents" className="text-[#3A7BD5] text-[12px] sm:text-[14px]">
+      <div className="flex justify-end mt-[30px] sm:mt-[42px] gap-[8px] sm:gap-[10px] mb-[20px]">
+        <Link to="/ExploreEvents" className="text-[#123499] text-[12px] sm:text-[14px]">
           SEE MORE EVENTS
         </Link>
-        <img src={arrowblue} alt="arrow" className="w-[12px] sm:w-auto" />
+        <IoMdArrowRoundForward className="text-[#123499] mt-[3px] font-semibold"/>
+        {/* <img src={arrowblue} alt="arrow" className="w-[12px] sm:w-auto" /> */}
       </div>
     </section>
   );

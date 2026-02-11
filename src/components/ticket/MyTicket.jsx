@@ -1,28 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BsBoxArrowInLeft } from "react-icons/bs";
+import { IoCloseCircleOutline, IoCheckmarkCircleOutline } from "react-icons/io5";
 
 const MyTicket = () => {
+  const redir = useNavigate();
 
-  let redir = useNavigate();
+  const [inputValue, setInputValue] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleSearch = () => {
+    setIsSearching(true);
+    setHasError(false);
+    setIsSuccess(false);
+
+    // Simulate API search
+    setTimeout(() => {
+      setIsSearching(false);
+
+      // Only this email gets a "Ticket Found"
+      if (inputValue.trim().toLowerCase() === "ugonnachidinma22@gmail.com") {
+        setIsSuccess(true);
+      } else {
+        setHasError(true);
+      }
+    }, 2000);
+  };
+
+  const handleFindAnother = () => {
+    setIsSearching(false);
+    setHasError(false);
+    setIsSuccess(false);
+    setInputValue("");
+  };
+
   return (
     <section className="bgCard bg-gray-500 min-h-screen flex items-center justify-center px-4 sm:px-8">
       <div className="card bg-white p-5 sm:p-6 rounded-lg w-full max-w-md shadow-lg">
-        
+
         {/* Back Arrow */}
         <button
-          onClick={()=>{redir('/') }}
-          className="text-2xl font-bold text-gray-700 hover:text-blue-600 transition mb-3"
+          onClick={() => redir("/")}
+          className="text-2xl font-bold text-[#123499] transition mb-3"
           aria-label="Back to home"
         >
           <BsBoxArrowInLeft />
         </button>
 
-        <p className="text-lg sm:text-xl font-semibold mb-2">
+        <p className="text-lg sm:text-xl font-semibold mb-2 text-[#333333]">
           Find Ticket
         </p>
 
-        <p className="text-sm text-gray-600 mb-6">
+        <p className="text-sm text-[#848182] mb-6">
           Enter your ticket ID or the email you used when purchasing your ticket
           to view or download it.
         </p>
@@ -31,13 +62,70 @@ const MyTicket = () => {
           <input
             type="text"
             placeholder="Ticket ID or Email"
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            className={`w-full px-4 py-2 border rounded-md focus:outline-none transition text-[#333333]
+              ${
+                hasError || isSearching || isSuccess
+                  ? "border-[#848182] focus:ring-2 focus:ring-[#848182]"
+                  : "border-[#123499] focus:ring-2 focus:ring-[#123499]"
+              }
+            `}
           />
 
-          <button className="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
-            Find Ticket
+          <button
+            onClick={handleSearch}
+            disabled={isSearching}
+            className={`w-full sm:w-auto px-4 py-2 rounded-md transition whitespace-nowrap
+              ${
+                hasError
+                  ? "bg-[#FF0000] text-white"
+                  : isSearching
+                  ? "bg-[#848182] text-white cursor-not-allowed"
+                  : "bg-[#123499] text-white hover:bg-[#123499]"
+              }
+            `}
+          >
+            {isSearching ? "Searching..." : "Find Ticket"}
           </button>
         </fieldset>
+
+        {/* Error Message */}
+        {hasError && (
+          <div className="flex items-center gap-[10px] w-full px-[25px] py-[16px] text-[#FF0000] bg-[#FFEBEB] font-light mt-[12px] rounded-md">
+            <IoCloseCircleOutline />
+            <p className="text-[12px] w-[282px]">
+              We couldn’t find a ticket with that info. Please check and try again.
+            </p>
+          </div>
+        )}
+
+        {/* Success Message */}
+        {isSuccess && (
+          <div className="mt-[12px]">
+            <div className="flex flex-col items-center text-center gap-[8px] w-full px-[16px] py-[16px] text-[#008000] bg-[#EDFFED] font-light rounded-md">
+              
+              <IoCheckmarkCircleOutline className="text-[32px]" />
+
+              <p className="font-semibold text-[16px]">
+                Ticket Found
+              </p>
+
+              <p className="text-[12px] font-light w-[282px]">
+                We’ve sent your ticket to your email address. Please check your
+                inbox (and spam folder).
+              </p>
+
+            </div>
+
+            <button
+              onClick={handleFindAnother}
+              className="w-full mt-[12px] px-4 py-2 bg-[#FFFFFF] text-black hover:text-white rounded-md hover:bg-[#123499] transition"
+            >
+              Find Another Ticket
+            </button>
+          </div>
+        )}
 
       </div>
     </section>

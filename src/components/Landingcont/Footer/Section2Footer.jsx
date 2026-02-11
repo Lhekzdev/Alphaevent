@@ -24,10 +24,14 @@ const Section2Footer = () => {
   return (
     <>
     <section>
-        <div className="parent flex flex-col lg:flex-row gap-[50px] pt-[40px] w-full">
+        <div className="parent flex flex-col lg:flex-row gap-[150px] pt-[40px] w-full">
             <div className="box1">
-                <img src={logoFooter} alt="" />
-                <p className='w-full lg:w-[453px] text-left text-[18px] mt-[32px] font-light text-[#F3F3F3]'>Alvent is a global self-service ticketing platform for live experiences that allows anyone to create, share, find and attend events that fuel their passions and enrich their lives.</p>
+                <img
+    className='items-center place-content-center w-[152px]  h-[32px]'
+    src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1770048496/White_Logo_lnzhyy.png"
+    alt="alventlogo"
+  />
+                <p className='w-full lg:w-[453px] text-left text-[18px] mt-[20px] font-semibold text-[#F3F3F3]'>Alvent is a global self-service ticketing platform for live experiences that allows anyone to create, share, find and attend events that fuel their passions and enrich their lives.</p>
 
               <div className="icon flex mt-[20px] gap-[20px]">
               <a
@@ -35,42 +39,42 @@ const Section2Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src={nLogoTwitter} alt="Twitter" />
+                <img src={nLogoTwitter} alt="Twitter" className='w-[18px] h-[18px]'/>
               </a>
               <a
                 href="https://www.facebook.com/share/18xsEWuedc/?mibextid=wwXIfr"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src={nLogoFacebook} alt="Facebook" />
+                <img src={nLogoFacebook} alt="Facebook" className='w-[18px] h-[18px]'/>
               </a>
               <a
                 href="https://www.instagram.com/al.vent?igsh=Ymg4aXV4amhldjZk&utm_source=qr"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src={nLogoInstagram} alt="Instagram" />
+                <img src={nLogoInstagram} alt="Instagram" className='w-[18px] h-[18px]'/>
               </a>
               <a
                 href="https://www.linkedin.com/company/al-vents/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src={nLogoLinkedin} alt="Linkedin" />
+                <img src={nLogoLinkedin} alt="Linkedin" className='w-[18px] h-[18px]'/>
               </a>
             </div>
             </div>
-            <div className="box2 flex flex-col md:flex-row md:gap-[80px] lg:flex-row  gap-[50px]">
+            <div className="box2 flex flex-col md:flex-row md:gap-[150px] lg:flex-row  gap-[50px]">
                <div className='' >
                {/* <h2 className='text-[18px] font-bold text-[#F3F3F3]'>Useful Links</h2> */}
                
                 <div className='flex gap-[50px] mt-[35px]' >
                    
                     <div className='pt-[45px]'>
-                    <img src={honri} alt="" />
+                    {/* <img src={honri} alt="" /> */}
                     </div>
-                    <ul className='text-left flex flex-col items-start text-[18px] font-light text-[#F3F3F3]'>
-                    <h2 className='text-[18px] font-bold text-[#F3F3F3]'>Useful Links</h2>
+                    <ul className='text-left flex flex-col items-start text-[18px] font-semibold text-[#F3F3F3]'>
+                    {/* <h2 className='text-[18px] font-bold text-[#F3F3F3]'>Useful Links</h2> */}
                     
                        
                                 <li className="mt-[12px] cursor-pointer">
@@ -82,9 +86,9 @@ const Section2Footer = () => {
                   <li className="mt-[12px] cursor-pointer">
                     <Link to="/Support">Support</Link>
                   </li>
-                  {/* <li className="mt-[12px] cursor-pointer">
+                  <li className="mt-[12px] cursor-pointer">
                     <Link to="/contact">Contact</Link>
-                  </li> */}
+                  </li>
                     </ul>
                 </div>
                </div>
@@ -93,10 +97,10 @@ const Section2Footer = () => {
                 <div className='flex gap-[50px] mt-[35px]'>
                
                    <div className='pt-[45px]'>
-                   <img src={honri} alt="" />
+                   {/* <img src={honri} alt="" /> */}
                    </div>
-                    <div className='text-left flex  flex-col text-[18px] font-light text-[#F3F3F3]'>
-                    <h2 className='text-[18px] font-bold text-[#F3F3F3]'>Legal</h2>
+                    <div className='text-left flex  flex-col text-[18px] font-semibold text-[#F3F3F3]'>
+                    {/* <h2 className='text-[18px] font-bold text-[#F3F3F3]'>Legal</h2> */}
                     <button onClick={()=> redir('/termsSer')} className='mt-[15px]'>Terms of Service</button>
                     <button onClick={()=> redir('/privacypolicy')} className='mt-[15px] text-left '>Privacy Policy</button>
                     </div>

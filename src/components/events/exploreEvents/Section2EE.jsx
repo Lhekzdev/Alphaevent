@@ -18,7 +18,7 @@ const Section2EE = () => {
           <button
             onClick={() => handleButtonClick('All')}
             style={{
-              color: activeButton === 'All' ? '#3A7BD5' : '#000000', // Active color or default
+              color: activeButton === 'All' ? '#123499' : '#000000', // Active color or default
             }}
           >
             All
@@ -28,7 +28,7 @@ const Section2EE = () => {
           <button
             onClick={() => handleButtonClick('Your Picks')}
             style={{
-              color: activeButton === 'Your Picks' ? '#3A7BD5' : '#000000',
+              color: activeButton === 'Your Picks' ? '#123499' : '#000000',
             }}
           >
             Your Picks
@@ -38,7 +38,7 @@ const Section2EE = () => {
           <button
             onClick={() => handleButtonClick('Today')}
             style={{
-              color: activeButton === 'Today' ? '#3A7BD5' : '#000000',
+              color: activeButton === 'Today' ? '#123499' : '#000000',
             }}
           >
             Today
@@ -48,7 +48,7 @@ const Section2EE = () => {
           <button
             onClick={() => handleButtonClick('This week')}
             style={{
-              color: activeButton === 'This week' ? '#3A7BD5' : '#000000',
+              color: activeButton === 'This week' ? '#123499' : '#000000',
             }}
           >
             This week
@@ -58,7 +58,7 @@ const Section2EE = () => {
           <button
             onClick={() => handleButtonClick('Free')}
             style={{
-              color: activeButton === 'Free' ? '#3A7BD5' : '#000000',
+              color: activeButton === 'Free' ? '#123499' : '#000000',
             }}
           >
             Free
@@ -69,7 +69,7 @@ const Section2EE = () => {
             <button
               onClick={() => handleButtonClick('Categories')}
               style={{
-                color: activeButton === 'Categories' ? '#3A7BD5' : '#000000',
+                color: activeButton === 'Categories' ? '#123499' : '#000000',
               }}
             >
               Categories

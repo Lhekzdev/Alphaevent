@@ -3,7 +3,8 @@ import heartRed from "../../../assets/heartRed.svg";
 import calender from "../../../assets/calender.svg";
 import location from "../../../assets/location.svg";
 import arrowblue from "../../../assets/arrowblue.svg";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; 
+ import { IoMdArrowRoundForward } from "react-icons/io";
 
 const Section3 = () => {
   const [events, setEvents] = useState([]);
@@ -44,12 +45,13 @@ const Section3 = () => {
           <Link key={event.id} to={`/Eventsdetailshome/${event.id}`}>
             <div className="bg-white shadow-lg rounded-lg overflow-hidden">
               <div className="relative">
-                <button className="absolute top-[26px] left-[26px] bg-[#3A7BD5] px-[10px] py-[6px] sm:py-[10px] rounded-[10px] text-[#FFFFFF] text-[12px] sm:text-[14px] z-10">
-                  Event Type
+                <button className="absolute top-[20px] left-[26px] bg-[#F3F5FA] font-bold px-[8px] py-[6px] sm:py-[10px] rounded-[10px] text-[#123499] text-[9px] sm:text-[12px] z-10">
+               Category
                 </button>
                 <div className="w-full flex flex-col">
                   <img
-                    src={event.eventImgURL}
+                     src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1770048441/featured_image_cyo3vz.png"
+                    // src={event.eventImgURL}
                     loading="lazy"
                     alt="event background"
                     className="w-[413px] h-[260px]  object-cover"
@@ -59,44 +61,53 @@ const Section3 = () => {
               <div className="px-[12px] sm:px-[20px]">
                 <div className="flex justify-between mt-[10px] sm:mt-[17px]">
                   <p className="text-[18px] sm:text-[24px] font-bold text-[#333333]">
-                    {event.eventTitle}
+                    {/* {event.eventTitle} */}
+                    Event Name
                   </p>
-                  <img src={heartRed} alt="heart icon" />
+                  {/* <img src={heartRed} alt="heart icon" /> */}
                 </div>
-                <div className="flex flex-col sm:flex-row gap-[10px] mt-[8px] sm:mt-[16px]">
+                <div>
+                   <p className="text-left text-[#757575] font-light text-[10px] sm:text-[12px]">
+                  Organized by <span className="text-[#333333]">{event.organizerName}</span>
+                </p>
+                </div>
+                <div className="flex flex-col  gap-[10px] mt-[8px] sm:mt-[16px]">
                   <div className="flex gap-[5px]">
-                    <img src={calender} alt="calendar icon" />
-                    <p className="text-[12px] sm:text-[14px] text-[#757575] font-light">
-                      {event.eventDate}
+                    {/* <img src={calender} alt="calendar icon" /> */}
+                    <p className="text-[12px] sm:text-[14px] text-[#333333] font-semibold">
+                      {/* {event.eventDate} */}
+                      DD-MM-YYYY • 00:00 GMT+1
                     </p>
                   </div>
                   <div className="flex gap-[5px]">
-                    <img src={location} alt="location icon" />
-                    <p className="text-[12px] sm:text-[14px] text-[#757575] font-light">
-                      {event.venueInformation}
+                    {/* <img src={location} alt="location icon" /> */}
+                    <p className="text-[12px] sm:text-[14px] text-[#757575] font-semibold">
+                     Location
+                      {/* {event.venueInformation} */}
                     </p>
                   </div>
                 </div>
               </div>
               <div className="px-[12px] sm:px-[20px] mt-[10px] sm:mt-[12px]">
-                <p className="text-left text-[#757575] font-light text-[12px] sm:text-[14px]">
+                {/* <p className="text-left text-[#757575] font-light text-[12px] sm:text-[14px]">
                   Organized by <span className="text-[#333333]">{event.organizerName}</span>
-                </p>
+                </p> */}
 
                 
                 <div className="flex justify-between items-center mt-[8px] sm:mt-[8.5px] mb-[20px] sm:mb-[25px]">
-                 <div className="flex gap-[5px] text-[#FF6B6B]">
+                 <div className="flex gap-[5px] text-[#123499]">
                   <p>
-                          ₦<span>{event.ticketpriceMIN}</span>
+                         From $10.00 
+                         {/* <span>{event.ticketpriceMIN}</span> */}
                         </p>
-                        <p>-</p>
+                        {/* <p>-</p>
                         <p>
                         ₦<span>{event.ticketpriceMAX}</span>
-                        </p>
+                        </p> */}
                   </div>
-                  <button className="bg-[#3A7BD5] text-white px-[24px] sm:px-[32px] py-[10px] sm:py-[14px] rounded-[10px]">
+                  {/* <button className="bg-[#3A7BD5] text-white px-[24px] sm:px-[32px] py-[10px] sm:py-[14px] rounded-[10px]">
                     Get Ticket
-                  </button>
+                  </button> */}
                 </div>
               </div>
                 </div>
@@ -111,10 +122,12 @@ const Section3 = () => {
       </div>
 
       <div className="flex justify-end mt-[30px] sm:mt-[42px] gap-[8px] sm:gap-[10px]">
-        <p className="text-[#3A7BD5] text-[12px] sm:text-[14px]">
+        <p className="text-[#123499] text-[12px] sm:text-[14px]">
           <Link to="/ExploreEvents">SEE MORE EVENTS</Link>
-        </p>
-        <img src={arrowblue} alt="arrow" className="w-[16px] sm:w-auto" />
+        </p> 
+       
+<IoMdArrowRoundForward className="text-[#123499] mt-[3px] font-semibold"/>
+        
       </div>
     </section>
   );

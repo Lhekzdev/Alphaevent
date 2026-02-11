@@ -46,12 +46,14 @@ const Section3EE = () => {
 
                 <div key={event.id} className="bg-white shadow-lg rounded-lg overflow-hidden">
                   <div className="relative">
-                    <button className="absolute top-[26px] left-[26px] bg-[#3A7BD5] px-[10px] py-[6px] sm:py-[10px] rounded-[10px] text-[#FFFFFF] text-[12px] sm:text-[14px] z-10">
-                      {event.eventType}
+                    <button className="absolute top-[26px] left-[26px] bg-[#FFFFFF] px-[10px] py-[6px] sm:py-[10px] rounded-[10px] text-[#123499] text-[12px] sm:text-[14px] z-10">
+                      Category
+                      {/* {event.eventType} */}
                     </button>
                     <div className="w-full flex flex-col">
                       <img
-                        src={event.bg}
+                        src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1770048441/Explore_image_rgkezy.png"
+                        // src={event.bg}
                         loading="lazy"
                         alt="event background"
                         className="w-full h-[180px] sm:h-auto object-cover"
@@ -61,38 +63,61 @@ const Section3EE = () => {
                   <div className="px-[12px] sm:px-[20px]">
                     <div className="flex justify-between mt-[10px] sm:mt-[17px]">
                       <p className="text-[18px] sm:text-[24px] font-bold text-[#333333]">
-                        {event.conference}
+                        Event Name
+                        {/* {event.conference} */}
                       </p>
-                      <img src={heartRed} alt="heart icon" />
+                      {/* <img src={heartRed} alt="heart icon" /> */}
                     </div>
+                    <div>
+                      <p>Organized by Liberty Life Centre </p>
+                    </div>
+                    
+                      <div className="mt-[15px]">
+                        <p className="text-[12px] mt-[10px] sm:text-[14px]  font-light">
+                    DD-MM-YYYY • 00:00 GMT+1
+                    </p>
+                  </div>
+                  <div className="mt-[15px]">
+                    <p>Location</p>
+                  </div>
+                  <div className="mt-[15px]">
+
+                    <p>
+                         From $10.00 
+                    </p>
+                  </div>
+
+                          
+
+                    {/* commented */}
                     <div className="flex flex-col sm:flex-row gap-[10px] mt-[8px] sm:mt-[16px]">
                       <div className="flex gap-[5px]">
-                        <img src={calender} alt="calendar icon" />
+                        {/* <img src={calender} alt="calendar icon" /> */}
                         <p className="text-[12px] sm:text-[14px] text-[#757575] font-light">
-                          {event.date}
+                          {/* {event.date} */}
                         </p>
                       </div>
-                      <div className="flex gap-[5px]">
+                      {/* <div className="flex gap-[5px]">
                         <img src={location} alt="location icon" />
                         <p className="text-[12px] sm:text-[14px] text-[#757575] font-light">
                           {event.location}
                         </p>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                   <div className="px-[12px] sm:px-[20px] mt-[10px] sm:mt-[12px]">
-                    <p className="text-left text-[#757575] font-light text-[12px] sm:text-[14px]">
+                    {/* <p className="text-left text-[#757575] font-light text-[12px] sm:text-[14px]">
                       Organized by <span className="text-[#333333]">{event.by}</span>
-                    </p>
+                    </p> */}
                     <div className="flex justify-between items-center mt-[8px] sm:mt-[8.5px] mb-[20px] sm:mb-[25px]">
-                      <div className="flex gap-[5px] text-[#FF6B6B]">
+                      {/* <div className="flex gap-[5px] text-[#FF6B6B]">
                         <p>
                           ₦ <span>{event.initialAmount}</span>
                         </p>
-                      </div>
-                      <button className="bg-[#3A7BD5] text-white px-[24px] sm:px-[32px] py-[10px] sm:py-[14px] rounded-[10px]">
+                      </div> */}
+                      {/* <button className="bg-[#3A7BD5] text-white px-[24px] sm:px-[32px] py-[10px] sm:py-[14px] rounded-[10px]">
                         Get Ticket
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>

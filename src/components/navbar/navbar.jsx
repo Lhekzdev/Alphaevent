@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import logo from "/logo.svg"
 import arrowRight from "/arrowRight.svg"
+import { FaArrowRightToBracket } from "react-icons/fa6";
 
 
 
@@ -33,17 +34,22 @@ const Navbar = () => {
         <div className=" w-full items-center flex justify-between">
           <div className=' md:mr-[50px] lg:mr-[77px] '>
 
-            <Link to="/"> <img className='sm:min-w-[100px]  items-center place-content-center sm:h-[20px] md:w-[140px] lg:h-[33px]' src={logo} alt="alventlogo" /></Link>
+           <Link to="/">
+  <img
+    className='items-center place-content-center w-[189px]  h-[32px]'
+    src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1770048496/Blue_Logo_ijoxkj.png"
+    alt="alventlogo"
+  />
+</Link>
+
           </div>
-
-
 
           <div className='  items-center justify-between text-center md:w-full md:flex'>
 
             <ol className='hidden font-Roboto text-nowrap items-center md:flex "   h-[32px] sm:gap-2 md:gap-2   lg:gap-[4.7vw] '>
-              <li className='hover:border-b-2 hover:border-customSkyblue' > <Link to="/">Explore events</Link></li>
-              <li className=' hover:border-b-2 hover:border-customSkyblue '><Link to="/ticket">My Ticket</Link></li>
-              <li className='hover:border-b-2 hover:border-customSkyblue '><Link to="/About">About</Link></li>
+              <li className='hover:border-b-2 hover:border-[#123499]' > <Link to="/">Explore events</Link></li>
+              <li className=' hover:border-b-2 hover:border-[#123499] '><Link to="/ticket">My Ticket</Link></li>
+              <li className='hover:border-b-2 hover:border-[#123499] '><Link to="/About">About</Link></li>
 
             </ol>
 
@@ -51,13 +57,14 @@ const Navbar = () => {
 
             <div className=' flex  gap-[12px] items-center'>
 
-              <ol className='md:flex pr-[34px] hidden gap-[10px]'>
-                <h4 className='text-customSkyblue'><Link to="/LogIn">Login</Link></h4>
-                <img className='w-[10.67px] h-[10p.67px]' src={arrowRight} alt="" />
-              </ol>
+              <ol className='md:flex items-center  hidden gap-[10px]  border-2 border-[#123499] text-center  rounded-[10px] lg:px-[32px] h-[44px] w-[117px]'>
+                <h4 className='text-[#123499] font-semibold'><Link to="/LogIn">Login</Link></h4>
+                <div><FaArrowRightToBracket className="text-[#123499]"/></div>
+                {/* <img className='w-[10.67px] h-[10p.67px] text-[#123499]' src={arrowRight} alt="" /> */}
+              </ol> 
               <ol className="hidden  md:flex">
 
-                <button className=' items-center py-1 px-5 md  text-white text-center  rounded-[10px] lg:px-[32px] h-[44px] w-[117px] bg-customSkyblue text-nowrap'><Link to="/SignUp">Sign up</Link></button>
+                <button className=' items-center py-1 px-5 md  text-white text-center  rounded-[10px] lg:px-[32px] h-[44px] w-[117px] bg-[#123499] text-nowrap'><Link to="/SignUp">Sign up</Link></button>
 
               </ol>
             </div>
