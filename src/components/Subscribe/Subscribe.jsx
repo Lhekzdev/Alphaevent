@@ -65,7 +65,7 @@ const Subscribe = () => {
           <p className="text-[18px] font-light text-[#333333]">
             Don’t miss out on future updates!
           </p>
-          <p className="text-[#3A7BD5] font-bold text-[24px] mb-[40px]">
+          <p className="text-[#123499] font-bold text-[24px] mb-[40px]">
             Subscribe to our newsletter today!
           </p>
 
@@ -83,7 +83,7 @@ const Subscribe = () => {
                   name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-12 pr-4 py-2 border border-[#757575] rounded-[12px] focus:outline-none"
+                  className="w-full pl-12 pr-4 py-2 border border-[#757575] rounded-[12px] focus:outline-none text-[#757575]"
                   placeholder="Enter email address"
                 />
               </div>
@@ -91,7 +91,7 @@ const Subscribe = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="px-6 py-2 bg-[#FF7F50] text-white rounded-[10px] hover:bg-[#2F3B4C] transition flex items-center justify-center gap-2"
+                className="px-6 py-2 bg-[#2F3B4C] text-white rounded-[10px] hover:bg-[#E7470D] transition flex items-center justify-center gap-2"
               >
                 Subscribe
                 <img

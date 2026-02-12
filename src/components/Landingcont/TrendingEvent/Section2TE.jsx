@@ -42,7 +42,7 @@ const Section3 = () => {
   }
 
   if (error) {
-    return <p className="text-center mt-10 text-red-500">Error: {error}</p>;
+    return <p className="text-center mt-10 text-[#E7470D]">Error: {error}</p>;
   }
 
   return (
