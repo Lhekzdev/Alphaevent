@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import arrowDown from '../../../assets/arrowDown.svg';
+import { MdKeyboardArrowDown } from "react-icons/md";
 
 const Section2EE = () => {
   // State to track the active button
@@ -12,13 +12,13 @@ const Section2EE = () => {
 
   return (
     <>
-      <section className="mt-[90px]">
+      <section className="bg-[#F3F5FA]">
         <div className="ml-[100px] lg:w-[578px] flex flex-wrap gap-[25px] text-[18px] font-bold text-[#757575]">
           {/* All Button */}
           <button
             onClick={() => handleButtonClick('All')}
             style={{
-              color: activeButton === 'All' ? '#123499' : '#000000', // Active color or default
+              color: activeButton === 'All' ? '#123499' : '#757575', // Active color or default
             }}
           >
             All
@@ -28,54 +28,49 @@ const Section2EE = () => {
           <button
             onClick={() => handleButtonClick('Your Picks')}
             style={{
-              color: activeButton === 'Your Picks' ? '#123499' : '#000000',
+              color: activeButton === 'Your Picks' ? '#123499' : '#757575',
             }}
           >
-            Your Picks
+            Free
           </button>
 
+
+          {/* Categories Button with Icon */}
+          <div>
+  <button
+    onClick={() => handleButtonClick('Categories')}
+    className="flex items-center justify-center"
+    style={{
+      color: activeButton === 'Categories' ? '#123499' : '#757575'
+    }}
+  >
+    <p>Categories</p>
+    <MdKeyboardArrowDown />
+  </button>
+</div>
+            
+
+          
           {/* Today Button */}
-          <button
+          {/* <button
             onClick={() => handleButtonClick('Today')}
             style={{
               color: activeButton === 'Today' ? '#123499' : '#000000',
             }}
           >
             Today
-          </button>
+          </button> */}
 
           {/* This Week Button */}
           <button
             onClick={() => handleButtonClick('This week')}
             style={{
-              color: activeButton === 'This week' ? '#123499' : '#000000',
+              color: activeButton === 'This week' ? '#123499' : '#757575',
             }}
           >
             This week
           </button>
 
-          {/* Free Button */}
-          <button
-            onClick={() => handleButtonClick('Free')}
-            style={{
-              color: activeButton === 'Free' ? '#123499' : '#000000',
-            }}
-          >
-            Free
-          </button>
-
-          {/* Categories Button with Icon */}
-          <div className="flex items-center justify-center">
-            <button
-              onClick={() => handleButtonClick('Categories')}
-              style={{
-                color: activeButton === 'Categories' ? '#123499' : '#000000',
-              }}
-            >
-              Categories
-            </button>
-            <img src={arrowDown} alt="" className="pt-[7px]" />
-          </div>
         </div>
       </section>
     </>

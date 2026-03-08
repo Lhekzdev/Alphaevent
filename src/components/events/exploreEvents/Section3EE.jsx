@@ -34,7 +34,7 @@ const Section3EE = () => {
 
   return (
     <>
-      <section className="mt-[24px]">
+      <section className="mt-[24px] pl-[100px] bg-[#F3F5FA]">
         {error ? (
           <p className="text-center text-red-500">{error}</p>
         ) : (
@@ -43,20 +43,20 @@ const Section3EE = () => {
               
               currentEvents.map((event) => (
                 <Link key={event.id} to={`/eventsdetailshome/${event.id}`}>
-
-                <div key={event.id} className="bg-white shadow-lg rounded-lg overflow-hidden">
+{/* shadow-lg rounded-lg */}
+                <div key={event.id} className=" w-[302px] h-[406px]  overflow-hidden">
                   <div className="relative">
-                    <button className="absolute top-[26px] left-[26px] bg-[#FFFFFF] px-[10px] py-[6px] sm:py-[10px] rounded-[10px] text-[#123499] text-[12px] sm:text-[14px] z-10">
+                    <button className="absolute w-[89px] h-[32px] top-[26px] left-[26px] bg-[#FFFFFF]  font-bold rounded-[12px] text-[#123499] text-[12px] z-10">
                       Category
                       {/* {event.eventType} */}
                     </button>
-                    <div className="w-full flex flex-col">
+                    <div className="w-[302px] flex flex-col">
                       <img
                         src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1770048441/Explore_image_rgkezy.png"
                         // src={event.bg}
                         loading="lazy"
                         alt="event background"
-                        className="w-full h-[180px] sm:h-auto object-cover"
+                        className="w-[302px] h-[180px] sm:h-auto object-cover"
                       />
                     </div>
                   </div>
@@ -69,20 +69,20 @@ const Section3EE = () => {
                       {/* <img src={heartRed} alt="heart icon" /> */}
                     </div>
                     <div>
-                      <p>Organized by Liberty Life Centre </p>
+                      <p className="text-[12px] text-[#333333] font-light">Organized by Liberty Life Centre </p>
                     </div>
                     
                       <div className="mt-[15px]">
-                        <p className="text-[12px] mt-[10px] sm:text-[14px]  font-light">
+                        <p className="text-[12px] mt-[10px] sm:text-[14px]  font-medium">
                     DD-MM-YYYY • 00:00 GMT+1
                     </p>
                   </div>
-                  <div className="mt-[15px]">
+                  <div className="mt-[15px] text-[14px] text-[#757575] font-medium">
                     <p>Location</p>
                   </div>
                   <div className="mt-[15px]">
 
-                    <p>
+                    <p className="text-[16px] font-bold text-[#123499]">
                          From $10.00 
                     </p>
                   </div>
@@ -131,7 +131,7 @@ const Section3EE = () => {
         )}
 
         {/* Pagination */}
-        <div className="w-[329px] flex items-center justify-center gap-[10px] mt-[60px] mb-[50px] mx-auto">
+        <div className="w-[329px] flex items-center justify-center gap-[10px] mt-[60px] pb-[50px] mx-auto">
           {paginationButtons.map((pageNumber) => (
             <button
               key={pageNumber}

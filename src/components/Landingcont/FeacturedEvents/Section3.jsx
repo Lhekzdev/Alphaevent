@@ -39,11 +39,11 @@ const Section3 = () => {
   if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
 
   return (
-    <section className="mt-[24px] px-[30px] md:px-[80px]">
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <section className="mt-[24px] px-[30px] md:px-[80px] bg-[#F3F5FA]">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 bg-[#F3F5FA]">
         {events.map((event) => (
           <Link key={event.id} to={`/Eventsdetailshome/${event.id}`}>
-            <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div className=" overflow-hidden">
               <div className="relative">
                 <button className="absolute top-[20px] left-[26px] bg-[#F3F5FA] font-bold px-[8px] py-[6px] sm:py-[10px] rounded-[10px] text-[#123499] text-[9px] sm:text-[12px] z-10">
                Category
@@ -58,8 +58,8 @@ const Section3 = () => {
                   />
                 </div>
               </div>
-              <div className="px-[12px] sm:px-[20px]">
-                <div className="flex justify-between mt-[10px] sm:mt-[17px]">
+              <div className="px-[12px] sm:px-[20px] bg-[#F3F5FA]">
+                <div className="flex justify-between pt-[10px] sm:mt-[17px] ">
                   <p className="text-[18px] sm:text-[24px] font-bold text-[#333333]">
                     {/* {event.eventTitle} */}
                     Event Name

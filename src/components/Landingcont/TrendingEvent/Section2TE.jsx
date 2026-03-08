@@ -50,7 +50,7 @@ const Section3 = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px] sm:gap-[30px] lg:gap-[40px] overflow-hidden">
         {events.map(event => (
           <Link key={event.id} to={`/eventsdetailshome/${event.id}`}>
-            <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col sm:flex-row max-w-[522px] mx-auto">
+            <div className=" rounded-lg overflow-hidden flex flex-col sm:flex-row max-w-[522px] mx-auto">
               {/* Left */}
               <div className="relative w-[145px] flex-shrink-0">
                 <button className="absolute top-[20px] left-[10px] bg-white px-[10px] sm:px-[12px] py-[6px] rounded-[10px] text-[#123499] text-[12px] sm:text-[14px] z-10">
@@ -65,7 +65,7 @@ const Section3 = () => {
               </div>
 
               {/* Right */}
-              <div className=" text-[#333333] w-[377px] px-[12px] mt-[20px]">
+              <div className="bg-[#F3F5FA] text-[#333333] w-[377px] px-[12px] pt-[20px]">
                 <div className=" sm:px-[20px] pt-[12px] sm:pt-[17px]">
                   <div className="flex items-center">
                     <p className="text-[18px] sm:text-[24px] font-bold ">
