@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const Section3EE = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState(null); // State to store errors
-  const eventsPerPage = 9; // Number of events per page
+  const eventsPerPage = 12; // Number of events per page
   const [currentEvents, setCurrentEvents] = useState([]);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const Section3EE = () => {
         {error ? (
           <p className="text-center text-red-500">{error}</p>
         ) : (
-          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="w-full grid grid-cols-4 gap-6">
             {currentEvents.length > 0 ? (
               
               currentEvents.map((event) => (

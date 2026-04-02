@@ -40,8 +40,8 @@ const Section3 = () => {
 
   return (
     <section className="mt-[24px] px-[30px] md:px-[80px] bg-[#F3F5FA]">
-      <div className="w-full grid grid-cols-4 gap-6 bg-[#F3F5FA]">
-        {events.slice(0, 4).map((event) => (
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 bg-[#F3F5FA]">
+        {events.map((event) => (
           <Link key={event.id} to={`/Eventsdetailshome/${event.id}`}>
             <div className=" overflow-hidden">
               <div className="relative">
