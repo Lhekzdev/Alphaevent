@@ -3,6 +3,7 @@ import verifyLogo from '../../assets/verifyLogo.svg';
 import verifyGit from '../../assets/verifyGit.svg';
 import verifyTwitter from '../../assets/verifyTwitter.svg';
 import verifyLinkedin from '../../assets/veifyLinkedin.svg';
+import arrowBack from '../../assets/arrowBack.svg';
 import verifyEnvelop from '../../assets/verifyEnvelop.svg';
 import verifyArrowRight from '../../assets/verifyArrowRight.svg';
 import { Image } from "cloudinary-react";
@@ -142,10 +143,13 @@ const VerifyAcc = () => {
         {/* Form container centered with a width of 850px */}
         <form  className="container w-[850px] mx-auto bg-white rounded-[12px] p-8 relative">
           
-          {/* Logo container - Positioned at the top-left */}
-          <div onClick={()=>{redir('/')}}  className="logoContainer absolute cursor-pointer top-15 left-15 ">
-            <img src={verifyLogo} alt="verifyLogo" />
-          </div>
+           {/* Logo Section */}
+                     <div className="flex justify-between items-center w-full mb-[60px]">
+               <Link to="/">
+                  <img src="https://res.cloudinary.com/dqtyrjpeh/image/upload/q_auto/f_auto/v1770048496/Blue_Logo_ijoxkj.png" alt="Logo" className="w-[189px]" />
+               </Link>
+               <img src={arrowBack} onClick={() => redir('/')} alt="arrowBack" className="w-[44px] cursor-pointer" />
+             </div>
 
 
 

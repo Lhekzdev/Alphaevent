@@ -134,7 +134,7 @@ export const SignUp = () => {
          {/* Logo Section */}
            <div className="flex justify-between items-center w-full mb-[60px]">
      <Link to="/">
-       <img src={logoSU} alt="Logo" className="w-[82px]" />
+        <img src="https://res.cloudinary.com/dqtyrjpeh/image/upload/q_auto/f_auto/v1770048496/Blue_Logo_ijoxkj.png" alt="Logo" className="w-[189px]" />
      </Link>
      <img src={arrowBack} onClick={() => redir('/')} alt="arrowBack" className="w-[44px] cursor-pointer" />
    </div>
