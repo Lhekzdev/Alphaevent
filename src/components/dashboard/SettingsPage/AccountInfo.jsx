@@ -33,9 +33,9 @@ setIsclicked(true)
 </div>
 
 <div className="flex justify-end gap-[20px]">
-    <button   className="w-32 hover:bg-[#4F86DC] border border-[#BEBEBE] h-[48px] rounded-[8px] text-center  bg-gray-200"
+    <button   className="w-32 hover:bg-[#123499] border border-[#BEBEBE] h-[48px] rounded-[8px] text-center  bg-gray-200"
           >Cancel</button>
-    <button className="w-[114px] h-[48px] hover:bg-[#4F86DC] border border-[#BEBEBE] rounded-[8px] text-center">Save</button>
+    <button className="w-[114px] h-[48px] hover:bg-[#123499] border border-[#BEBEBE] rounded-[8px] text-center">Save</button>
 </div>
 
 

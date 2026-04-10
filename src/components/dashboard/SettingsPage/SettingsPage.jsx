@@ -9,7 +9,8 @@ import ProfileEditModal from "./ProfileEditModal.jsx";
 
 import NotificationSettings from "./Notification.jsx";
 import SecurityTab from "./SecurityTab.jsx";
-import AccountInfo from "./AccountInfo.jsx";
+import AccountInfo from "./AccountInfo.jsx"; 
+ import { IoSettingsOutline } from "react-icons/io5";
 
 const SettingsPage = () => {
     const dispatch = useDispatch();
@@ -33,12 +34,13 @@ try {
         // my profile
         <div className="addOnBoardLeft flex   ">
             <Onboardingleft />
-            <div className="w-full font-Lato px-[40px] py-[40px] bg-[#BEBEBE]  flex flex-col gap-y-[20px] h-auto ">
-                <div className="md:max-w-[1056px] flex justify-between">
-                    <ol className="w-[118px] flex h-[28px] gap-[12px]">
-                        <li>    <img className="w-[28px] h-[28px] " src="/settingIcon.svg" alt="settins-icon" /></li>
-                        <li>   <h4 className="w-[78px] h-[20px] text-[#2D6CCF] text-[20px] font-extrabold">Settings</h4> </li>
-                    </ol>
+            <div className="w-full font-Lato px-[40px] py-[40px] bg-[#F8F9FC]  flex flex-col gap-y-[20px] h-auto ">
+                <div className="md:max-w-[1056px] flex justify-between ">
+                    <div className="w-[118px] flex items-center justify-center       gap-[12px] text-[#123499] text-[20px]">
+                       
+<div><IoSettingsOutline /></div>
+                       <div> <h4 className="w-[78px] h-[20px]  font-extrabold">Settings</h4></div> 
+                    </div>
                     <ol><NotificationBar /></ol>
                 </div>
 
@@ -47,7 +49,7 @@ try {
                         <button
                             key={tab}
                             onClick={() => dispatch(setActiveTab(tab))}
-                            className={`min-w-[122px] h-[40px] rounded-[8px] border-[1px] text-center px-[24px] py-[12px]text-[16px] box-border ${activeTab === tab ? 'bg-white text-[#2D6CCF] font-bold' : 'bg-gray-100'
+                            className={`min-w-[122px] h-[40px] rounded-[8px] border-[1px] text-center px-[24px] py-[12px]text-[16px] box-border ${activeTab === tab ? 'bg-white text-[#123499] font-bold' : 'bg-gray-100'
                                 }`}
                         >
                             {tab}

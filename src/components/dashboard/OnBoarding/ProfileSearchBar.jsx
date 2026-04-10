@@ -30,7 +30,7 @@ const ProfileSearchBar = () => {
   return (
     <>
       <section className="p-4 w-full h-[48px] mt-5 mb-5">
-        <div className="flex items-center justify-between bg-white rounded-[8px] w-[1020px] px-5">
+        <div className="flex items-center justify-between bg-[#F3F5FA] rounded-[8px] w-[1020px] px-5">
           {/* Left - Active Page Title */}
           <div className="flex items-center gap-3">
             <img
@@ -38,7 +38,7 @@ const ProfileSearchBar = () => {
               alt={`${activeLink.name} Icon`}
               className="w-6 h-6"
             />
-            <p className="text-[20px] font-bold text-[#2D6CCF]">
+            <p className="text-[20px] font-bold text-[#123499]">
               {activeLink.name}
             </p>
           </div>

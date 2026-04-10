@@ -65,7 +65,7 @@ const ChangePassword = ({ setClose }) => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="font-Lato shadow-lg mx-auto w-[685px] h-[532px] rounded-[12px]">
-          <div className="bg-[#2D6CCF] px-[28px] py-[20px]">
+          <div className="bg-[#123499] px-[28px] py-[20px]">
             <h4 className="text-bold text-[white] text-[14px]">Create New Password</h4>
           </div>
 
@@ -121,7 +121,7 @@ const ChangePassword = ({ setClose }) => {
             </button>
             <button
               type="submit"
-              className="bg-[#4F86DC] text-white rounded-[8px] w-[128px] border-[1px] h-[48px] text-center"
+              className="bg-[#123499] text-white rounded-[8px] w-[128px] border-[1px] h-[48px] text-center"
             >
               <h4>Continue</h4>
             </button>

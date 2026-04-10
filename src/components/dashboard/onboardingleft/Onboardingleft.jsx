@@ -16,7 +16,7 @@ const Onboardingleft = () => {
 
   const linkStyle = (linkName) =>
     activeLink.name === linkName
-      ? "bg-[#3A7BD5] text-white"
+      ? "bg-[#123499] text-white"
       : "text-[#757575] hover:bg-[#3A7BD533] hover:text-white";
 
   const iconSource = (linkName, grayIcon, whiteIcon) =>
@@ -26,16 +26,16 @@ const Onboardingleft = () => {
     <div className="flex">
       {/* Sidebar Menu */}
       <div
-        className={`${isMenuOpen ? "block" : "hidden"} absolute md:flex md:relative top-20 md:top-0 z-10 transition-all bg-white w-[280px] h-[900px] pt-6 pr-2 pb-[151px] pl-7`}
+        className={`${isMenuOpen ? "block" : "hidden"} absolute md:flex md:relative top-20 md:top-0 z-10 transition-all bg-[#F3F5FA] w-[280px] h-[900px] pt-6 pr-2 pb-[151px] pl-7`}
       >
         <div className="flex flex-col font-Lato text-white gap-y-10">
           {/* Logo */}
           <div className="w-[258px]">
             <img
-              src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747615311/ALVENT_1_omcg0v.png"
+              src="https://res.cloudinary.com/dqtyrjpeh/image/upload/q_auto/f_auto/v1770048496/Blue_Logo_ijoxkj.png"
               alt="Alvent Logo"
-              className="pt-3 w-[112px] px-6 h-[24px] cursor-pointer"
-              // onClick={() => navigate("/")}
+              className="pt-3 w-[189px] px-6 h-[32px] cursor-pointer"
+
             />
           </div>
 
@@ -72,7 +72,7 @@ const Onboardingleft = () => {
             setActiveLink({ name: "createEvent" });
             navigate("/createEvent");
           }}>
-            <button className="flex items-center justify-between w-[238px] h-[60px] bg-[#3A7BD5] text-white rounded-[12px] px-6 text-[16px] hover:bg-[#2D6CCF]">
+            <button className="flex items-center justify-between w-[238px] h-[60px] bg-[#123499] text-white rounded-[12px] px-6 text-[16px] hover:bg-[#2D6CCF]">
               Create Event
               <img
                 src={createEventIcon}

@@ -77,7 +77,7 @@ const Herocontainer = () => {
             {/* Location Dropdown */}
             <div className="relative w-full md:w-[223px]" ref={dropdownRef}>
               <button
-                className="w-full flex items-center justify-between border-customdarkblue text-white bg-transparent rounded-md p-3"
+                className="w-full flex items-center justify-between border-[#123499] text-white bg-transparent rounded-md p-3"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
                 {/* Location Icon Left */}

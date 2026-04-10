@@ -2,7 +2,9 @@ import React from "react";
 import locatnicon from "../../../assets/locatnicon.svg";
 import timeicon from "../../../assets/timeicon.svg";
 import amountBlue from "../../../assets/amountBlue.svg";
-import arrowblue from "../../../assets/arrowblue.svg";
+import arrowblue from "../../../assets/arrowblue.svg"; 
+ import { LuTag } from "react-icons/lu";
+    import { IoIosArrowRoundForward } from "react-icons/io";
 
 const MyEventDetails = ({ onCardClick }) => {
   return (
@@ -50,8 +52,10 @@ const MyEventDetails = ({ onCardClick }) => {
                 </p>
               </div>
               <div className="flex gap-[4px] items-center w-fit px-[12px] py-[8px] bg-[#2D6CCF1A] rounded-[30px] mb-2">
-                <img src={amountBlue} alt="Amount" />
-                <p className="text-[12px] text-[#2D6CCF] font-bold">
+               
+<LuTag className="text-[12px] text-[#123499]" />
+                {/* <img src={amountBlue} alt="Amount" /> */}
+                <p className="text-[12px] text-[#123499] font-bold">
                   ₦<span>2,500</span>
                 </p>
               </div>
@@ -71,11 +75,13 @@ const MyEventDetails = ({ onCardClick }) => {
 
       {/* View All Events Button */}
       <div className="w-full flex items-center justify-end mt-[28px]">
-        <div className="flex gap-[10px] cursor-pointer hover:underline">
-          <p className="text-[#3A7BD5] text-[16px] font-normal">
+        <div className="flex items-center justify-center text-[#123499] text-[16px] font-normal gap-[10px] cursor-pointer hover:underline mt-[28px]">
+          <p className="">
             View all events
           </p>
-          <img src={arrowblue} alt="Arrow" />
+       
+<IoIosArrowRoundForward />
+          {/* <img src={arrowblue} alt="Arrow" /> */}
         </div>
       </div>
     </section>

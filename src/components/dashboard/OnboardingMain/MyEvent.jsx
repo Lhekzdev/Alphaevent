@@ -11,7 +11,7 @@ const MyEvent = () => {
   const handleBackClick = () => setShowFullDetail(false);
 
   return (
-    <section className="flex bg-[#EBEAEA] min-h-screen h-screen overflow-hidden">
+    <section className="flex bg-[#F8F9FC] min-h-screen h-screen overflow-hidden">
       {/* Left Sidebar */}
       <div className="flex-shrink-0">
         <Onboardingleft />

@@ -52,7 +52,7 @@ onClick={handleToggleClick}
   <div
   
     className={`w-[20px] h-[20px] rounded-full absolute top-1 transition-all duration-300 ${
-      onToggle? 'right-1 bg-[#2D6CCF]'  : 'left-1 bg-white'
+      onToggle? 'right-1 bg-[#123499]'  : 'left-1 bg-white'
     }`}
   ></div>
 </div>
