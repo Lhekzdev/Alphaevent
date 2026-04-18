@@ -31,7 +31,7 @@ const Section2Footer = () => {
     src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1770048496/White_Logo_lnzhyy.png"
     alt="alventlogo"
   />
-                <p className='w-full lg:w-[453px] text-left text-[18px] mt-[20px] font-semibold text-[#F3F3F3]'>Alvent is a global self-service ticketing platform for live experiences that allows anyone to create, share, find and attend events that fuel their passions and enrich their lives.</p>
+                <p className='w-full lg:w-[453px] text-left text-[16px] mt-[20px] font-normal text-[#F3F3F3]'>Alvent is a global self-service ticketing platform for live experiences that allows anyone to create, share, find and attend events that fuel their passions and enrich their lives.</p>
 
               <div className="icon flex mt-[20px] gap-[20px]">
               <a
