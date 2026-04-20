@@ -41,14 +41,14 @@ const SupportForm = () => {
     <>
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
 
-      <div className="flex flex-col md:flex-row pt-[0px] bg-white shadow-md w-[1000px] h-full text-[#000000] mr-[140px]">
+      <div className="flex flex-col md:flex-row pt-[10px] bg-[#F3F5FA] shadow-md w-fumm max-w-[720px] h-full text-[#000000] mr-[140px] ">
         <div className="py-[0px] px-[50px]">
           <div onClick={handleBackClick} className="flex justify-end">
-            <button className="bg-[#2D6CCF] text-[#ffffff] py-[0px] px-[10px] rounded-[5px]">
+            <button className="bg-[#123499] text-[#ffffff] text-[11px] py-[0px] px-[10px] rounded-[5px]">
               ←Back
             </button>
           </div>
-          <h3 className="text-[24px] font-semibold mb-[2px]">Report an Issue</h3>
+          <h3 className="text-[24px] font-semibold mb-[24px] pt-[95px]">Report an Issue</h3>
 
           <Formik
             initialValues={{
@@ -136,7 +136,7 @@ const SupportForm = () => {
                     placeholder: "Explain issue in the box",
                   },
                 ].map((field, index) => (
-                  <div key={index} className="mb-[10px]">
+                  <div key={index} className="mb-[24px]">
                     <label htmlFor={field.name} className="block text-sm font-medium">
                       {field.label}
                     </label>
@@ -146,13 +146,13 @@ const SupportForm = () => {
                         as="textarea"
                         rows="4"
                         placeholder={field.placeholder}
-                        className="mt-[5px] w-[420px] h-[96px] border border-gray-300 rounded-md p-2"
+                        className="mt-[5px] w-[420px] h-[36px] border border-[#757575] rounded-[8px] p-2 bg-transparent"
                       />
                     ) : field.type === "select" ? (
                       <Field
                         name={field.name}
                         as="select"
-                        className="mt-[2px] text-[12px] w-[420px] h-[32px] border border-gray-300 rounded-md p-1"
+                        className="mt-[2px] text-[12px] w-[420px] h-[36px] border  border-[#757575] rounded-[8px] p-2 bg-transparent"
                       >
                         <option value="">Select category</option>
                         <option value="Failed Payment">Failed Payment</option>
@@ -164,7 +164,7 @@ const SupportForm = () => {
                       <Field
                         name={field.name}
                         type={field.type}
-                        className="mt-[5px] w-[420px] h-5 border border-gray-300 rounded-md p-2"
+                        className="mt-[5px] w-[420px] h-[36px] border border-[#757575] rounded-[8px] p-2 bg-transparent"
                         placeholder={field.placeholder}
                       />
                     )}
@@ -175,13 +175,13 @@ const SupportForm = () => {
                 <Field name="upload">
                   {() => (
                     <div className="mt-2">
-                      <label className="block text-sm font-medium">Upload Screenshot (optional)</label>
-                      <div className="flex items-center gap-4">
+                      <label className="block text-sm font-medium mb-[24px]">Upload Screenshot (optional)</label>
+                      <div className="flex items-center gap-4 mb-[24px]">
                         <input
                           type="file"
                           ref={fileInputRef}
                           onChange={(e) => handleFileChange(e, setFieldValue)}
-                          className="block text-sm text-gray-600"
+                          className="block text-sm text-gray-600 "
                         />
                       </div>
                     </div>
@@ -191,7 +191,7 @@ const SupportForm = () => {
                 <div className="flex mt-2">
                   <button
                     type="submit"
-                    className="flex items-center gap-2 text-[16px] bg-[#2D6CCF] text-white px-4 py-4 rounded-md transition-all w-[149px] h-[45px]"
+                    className="flex items-center gap-2 text-[16px] bg-[#123499] text-white px-4 py-4 rounded-md transition-all w-[149px] h-[45px]"
                   >
                     <img src={submitIcon} alt="Submit" className="w-5 h-5" />
                     <span>Send Report</span>

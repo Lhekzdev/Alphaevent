@@ -33,9 +33,9 @@ const SubscribePopUp = ({ popupType = "You’re Subscribed", onClose }) => {
     <section className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-40 z-50">
       <div className="bg-white rounded-[12px] shadow-sm w-[1020px] h-[628px] p-[20px] flex flex-col justify-between">
       <img
-              src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747615311/ALVENT_1_omcg0v.png"
+              src="https://res.cloudinary.com/dqtyrjpeh/image/upload/q_auto/f_auto/v1770048496/Blue_Logo_ijoxkj.png"
               alt="Alvent Logo"
-              className="pt-3 w-[120px] px-6 h-[24px] cursor-pointer"
+              className="pt-[10px] w-[189px] px-6 h-[32px] cursor-pointer"
               onClick={() => navigate("/")}
             />
         <div className='self-center'>
@@ -45,7 +45,7 @@ const SubscribePopUp = ({ popupType = "You’re Subscribed", onClose }) => {
         </div>
         <button
           onClick={handleNavigate}
-          className="w-[306px] h-[56px] border border-[#2D6CCF] text-[#FFFFFF] text-[20px] rounded-[10px] font-bold bg-[#2D6CCF] self-center mb-[55px]"
+          className="w-[306px] h-[56px] border border-[#2D6CCF] text-[#FFFFFF] text-[20px] rounded-[10px] font-bold bg-[#123499] self-center mb-[55px]"
         >
           Back to Homepage
         </button>

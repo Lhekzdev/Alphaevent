@@ -7,9 +7,10 @@ const TermsSer = () => {
   return (
     <>
       <section className="ml-[160px] cursor-pointer mt-[90px] mr-[160px]">
-        <div className="logo mb-[24px]">
-          <img onClick={()=> redir('/')}  src={logoSU} alt="Logo" />
+        <div onClick={()=>{redir('/') }}  className="logo mb-[24px] cursor-pointer ">
+          <img  src="https://res.cloudinary.com/dqtyrjpeh/image/upload/q_auto/f_auto/v1770048496/Blue_Logo_ijoxkj.png" alt="Logo" />
         </div>
+
 
         <div className="content">
           <div className="header  mb-[15px]">
@@ -48,7 +49,7 @@ const TermsSer = () => {
             create an organizer account.
           </p>
 
-<hr />
+{/* <hr /> */}
           {/* Use Responsibilities */}
           <ol
             className="list-decimal pl-6 text-[32px] font-bold text-[#333333]"
@@ -70,7 +71,7 @@ const TermsSer = () => {
           </p>
 
 
-          <hr />
+          {/* <hr /> */}
           {/* Payments Line */}
           <ol
             className="list-decimal pl-6 text-[32px] font-bold text-[#333333]"
@@ -85,7 +86,7 @@ const TermsSer = () => {
           </p>
 
 
-          <hr />
+          {/* <hr /> */}
           {/* Cancellations Line */}
           <ol
             className="list-decimal pl-6 text-[32px] font-bold text-[#333333]"
@@ -98,7 +99,7 @@ const TermsSer = () => {
           </p>
 
 
-          <hr />
+          {/* <hr /> */}
           {/* Rights Line */}
           <ol
             className="list-decimal pl-6 text-[32px] font-bold text-[#333333]"

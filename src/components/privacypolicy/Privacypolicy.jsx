@@ -8,8 +8,8 @@ const PrivacyPolicy = () => {
   return (
     <>
       <section className="ml-[160px] mt-[90px] mr-[160px]">
-        <div className="logo cursor-pointer mb-[24px]">
-          <img  onClick={()=> redir('/')}   src={logoSU} alt="Logo" />
+         <div onClick={()=>{redir('/') }}  className="logo mb-[24px] cursor-pointer ">
+          <img  src="https://res.cloudinary.com/dqtyrjpeh/image/upload/q_auto/f_auto/v1770048496/Blue_Logo_ijoxkj.png" alt="Logo" />
         </div>
 
         <div className="content">
@@ -48,7 +48,7 @@ const PrivacyPolicy = () => {
             <li>Attendee data (name, email, ticket info)</li>
             <li>Analytics on how users interact with the platform</li>
           </ul>
-<hr />
+{/* <hr /> */}
           {/* Use Line */}
           <ol
             className="list-decimal pl-6 text-[32px] font-bold text-[#333333]"
@@ -64,7 +64,7 @@ const PrivacyPolicy = () => {
           </ul>
 
           {/* lines */}
-          <hr /> 
+          {/* <hr />  */}
           {/* Share Line */}
           <ol
             className="list-decimal pl-6 text-[32px] font-bold text-[#333333]"
@@ -81,7 +81,7 @@ const PrivacyPolicy = () => {
           </ul>
 
 
-          <hr />
+          {/* <hr /> */}
           {/* Share Line */}
           <ol
             className="list-decimal pl-6 text-[32px] font-bold text-[#333333]"
@@ -89,12 +89,12 @@ const PrivacyPolicy = () => {
           >
             <li>Your Rights</li>
           </ol>
-          <p className="text-[20px] font-normal text-[#333333] mb-[40px]">
-            You can request to delete or update your data by contacting us at 
-            <a href="" className="text-[#2D6CCF]">
+          <div className="text-[20px] flex gap-[2px] items-center font-normal text-[#333333] mb-[40px]">
+            <p>You can request to delete or update your data by contacting us at </p>
+             <a href="" className="text-[#123499] font-semibold hover-cusor">
               info.alvent.ng@gmail.com
             </a>
-          </p>
+          </div>
 
           {/* content ends here */}
         </div>
