@@ -5,7 +5,8 @@ import verifyTwitter from '../../assets/verifyTwitter.svg';
 import verifyLinkedin from '../../assets/veifyLinkedin.svg';
 import arrowBack from '../../assets/arrowBack.svg';
 import verifyEnvelop from '../../assets/verifyEnvelop.svg';
-import verifyArrowRight from '../../assets/verifyArrowRight.svg';
+import verifyArrowRight from '../../assets/verifyArrowRight.svg'; 
+import { MdArrowBack } from "react-icons/md";
 import { Image } from "cloudinary-react";
 import { Link,useLocation, useNavigate } from 'react-router-dom';
 import CountdownTimer from "./CountdownTimer/CountdownTimer";
@@ -148,7 +149,9 @@ const VerifyAcc = () => {
                <Link to="/">
                   <img src="https://res.cloudinary.com/dqtyrjpeh/image/upload/q_auto/f_auto/v1770048496/Blue_Logo_ijoxkj.png" alt="Logo" className="w-[189px]" />
                </Link>
-               <img src={arrowBack} onClick={() => redir('/')} alt="arrowBack" className="w-[44px] cursor-pointer" />
+               <div className='w-[44px] h-[44px] rounded-[22px] bg-[#E5EDF9] flex items-center justify-center'>
+                             <MdArrowBack onClick={() => redir('/')} className='text-[#123499] text-[30px]'/>
+                           </div>
              </div>
 
 
@@ -185,7 +188,7 @@ const VerifyAcc = () => {
                     value={digit}
                     onChange={(e) => handleChange(e, index)}
                     maxLength="1" // Allow only one character per box
-                    className={`w-[60px] border-[1px] border-[#BEBEBE] rounded-[12px] py-[15px] px-[18px] text-[24px] text-[#333333] focus:outline-none focus:ring-2 focus:ring-[#3A7BD5] ${activeInput === index ? "ring-2 ring-[#3A7BD5]" : ""
+                    className={`w-[60px] border-[1px] border-[#BEBEBE] rounded-[12px] py-[15px] px-[18px] text-[24px] text-[#333333] focus:outline-none focus:ring-2 focus:ring-[#123499] ${activeInput === index ? "ring-2 ring-[#123499]" : ""
                       }`}
                     onFocus={() => setActiveInput(index)} // Update activeInput on focus
                   />
@@ -207,7 +210,7 @@ const VerifyAcc = () => {
             </div>
 
             {/* Verify button */}
-            <div className="w-[416px] mx-auto bg-[#3A7BD5] rounded-[12px] mb-[55px]">
+            <div className="w-[416px] mx-auto bg-[#123499] rounded-[12px] mb-[55px]">
               <button type="button" className="flex items-center justify-center gap-[5px] py-[16px] px-[167.5px]" onClick={handleVerify}>
                 <p className="font-bold text-[20px] text-white">Verify</p>
                 {/* <img

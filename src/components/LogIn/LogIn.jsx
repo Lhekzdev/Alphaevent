@@ -6,8 +6,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import googleSU from '../../assets/googleSU.svg';
 import passwordEye from '../../assets/passwordEye.svg';
 import passwordEyeOpen from '../../assets/passwordEyeOpen.svg';
-import logoSU from '../../assets/logoSU.svg';
-import arrowBack from '../../assets/arrowBack.svg';
+// import logoSU from '../../assets/logoSU.svg';
+// import arrowBack from '../../assets/arrowBack.svg'; 
+import { MdArrowBack } from "react-icons/md";
 import { Image } from 'cloudinary-react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -140,7 +141,7 @@ const images = [
     
 
   return (
-    <div className="flex w-full min-h-screen bg-white">
+    <div className="flex w-full min-h-screen bg-[#F3F5FA]">
       {/* Toast Notification Container */}
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
 
@@ -186,33 +187,41 @@ const images = [
 
 
       {/* Login Form Section */}
-      <div className="flex flex-col items-center w-full lg:w-1/2 max-w-md mx-auto p-8 bg-white  rounded-lg">
-        {/* Logo Section */}
-        <div className="flex justify-between items-center w-full mb-[60px]">
+        <div className="flex flex-col bg-[#F3F5FA] items-center w-full max-w-[745px] mx-auto p-8 rounded-tl-[32px] rounded-bl-[32px] relative z-10 lg:-ml-[40px]">
+         <div className="flex justify-between items-center w-full mb-[60px]">
   <Link to="/">
     <img src="https://res.cloudinary.com/dqtyrjpeh/image/upload/q_auto/f_auto/v1770048496/Blue_Logo_ijoxkj.png" alt="Logo" className="w-[189px]" />
   </Link>
-  <img src={arrowBack} onClick={() => redir('/')} alt="arrowBack" className="w-[44px] cursor-pointer" />
+  <div className='w-[44px] h-[44px] rounded-[22px] bg-[#E5EDF9] flex items-center justify-center'>
+               <MdArrowBack onClick={() => redir('/')} className='text-[#123499] text-[30px]'/>
+             </div>
 </div>
 
+
+       <div className='formBox w-full max-w-[435px]  mt-[100px] '>
+        
+       
        
         <div className="flex flex-col items-center mb-6">
       
 
           {userName ? (
-          <h1 className="text-[35px] font-bold mb-2">Welcome, {userName}!</h1>
+          <h1 className="text-[32px] font-bold mb-2 text-[#333333]">Welcome, {userName}!</h1>
         ) : (
-          <h1 className="text-[35px] font-bold mb-2">Welcome Back!</h1>
+          <h1 className="text-[32px] font-bold mb-2 text-[#333333]">Welcome Back!</h1>
         )}
         </div>
 
         {/* Continue with Google */}
-      <div className="flex justify-center items-center gap-[10px] mb-4 rounded-[36px] w-full max-w-[250px] border-2 border-[#3A7BD5] mx-auto">
-         <a onClick={handleLoginAuth}>  <button className="text-[#3A7BD5] py-2 px-4 flex items-center justify-center">
-            Continue with Google
-          </button></a> 
-          <img src={googleSU} alt="Google Sign In" className="w-[16px] sm:w-auto ml-2" />
-        </div>
+      <div className="flex justify-center items-center gap-[10px] mb-4 rounded-[36px] w-full max-w-[435px] border-2 border-[#123499] mx-auto">
+                  <a href='https://alphaeventappdevmode.onrender.com/auth/google'>
+                    <button className="text-[#123499] text-[16px] font-semibold py-2 px-4 flex items-center justify-center">
+                      Sign in with Google
+                    </button>
+                  </a>
+    
+                  <img src={googleSU} alt="Google Sign In" className="w-[16px] sm:w-auto ml-2" />
+                </div>
 
         {/* Separator */}
         <div className="text-center mb-[18px] mt-[18px]">
@@ -238,7 +247,7 @@ const images = [
                     name="email"
                         type="email"
                     placeholder="Email"
-                    className="w-full border border-[#BEBEBE] px-[20px] py-[6px] rounded-[12px] text-[16px] text-black"
+                    className="w-full max-w-[435px] h-[52px] border bg-transparent border-[#BEBEBE] rounded-[12px] py-2 px-4 text-[14px] text-[#333333] placeholder:text-[#C5C5C5]"
                 
                 />
                   {errors.email && touched.email ? (
@@ -253,7 +262,7 @@ const images = [
                   
                     type={showPassword ? 'text' : 'password'}
                     placeholder="Password"
-                    className="w-full border border-[#BEBEBE] px-[20px] py-[6px] rounded-[12px] text-black text-[16px] placeholder-gray-400"
+                     className="w-full max-w-[435px] h-[52px] border bg-transparent border-[#BEBEBE] rounded-[12px] py-2 px-4 text-[14px] text-[#333333] placeholder:text-[#C5C5C5]"
                   />
                   <img
                     src={showPassword ? passwordEyeOpen : passwordEye}
@@ -291,7 +300,7 @@ const images = [
 
 
   type="submit"
-  className="w-full flex items-center justify-center px-6 bg-[#D8E5F7] text-[#7CA7E3] hover:text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300 relative"
+  className="w-full flex items-center justify-center px-6 bg-[#D8E5F7] text-[#7CA7E3] hover:text-white py-2 rounded-lg hover:bg-[#123499] transition duration-300 relative"
 
   disabled={isSubmitted}
 >
@@ -327,21 +336,16 @@ const images = [
              
 
                 {/* Terms and Signup Link */}
-                <p className="text-gray-500 text-[12px] text-center">
-                  By proceeding, you agree to Alvent’s{' '}
-                  <button onClick={()=> redir('/termsSer')} className="text-[#333333] underline font-light">
-                    Terms of Service
-                  </button>{' '}
-                  and{' '}
-                  <button onClick={()=> redir('/PrivacyPolicy')}  className="text-[#333333] underline font-light">
-                    Privacy Policy
-                  </button>
-                  .
-                </p>
+               <p className="text-[#333333] text-[12px] text-center font-light">
+                    By logging in, you agree to Alvent’s{' '}
+                    <a onClick={()=> redir('/termsSer')} className="underline cursor-pointer">Terms of Service</a>{' '}
+                    and{' '}
+                    <a onClick={()=> redir('/PrivacyPolicy')} className="underline cursor-pointer">Privacy Policy</a>.
+                  </p>
                 <div className="text-center mt-4 text-[12px]">
                   <p className="text-[#757575]">
                     Don’t have an account?{' '}
-                    <a className="text-blue-500"><Link to="/signUp">Sign up</Link>
+                    <a className="text-[#123499] font-semibold"><Link to="/signUp">Sign up</Link>
 
                     </a>
                   </p>
@@ -353,6 +357,10 @@ const images = [
 
           
         </div>
+
+
+        </div> 
+      
       </div>
 
 
