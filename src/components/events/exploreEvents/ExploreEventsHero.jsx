@@ -63,7 +63,7 @@ const ExploreEventsHero = () => {
           
           {/* Hero Text */}
           <div className="font-Lato font-leading-[30px] max-w-[300px] md:max-w-[700px] lg:max-w-[858px]  text-[32px] md:text-[42px] lg:text-[52px]  md:leading-[54.08px] font-bold">
-            <p>Explore events arounds you</p>
+            <p>Explore events around you</p>
           </div>
 
           {/* Search / Location Dropdown */}
