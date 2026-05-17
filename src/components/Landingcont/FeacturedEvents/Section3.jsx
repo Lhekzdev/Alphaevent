@@ -43,7 +43,7 @@ const Section3 = () => {
       <div className="w-full grid grid-cols-4 gap-6 bg-[#F3F5FA]">
         {events.slice(0, 4).map((event) => (
       
-              <Link  key={event.eventID}  to={`/Eventsdetailshome/${event.eventID}`}>
+              <Link  key={event.eventID}  to={`/eventsdetailshome/${event.eventID}`}>
            {/* <Link key={event.id} to={`/Eventsdetailshome/${event.id}`}> */}
             <div className=" overflow-hidden">
               <div className="relative">

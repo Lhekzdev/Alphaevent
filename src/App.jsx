@@ -118,14 +118,14 @@ function App() {
               </Applayout>
             }
           />
-          <Route
+          {/* <Route
             path="/eventsdetailshome"
             element={
               <Applayout>
                 <Eventsdetailshome />
               </Applayout>
             }
-          />
+          /> */}
 
           <Route
             path="/exploreEvents"

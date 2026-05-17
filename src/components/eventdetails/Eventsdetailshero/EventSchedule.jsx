@@ -5,7 +5,7 @@ function EventSchedule() {
   const [event, setEvent] = useState(null);
 
   const { eventID } = useParams(); // Extract eventId from the URL
-const { eventID = "1" } = useParams();
+
 
 
 
