@@ -118,6 +118,14 @@ function App() {
               </Applayout>
             }
           />
+          <Route
+            path="/eventsdetailshome"
+            element={
+              <Applayout>
+                <Eventsdetailshome />
+              </Applayout>
+            }
+          />
 
           <Route
             path="/exploreEvents"

@@ -2,10 +2,42 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 // import data from "../../../../../data/db4.json"
 function EventSchedule() {
-  //const [event, setEvent] = useState(null);
-  const { eventID } = useParams(); // Extract eventId from the URL
   const [event, setEvent] = useState(null);
+
+  const { eventID } = useParams(); // Extract eventId from the URL
+const { eventID = "1" } = useParams();
+
+
+
+
+
   console.log("eventID:",eventID)
+
+useEffect(() => {
+  const fetchEventDetails = async () => {
+    try {
+      const response = await fetch(
+        `https://alphaeventappdevmode.onrender.com/eventDetails/${eventID}`
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+
+        // overwrite mock data only if backend works
+        setEvent(data);
+      }
+    } catch (error) {
+      console.log("Backend unavailable, using mock data");
+    }
+  };
+
+  if (eventID) {
+    fetchEventDetails();
+  }
+}, [eventID]);
+
+
+ 
 
   useEffect(() => {
     // Fetch event details using the eventId

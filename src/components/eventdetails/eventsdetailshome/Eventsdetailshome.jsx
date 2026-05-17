@@ -6,7 +6,13 @@ import Eventicket from '../eventticket/Eventticket.jsx'
 import TrendingEvents from "../TrendingEvent/TrendingEvent.jsx"
 
 const Eventsdetailshome = () => {
+
+  
   const { eventID } = useParams(); // Extract eventId from the URL
+
+
+
+
   const [eventDetails, setEventDetails] = useState(null);
   console.log("eventID:",eventID)
 
