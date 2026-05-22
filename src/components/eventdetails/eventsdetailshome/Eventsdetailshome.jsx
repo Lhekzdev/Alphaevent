@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Eventsdetailshero from '../Eventsdetailshero/Eventsdetailshero'
 import EventSchedule from '../Eventsdetailshero/EventSchedule.jsx'
 import Eventicket from '../eventticket/Eventticket.jsx'
-import TrendingEvents from "../TrendingEvent/TrendingEvent.jsx"
+import Section3 from "../../Landingcont/FeacturedEvents/Section3.jsx"
 
 const Eventsdetailshome = () => {
 
@@ -21,12 +21,18 @@ const Eventsdetailshome = () => {
     const fetchEventDetails = async () => {
       try {
         
-        const response = await fetch(`https://alphaeventappdevmode.onrender.com/eventDetails/${eventID}`);
+        const response = await fetch(`https://alphaeventappdevmode.onrender.com/api/eventDetails/${eventID}`);
+      
         console.log("details:",response)
+;
+
+// console.log("API DATA:", data);
+
         if (response.ok) {
           const data = await response.json();
           console.log('Fetched event details:', data)
-          setEventDetails(data);
+          setEventDetails(data.evnttd);
+          // setEventDetails(data);
         } else {
           console.error('Failed to fetch event details:', response.statusText);
         }
@@ -41,9 +47,9 @@ const Eventsdetailshome = () => {
   }, [eventID]);
   return (
     
-    <div>
-      <Eventsdetailshero eventDetails={eventDetails} />
-      <TrendingEvents />
+    <div className="bg-[#F3F5FA]">
+      <Eventsdetailshero  eventDetails={eventDetails} />
+      <div ><Section3 /></div>
     </div>
 
   )

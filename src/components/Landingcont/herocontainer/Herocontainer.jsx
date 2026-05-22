@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import line from "/line.svg";
+import { Link } from "react-router-dom";
 
 const Herocontainer = () => {
   const [states, setStates] = useState([
@@ -69,6 +70,7 @@ const Herocontainer = () => {
             <h1 className="block md:hidden">
               Find, Explore, and Experience Events with a Single Click!
             </h1>
+             
           </div>
 
           {/* Search / Location Dropdown */}

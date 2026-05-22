@@ -15,6 +15,7 @@ const Section3 = () => {
     async function fetchTrending() {
       try {
         const res = await fetch("https://alphaeventappdevmode.onrender.com/api/trndeventAllGet", {
+
           method: "GET",
           headers: {
             "Content-Type": "application/json"

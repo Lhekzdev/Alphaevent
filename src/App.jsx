@@ -52,6 +52,14 @@ import WithdrawalSuccessfully from "./components/dashboard/OnboardingMain/Withdr
 import ConfirmWithdrawal from "./components/dashboard/OnboardingMain/ConfirmWithdrawal.jsx";
 import ChangePassword from "./components/dashboard/SettingsPage/ChangePassword.jsx";
 
+import OrderSummartGeneralAdmission from "./components/eventdetails/orderSummartGeneralAdmission/OrderSummartGeneralAdmission.jsx";
+import CheckoutPage from "./components/eventdetails/checkoutpage/CheckoutPage.jsx";
+import ConfirmAndPay from "./components/eventdetails/confirmAndPay/ConfirmAndPay.jsx";
+import ConnectingPage from "./components/eventdetails/connectingPage/ConnectingPage.jsx";
+import PaymentFailedPage from "./components/eventdetails/paymentFailedPage/PaymentFailedPage.jsx";
+import TicketSuccessPage from "./components/eventdetails/ticketSuccessPage/TicketSuccesPage.jsx";
+import OrderSummartVIPAdmission from "./components/eventdetails/orderSummartVIPAdmission/OrderSummartVIPAdmission.jsx";
+
 const Spinner =()=> {
   return (
     <div className="flex justify-center items-center h-screen bg-white">
@@ -160,6 +168,42 @@ function App() {
           <Route path="/SuccessAcc" element={<SuccessAcc />} />
           <Route path="/Login" element={<LogIn />} />
           <Route path="/ticket" element={<MyTicket/>} />
+GeneralAdmission
+          {/* newly added for event details */}
+     <Route
+  path="/orderSummartGeneralAdmission/:eventID"
+  element={<OrderSummartGeneralAdmission />}
+/>
+
+<Route
+  path="/checkoutpage/:eventID"
+  element={<CheckoutPage />}
+/>
+
+<Route
+  path="/confirmAndPay/:eventID"
+  element={<ConfirmAndPay />}
+/>
+
+<Route
+  path="/connectingPage/:eventID"
+  element={<ConnectingPage />}
+/>
+
+<Route
+  path="/paymentFailedPage/:eventID"
+  element={<PaymentFailedPage />}
+/>
+
+<Route
+  path="/ticketSuccessPage/:eventID"
+  element={<TicketSuccessPage />}
+/>
+
+<Route
+  path="/orderSummartVIPAdmission/:eventID"
+  element={<OrderSummartVIPAdmission />}
+/>
         
         
 

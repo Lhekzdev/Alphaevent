@@ -15,6 +15,7 @@ const Section3 = () => {
     const fetchEvents = async () => {
       try {
         const response = await fetch('https://alphaeventappdevmode.onrender.com/api/allFeaturedEvents', {
+
           method: 'GET', // 👈 Explicit GET method
           headers: {
             'Content-Type': 'application/json'
@@ -40,7 +41,7 @@ const Section3 = () => {
 
   return (
     <section className="mt-[24px] px-[30px] md:px-[80px] bg-[#F3F5FA]">
-      <div className="w-full grid grid-cols-4 gap-6 bg-[#F3F5FA]">
+      <div className="w-full  grid grid-cols-4 gap-6 bg-[#F3F5FA]">
         {events.slice(0, 4).map((event) => (
       
               <Link  key={event.eventID}  to={`/eventsdetailshome/${event.eventID}`}>

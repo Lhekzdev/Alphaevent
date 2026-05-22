@@ -5,7 +5,7 @@ import Section3 from '../FeacturedEvents/Section3'
 
 const FeacturedEvents = () => {
   return (
-    <div >
+    <div className='' >
       <Section1 />
       <Section3 />
     </div>

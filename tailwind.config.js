@@ -12,6 +12,7 @@ export default {
         RedHatdisplay: ['Red Hat Display', 'sans-serif'],
         Roboto: ['Roboto', 'sans-serif'],
         Lato: ['Lato', 'sans-serif'],
+          copperplate: ["Copperplate Gothic Bold", "serif"],
       },
       colors:{
         customOrange: "rgba(255, 140, 0, 1)",
