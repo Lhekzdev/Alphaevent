@@ -45,7 +45,7 @@ import MyTicket from "./components/ticket/MyTicket.jsx";
 import About from "./components/About/About.jsx";
 import Footer from "./components/Landingcont/Footer/Footer.jsx";
 import Footer2 from "./components/Landingcont/Footer/Footer2.jsx";
- import Finance from "./components/dashboard/OnboardingMain/Finance.jsx";
+import Finance from "./components/dashboard/OnboardingMain/Finance.jsx";
 import WithdrawalHistory from "./components/dashboard/OnboardingMain/WithdrawalHistory.jsx";
 import WithdrawFund from "./components/dashboard/OnboardingMain/WithdrawFund.jsx";
 import WithdrawalSuccessfully from "./components/dashboard/OnboardingMain/WithdrawalSuccessfully.jsx";
@@ -60,7 +60,7 @@ import PaymentFailedPage from "./components/eventdetails/paymentFailedPage/Payme
 import TicketSuccessPage from "./components/eventdetails/ticketSuccessPage/TicketSuccesPage.jsx";
 import OrderSummartVIPAdmission from "./components/eventdetails/orderSummartVIPAdmission/OrderSummartVIPAdmission.jsx";
 
-const Spinner =()=> {
+const Spinner = () => {
   return (
     <div className="flex justify-center items-center h-screen bg-white">
       <div className="animate-spin rounded-full h-24 w-24 border-t-8 border-blue-500 border-solid border-r-transparent"></div>
@@ -84,20 +84,20 @@ function App() {
           // </div>
         }
       >
-  <ToastContainer 
-    position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={true}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light" // or "dark"
-  
-  
-  />
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={true}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light" // or "dark"
+
+
+        />
         <Routes>
           {/* Routes wrapped with Applayout */}
           <Route
@@ -154,11 +154,11 @@ function App() {
             }
           />
 
-        
+
 
 
           {/* Standalone  route */}
-          <Route path="/states/:countryId" element={<Herocontainer />} /> 
+          <Route path="/states/:countryId" element={<Herocontainer />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/VerifyAcc" element={<VerifyAcc />} />
           <Route path="/SetAcc" element={<SetAcc />} />
@@ -167,81 +167,81 @@ function App() {
           <Route path="/CreateAcc" element={<CreateAcc />} />
           <Route path="/SuccessAcc" element={<SuccessAcc />} />
           <Route path="/Login" element={<LogIn />} />
-          <Route path="/ticket" element={<MyTicket/>} />
-GeneralAdmission
+          <Route path="/ticket" element={<MyTicket />} />
+          GeneralAdmission
           {/* newly added for event details */}
-     <Route
-  path="/orderSummartGeneralAdmission/:eventID"
-  element={<OrderSummartGeneralAdmission />}
-/>
-
-<Route
-  path="/checkoutpage/:eventID"
-  element={<CheckoutPage />}
-/>
-
-<Route
-  path="/confirmAndPay/:eventID"
-  element={<ConfirmAndPay />}
-/>
-
-<Route
-  path="/connectingPage/:eventID"
-  element={<ConnectingPage />}
-/>
-
-<Route
-  path="/paymentFailedPage/:eventID"
-  element={<PaymentFailedPage />}
-/>
-
-<Route
-  path="/ticketSuccessPage/:eventID"
-  element={<TicketSuccessPage />}
-/>
-
-<Route
-  path="/orderSummartVIPAdmission/:eventID"
-  element={<OrderSummartVIPAdmission />}
-/>
-        
-        
-
-  <Route
-           path="/About"
-            element={
-           < div> 
-           <About/>
-              <Footer/>
-          
-            </div>}
-                       
+          <Route
+            path="/orderSummartGeneralAdmission/:eventID"
+            element={<OrderSummartGeneralAdmission />}
           />
-  <Route
-           path="/TermsSer"
-            element={
-           < div> 
-           <TermsSer />
-              <Footer2/>
-          
-            </div>}
-                       
+
+          <Route
+            path="/checkoutpage/:eventID"
+            element={<CheckoutPage />}
           />
-  <Route
-           path="/Privacypolicy"
+
+          <Route
+            path="/confirmAndPay/:eventID"
+            element={<ConfirmAndPay />}
+          />
+
+          <Route
+            path="/connectingPage/:eventID"
+            element={<ConnectingPage />}
+          />
+
+          <Route
+            path="/paymentFailedPage/:eventID"
+            element={<PaymentFailedPage />}
+          />
+
+          <Route
+            path="/ticketSuccessPage/:eventID"
+            element={<TicketSuccessPage />}
+          />
+
+          <Route
+            path="/orderSummartVIPAdmission/:eventID"
+            element={<OrderSummartVIPAdmission />}
+          />
+
+
+
+          <Route
+            path="/About"
             element={
-           < div> 
-           <Privacypolicy />
-              <Footer2/>
-          
-            </div>}
-                       
+              < div>
+                <About />
+                <Footer />
+
+              </div>}
+
+          />
+          <Route
+            path="/TermsSer"
+            element={
+              < div>
+                <TermsSer />
+                <Footer2 />
+
+              </div>}
+
+          />
+          <Route
+            path="/Privacypolicy"
+            element={
+              < div>
+                <Privacypolicy />
+                <Footer2 />
+
+              </div>}
+
           />
 
           {/* <Route path="/TermsSer" element={<TermsSer />} /> */}
           <Route path="/privacypolicy" element={<Privacypolicy />} />
-         
-         
+
+
           <Route path="/OnboardingMain" element={<OnboardingMain />} />
           <Route path="/OnboardingMain1" element={<OnboardingMain1 />} />
           <Route path="/createEvent" element={<CreateEvent />} />
@@ -256,19 +256,19 @@ GeneralAdmission
           <Route path="/MyEventDetails" element={<MyEventDetails />} />
           <Route path="/MyEventDetails/:id" element={<MyEventFullDetail />} />
 
-          <Route path="/settingsPage" element={<SettingsPage/>} />
-    <Route path="/Support" element={<Support />} />
+          <Route path="/settingsPage" element={<SettingsPage />} />
+          <Route path="/Support" element={<Support />} />
           <Route path="/About" element={<About />} />
-  <Route path="/Finance" element={<Finance />} />
-  <Route path="/WithdrawalHistory" element={<WithdrawalHistory />} />
-  <Route path="/WithdrawFund" element={<WithdrawFund/>} />
-  <Route path="/WithdrawalSuccessfully" element={<WithdrawalSuccessfully/>} />
-  <Route path="/ConfirmWithdrawal" element={<ConfirmWithdrawal/>} />
-  <Route path="/ChangePassword" element={<ChangePassword/>} />
+          <Route path="/Finance" element={<Finance />} />
+          <Route path="/WithdrawalHistory" element={<WithdrawalHistory />} />
+          <Route path="/WithdrawFund" element={<WithdrawFund />} />
+          <Route path="/WithdrawalSuccessfully" element={<WithdrawalSuccessfully />} />
+          <Route path="/ConfirmWithdrawal" element={<ConfirmWithdrawal />} />
+          <Route path="/ChangePassword" element={<ChangePassword />} />
 
-         
 
-       
+
+
           {/* Define the route here */}
 
 

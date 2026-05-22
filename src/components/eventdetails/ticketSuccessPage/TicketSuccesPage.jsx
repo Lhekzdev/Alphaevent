@@ -13,13 +13,16 @@ import {
   ThumbsUp
 } from "lucide-react";
 import TicketCode from "../TicketCode";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 
 
 
 
 
 export default function TicketSuccessPage() {
+
+
+  const navigate = useNavigate();
 
   const { eventID } = useParams();
 
@@ -28,7 +31,7 @@ console.log(eventID);
     <div className="min-h-screen bg-[#f3f3f5] flex items-center justify-center px-4 py-10">
       <div className="relative w-full max-w-md">
         {/* Close Button */}
-        <button className="absolute right-0 top-0 text-[#233ea5] hover:opacity-80">
+        <button onClick={() => navigate("/exploreEvents")} className="absolute right-0 top-0 text-[#233ea5] hover:opacity-80">
           <X size={24} />
         </button>
 

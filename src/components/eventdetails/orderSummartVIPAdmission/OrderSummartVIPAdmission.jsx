@@ -1,5 +1,6 @@
 
-import React, { useState,useNavigate  } from "react";
+import React, { useState, } from "react";
+import { useNavigate, useParams} from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import alventlogo from "../../../assets/alventlogo.svg"
 
@@ -18,7 +19,7 @@ const navigate = useNavigate();
       <div className="w-full max-w-[840px] h-auto bg-[#F3F5FA] rounded-md shadow-sm p-8">
         
         {/* Header */}
-        <div className="flex  gap-[10px] mb-[60px]">
+        <button onClick={()=>navigate("/exploreEvents")} className="flex  gap-[10px] mb-[60px]">
           <button className="text-[#1E40AF]">
             <ChevronLeft className="w-[40px] [40px]" size={20} />
           </button>
@@ -27,7 +28,7 @@ const navigate = useNavigate();
            
           <img className="w-[189px] h-[32px] " src={alventlogo} alt="" srcset="" />
         
-        </div>
+        </button>
 
         {/* Title */}
         <div className="flex flex-col pb-4 gap-y-[24px]">

@@ -64,8 +64,8 @@ const Section3 = () => {
               <div className="px-[12px] sm:px-[20px] bg-[#F3F5FA]">
                 <div className="flex justify-between pt-[10px] sm:mt-[17px] ">
                   <p className="text-[18px] sm:text-[24px] font-bold text-[#333333]">
-                    {/* {event.eventTitle} */}
-                    Event Name
+                    {event.eventTitle}
+                  
                   </p>
                   {/* <img src={heartRed} alt="heart icon" /> */}
                 </div>
@@ -78,15 +78,15 @@ const Section3 = () => {
                   <div className="flex gap-[5px]">
                     {/* <img src={calender} alt="calendar icon" /> */}
                     <p className="text-[12px] sm:text-[14px] text-[#333333] font-semibold">
-                      {/* {event.eventDate} */}
-                      DD-MM-YYYY • 00:00 GMT+1
+                      {event.eventDate}
+                      {/* DD-MM-YYYY • 00:00 GMT+1 */}
                     </p>
                   </div>
                   <div className="flex gap-[5px]">
                     {/* <img src={location} alt="location icon" /> */}
                     <p className="text-[12px] sm:text-[14px] text-[#757575] font-semibold">
-                     Location
-                      {/* {event.venueInformation} */}
+                     {/* Location */}
+                      {event.venueInformation}
                     </p>
                   </div>
                 </div>
@@ -100,8 +100,8 @@ const Section3 = () => {
                 <div className="flex justify-between items-center mt-[8px] sm:mt-[8.5px] mb-[20px] sm:mb-[25px]">
                  <div className="flex gap-[5px] text-[#123499]">
                   <p>
-                         From $10.00 
-                         {/* <span>{event.ticketpriceMIN}</span> */}
+                       
+                         <span>{event.ticketpriceMIN}</span>
                         </p>
                         {/* <p>-</p>
                         <p>

@@ -21,12 +21,13 @@ console.log(eventID);
 
 const navigate = useNavigate();
 
+
     return(
  <div className="min-h-screen rounded-[12px] bg-[#F3F5FA] flex items-center justify-center px-4">
       <div className="w-full max-w-[840px] h-auto bg-[#F3F5FA] rounded-md shadow-sm p-8">
         
         {/* Header */}
-        <div className="flex  gap-[10px] mb-[60px]">
+        <div onClick={() => navigate("/exploreEvents")} className="flex  gap-[10px] mb-[60px]">
           <button className="text-[#1E40AF]">
             <ChevronLeft className="w-[40px] [40px]" size={20} />
           </button>

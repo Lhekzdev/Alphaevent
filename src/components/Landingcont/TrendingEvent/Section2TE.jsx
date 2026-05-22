@@ -50,7 +50,8 @@ const Section3 = () => {
     <section className="mt-[24px] px-[30px]">
       <div className="grid grid-cols-3 gap-[20px] sm:gap-[30px] lg:gap-[40px] overflow-hidden">
         {events.slice(0, 3).map(event => (
-          <Link key={event.id} to={`/eventsdetailshome/${event.id}`}>
+          <Link  key={event.eventID}  to={`/eventsdetailshome/${event.eventID}`}>
+          {/* // <Link key={event.id} to={`/eventsdetailshome/${event.id}`}> */}
             <div className=" rounded-lg overflow-hidden flex flex-col sm:flex-row max-w-[522px] mx-auto">
               {/* Left */}
               <div className="relative w-[145px] flex-shrink-0">
@@ -70,8 +71,8 @@ const Section3 = () => {
                 <div className=" sm:px-[20px] pt-[12px] sm:pt-[17px]">
                   <div className="flex items-center">
                     <p className="text-[18px] sm:text-[24px] font-bold ">
-                      {/* {event.eventTitle} */}
-                      Event Name
+                      {event.eventTitle}
+                      {/* Event Name */}
                     </p>
                     {/* <img src={heartWhite} alt="favorite" className="w-[16px]" /> */}
                   </div>
@@ -85,16 +86,23 @@ const Section3 = () => {
                   </div>
                   <div className="mt-[15px]">
                         <p className="text-[12px] mt-[10px] sm:text-[14px]  font-light">
-                    DD-MM-YYYY • 00:00 GMT+1
+               {event.eventDate}
                     </p>
                   </div>
                   <div className="mt-[15px]">
-                    <p>Location</p>
+                    <p>       {event.venueInformation}</p>
                   </div>
                   <div className="mt-[15px]">
 
                     <p>
-                         From $10.00 
+                       <p>
+                          ₦<span>{event.ticketpriceMIN}</span>
+                        </p>
+                        {/* <p>-</p> */}
+                        {/* <p>
+                        ₦<span>{event.ticketpriceMAX
+                          }</span>
+                        </p> */}
                     </p>
                   </div>
                   <div className="mt-[10px] flex flex-col gap-[8px] sm:gap-[10px]">
