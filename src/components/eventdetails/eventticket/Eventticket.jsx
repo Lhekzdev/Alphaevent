@@ -115,8 +115,8 @@ if (hasVIP && hasRegular) {
   route = "orderSummartGeneralAdmission";
 }
 
-console.log("Route:", route);
-console.log("Tickets:", tickets);
+// console.log("Route:", route);
+// console.log("Tickets:", tickets);
 
 navigate(`/${route}/${eventDetails.eventID}`, {
   state: {
