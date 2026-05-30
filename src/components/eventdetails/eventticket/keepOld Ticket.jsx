@@ -1,81 +1,654 @@
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe("your-publishable-key-here");
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from "react-router-dom";
+import {Share2} from "lucide-react"
+const img1 ="https://res.cloudinary.com/dzyvwxh7n/image/upload/v1731611793/Ellipse23_mlj9er.png"
 
-//     <div className='flex  flex-col items-center font-Lato mb-12 gap-[10px]'>
-   
-//    {/* purchase ticket section */}
-//     <div className='rounded-[10px] px-[20px] py-[10px] bg-customlightpink mt-[30px] w-[344px] h-[276px] '>
-//       <div className='w-[304px] flex flex-col gap-y-[15px] h-[112px]'>
-//         <h4 className=''>Tickets</h4>
-//         <div className='flex justify-between'>
-
-//           <label className='h-[px]'>
-//             <ol className='text-customSkyblue text-[16px] font-bold'>REGULAR</ol>  <ol>NGN {event.evnttd.ticketPrice}</ol></label>
-//           <label className='space-x-3'><button className='w-[24px] rounded-[3px] text-white bg-customlightgray h-[24px]' onClick={() => changeQuantity('regular', -1)}> - </button>
-//           <span className='font-bold'>{regularQuantity}</span>
-//           <button className='w-[24px] rounded-[3px] text-white  bg-customSkyblue h-[24px]' onClick={() => changeQuantity('regular', 1)}> + </button>
-//        </label> </div>
-
-//         {/* <div className='flex justify-between '>
-//           <label className='h-[36px]'><ol className='font-bold text-customSkyblue'>VIP </ol> <ol>NGN 5,000</ol></label>
-//           <label className='space-x-3 '><button className="w-[24px] rounded-[3px] bg-customlightgray text-white h-[24px]" onClick={() => changeQuantity('vip', -1)}>-</button>
-//           <span className='font-bold'>{vipQuantity}</span>
-//           <button className='w-[24px] bg-customSkyblue h-[24px] rounded-[3px] text-white' onClick={() => changeQuantity('vip', 1)}>+</button>
-//         </label></div> */}
-// <div className='text-center  text-white h-[44px] mt-5 rounded-[10px] border px-[32px] py-[16px] bg-customSkyblue'><button  onClick={purchaseTickets}>Purchase Tickets</button></div>
-//         </div>
-      
-//     </div>
-
-// {/* Add to calender section */}
-//     <div>
-//     <div class="w-[344px] h-[194px] p-4 bg-customlightpink  rounded-[10px]">
-//   <h2 class="text-[18px] leading-[27px] font-bold text-gray-800">Event Date & Time</h2>
-//   <p class="text-customlightgray mt-[7px]">  <span class="font-bold">{event.evnttd.eventStart}</span></p>
+const EventTicket = ({eventDetails}) => {
+  // const { eventID } = useParams(); // Extract eventID from the URL
+   // const [event, setEvent] = useState(null);
   
-//   <button class="mt-[25px] px-[20px] py-2 border border-blue-500 text-blue-500 rounded-[10px] hover:bg-blue-50 w-full">
-//     Add to Calendar
-//   </button>
-// </div>
-//     </div>
+const [quantity, setQuantity] = useState(1);
 
+  const [ticketMessage, setTicketMessage] = useState("");
 
-//     <div class="w-[344px] h-[161px] px-[20px] py-[10px] bg-customlightpink  rounded-[10px]">
-//   <h5 class="text-[18px] leading-[27px] font-bold ">Event Organizers</h5>
-  
-//   <div class="flex items-center justify-between mt-2">
-//     <div class="flex items-center">
-//       <img src={img1} alt="Organizer" class="w-10 h-10 rounded-full"/>
-//       <span class="ml-3 text-customlightgray font-normal">{event.evnttd.organizerName}</span>
-//     </div>
-//     <a href="#" class="text-customSkyblue text-sm font-medium hover:underline">+ Follow</a>
-//   </div>
-  
-//   <button class="mt-4 px-4 py-2 border border-customSkyblue text-customSkyblue rounded-lg hover:bg-blue-50 w-full">
-//     Contact the organizer
-//   </button>
-// </div>
+  const [selectedTicket, setSelectedTicket] = useState(null);
 
 
 
 
 
-{/* Tag section */}
-{/* <div> */}
+// remove selected ticket,reset quantities,hide totals section automatically
+
+const handleCloseTicketSelection = () => {
+  setSelectedTicket(null);
+  setQuantity(1);
+};
+
+
+const navigate = useNavigate();
+
+console.log("fromticket:", eventDetails)
+
+
+  // useEffect(() => {
+  //   // Fetch event details using the eventId
+  //   const fetchEventDetails = async () => {
+  //     try {
+        
+  //       // const response = await fetch(`https://alphaeventappdevmode.onrender.com/api/eventDetails/${eventID}`);
+  // 
+  //       console.log("details:",response)
+  //       if (response.ok) {
+  //         const data = await response.json();
+  //         console.log('Fetched event details:', data)
+  //         setEvent(data);
+  //       } else {
+  //         console.error('Failed to fetch event details:', response.statusText);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching event details:', error);
+  //     }
+  //   };    
+  //   if (eventID) {
+  //     fetchEventDetails();
+  //   }
+  // }, [eventID]);
+
+
+  // function changeQuantity(type, delta) {
+  //   if (type === 'general') {
+  //     setRegularQuantity((prev) => Math.max(0, prev + delta));
+  //   } else if (type === 'vip') {
+  //     setVipQuantity((prev) => Math.max(0, prev + delta));
+  //   }
+  // }
+
+
+  function changeQuantity(delta) {
+  setQuantity((prev) => Math.max(1, prev + delta));
+}
+
+function purchaseTickets() {
+  if (!selectedTicket) {
+    setTicketMessage("Please select a ticket type");
+    return;
+  }
+
+  if (quantity <= 0) {
+    setTicketMessage("Please select ticket quantity");
+    return;
+  }
+
+  navigate(`/order-summary/${eventID}`, {
+    state: {
+      ticket: selectedTicket,
+      quantity,
+    },
+  });
+}
+
+
+
+
+const { 
+  eventID } = eventDetails;
+
+
+// FIND SELECTED TICKET
+
+// async function purchaseTickets() {
+//   try {
+
+//     const stripe = await stripePromise;
+
+//     // FIND SELECTED TICKET
+//    const ticketTypeToMatch =
+//   selectedTicket === "general"
+//     ? "regular"
+//     : "vip";
+
+// const selectedTicketData =
+//   eventDetails.tickets.find(
+//     (ticket) =>
+//       ticket.ticketType.toLowerCase() ===
+//       ticketTypeToMatch.toLowerCase()
+//   );
+
+
+//     if (!selectedTicketData) {
+//       setTicketMessage("Ticket type not found");
+//       return;
+//     }
+
+//     // QUANTITY
+//     const quantity =
+//       selectedTicket === "general"
+//         ? regularQuantity
+//         : vipQuantity;
+
+//     // TOTAL COST
+//     const totalCost =
+//       quantity * selectedTicketData.ticketPrice;
+
+//     // STOP EMPTY PURCHASE
+//     if (quantity <= 0) {
+//       setTicketMessage("Please select ticket quantity");
+//       return;
+//     }
+
+//     // CREATE STRIPE PAYMENT
+//     if (totalCost > 0) {
+
+//       const response = await fetch(
+//         `https://alphaeventappdevmode.onrender.com/create-payment-intent`,
+//         {
+//           method: "POST",
+
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+
+//           body: JSON.stringify({
+//             eventID,
+//             ticketType: selectedTicket,
+//             quantity,
+//             totalCost,
+//           }),
+//         }
+//       );
+
+//       const { clientSecret } =
+//         await response.json();
+
+//       // STRIPE PAYMENT
+//       const result =
+//         await stripe.confirmCardPayment(
+//           clientSecret,
+//           {
+//             payment_method: {
+//               card: elements.getElement(CardElement),
+//             },
+//           }
+//         );
+
+//       if (result.error) {
+//         setTicketMessage(
+//           "Payment failed. Please try again."
+//         );
+//         return;
+//       }
+
+//       // SUCCESS
+//       completeTicketPurchase();
+
+//     } else {
+
+//       completeTicketPurchase();
+
+//     }
+
+//   } catch (error) {
+
+//     console.error(
+//       "Error purchasing tickets:",
+//       error
+//     );
+
+//     setTicketMessage(
+//       "There was an error processing your request."
+//     );
+//   }
+// }
+
+// async function completeTicketPurchase() {
+
+//   try {
+
+//     const quantity =
+//       selectedTicket === "general"
+//         ? regularQuantity
+//         : vipQuantity;
+
+//     const response = await fetch(
+//       `https://alphaeventappdevmode.onrender.com/tickzCrt/${eventID}`,
+//       {
+//         method: "POST",
+
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+
+//         body: JSON.stringify({
+//           ticketType: selectedTicket,
+//           quantity,
+//         }),
+//       }
+//     );
+
+//     const result = await response.json();
+
+//     if (response.ok) {
+
+//       setTicketMessage(
+//         `Tickets purchased successfully! Ticket ID: ${result.newTicket.ticketID}`
+//       );
+
+
+
+
+      // NAVIGATE AFTER SUCCESS
+
+function purchaseTickets() {
+  if (!selectedTicket) {
+    setTicketMessage("Please select a ticket type");
+    return;
+  }
+
+  navigate(`/order-summary/${eventDetails.evnttd.eventID}`, {
+    state: {
+      ticket: selectedTicket,
+      quantity,
+    },
+  });
+}
+
+
+//       function purchaseTickets() {
+
+//   // STOP IF NO TICKET SELECTED
+//   if (!selectedTicket) {
+//     setTicketMessage("Please select a ticket type");
+//     return;
+//   }
+
+//   // STOP IF QUANTITY IS 0
+//   const quantity =
+//     selectedTicket === "general"
+//       ? regularQuantity
+//       : vipQuantity;
+
+//   if (quantity <= 0) {
+//     setTicketMessage("Please select ticket quantity");
+//     return;
+//   }
+
+//   // NAVIGATE BASED ON TICKET TYPE
+//   if (selectedTicket === "general") {
+//     navigate(`/orderSummartGeneralAdmission/${eventID}`);
+//   }
+
+//   if (selectedTicket === "vip") {
+//     navigate(`/orderSummartVIPAdmission/${eventID}`);
+//   }
+// }
+
+//       if (selectedTicket === "general") {
+//         navigate(`/orderSummartGeneralAdmission/${eventID}`);
+//       }
+
+//       if (selectedTicket === "vip") {
+//         navigate(`/orderSummartVIPAdmission/${eventID}`);
+//       }
+
+//     } else {
+
+//       setTicketMessage(
+//         result.msg || "Error purchasing tickets."
+//       );
+//     }
+
+//   } catch (error) {
+
+//     console.log(error);
+
+//     setTicketMessage(
+//       "Error completing purchase"
+//     );
+//   }
+// }
+
+
+
+
+
+
+
+
+
+  return (
+
+
+
+<div className="    w-full max-w-[610px]">
+  <div className="place-items-end pt-2">
+      <button className="h-[48px] px-[24px] rounded-full border border-[#1E40AF] flex items-center gap-[10px] text-[16px] text-[#123499]">
+    
+    <span>Share Event</span>
+
+    <Share2 size={18} />
+  </button>
+  </div>
+
+<div className="shadow-lg p-[40px] rounded-[24px]">
+ <div className="flex  items-center gap-[12px] mb-[24px]">
+  {/* SHOW ARROW ONLY WHEN TICKET IS SELECTED */}
+  {selectedTicket && (
+    <button
+      onClick={handleCloseTicketSelection}
+      className="text-[#1E40AF] text-[24px]"
+    >
+      ←
+    </button>
+  )}
+
+  <h2 className="text-[14px] text-[#666] uppercase">
+    Select Tickets
+  </h2>
+</div>
+
+
+
+  {/* GENERAL */}
+
 
 {/*   
-<div class="max-w-sm h-[78px] mx-auto p-4">
-  <h2 class="text-lg font-semibold text-gray-800">Tags</h2>
-  
-  <div class="flex flex-wrap gap-[15px] justify-between text-customlightgray  mt-3">
-    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">CareerPath</span>
-    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Coaching</span>
-    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Abuja events</span>
-    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Growth</span>
-    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Networking</span>
-    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Innovative</span>
-    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">CareerEmpowerment</span>
-  </div>
-</div> */}
-{/* </div> */}
-  
+  <div
+    onClick={() => setSelectedTicket(ticket)}
+    className={`rounded-[16px] px-[20px] py-[12px] cursor-pointer border  transition-all duration-300
+    ${
+      selectedTicket === "general"
+        ? "border-[#1E40AF] border-2"
+        : "border-[#93C5FD]"
+    }`}
+  >
+    <div className="flex  justify-between items-start">
+      <div>
+        <h2 className="font-['Roboto'] font-semibold text-[18px] leading-[26px] tracking-[0%] text-[#333333]">
+          General Admission
+        </h2>
 
+        <p className="font-['Roboto'] font-medium text-[14px] leading-[20px] tracking-[0.5%] text-[#757575] mt-[10px]">
+          Entry to all stages · Welcome drink · General standing area
+        </p>
+      </div>
+
+      <div className="text-right">
+        <h2 className="text-[#1E40AF] font-bold text-[20px]">
+          ₦15,000
+        </h2>
+
+        <p className="text-[10px] text-[#123499]">
+          /ticket
+        </p>
+      </div>
+    </div>
+  </div> */}
+
+  {/* VIP */}
+  {/* <div
+    onClick={() => setSelectedTicket("vip")}
+    className={`rounded-[16px] px-[20px] py-[12px]  cursor-pointer border mt-[16px] transition-all duration-300
+    ${
+      selectedTicket === "vip"
+        ? "border-[#1E40AF] border-2"
+        : "border-[#93C5FD]"
+    }`}
+  >
+    <div className="flex justify-between items-start">
+      <div>
+        <div className="flex items-center gap-[10px]">
+  <h2 className="font-['Roboto'] font-semibold text-[18px] leading-[26px] tracking-[0%] text-[#333333]">
+            VIP
+          </h2>
+
+          <span className="border bg-[#FBB20733] text-[#333333] border-[#FBB20733] px-[10px] rounded-full text-[12px]">
+            VIP
+          </span>
+        </div>
+
+      <p className="font-['Roboto'] font-medium text-[14px] leading-[20px] tracking-[0.5%] text-[#757575] mt-[10px]">
+          Priority entry · VIP lounge · Open bar · Meet & Greet access
+        </p>
+      </div>
+
+      <div className="text-right">
+        <h2 className="text-[#F59E0B] font-bold text-[20px]">
+          ₦35,000
+        </h2>
+
+        <p className="text-[10px] font-Roboto text-[#FBB207]">
+          /ticket
+        </p>
+      </div>
+    </div>
+  </div> */}
+
+
+
+
+  {eventDetails?.evnttd?.tickets?.map((ticket) => (
+  <div
+    key={ticket._id}
+    onClick={() => setSelectedTicket(ticket)}
+    className={`rounded-[16px] px-[20px] py-[12px] cursor-pointer border mt-[16px] transition-all duration-300
+    ${
+      selectedTicket?._id === ticket._id
+        ? "border-[#1E40AF] border-2"
+        : "border-[#93C5FD]"
+    }`}
+  >
+    <div className="flex justify-between items-start">
+      <div>
+        <div className="flex items-center gap-[10px]">
+          <h2 className="font-semibold text-[18px] leading-[26px] text-[#333333]">
+            {ticket.ticketType}
+          </h2>
+
+          {ticket.ticketType.toLowerCase() === "vip" && (
+            <span className="border bg-[#FBB20733] text-[#333333] border-[#FBB20733] px-[10px] rounded-full text-[12px]">
+              VIP
+            </span>
+          )}
+        </div>
+
+        <p className="font-medium text-[14px] leading-[20px] text-[#757575] mt-[10px]">
+          Available: {ticket.quantity}
+        </p>
+      </div>
+
+      <div className="text-right">
+        <h2
+          className={`font-bold text-[20px] ${
+            ticket.ticketType.toLowerCase() === "vip"
+              ? "text-[#F59E0B]"
+              : "text-[#1E40AF]"
+          }`}
+        >
+          ₦{ticket.ticketPrice.toLocaleString()}
+        </h2>
+
+        <p className="text-[10px] text-[#123499]">
+          /ticket
+        </p>
+      </div>
+    </div>
+  </div>
+))}
+
+  {/* SHOW ONLY AFTER SELECT */}
+  {/* {selectedTicket && (
+    <div className="mt-[32px]">
+
+      <div className="flex justify-between items-center">
+
+        {/* QUANTITY */}
+        {/* <div>
+          <div className="w-[126px] h-[48px] border border-[#1E40AF] rounded-[12px] flex items-center justify-between px-[20px]">
+
+            <button
+              onClick={() =>
+                changeQuantity(
+                  selectedTicket,
+                  -1
+                )
+              }
+            >
+              -
+            </button>
+
+            <span className="font-bold">
+              {selectedTicket === "general"
+                ? regularQuantity
+                : vipQuantity}
+            </span>
+
+            <button
+              onClick={() =>
+                changeQuantity(
+                  selectedTicket,
+                  1
+                )
+              }
+            >
+              +
+            </button>
+          </div>
+
+          <p className="text-[12px] text-[#666] mt-[10px]">
+            Service fee (5%)
+          </p>
+        </div>
+
+        {/* TOTAL */}
+        {/* <div className="text-right">
+          <p className="text-[12px] text-[#666] uppercase">
+            Total
+          </p>
+
+          <h2 className="text-[24px] font-bold text-[#1E40AF]">
+            ₦
+            {selectedTicket === "general"
+              ? regularQuantity * 15000
+              : vipQuantity * 35000}
+          </h2>
+
+          <p className="text-[12px] text-[#666]">
+            Includes e-ticket + QR code
+          </p>
+        </div>
+      </div>
+
+      {/* BUTTON */}
+
+      
+      {/* <button
+        onClick={purchaseTickets}
+        className="w-full h-[44px] bg-[#848182] rounded-[14px] font-['Roboto'] font-normal text-[16px] leading-[100%] tracking-[0%] text-center text-[#FFFFFF]"
+      >
+         Get Ticket
+      </button> */}
+
+
+
+
+      
     {/* </div> */}
+
+
+
+  )} */} */} */}
+
+{/* SHOW ONLY AFTER SELECT */}
+{selectedTicket && (
+  <div className="mt-[32px]">
+
+    <div className="flex justify-between items-center">
+
+      {/* QUANTITY */}
+      <div>
+        <div className="w-[126px] h-[48px] border border-[#1E40AF] rounded-[12px] flex items-center justify-between px-[20px]">
+
+          <button
+            onClick={() => changeQuantity(-1)}
+          >
+            -
+          </button>
+
+          <span className="font-bold">
+            {quantity}
+          </span>
+
+          <button
+            onClick={() => changeQuantity(1)}
+          >
+            +
+          </button>
+        </div>
+
+        <p className="text-[12px] text-[#666] mt-[10px]">
+          Service fee (5%)
+        </p>
+      </div>
+
+      {/* TOTAL */}
+      <div className="text-right">
+        <p className="text-[12px] text-[#666] uppercase">
+          Total
+        </p>
+
+        <h2 className="text-[24px] font-bold text-[#1E40AF]">
+          ₦
+          {(
+            quantity * selectedTicket.ticketPrice
+          ).toLocaleString()}
+        </h2>
+
+        <p className="text-[12px] text-[#666]">
+          Includes e-ticket + QR code
+        </p>
+      </div>
+    </div>
+
+    <button
+      onClick={purchaseTickets}
+      className="w-full h-[44px] bg-[#848182] rounded-[14px] font-normal text-[16px] text-center text-white mt-6"
+    >
+      Get Ticket
+    </button>
+
+  </div>
+)}
+
+  
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  );
+};
+
+
+
+export default EventTicket

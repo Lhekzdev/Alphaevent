@@ -1,133 +1,188 @@
-
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import alventlogo from "../../../assets/alventlogo.svg"
-import { useParams,useNavigate } from "react-router-dom";
-
-
+import { useNavigate, useParams, useLocation } from "react-router-dom";
+import alventlogo from "../../../assets/alventlogo.svg";
 
 export default function OrderSummartGeneralAdmission() {
-  
+  const navigate = useNavigate();
   const { eventID } = useParams();
+  const { state } = useLocation();
 
+  const tickets = state?.tickets || [];
 
-console.log(eventID);
- const [quantity, setQuantity] = useState(1);
+  const regularTicket = tickets.find(
+    (t) => t.ticketType?.toLowerCase() === "regular"
+  );
 
-  const ticketPrice = 15000;
-  const serviceFee = 750;
+  if (!regularTicket) {
+    return (
+      <div className="p-10 text-center text-red-500">
+        No Regular ticket found.
+      </div>
+    );
+  }
 
-  const total = quantity * (ticketPrice + serviceFee);
+  const [quantity, setQuantity] = useState(() => {
+    const init = {};
 
-const navigate = useNavigate();
+    tickets.forEach((t) => {
+      init[t._id] = t.quantity || 1;
+    });
 
+    return init;
+  });
 
-    return(
- <div className="min-h-screen rounded-[12px] bg-[#F3F5FA] flex items-center justify-center px-4">
-      <div className="w-full max-w-[840px] h-auto bg-[#F3F5FA] rounded-md shadow-sm p-8">
-        
-        {/* Header */}
-        <div onClick={() => navigate("/exploreEvents")} className="flex  gap-[10px] mb-[60px]">
+  const currentQty = quantity[regularTicket._id] || 1;
+
+  const ticketPrice = Number(regularTicket.ticketPrice || 0);
+
+  const subTotal = currentQty * ticketPrice;
+
+  const serviceFee = subTotal * 0.05;
+
+  const total = subTotal + serviceFee;
+
+  const changeQty = (id, delta) => {
+    setQuantity((prev) => ({
+      ...prev,
+      [id]: Math.max(1, (prev[id] || 1) + delta),
+    }));
+  };
+
+  return (
+    <div className="min-h-screen rounded-[12px] bg-[#F3F5FA] flex items-center justify-center px-4">
+      <div className="w-full max-w-[840px] bg-[#F3F5FA] rounded-md shadow-sm p-8">
+
+        {/* HEADER */}
+        <div
+          onClick={() => navigate("/exploreEvents")}
+          className="flex gap-[10px] mb-[60px] cursor-pointer"
+        >
           <button className="text-[#1E40AF]">
-            <ChevronLeft className="w-[40px] [40px]" size={20} />
+            <ChevronLeft size={20} />
           </button>
 
-         
-           
-          <img className="w-[189px] h-[32px] " src={alventlogo} alt="" srcset="" />
-        
+          <img
+            className="w-[189px] h-[32px]"
+            src={alventlogo}
+            alt="logo"
+          />
         </div>
 
-        {/* Title */}
+        {/* TITLE */}
         <div className="flex flex-col pb-4 gap-y-[24px]">
-          <h2 className="font-bold text-lg text-[18px] text-[#000000] leading-8">
-            Order Summary
+          <h2 className="font-bold text-[18px] text-[#000000]">
+            Order Summary (General)
           </h2>
 
-          <p className="text-sm font-Roboto font-normal text-[#848182] ">
-            Renewed Conference · Sat 5 Apr
+          <p className="text-sm text-[#848182]">
+            {state?.eventTitle || "Event"}
           </p>
         </div>
 
-
-<div >
-        {/* Table */}
+        {/* DETAILS */}
         <div className="space-y-5">
-          
-          {/* Event */}
-          <div className="flex justify-between border-b pb-4 text-sm">
-            <span className="font-roboto text-[18px] font-[400] leading-[28px] text-center text-[#000000]">Event</span>
-            <span className="text-[#848182]">Renewed Conference</span>
+
+          {/* EVENT */}
+          <div className="flex justify-between border-b pb-4">
+            <span>Event</span>
+
+            <span className="text-[#848182]">
+              {state?.eventTitle}
+            </span>
           </div>
 
-          {/* Quantity */}
-          <div className="flex justify-between items-center border-b pb-4 text-sm">
-            <span className="font-roboto text-[18px] font-[400] leading-[28px] text-center text-[#000000]">Quantity</span>
+          {/* QUANTITY */}
+          <div className="flex justify-between items-center border-b pb-4">
+            <span>Quantity</span>
 
             <div className="flex items-center border rounded overflow-hidden">
               <button
                 onClick={() =>
-                  setQuantity((prev) => Math.max(1, prev - 1))
+                  changeQty(regularTicket._id, -1)
                 }
-                className="px-3 py-1 bg-gray-50 text-[#123499] hover:bg-gray-100"
+                className="px-3 py-1"
               >
                 -
               </button>
 
-              <span className="px-4">{quantity}</span>
+              <span className="px-4">
+                {currentQty}
+              </span>
 
               <button
-                onClick={() => setQuantity((prev) => prev + 1)}
-                className="px-3 py-1 bg-gray-50 hover:bg-gray-100"
+                onClick={() =>
+                  changeQty(regularTicket._id, 1)
+                }
+                className="px-3 py-1"
               >
                 +
               </button>
             </div>
           </div>
 
-          {/* Ticket Type */}
-          <div className="flex justify-between border-b pb-4 text-sm">
-            <span className="font-roboto text-[18px] font-[400] leading-[28px] text-center text-[#000000]">Ticket Type</span>
-            <span className="text-[#848182]">General Admission</span>
-          </div>
+          {/* TICKET TYPE */}
+          <div className="flex justify-between border-b pb-4">
+            <span>Ticket Type</span>
 
-          {/* Ticket Price */}
-          <div className="flex justify-between border-b pb-4 text-sm">
-            <span className="font-roboto text-[18px] font-[400] leading-[28px] text-center text-[#000000]">Ticket Price</span>
             <span className="text-[#848182]">
-              ₦{ticketPrice.toLocaleString()}
+              {regularTicket.ticketType}
             </span>
           </div>
 
-          {/* Service Fee */}
-          <div className="flex justify-between border-b pb-4 text-sm">
-            <span className="font-roboto text-[18px] font-[400] leading-[28px] text-center text-[#000000]">Service Fee (5%)</span>
+          {/* PRICE */}
+          <div className="flex justify-between border-b pb-4">
+            <span>Ticket Price</span>
 
-            <span className="text-orange-500 font-medium">
+            <span className="text-[#848182]">
+              ₦{ticketPrice.toLocaleString()} per ticket
+            </span>
+          </div>
+
+          {/* SERVICE FEE */}
+          <div className="flex justify-between border-b pb-4">
+            <span>Service Fee (5%)</span>
+
+            <span className="text-orange-500">
               ₦{serviceFee.toLocaleString()}
             </span>
           </div>
 
-          {/* Total */}
+          {/* TOTAL */}
           <div className="flex justify-between items-center pt-2">
-            <span className="font-bold text-[#000000] font- uppercase text-[18px] leading-7">
+            <span className="font-bold text-[18px]">
               Total To Pay
             </span>
 
-            <span className="text-2xl font-bold font- text-[#123499]">
+            <span className="text-2xl font-bold text-[#123499]">
               ₦{total.toLocaleString()}
             </span>
           </div>
         </div>
 
-        {/* Button */}
-        <button onClick={() => navigate(`/checkoutpage/${eventID}`)} className="w-full mt-10 bg-[#1E40AF] hover:bg-[#18389b] text-white py-4 rounded-md flex items-center justify-center gap-2 font-medium transition">
+        {/* BUTTON */}
+        <button
+          onClick={() =>
+            navigate(`/checkoutpage/${eventID}`, {
+              state: {
+                ticket: {
+                  ...regularTicket,
+                  quantity: currentQty,
+                  total,
+                },
+                quantity: currentQty,
+                total,
+                type: state?.type,
+              },
+            })
+          }
+          className="w-full mt-10 bg-[#1E40AF] text-white py-4 rounded-md flex items-center justify-center gap-2"
+        >
           Continue
           <ChevronRight size={18} />
         </button>
-      </div>
-      </div>
-</div>
-    )
-}
 
+      </div>
+    </div>
+  );
+}

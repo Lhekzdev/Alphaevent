@@ -49,12 +49,12 @@ const Section3 = () => {
             <div className=" overflow-hidden">
               <div className="relative">
                 <button className="absolute top-[20px] left-[26px] bg-[#F3F5FA] font-bold px-[8px] py-[6px] sm:py-[10px] rounded-[10px] text-[#123499] text-[9px] sm:text-[12px] z-10">
-               Category
+         {event.eventCategory}
                 </button>
                 <div className="w-full flex flex-col">
                   <img
-                     src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1770048441/featured_image_cyo3vz.png"
-                    // src={event.eventImgURL}
+                    //  src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1770048441/featured_image_cyo3vz.png"
+                     src={event.eventImgURL}
                     loading="lazy"
                     alt="event background"
                     className="w-[413px] h-[260px]  object-cover"

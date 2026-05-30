@@ -66,12 +66,7 @@ const Details = ({ onNext, setActiveTab}) => {
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
-  // const [selectedCountry, setSelectedCountry] = useState("");
-  // const [selectedState, setSelectedState] = useState("");
-  // const [selectedCity, setSelectedCity] = useState("");
-  // const [file, setFile] = useState(null);
-  // const [imagePreview, setImagePreview] = useState("");
-  // const [imageUrl, setImageUrl] = useState("");
+
 
   const [showMessageBox1, setShowMessageBox1] = useState(false);
   const [showMessageBox2, setShowMessageBox2] = useState(false);
@@ -126,32 +121,7 @@ const Details = ({ onNext, setActiveTab}) => {
     }
   };
 
-  // useEffect(() => {
-  //   const storedEmail = localStorage.getItem('userEmail');
-  //   if (storedEmail) {
-  //     setUserID(storedEmail);
-  //     fetchUserID(storedEmail);
-  //   }
-  // }, []);
-  // const fetchUserID = async (userEmail) => {
-  //   try {
-  //     const response = await fetch(`https://alphaeventappdevmode.onrender.com/userNamFetch/${userEmail}`);
-  //     //console.log("NEW:",response)
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       let useID = data.data.userID
-  //       console.log('Fetched ID:', useID);
-  //       setUserID(useID);
-  //     } else {
-  //       console.error('Failed to fetch total revenue:', response.statusText);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error fetching total revenue:', error);
-  //   }
-  // };
 
-
-  // Fetch all countries
 
   useEffect(() => {
     fetch("https://alphaeventappdevmode.onrender.com/countries") // Fetch countries from your backend
@@ -246,17 +216,6 @@ const handleEventTagChange =  (e) => {
       .catch((error) => console.error("Error fetching cities:", error));
   }
 
-  //   fetch(`https://alphaeventappdevmode.onrender.com/cities/${stateId}`)
-  //     .then((response) => {
-  //       if (!response.ok) throw new Error("Failed to fetch cities");
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       console.log("Fetched Cities:", data); // Debugging log
-  //       setCities(data);
-  //     })
-  //     .catch((error) => console.error("Error fetching cities:", error));
-  // };
 
 
   const handleCityChange = (e) => {
@@ -330,64 +289,9 @@ const handleEventTagChange =  (e) => {
     }
   };
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
 
 
-  //   // Ensure image upload is completed before submitting the form
-  //   if (!uploadedImage) {
-  //     alert("Please upload an image before submitting.");
-  //     return;
-  //   }
-
-  //   const SubmitFormData = new FormData();
-
-  //   SubmitFormData.append("eventImgURL", formData.eventImgURL || "");
-  //   SubmitFormData.append("eventTitle", formData.eventTitle || "");
-  //   SubmitFormData.append("eventType", formData.eventType || "");
-  //   SubmitFormData.append("eventDesc", formData.eventDesc || "");
-  //   SubmitFormData.append("tickeType", formData.tickeType || "");
-  //   SubmitFormData.append("maximumAttendees", formData.maximumAttendees || "");
-  //   SubmitFormData.append("eventVenue", formData.eventVenue || "");
-  //   SubmitFormData.append("facebook", formData.facebook || "");
-  //   SubmitFormData.append("url", formData.url || "");
-  //   // ✅ Correctly format event dates as ISO strings
-  //   if (formData.startDate) {
-  //     SubmitFormData.append("eventStart", formData.startDate.toISOString());
-
-  //   }
-  //   if (formData.endDate) {
-  //     SubmitFormData.append("eventEnd", formData.endDate.toISOString());
-  //   }
-  //   SubmitFormData.append("eventCountry", selectedCountry);
-  //   SubmitFormData.append("eventState", selectedState);
-  //   SubmitFormData.append("eventCity", selectedCity || "");
-
-
-
-
-  //   console.log("Submitting Data:", Object.fromEntries(SubmitFormData.entries())); // Debugging
-
-  //   try {
-  //     const response = await axios.post(
-  //       `https://alphaeventappdevmode.onrender.com/createVnt/${userID}`,
-  //       SubmitFormData,
-  //       {
-  //         headers: { "Content-Type": "application/json" },
-  //       }
-  //     );
-  //     console.log("formData Response:", response);
-  //     alert("Event created successfully!");
-  //   } catch (error) {
-  //     console.error("Error creating event:", error?.response?.data || error);
-  //     alert("Failed to create event.");
-  //   }
-  // };
-
-
-
-
-  // const [uploadedImage, setUploadedImage] = useState(null); // URL of uploaded image
+  
   const fileInputRef = useRef(null);
   const handleDrop = (event) => {
     event.preventDefault();
@@ -395,30 +299,10 @@ const handleEventTagChange =  (e) => {
     if (file) handleFileChange({ target: { files: [file] } });
   };
 
-  // Open the file picker
-  // const handleClick = () => {
-  //   fileInputRef.current.click();
-  // };
 
   const [isToggled, setIsToggled] = useState(true);
 
-  //const [eventType, setEventType] = useState('');
-
-
-  // /   const [eventType, setEventType] = useState('');
-
-  // const handleEventTypeChange = (e) => {
-  //   setEventType(e.target.value);
-  // };
-
-
-  // const handleEventTypeChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  // };
+  
 
 
   return (

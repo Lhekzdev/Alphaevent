@@ -17,11 +17,16 @@ const Eventsdetailshero = ({eventDetails}) => {
   return (
     
     <div className=' w-full  '><div className='py-[60px] font-Lato pt-[120px] md:pt-[120px] px-[20px] md:px-[80px]  '>
-      <div className='  text-white rounded-[28px] h-screen md:h-[425px] flex-col  bg-center bg-cover p-[10px] py-[136px]' style={{ backgroundImage: "url('https://res.cloudinary.com/dzyvwxh7n/image/upload/v1731557983/Herosectioniii_zwioul.png')" }}>
+      {/* <div className='  text-white rounded-[28px] h-screen md:h-[425px] flex-col  bg-center bg-cover p-[10px] py-[136px]' style={{ backgroundImage: "url('https://res.cloudinary.com/dzyvwxh7n/image/upload/v1731557983/Herosectioniii_zwioul.png')" }}> */}
+        <div  className="text-white rounded-[28px] h-screen md:h-[425px] flex-col bg-center bg-cover p-[10px] py-[136px]"
+  style={{
+    backgroundImage: `url(${eventDetails.eventImgURL})`,
+  }}
+>
         <div className=' flex items-center pt-14 md:pt-0 md:gap-[45px] h-[174px]  gap-y-[50px] lg:w-full pl-[40px] pr-[49px]  '>
           <div className='bg-customRed w-[60px] h-[60px]'></div>
-          <div className='gap-y-10 md:gap-y-12 flex flex-col'>
-            <div className='h-[108px] items-start  w-full text-[32px] md:text-[42px]  lg:text-[52px] leading-[34.08px] md:leading-[44.08px] lg:leading-[54.08px] font-bold  md:w-full'>
+          <div className='gap-y-4 md:gap-y-12 rounded-3xl py-3 px-3 bg-neutral-500/20 flex flex-col'>
+            <div className='h-auto items-start  w-full text-[32px] md:text-[42px]  lg:text-[52px] leading-[34.08px] md:leading-[44.08px] lg:leading-[54.08px] font-bold  md:w-full'>
               <h1>{eventDetails.eventTitle}</h1>
             </div>
             <div className='h-[27px] leading-[27px]  text-[16px] font-bold'><h1>Organized by {eventDetails.organizerName} </h1></div>

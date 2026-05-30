@@ -521,7 +521,7 @@ import {
 const Section3EE = () => {
 
   const [events, setEvents] = useState([]);
-  const [upcomingEvents, setUpcomingEvents] = useState([]);
+ 
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -532,63 +532,36 @@ const Section3EE = () => {
   const eventsPerPage = 8;
 
   // FETCH EVENTS
-  useEffect(() => {
 
-    const fetchEvents = async () => {
 
-      try {
+   useEffect(() => {
+  const fetchEvents = async () => {
+    try {
+      const response = await fetch(
+        "https://alphaeventappdevmode.onrender.com/api/allEvents"
+      );
 
-        const featuredResponse = await fetch(
-          "https://alphaeventappdevmode.onrender.com/api/allFeaturedEvents"
-        );
-
-        const upcomingResponse = await fetch(
-          "https://alphaeventappdevmode.onrender.com/api/trndeventAllGet"
-        );
-
-        if (!featuredResponse.ok) {
-          throw new Error("Failed to fetch featured events");
-        }
-
-        if (!upcomingResponse.ok) {
-          throw new Error("Failed to fetch upcoming events");
-        }
-
-        const featuredData =
-          await featuredResponse.json();
-
-        const upcomingData =
-          await upcomingResponse.json();
-
-        setEvents(featuredData.data || []);
-
-        setUpcomingEvents(
-          upcomingData.data || []
-        );
-
-      } catch (err) {
-
-        setError(
-          err.message || "Something went wrong"
-        );
-
-      } finally {
-
-        setLoading(false);
-
+      if (!response.ok) {
+        throw new Error("Failed to fetch events");
       }
-    };
 
-    fetchEvents();
+      const data = await response.json();
 
-  }, []);
+      setEvents(data.data || []);
+    } catch (err) {
+      setError(
+        err.message || "Something went wrong"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  // COMBINE BOTH APIS
-  const combinedEvents = [
-    ...events,
-    ...upcomingEvents
-  ];
+  fetchEvents();
+}, [])
 
+
+  
   // PAGINATION
   const indexOfLastEvent =
     currentPage * eventsPerPage;
@@ -597,14 +570,14 @@ const Section3EE = () => {
     indexOfLastEvent - eventsPerPage;
 
   const currentEvents =
-    combinedEvents.slice(
+    events.slice(
       indexOfFirstEvent,
       indexOfLastEvent
     );
 
   // TOTAL PAGES
   const totalPages = Math.ceil(
-    combinedEvents.length / eventsPerPage
+    events.length / eventsPerPage
   );
 
   if (loading) {
@@ -641,7 +614,7 @@ const Section3EE = () => {
 
                  <div className="relative">
                 <button className="absolute top-[20px] left-[26px] bg-[#F3F5FA] font-bold px-[8px] py-[6px] sm:py-[10px] rounded-[10px] text-[#123499] text-[9px] sm:text-[12px] z-10">
-               Category
+           {event.eventCategory}
                 </button>
                 <div className="w-full flex flex-col">
                   <img

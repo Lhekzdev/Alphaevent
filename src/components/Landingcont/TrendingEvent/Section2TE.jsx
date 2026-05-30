@@ -56,7 +56,7 @@ const Section3 = () => {
               {/* Left */}
               <div className="relative w-[145px] flex-shrink-0">
                 <button className="absolute top-[20px] left-[10px] bg-white px-[10px] sm:px-[12px] py-[6px] rounded-[10px] text-[#123499] text-[12px] sm:text-[14px] z-10">
-                 Category
+          {event.eventCategory}
                 </button>
                 <img
                   src={event.eventImgURL}

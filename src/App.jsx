@@ -52,13 +52,15 @@ import WithdrawalSuccessfully from "./components/dashboard/OnboardingMain/Withdr
 import ConfirmWithdrawal from "./components/dashboard/OnboardingMain/ConfirmWithdrawal.jsx";
 import ChangePassword from "./components/dashboard/SettingsPage/ChangePassword.jsx";
 
-import OrderSummartGeneralAdmission from "./components/eventdetails/orderSummartGeneralAdmission/OrderSummartGeneralAdmission.jsx";
+
 import CheckoutPage from "./components/eventdetails/checkoutpage/CheckoutPage.jsx";
 import ConfirmAndPay from "./components/eventdetails/confirmAndPay/ConfirmAndPay.jsx";
 import ConnectingPage from "./components/eventdetails/connectingPage/ConnectingPage.jsx";
 import PaymentFailedPage from "./components/eventdetails/paymentFailedPage/PaymentFailedPage.jsx";
 import TicketSuccessPage from "./components/eventdetails/ticketSuccessPage/TicketSuccesPage.jsx";
 import OrderSummartVIPAdmission from "./components/eventdetails/orderSummartVIPAdmission/OrderSummartVIPAdmission.jsx";
+import OrderSummaryMixedAdmission from "./components/eventdetails/orderSummaryMixedAdmission/OrderSummaryMixedAdmission.jsx";
+import OrderSummartGeneralAdmission from "./components/eventdetails/orderSummartGeneralAdmission/OrderSummartGeneralAdmission.jsx";
 
 const Spinner = () => {
   return (
@@ -204,7 +206,11 @@ function App() {
             path="/orderSummartVIPAdmission/:eventID"
             element={<OrderSummartVIPAdmission />}
           />
-
+          <Route
+            path="/orderSummaryMixedAdmission/:eventID"
+            element={<OrderSummaryMixedAdmission />}
+          />
+        
 
 
           <Route
