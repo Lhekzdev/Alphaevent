@@ -47,14 +47,14 @@ const Section3 = () => {
   }
 
   return (
-    <section className="mt-[24px] px-[30px]">
+    <section className="mt-[30px] h-auto px-[10px] ">
       <div className="grid lg:grid-cols-3 md:grid-cols-2 place-content-center px-10 gap-[20px] sm:gap-[30px] lg:gap-[40px] overflow-hidden">
         {events.slice(0, 3).map(event => (
           <Link  key={event.eventID}  to={`/eventsdetailshome/${event.eventID}`}>
           {/* // <Link key={event.id} to={`/eventsdetailshome/${event.id}`}> */}
-            <div className=" rounded-lg overflow-hidden flex flex-col sm:flex-row max-w-[522px] mx-auto">
+            <div className=" rounded-lg overflow-hidden flex   lg:max-w-[522px] mx-auto">
               {/* Left */}
-              <div className="relative w-[145px] flex-shrink-0">
+              <div className="relative w-[145px]  flex-shrink-0">
                 <button className="absolute top-[20px] left-[10px] bg-white px-[10px] sm:px-[12px] py-[6px] rounded-[10px] text-[#123499] text-[12px] sm:text-[14px] z-10">
           {event.eventCategory}
                 </button>
@@ -62,12 +62,12 @@ const Section3 = () => {
                   src={event.eventImgURL}
                   alt="event"
                   loading="lazy"
-                  className="w-[145px] h-[150px] sm:h-full object-cover"
+                  className="max-w-[140px]  h-full object-cover"
                 />
               </div>
 
               {/* Right */}
-              <div className="bg-[#F3F5FA] text-[#333333] w-[377px] px-[12px] pt-[20px]">
+              <div className="bg-[#F3F5FA] text-[#333333] max-w-[271px] px-[12px] pt-[20px]">
                 <div className=" sm:px-[20px] pt-[12px] sm:pt-[17px]">
                   <div className="flex items-center">
                     <p className="text-[18px] sm:text-[24px] font-bold ">
@@ -92,7 +92,7 @@ const Section3 = () => {
                   <div className="mt-[15px]">
                     <p>       {event.venueInformation}</p>
                   </div>
-                  <div className="mt-[15px]">
+                  <div className="text-[#123499] font-bold mt-[15px]">
 
                     <p>
                        <p>

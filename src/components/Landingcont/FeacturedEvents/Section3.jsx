@@ -98,7 +98,7 @@ const Section3 = () => {
 
                 
                 <div className="flex justify-between items-center mt-[8px] sm:mt-[8.5px] mb-[20px] sm:mb-[25px]">
-                 <div className="flex gap-[5px] text-[#123499]">
+                 <div className="flex gap-[5px]  font-bold text-[#123499]">
                   <p>
                        
                          <span>{event.ticketpriceMIN}</span>
