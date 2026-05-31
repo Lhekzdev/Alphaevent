@@ -66,7 +66,7 @@ export const SignUp = () => {
 
     try {
 
-      const response = await fetch(`https://setup-6689.onrender.com/api/newUsers`, {
+      const response = await fetch(`https://alphaeventappdevmode.onrender.com/new&User`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
