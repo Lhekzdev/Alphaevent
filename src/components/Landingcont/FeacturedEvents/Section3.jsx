@@ -40,8 +40,8 @@ const Section3 = () => {
   if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
 
   return (
-    <section className="mt-[24px] px-[30px] md:px-[80px] bg-[#F3F5FA]">
-      <div className="w-full  grid grid-cols-4 gap-6 bg-[#F3F5FA]">
+    <section className="mt-[24px] px-[10px] md:px-[80px] bg-[#F3F5FA]">
+      <div className="w-full place-content-center  grid lg:grid-cols-4 md:grid-cols-2 gap-6 bg-[#F3F5FA]">
         {events.slice(0, 4).map((event) => (
       
               <Link  key={event.eventID}  to={`/eventsdetailshome/${event.eventID}`}>

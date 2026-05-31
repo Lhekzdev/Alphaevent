@@ -48,7 +48,7 @@ const Section3 = () => {
 
   return (
     <section className="mt-[24px] px-[30px]">
-      <div className="grid grid-cols-3 gap-[20px] sm:gap-[30px] lg:gap-[40px] overflow-hidden">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 place-content-center px-10 gap-[20px] sm:gap-[30px] lg:gap-[40px] overflow-hidden">
         {events.slice(0, 3).map(event => (
           <Link  key={event.eventID}  to={`/eventsdetailshome/${event.eventID}`}>
           {/* // <Link key={event.id} to={`/eventsdetailshome/${event.id}`}> */}
