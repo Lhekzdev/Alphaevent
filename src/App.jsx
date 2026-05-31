@@ -6,10 +6,11 @@ import { Cloudinary } from '@cloudinary/url-gen';
 import { auto } from '@cloudinary/url-gen/actions/resize';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import { AdvancedImage } from '@cloudinary/react';
-
+import alventlogo from "../src/assets/alventlogo.svg";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css'
+
 
 const Landing = lazy(() => import("./components/Landingcont/landing/Landing.jsx"));
 const Eventshome = lazy(() => import("./components/events/eventshome/Eventshome.jsx"));
@@ -65,8 +66,18 @@ import OrderSummartGeneralAdmission from "./components/eventdetails/orderSummart
 const Spinner = () => {
   return (
     <div className="flex justify-center items-center h-screen bg-white">
-      <div className="animate-spin rounded-full h-24 w-24 border-t-8 border-blue-500 border-solid border-r-transparent"></div>
-    </div>
+  <div className="relative flex items-center justify-center">
+    
+    <div className="animate-spin rounded-full h-24 w-24 border-[6px] border-blue-500 border-t-transparent"></div>
+
+    <img
+      src={alventlogo}
+      alt="Alvent Logo"
+      className="absolute w-12 h-12 animate-pulse"
+    />
+    
+  </div>
+</div>
   );
 }
 
