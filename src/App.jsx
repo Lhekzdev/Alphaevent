@@ -6,11 +6,11 @@ import { Cloudinary } from '@cloudinary/url-gen';
 import { auto } from '@cloudinary/url-gen/actions/resize';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import { AdvancedImage } from '@cloudinary/react';
-import alventlogo from "../src/assets/alventlogo.svg";
+
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css'
-
+import alventlogo from "./assets/alventlogo.svg"
 
 const Landing = lazy(() => import("./components/Landingcont/landing/Landing.jsx"));
 const Eventshome = lazy(() => import("./components/events/eventshome/Eventshome.jsx"));
@@ -63,21 +63,22 @@ import OrderSummartVIPAdmission from "./components/eventdetails/orderSummartVIPA
 import OrderSummaryMixedAdmission from "./components/eventdetails/orderSummaryMixedAdmission/OrderSummaryMixedAdmission.jsx";
 import OrderSummartGeneralAdmission from "./components/eventdetails/orderSummartGeneralAdmission/OrderSummartGeneralAdmission.jsx";
 
-const Spinner = () => {
-  return (
-    <div className="flex justify-center items-center h-screen bg-white">
-  <div className="relative flex items-center justify-center">
-    
-    <div className="animate-spin rounded-full h-24 w-24 border-[6px] border-blue-500 border-t-transparent"></div>
+// const Spinner = () => {
 
-    <img
-      src={alventlogo}
-      alt="Alvent Logo"
-      className="absolute w-14 h-14 animate-pulse"
-    />
-    
-  </div>
-</div>
+
+const Spinner = ()=> {
+  return (
+    <div className="flex justify-center items-center">
+      <div className="relative flex items-center justify-center">
+        <div className="animate-spin rounded-full h-24 w-24 border-t-8 border-blue-500 border-r-transparent border-solid"></div>
+
+        <img
+          src={alventlogo}
+          alt="Alvent Logo"
+          className="absolute w-12 h-12"
+        />
+      </div>
+    </div>
   );
 }
 
@@ -89,14 +90,16 @@ function App() {
 
   return (
     <>
-      <Suspense
-        fallback={
-          Spinner()
-          // <div className="font-poppins text-center text-4xl font-semibold text-red-600">
-          //   Please wait...
-          // </div>
-        }
-      >
+  <Suspense
+  fallback={
+    <div className="flex flex-col items-center justify-center h-screen gap-4">
+      <Spinner />
+      <p className="font-poppins text-lg font-semibold text-[#123499]">
+        Please wait...
+      </p>
+    </div>
+  }
+>
         <ToastContainer
           position="top-center"
           autoClose={3000}
