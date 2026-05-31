@@ -73,7 +73,7 @@ const Spinner = () => {
     <img
       src={alventlogo}
       alt="Alvent Logo"
-      className="absolute w-12 h-12 animate-pulse"
+      className="absolute w-14 h-14 animate-pulse"
     />
     
   </div>
