@@ -7,7 +7,7 @@ export default function OrderSummaryMixedAdmission() {
   const { eventID } = useParams();
   const navigate = useNavigate();
   const { state } = useLocation();
-
+const location = useLocation();
   // 🎯 data passed from EventTicket page
   const tickets = state?.tickets || [];
 

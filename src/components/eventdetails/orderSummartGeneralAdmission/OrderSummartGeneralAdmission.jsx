@@ -7,6 +7,7 @@ export default function OrderSummartGeneralAdmission() {
   const navigate = useNavigate();
   const { eventID } = useParams();
   const { state } = useLocation();
+  const location = useLocation();
 
   const tickets = state?.tickets || [];
 

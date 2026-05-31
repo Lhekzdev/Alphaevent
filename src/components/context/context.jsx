@@ -45,12 +45,17 @@ export const EventFormProvider = ({ children }) => {
   const [file, setFile] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
   const [uploadedImage, setUploadedImage] = useState(null);
-  const [userID, setUserID] = useState("");
+
   const [fileInputRef] = useState(useRef(null)); // for file input reset
 
 const [isUserIDReady, setIsUserIDReady] = useState(false);
-
+const [userData, setUserData] = useState(null);
   
+
+const [userID, setUserID] = useState("");
+const [userEmail, setUserEmail] = useState("");
+const [userName, setUserName] = useState("");
+
 useEffect(() => {
   const storedEmail = localStorage.getItem('userEmail');
   console.log("Stored Email:", storedEmail); // ✅ check this
@@ -63,20 +68,27 @@ useEffect(() => {
   }
 }, []);
 
+
+
 const fetchUserID = async (userEmail) => {
   try {
-    const response = await fetch(`https://alphaeventappdevmode.onrender.com/userNamFetch/${userEmail}`);
-    const data = await response.json();
-    console.log("Response data from fetchUserID:", data); // ✅ log this
+    const response = await fetch(
+      `https://alphaeventappdevmode.onrender.com/userNamFetch/${userEmail}`
+    );
 
-    if (response.ok && data.data?.userID) {
-      setUserID(data.data.userID);
+    const data = await response.json();
+
+    console.log("Response data from fetchUserID:", data);
+
+    if (response.ok) {
+      setUserID(data.data?.userID || "");
+      setUserEmail(data.data?.email || userEmail);
+      setUserName(data.data?.fullName || data.data?.name || "");
+
       setIsUserIDReady(true);
-    } else {
-      console.error('Invalid or missing userID in response');
     }
   } catch (error) {
-    console.error('Error fetching user ID:', error);
+    console.error("Error fetching user ID:", error);
   }
 };
 
@@ -296,6 +308,12 @@ SubmitFormData.append("tickets", JSON.stringify(cleanedTickets));
         setUserID,
         eventTags,
         setEventTagsInput,
+
+         userEmail,
+    setUserEmail,
+
+    userName,
+    setUserName,
 
 
         handleSubmit

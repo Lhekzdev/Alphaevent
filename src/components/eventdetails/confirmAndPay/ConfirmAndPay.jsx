@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-
+import { useEventForm } from "../../context/context";
 import {
   Check,
   ChevronLeft,
@@ -11,10 +11,16 @@ import {
 import qrlockimg from "../../../assets/assets/qrlockimg.svg"
 
 export default function ConfirmAndPay() {
+
+
   const { eventID } = useParams();
   const navigate = useNavigate();
 
   const { state } = useLocation();
+
+ 
+ const { userEmail, userName }  = useEventForm();
+
 
   console.log("ConfirmAndPay State:", state);
 
@@ -42,13 +48,7 @@ const eventDate = state?.eventDate || "";
     ticket?.ticketType ||
     "General Admission";
 
-  const email =
-    state?.email ||
-    "";
 
-  const fullName =
-    state?.fullName ||
-    "";
 
 
 
@@ -224,7 +224,7 @@ const ticketPrice = Number(currentTicket.ticketPrice || 0);
               <span className="font-roboto text-[18px] leading-[28px] font-normal tracking-normal text-center text-[#848182]">email</span>
 
               <span className="font-medium text-gray-900">
-                {email}
+                {userEmail}
               </span>
             </div>
 
@@ -232,7 +232,7 @@ const ticketPrice = Number(currentTicket.ticketPrice || 0);
               <span className="font-roboto text-[18px] leading-[28px] font-normal tracking-normal text-center text-[#848182]">Name</span>
 
               <span className="font-medium text-gray-900">
-                {fullName}
+                {userName}
               </span>
             </div>
           </div>
@@ -246,7 +246,7 @@ const ticketPrice = Number(currentTicket.ticketPrice || 0);
               </span>
 
               <span className="text-[#848182] font-roboto text-[14px] leading-[20px] font-medium tracking-[0.5%]">
-              ₦{ticketPrice.toLocaleString()}
+              ₦{ticketPrice.toLocaleString()} 
               </span>
             </div>
 
@@ -256,7 +256,7 @@ const ticketPrice = Number(currentTicket.ticketPrice || 0);
               </span>
 
               <span className="text-[#848182] font-roboto text-[14px] leading-[20px] font-medium tracking-[0.5%]">
-                ₦{serviceFee.toLocaleString()}
+                ₦{serviceFee.toLocaleString()} 
               </span>
             </div>
 
