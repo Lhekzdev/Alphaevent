@@ -159,6 +159,7 @@ const total = subTotal + serviceFee;
           onClick={() =>
             navigate(`/checkoutpage/${eventID}`, {
          state: {
+             ...state,
   ticket: {
     ...vipTicket,
     quantity: currentQty,
@@ -167,6 +168,7 @@ const total = subTotal + serviceFee;
   quantity: currentQty,
   total,
   type: state?.type,
+      previousRoute: location.pathname,
 }
             })
           }

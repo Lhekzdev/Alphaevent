@@ -167,8 +167,10 @@ export default function OrderSummaryMixedAdmission() {
           onClick={() =>
             navigate(`/checkoutpage/${eventID}`, {
               state: {
+                ...state,
                 tickets: enrichedTickets,
                 grandTotal: finalTotal,
+                       previousRoute: location.pathname,
               },
             })
           }

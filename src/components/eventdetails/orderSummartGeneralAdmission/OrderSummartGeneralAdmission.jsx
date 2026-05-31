@@ -165,6 +165,7 @@ export default function OrderSummartGeneralAdmission() {
           onClick={() =>
             navigate(`/checkoutpage/${eventID}`, {
               state: {
+                   ...state,
                 ticket: {
                   ...regularTicket,
                   quantity: currentQty,
@@ -173,6 +174,7 @@ export default function OrderSummartGeneralAdmission() {
                 quantity: currentQty,
                 total,
                 type: state?.type,
+                    previousRoute: location.pathname,
               },
             })
           }
