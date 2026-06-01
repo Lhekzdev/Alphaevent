@@ -2,7 +2,7 @@
 // or pages/ticket-success.tsx if using Pages Router
 import youareinbox from "../../../assets/assets/youareinbox.svg";
 import qrlockimg from "../../../assets/assets/qrlockimg.svg";
-
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import {
   CalendarDays,
   Share2,
@@ -13,7 +13,7 @@ import {
   ThumbsUp
 } from "lucide-react";
 import TicketCode from "../TicketCode";
-import { useParams,useNavigate } from "react-router-dom";
+
 
 
 
@@ -24,7 +24,68 @@ export default function TicketSuccessPage() {
 
   const navigate = useNavigate();
 
+  const addToCalendar = () => {
+  const startDate = "20260530T180000";
+  const endDate = "20260530T210000";
+
+  const url =
+    `https://calendar.google.com/calendar/render?action=TEMPLATE` +
+    `&text=${encodeURIComponent(eventTitle)}` +
+    `&dates=${startDate}/${endDate}` +
+    `&location=${encodeURIComponent(eventVenue)}`;
+
+  window.open(url, "_blank");
+};
+
+
+const shareEvent = async () => {
+  const shareData = {
+    title: eventTitle,
+    text: `I'm attending ${eventTitle}!`,
+    url: window.location.href,
+  };
+
+  if (navigator.share) {
+    await navigator.share(shareData);
+  } else {
+    await navigator.clipboard.writeText(window.location.href);
+    alert("Link copied!");
+  }
+};
+
   const { eventID } = useParams();
+
+  const { state } = useLocation();
+
+const ticket = state?.ticket || {};
+const quantity = state?.quantity || 1;
+const total = state?.total || 0;
+
+const eventTitle =
+  state?.eventTitle ||
+  ticket?.eventTitle ||
+  "Event";
+
+const ticketType =
+  state?.ticketType ||
+  ticket?.ticketType ||
+  "General Admission";
+
+const eventVenue =
+  state?.eventVenue ||
+  "Venue TBA";
+
+const eventDate =
+  state?.eventDate ||
+  "Date TBA";
+
+const email =
+  state?.email ||
+  "";
+
+const fullName =
+  state?.fullName ||
+  "";
 
 console.log(eventID);
   return (
@@ -64,11 +125,11 @@ console.log(eventID);
 
             <div className="">
               <h2 className=" text-gray-900 font-lato text-[24px] leading-[32px] font-bold tracking-normal text-lg">
-                Renewed Conference
+               {eventTitle}
               </h2>
 
               <p className=" text-[#848182] font-roboto text-[14px] leading-[20px] font-normal tracking-[0.5%] mt-1">
-                Sat, 5 Apr 2025 • 8 PM
+              {eventDate}
               </p>
 
               <p className=" text-[#848182] font-roboto text-[14px] leading-[20px] font-normal tracking-[0.5%] mt-1">
@@ -76,7 +137,7 @@ console.log(eventID);
               </p>
 
 <p className=" text-[#848182] font-roboto text-[14px] leading-[20px] font-normal tracking-[0.5%] mt-1">
-                1x General Admission
+               {quantity}x {ticketType}
               </p>
             </div>
           </div>
@@ -105,7 +166,7 @@ console.log(eventID);
                 </div>
 
                 <p className="font-roboto text-[12px] leading-[20px] font-normal tracking-[0.5%] text-[#848182] mt-1">
-                  City Conference Hall, Abuja
+                 {eventVenue}
                 </p>
               </div>
 
@@ -131,12 +192,12 @@ console.log(eventID);
 
         {/* Buttons */}
         <div className="mt-6 flex  gap-2">
-          <button className="flex-1 w-[394px] py-1 border border-[#3b4bb6] text-[#123499]  rounded-lg text-sm flex items-center justify-center font-roboto text-[18px] leading-[26px] font-semibold tracking-normal text-center gap-2 hover:bg-white">
+          <button onClick={addToCalendar} className="flex-1 w-[394px] py-1 border border-[#3b4bb6] text-[#123499]  rounded-lg text-sm flex items-center justify-center font-roboto text-[18px] leading-[26px] font-semibold tracking-normal text-center gap-2 hover:bg-white">
             <CalendarDays size={16} />
             ADD TO CALENDAR
           </button>
 
-          <button className="flex-1 border py-1 border-[#3b4bb6] text-[#233ea5] font-medium  rounded-lg text-sm flex items-center justify-center gap-2 hover:bg-white">
+          <button onClick={shareEvent} className="flex-1 border py-1 border-[#3b4bb6] text-[#233ea5] font-medium  rounded-lg text-sm flex items-center justify-center gap-2 hover:bg-white">
             <Share2 size={16} />
             SHARE
           </button>
