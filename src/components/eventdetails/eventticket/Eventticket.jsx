@@ -5,6 +5,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import {Share2} from "lucide-react"
 const img1 ="https://res.cloudinary.com/dzyvwxh7n/image/upload/v1731611793/Ellipse23_mlj9er.png"
 
+
+
 const EventTicket = ({eventDetails}) => {
   // const { eventID } = useParams(); // Extract eventID from the URL
    // const [event, setEvent] = useState(null);
@@ -22,6 +24,29 @@ function toggleTicket(ticketId) {
   }));
 }
 
+
+const handleShareEvent = async () => {
+    const shareUrl = `${window.location.origin}/eventsdetailshome/${eventDetails.eventID}`;
+
+
+  const shareData = {
+    title: eventDetails?.eventTitle,
+    text: `Check out this event: ${eventDetails?.eventTitle}`,
+    url: shareUrl,
+  };
+
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+    } else {
+      await navigator.clipboard.writeText(shareData.url);
+      alert("Event link copied to clipboard!");
+    }
+  } catch (error) {
+    console.error("Share failed:", error);
+  }
+};
 
 
 // remove selected ticket,reset quantities,hide totals section automatically
@@ -140,7 +165,7 @@ navigate(`/${route}/${eventDetails.eventID}`, {
 
 <div className="    w-full max-w-[610px]">
   <div className="place-items-end pt-2">
-      <button className="h-[48px] px-[24px] rounded-full border border-[#1E40AF] flex items-center gap-[10px] text-[16px] text-[#123499]">
+      <button  onClick={handleShareEvent} className="h-[48px] px-[24px] rounded-full border border-[#1E40AF] flex items-center gap-[10px] text-[16px] text-[#123499]">
     
     <span>Share Event</span>
 

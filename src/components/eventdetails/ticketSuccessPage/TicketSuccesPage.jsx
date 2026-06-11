@@ -88,6 +88,7 @@ const fullName =
   "";
 
 console.log(eventID);
+console.log("Success Page Data:", state);
   return (
     <div className="min-h-screen bg-[#f3f3f5] flex items-center justify-center px-4 py-10">
       <div className="relative w-full max-w-md">

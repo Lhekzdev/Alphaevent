@@ -72,13 +72,32 @@ import React, { useEffect } from "react";
 import {
   useNavigate,
   useParams,
+  useLocation,
 } from "react-router-dom";
+
+
+
 
 export default function ConnectingPage() {
 
+
+
+
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   const { eventID } = useParams();
+
+  useEffect(() => {
+  const timer = setTimeout(() => {
+    navigate(`/ticketSuccessPage/${eventID}`, {
+      state,
+    });
+  }, 5000);
+
+  return () => clearTimeout(timer);
+}, [navigate, eventID, state]);
+
 
   // AUTO SUCCESS AFTER 10 SECONDS
   useEffect(() => {
@@ -98,10 +117,9 @@ export default function ConnectingPage() {
   // FAILED PAYMENT
   const handleFailedPayment = () => {
 
-    navigate(
-      `/paymentFailedPage/${eventID}`
-    );
-  };
+navigate(`/paymentFailedPage/${eventID}`, {
+  state,
+});}
 
   return (
     <div className="min-h-screen bg-[#d9d9dd] flex items-center justify-center">
