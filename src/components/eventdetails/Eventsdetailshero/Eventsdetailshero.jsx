@@ -48,7 +48,29 @@ const Eventsdetailshero = ({eventDetails}) => {
     </div>
    
        <div className='w-[100%]  py-[51px] md:px-[80px] items-center mx-auto'>
-       <img src={mapimg} alt="map-img" className='w-full rounded-xl' /> </div>
+      <div className="rounded-xl overflow-hidden">
+  <iframe
+    title="Event Location"
+    width="100%"
+    height="300"
+    loading="lazy"
+    className="rounded-xl"
+    src={`https://maps.google.com/maps?q=${encodeURIComponent(
+      eventDetails?.eventSchedule?.address?.address
+    )}&z=15&output=embed`}
+  />
+</div>
+       <a
+  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    eventDetails?.eventSchedule?.address?.address
+  )}`}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="text-[#123499] font-medium mt-2 inline-block"
+>
+  Open in Google Maps
+</a>
+        </div>
 
     </div>
   )
