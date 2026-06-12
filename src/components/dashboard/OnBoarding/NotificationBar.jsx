@@ -94,14 +94,14 @@ const NotificationBar = () => {
         >
           <img
             src={
-              userData?.photo 
+              userData?.photo
             }
             alt="Profile-img"
             className="w-8 h-8 rounded-full object-cover"
           />
-        <p className="text-sm font-medium">
-  {userData?.name || "Loading..."}
-</p>
+          <p className="text-sm font-medium">
+            {userData?.name || "Loading..."}
+          </p>
           <img
             src={arrowdownDashboard}
             alt="Dropdown Arrow"
@@ -112,23 +112,41 @@ const NotificationBar = () => {
         {isOpen && (
           <div
             ref={menuRef}
-            className="absolute top-14 md:top-16 w-[200px] md:w-[300px] flex flex-col z-50 bg-white shadow-2xl py-[16px] right-0 origin-top-right"
+ className="
+absolute top-14 md:top-16
+w-[220px]
+bg-white/80
+backdrop-blur-md
+rounded-xl
+border border-white/30
+shadow-xl
+flex flex-col
+z-50
+py-2
+right-0
+origin-top-right
+overflow-hidden
+"
             onClick={(e) => e.stopPropagation()}
           >
             <ul className="text-left flex flex-col gap-y-2 pl-3">
               {/* <li className="py-1 px-4 hover:scale-105 w-[200px] rounded-lg hover:bg-[#EBF1F5] cursor-pointer">
                       Profile
                     </li> */}
-              <li className="py-1 px-4 hover:scale-105 w-[200px] rounded-lg hover:bg-[#EBF1F5] cursor-pointer">
-                Settings
-              </li>
-              <li className="py-1 px-4 hover:scale-105 w-[200px] rounded-lg hover:bg-[#EBF1F5] cursor-pointer">
-                Help
-              </li>
+              <li className="px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-[#123499] transition-colors cursor-pointer">
+  Settings
+</li>
 
-              <li className="bg-black" onClick={() => { redir('/Login') }} className="py-1https://www.figma.com/design/nfuAgRIelueN2nMKccz3dJ/Alpha-Alvent?node-id=0-1&node-type=canvas&t=4ldRa9SVnXPlRbut-0 px-4 hover:scale-105 text-customRed cursor-pointer">
-                Log Out
-              </li>
+<li className="px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-[#123499] transition-colors cursor-pointer">
+  Help
+</li>
+
+<li
+  onClick={() => redir("/Login")}
+  className="px-4 py-3 text-red-500 hover:bg-red-50 transition-colors cursor-pointer"
+>
+  Log Out
+</li>
             </ul>
           </div>
         )}

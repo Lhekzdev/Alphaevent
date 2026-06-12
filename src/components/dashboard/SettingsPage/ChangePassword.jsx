@@ -4,6 +4,8 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import PasswordSuccessPopup from "./PasswordSuccessPopup";
 import { useParams } from "react-router-dom";
+import { useEventForm } from "../../context/context";
+
 
 // ✅ Validation Schema
 const schema = yup.object().shape({
@@ -19,7 +21,10 @@ const schema = yup.object().shape({
 });
 
 const ChangePassword = ({ setClose }) => {
-  const { userID } = useParams();
+  // const { userID } = useParams();
+
+  const { userID } = useEventForm();
+  console.log("userID:", userID);
   const [showSuccess, setShowSuccess] = useState(false);
 
   const {
@@ -36,21 +41,22 @@ const ChangePassword = ({ setClose }) => {
       const response = await fetch(
         `https://alphaeventappdevmode.onrender.com/api/changePasswd/${userID}`,
         {
-          method: "POST",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            oldPassword: data.oldPasswd,
-            newPassword: data.newPasswd,
+            oldPasswd: data.oldPasswd,
+            newPasswd: data.newPasswd,
           }),
         }
       );
 
-      const result = await response.json();
+      const text = await response.text();
+      console.log(text);
 
       if (!response.ok) {
-        throw new Error(result.message || "Failed to change password");
+        throw new Error(text.message || "Failed to change password");
       }
 
       reset();

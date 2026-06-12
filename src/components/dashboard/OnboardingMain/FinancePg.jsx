@@ -34,7 +34,7 @@ const FinancePg = () => {
 
 
   return (
-    <section className="p-4 overflow-y-auto max-h-screen bg-[#F8F9FC]">
+    <section className="p-4 overflow-y-auto h-full bg-[#F8F9FC]">
       {/* Heading */}
       <div>
         <p className="text-[#123499] text-[24px] font-bold mb-[20px]">Available Balance</p>

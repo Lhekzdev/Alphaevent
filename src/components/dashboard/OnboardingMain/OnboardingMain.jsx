@@ -81,6 +81,8 @@ useEffect(() => {
         <Onboardingleft />
         <div className='bg-[#F8F9FC] flex flex-col gap-y-[24px]'>
 
+       
+       
           <div className="">
             <ProfileSearchBar 
                userID={userID}
