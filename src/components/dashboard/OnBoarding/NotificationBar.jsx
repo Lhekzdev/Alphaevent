@@ -3,13 +3,39 @@ import notetificationIcon from '../../../assets/notetificationIcon.svg';
 import profileIcon from '../../../assets/profileIcon.svg';
 import arrowdownDashboard from '../../../assets/arrowdownDashboard.svg';
 import searchIcon from '../../../assets/searchIcon.svg';
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEventForm } from "../../context/context";
+
 
 
 
 
 const NotificationBar = () => {
 
+  const [userData, setUserData] = useState(null);
+  const { userID } = useEventForm();
+
+  useEffect(() => {
+    if (!userID) return;
+
+    const getUser = async () => {
+      try {
+        const response = await fetch(
+          `https://alphaeventappdevmode.onrender.com/api/orgProfile/${userID}`
+        );
+
+        const data = await response.json();
+
+        console.log("Notification user:", data);
+
+        setUserData(data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getUser();
+  }, [userID]);
 
   let redir = useNavigate();
 
@@ -46,15 +72,6 @@ const NotificationBar = () => {
 
   return (
     <div className="flex items-center space-x-6">
-      {/* Envelope */}
-      {/* <div className="relative flex-none">
-          <img
-            src={"https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747870971/Icon_Pack_2_cbbg14.png"}
-            alt="Envelope Icon"
-            className="w-[24px] h-[24px]"
-          />
-          <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[8px] w-[12px] h-[12px] rounded-full flex justify-center items-center" />
-        </div> */}
 
       {/* Notification */}
       <div className="relative flex-none">
@@ -76,11 +93,15 @@ const NotificationBar = () => {
           className="flex gap-[12px] w-[164px] h-[48px] items-center"
         >
           <img
-            src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747612841/User_Icon_i71ihm.png"
-            alt="User Profile"
-            className="w-8 h-8 rounded-full"
+            src={
+              userData?.photo 
+            }
+            alt="Profile-img"
+            className="w-8 h-8 rounded-full object-cover"
           />
-          <p className="text-sm font-medium">User ID</p>
+        <p className="text-sm font-medium">
+  {userData?.name || "Loading..."}
+</p>
           <img
             src={arrowdownDashboard}
             alt="Dropdown Arrow"

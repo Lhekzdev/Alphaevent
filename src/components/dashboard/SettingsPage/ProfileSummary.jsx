@@ -1,48 +1,78 @@
 import React from "react";
 import { useEffect,useState } from "react";
 
+import { useEventForm } from "../../context/context";
 
 
 
+const ProfileSummary = ({ onEdit,   refreshProfile }) => {
+    const { userID } = useEventForm();
 
-const ProfileSummary = ({ onEdit }) => {
+
  const [userData, setUserData] = useState(null);
 // get User
- useEffect(() => {
-    const userID = 
-    "68545da4e864b5840ad97523"
+//  useEffect(() => {
+//     const userID = 
+//     "68545da4e864b5840ad97523"
     
-   //   localStorage.getItem('userID');
+//    //   localStorage.getItem('userID');
 
-   //  if (!userID) {
-   //    console.error("User not logged in");
-   //    return;
-   //  }
+//    //  if (!userID) {
+//    //    console.error("User not logged in");
+//    //    return;
+//    //  }
      
 
 
 
  
-      async function getUserDetails(){
-   try{
-      const response = await fetch (`https://alphaeventappdevmode.onrender.com/api/orgProfile/${userID}`);
-      const data = await response.json();
-      setUserData(data.data) // Save data to state
-      console.log('userData',data);
+//       async function getUserDetails(){
+//    try{
+//       const response = await fetch (`https://alphaeventappdevmode.onrender.com/api/orgProfile/${userID}`);
+//       const data = await response.json();
+//       setUserData(data.data) // Save data to state
+//       console.log('userData',data);
       
-   }catch(error){
-console.log('Fetch error:', error);
+//    }catch(error){
+// console.log('Fetch error:', error);
 
-   }
-}
-getUserDetails()
+//    }
+// }
+// getUserDetails()
 
 
-   }, [])
-     if (!userData) {
-    return <p>Loading...</p>; // Show loader until data is fetched
+//    }, [])
+//      if (!userData) {
+//     return <p>Loading...</p>; // Show loader until data is fetched
+//   }
+
+useEffect(() => {
+    if (!userID) return;
+
+    async function getUserDetails() {
+      try {
+        const response = await fetch(
+          `https://alphaeventappdevmode.onrender.com/api/orgProfile/${userID}`
+        );
+
+        const data = await response.json();
+
+        setUserData(data.data);
+        console.log("userData", data);
+        
+      } catch (error) {
+        console.log("Fetch error:", error);
+      }
+
+
+    }
+
+    getUserDetails();
+  }, [userID, refreshProfile]);
+
+  if (!userData) {
+    return <p>Loading...</p>;
   }
-
 
 
   return (
@@ -51,14 +81,18 @@ getUserDetails()
 
 
                      <div className="flex flex-col  gap-y-[20px]">
-                        <div className="md:w-[432px] pb-[20px] border-b-[1px] items-center flex  h-[60px] gap-[120px]">
+                        <div className="md:max-w-[470px] pb-[20px] border-b-[1px] items-center flex  h-[60px] gap-[120px]">
 
                              <ol className="min-w-[252px]  md:h-[60px] flex flex-col gap-y-[8px]">
                                  <li className="text-[16px] font-bold"><h4>Photo <span className="text-[#FF0000]">*</span></h4></li>
                                  <li className="text-[#ABABAB] "><p>This will be displayed on your profile</p></li>
 
                              </ol>
-                             <ol><img src={userData.photo} alt="profile-img" /></ol>
+                             <ol><img
+  src={userData.photo}
+  alt="Profile-img"
+  className="w-20 h-20 bg-gray-400 text-center rounded-full object-cover"
+/></ol>
                          </div>
                          <div className="w-[600px] pb-[20px] border-b-[1px] items-center flex  h-[60px] gap-[120px]">
 
@@ -83,7 +117,9 @@ getUserDetails()
                                     <h4>{userData.email}</h4>
                                </li>
                                <li className="  text-[16px] font-bold flex  items-center gap-[20px]"><h4>Phone Number</h4>
-                                   <h4>{userData.phone}</h4>
+                                 <h4>
+  {userData.phone ? userData.phone : "No phone number available"}
+</h4>
                                 </li>
 
                            </ol>

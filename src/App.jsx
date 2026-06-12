@@ -62,6 +62,7 @@ import TicketSuccessPage from "./components/eventdetails/ticketSuccessPage/Ticke
 import OrderSummartVIPAdmission from "./components/eventdetails/orderSummartVIPAdmission/OrderSummartVIPAdmission.jsx";
 import OrderSummaryMixedAdmission from "./components/eventdetails/orderSummaryMixedAdmission/OrderSummaryMixedAdmission.jsx";
 import OrderSummartGeneralAdmission from "./components/eventdetails/orderSummartGeneralAdmission/OrderSummartGeneralAdmission.jsx";
+import ProfileEditModal from "./components/dashboard/SettingsPage/ProfileEditModal.jsx";
 
 // const Spinner = () => {
 
@@ -277,6 +278,7 @@ function App() {
           <Route path="/MyEventDetails/:id" element={<MyEventFullDetail />} />
 
           <Route path="/settingsPage" element={<SettingsPage />} />
+          <Route path="/ProfileEditModal" element={<ProfileEditModal />} />
           <Route path="/Support" element={<Support />} />
           <Route path="/About" element={<About />} />
           <Route path="/Finance" element={<Finance />} />
