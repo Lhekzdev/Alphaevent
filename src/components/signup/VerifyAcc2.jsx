@@ -12,6 +12,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import CountdownTimer from "./CountdownTimer/CountdownTimer";
 const VerifyAcc2 = () => {
+  const [canResend, setCanResend] = useState(false);
   const [activeInput, setActiveInput] = useState(5);
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,7 +21,31 @@ const VerifyAcc2 = () => {
   const [otp, setOtp] = useState(Array(6).fill("")); // Initialize with 6 empty values
   const [otpSent, setOtpSent] = useState(false);
 
+const handleResend = async () => {
+  try {
+    const response = await fetch("https://alphaeventappdevmode.onrender.com/api/forgotPassword", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: userEmail }),
+    });
 
+    const data = await response.json();
+
+   if (response.ok) {
+  toast.success("OTP resent successfully!");
+
+  localStorage.setItem("otpStartTime", Date.now());
+
+  setCanResend(false); // disable resend again
+
+  setOtp(Array(6).fill("")); // optional reset inputs
+} else {
+      toast.error(data.msg || "Failed to resend OTP");
+    }
+  } catch (error) {
+    toast.error("Network error");
+  }
+};
   // const [userEmail, setUserEmail] = useState(location.state?.userEmail || "");
   const handleChange = (e, index) => {
     const value = e.target.value;
@@ -74,7 +99,7 @@ const VerifyAcc2 = () => {
 
 
     try {
-      const response = await fetch(`https://alphaeventappdevmode.onrender.com/verifyOTp/${userEmail}`, {
+      const response = await fetch(`https://alphaeventappdevmode.onrender.com/api/confirmedToken/${userEmail}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ verificationCode: otp.join("") }), // Send only OTP in the body
@@ -201,10 +226,25 @@ const VerifyAcc2 = () => {
             <div className="mb-6">
               <p className="text-[#333333] text-[16px] font-bold">
                 Didn’t get the email?{" "}
-                <a href="#" className="text-[#E65757]">
-                  Resend link
-                </a>{" "}
-                {localStorage.getItem("otpSent") === "true" && <CountdownTimer totalSeconds={150} />}
+           <a
+  href="#"
+  className={`text-[#E65757] ${!canResend ? "opacity-40 pointer-events-none" : ""}`}
+  onClick={(e) => {
+    e.preventDefault();
+    if (!canResend) return;
+
+    handleResend(); // call API again
+    setCanResend(false); // restart cycle
+  }}
+>
+  Resend link
+</a>
+                
+                {" "}
+ <CountdownTimer
+  totalSeconds={150}
+  onComplete={() => setCanResend(true)}
+/>
            
               </p>
             </div>

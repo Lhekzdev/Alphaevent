@@ -40,7 +40,7 @@ const VerifyAcc = () => {
     }
 
     try {
-      const response = await fetch(" https://alphaeventappdevmode.onrender.com/forgtPassword", {
+      const response = await fetch("https://alphaeventappdevmode.onrender.com/api/forgotPassword", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -105,7 +105,7 @@ const VerifyAcc = () => {
               {/* Input fields for code - Centered */}
               <fieldset>
 
-                <p className="text-left ml-[190px]">Email</p>
+   
 
                 <input
                   type="email"
@@ -136,13 +136,11 @@ const VerifyAcc = () => {
           </div>
 
           {/* Background image - Positioned bottom-left */}
-          <Image
-            className="backgroundImage absolute bottom-0 left-0 w-[300px]"
-            cloudName="dqtyrjpeh"
-            publicId="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1737798576/verifyBg_uzej1r.png"
-            loading="lazy"
-          />
-
+        <Image
+  className="backgroundImage absolute bottom-0 left-0 w-[300px] z-0 pointer-events-none"
+  cloudName="dqtyrjpeh"
+  publicId="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1737798576/verifyBg_uzej1r.png"
+/>
           {/* Social icons - Positioned at the bottom-left */}
           <div className="iconContainer flex gap-[90px] ml-[220px] mt-[70px] ">
             <div className="flex gap-[12px]">

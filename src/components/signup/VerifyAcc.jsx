@@ -13,6 +13,7 @@ import CountdownTimer from "./CountdownTimer/CountdownTimer";
 
 
 const VerifyAcc = () => {
+  
   let redir =useNavigate()
 
     const [activeInput, setActiveInput] = useState(0); 
@@ -98,7 +99,8 @@ const VerifyAcc = () => {
               //   body: JSON.stringify({ userToken: verificationCode }), // ✅ match backend
               // });
 
-              const response = await fetch(`https://alphaeventappdevmode.onrender.com/api/confirmedToken/${encodeURIComponent(userEmail)}`, 
+              // const response = await fetch(`https://alphaeventappdevmode.onrender.com/api/confirmedToken/${encodeURIComponent(userEmail)}`, 
+              const response = await fetch(`https://alphaeventappdevmode.onrender.com/api/confirmedToken/${userEmail}`, 
               { method: "POST", headers: { "Content-Type": "application/json" }, 
               body: JSON.stringify({ userToken: verificationCode }), } );
 
