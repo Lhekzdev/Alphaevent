@@ -5,7 +5,7 @@ import arrowdownDashboard from '../../../assets/arrowdownDashboard.svg';
 import searchIcon from '../../../assets/searchIcon.svg';
 import { Link, useNavigate } from "react-router-dom";
 import { useEventForm } from "../../context/context";
-
+import { toast } from "react-toastify";
 
 
 
@@ -68,6 +68,16 @@ const NotificationBar = () => {
   }, []);
 
 
+
+const handleLogout = () => {
+  localStorage.clear();
+
+  toast.success("Logged out successfully");
+
+  setTimeout(() => {
+    redir("/Login");
+  }, 1000);
+};
 
 
   return (
@@ -142,7 +152,7 @@ overflow-hidden
 </li>
 
 <li
-  onClick={() => redir("/Login")}
+  onClick={handleLogout}
   className="px-4 py-3 text-red-500 hover:bg-red-50 transition-colors cursor-pointer"
 >
   Log Out
