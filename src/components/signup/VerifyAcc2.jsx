@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import CountdownTimer from "./CountdownTimer/CountdownTimer";
 const VerifyAcc2 = () => {
   const [canResend, setCanResend] = useState(false);
+  const [timerKey, setTimerKey] = useState(0);
   const [activeInput, setActiveInput] = useState(5);
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,29 +24,43 @@ const VerifyAcc2 = () => {
 
 const handleResend = async () => {
   try {
-    const response = await fetch("https://alphaeventappdevmode.onrender.com/api/forgotPassword", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email: userEmail }),
-    });
+    const response = await fetch(
+      "https://alphaeventappdevmode.onrender.com/api/forgotPassword",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: userEmail,
+        }),
+      }
+    );
 
     const data = await response.json();
 
-   if (response.ok) {
-  toast.success("OTP resent successfully!");
+    if (response.ok) {
+      toast.success("OTP resent successfully!");
 
-  localStorage.setItem("otpStartTime", Date.now());
+      localStorage.setItem(
+        "otpStartTime",
+        Date.now()
+      );
 
-  setCanResend(false); // disable resend again
+      setCanResend(false);
 
-  setOtp(Array(6).fill("")); // optional reset inputs
-} else {
-      toast.error(data.msg || "Failed to resend OTP");
+      // restart timer component
+      setTimerKey((prev) => prev + 1);
+    } else {
+      toast.error(data.msg);
     }
   } catch (error) {
     toast.error("Network error");
   }
 };
+
+
+
   // const [userEmail, setUserEmail] = useState(location.state?.userEmail || "");
   const handleChange = (e, index) => {
     const value = e.target.value;
@@ -95,11 +110,13 @@ const handleResend = async () => {
       return;
     }
 
-    // console.log("🚀 Sending request to:", `https://alphaeventappdevmode.onrender.com/verifyOTp/${userEmail}`);
+
 
 
     try {
-      const response = await fetch(`https://alphaeventappdevmode.onrender.com/api/confirmedToken/${userEmail}`, {
+      const response = await fetch(
+        `https://alphaeventappdevmode.onrender.com/api/forgotpwdOTPconfirmation/${userEmail}`,
+         {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ verificationCode: otp.join("") }), // Send only OTP in the body
@@ -107,21 +124,18 @@ const handleResend = async () => {
 
       const data = await response.json();
       // console.log("Server response:", data);
-
-      if (response.ok && data.msg === "SUCCESSFUL") {
-      
-        // ✅ Clear the OTP-related data
+if (response.ok) {
   localStorage.removeItem("otpSent");
   localStorage.removeItem("otpStartTime");
-        toast.success("Email verified successfully!");
-        // console.log("✅ OTP verification successful. Navigating to /CreateAcc...");
 
-        navigate("/CreateAcc", { state: { userEmail } });
+  toast.success("Email verified successfully!");
 
-      } else {
-        toast.error(data.message || "Verification failed!");
-        // console.log("❌ Verification failed:", data.message);
-      }
+  navigate("/CreateAcc", {
+    state: { userEmail }
+  });
+} else {
+  toast.error(data.msg || "Verification failed!");
+}
 
     } catch (error) {
       toast.error("Verification failed.");
@@ -224,29 +238,35 @@ const handleResend = async () => {
 
             {/* Resend link section */}
             <div className="mb-6">
-              <p className="text-[#333333] text-[16px] font-bold">
-                Didn’t get the email?{" "}
-           <a
-  href="#"
-  className={`text-[#E65757] ${!canResend ? "opacity-40 pointer-events-none" : ""}`}
-  onClick={(e) => {
-    e.preventDefault();
-    if (!canResend) return;
+<p className="text-[#333333] text-[16px] font-bold">
+  Didn’t get the email?{" "}
 
-    handleResend(); // call API again
-    setCanResend(false); // restart cycle
-  }}
->
-  Resend link
-</a>
-                
-                {" "}
- <CountdownTimer
-  totalSeconds={150}
-  onComplete={() => setCanResend(true)}
-/>
-           
-              </p>
+  <a
+    href="#"
+    onClick={(e) => {
+      e.preventDefault();
+
+      if (!canResend) return;
+
+      handleResend();
+    }}
+    className={`font-bold ${
+      canResend
+        ? "text-[#E65757] cursor-pointer"
+        : "text-gray-400 cursor-not-allowed"
+    }`}
+  >
+    Resend link
+  </a>
+
+  {!canResend && (
+    <CountdownTimer
+      key={timerKey}
+      totalSeconds={150}
+      onComplete={() => setCanResend(true)}
+    />
+  )}
+</p>
             </div>
 
             {/* Verify button */}

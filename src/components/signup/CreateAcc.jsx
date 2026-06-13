@@ -28,7 +28,7 @@ const CreateAcc = () => {
 
 
   const [userEmail, setUserEmail] = useState(location.state?.userEmail || "");
-
+const [loading, setLoading] = useState(false);
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
   const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
@@ -80,56 +80,56 @@ useEffect(() => {
 
 
 
-  const handleResetPassword = async () => {
-    
- // ✅ Ensure userEmail is available
- if (!userEmail) {
-  toast.error("Email is missing. Try again.");
-  return;
-}
+ const handleResetPassword = async () => {
+  if (!userEmail) {
+    toast.error("Email is missing. Try again.");
+    return;
+  }
 
-      // Password length validation
-      if (!password || password.length < 6) {
-        toast.error("Password must be at least 6 characters long!");
-        return;  // ✅ Stops execution here if password is invalid
-      }
-    
-      // Check if all password criteria are met & passwords match
-      if (!passwordCriteria.every((criterion) => criterion) || password !== confirmPassword) {
-        toast.error("Ensure your password meets all criteria and matches the confirmation password.");
-        return;  // ✅ Stops execution here if criteria aren't met
-      }
-    
-  
-    try {
-     
-      const response = await fetch(`https:localhost:7000/api/resetPasswd/${userEmail}`, {
+  if (!password || password.length < 6) {
+    toast.error("Password must be at least 6 characters long!");
+    return;
+  }
+
+  if (
+    !passwordCriteria.every((criterion) => criterion) ||
+    password !== confirmPassword
+  ) {
+    toast.error(
+      "Ensure your password meets all criteria and matches the confirmation password."
+    );
+    return;
+  }
+
+  try {
+    setLoading(true);
+
+    const response = await fetch(
+      `https://alphaeventappdevmode.onrender.com/api/resetPasswd/${userEmail}`,
+      {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ newPassword: password }), // ✅ Proper JSON format
-      });
-  
-      const data = await response.json();
-      // console.log("Server response:", data);
-  
-      if (response.ok && data.msg === "Password successfully reset") { 
-        toast.success("Password reset successfully!");
-        // console.log("Navigating to SuccessAcc...");
-        setTimeout(() => {
-          navigate("/SuccessAcc");  // 🚀 Check if this runs
-        }, 1000);
-      } else {
-        // console.log("Failed to reset password:", data.message);
-        toast.error(data.message);
+        body: JSON.stringify({ newPassword: password }),
       }
-      
-    } catch (error) {
-      toast.error("Password reset failed. Try again!");
-    }
+    );
 
-    // console.log("Sending to backend:", { userEmail, newPassword: password });
-  };
-  
+    const data = await response.json();
+
+    if (response.ok && data.msg === "Password successfully reset") {
+      toast.success("Password reset successfully!");
+
+      setTimeout(() => {
+        navigate("/SuccessAcc");
+      }, 1000);
+    } else {
+      toast.error(data.message || "Password reset failed");
+    }
+  } catch (error) {
+    toast.error("Password reset failed. Try again!");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <section>
@@ -240,13 +240,21 @@ useEffect(() => {
             </div>
 
             <div className="w-[416px] mx-auto hover:bg-[#3A7BD5] bg-[#D8E5F7] rounded-[12px] mb-[55px] z-10">
-              <button
-                type="button"
-                className="flex items-center justify-center gap-[5px] py-[16px] px-[167.5px] text-[#7CA7E3] hover:text-white text-[16px] font-normal"
-                onClick={handleResetPassword }
-              >
-                Proceed
-              </button>
+    <button
+  type="button"
+  onClick={handleResetPassword}
+  disabled={loading}
+  className="flex items-center justify-center gap-2 py-[16px] px-[167.5px] text-[#7CA7E3] hover:text-white text-[16px] font-normal disabled:opacity-50"
+>
+  {loading ? (
+    <>
+      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+      <span>Processing...</span>
+    </>
+  ) : (
+    "Proceed"
+  )}
+</button>
             </div>
           </div>
         </form>

@@ -101,7 +101,7 @@ useEffect(() => {
                                 <li className="text-[#ABABAB] w-full font-normal"><p>This will be displayed on your profile</p></li>
 
                             </ol>
-                            <ol  className="text-[16px] font-bold"><h4 className="w-[146px] text-[#ABABAB]  h-[16px]">{userData.name}</h4></ol>
+                            <ol  className="text-[16px] font-bold"><h4 className="md:min-w-[146px] text-[#ABABAB]  h-[16px]">{userData.name}</h4></ol>
                         </div>
 
 

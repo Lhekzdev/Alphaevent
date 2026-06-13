@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 const VerifyAcc = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [activeInput, setActiveInput] = useState(5);
   const navigate = useNavigate();
@@ -32,43 +33,43 @@ const VerifyAcc = () => {
   // };
 
   const handleSendOTP = async () => {
-    // console.log("Email entered:", email);
+  if (!email) {
+    toast.error("Please enter your email!");
+    return;
+  }
 
-    if (!email) {
-      toast.error("Please enter your email!");
-      return;
-    }
+  setIsLoading(true);
 
-    try {
-      const response = await fetch("https://alphaeventappdevmode.onrender.com/api/forgotPassword", {
+  try {
+    const response = await fetch(
+      "https://alphaeventappdevmode.onrender.com/api/forgotPassword",
+      {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
-      });
-
-      const data = await response.json();
-      // console.log("Server response:", data); // Debugging
-
-      if (response.ok) {
-        
-       const now = Date.now(); // current timestamp
-       localStorage.setItem("otpStartTime", now);
-       localStorage.setItem("otpSent", "true");
-        toast.success("OTP sent successfully! Check your email.");
-
-       
-        navigate("/VerifyAcc2", { state: { email } }); // Pass email to OTP page
-        // console.log("Navigating to VerifyAcc2...");
-
-      } else {
-        toast.error(data.msg || "Something went wrong!");
       }
+    );
 
-    } catch (error) {
-      // console.error("Error:", error); // ✅ See full error in console
-      toast.error("Failed to send OTP.");
+    const data = await response.json();
+
+    if (response.ok) {
+      const now = Date.now();
+
+      localStorage.setItem("otpStartTime", now);
+      localStorage.setItem("otpSent", "true");
+
+      toast.success("OTP sent successfully! Check your email.");
+
+      navigate("/VerifyAcc2", { state: { email } });
+    } else {
+      toast.error(data.msg || "Something went wrong!");
     }
-  };
+  } catch (error) {
+    toast.error("Failed to send OTP.");
+  } finally {
+    setIsLoading(false);
+  }
+};
 
 
 
@@ -123,15 +124,26 @@ const VerifyAcc = () => {
 
             {/* Verify button */}
             <div className="w-[416px] mx-auto bg-[#3A7BD5] rounded-[12px] mb-[55px]">
-              <button type="button" className="flex items-center justify-center gap-[5px] py-[16px] px-[120px]" onClick={handleSendOTP}>
-                <p className="font-bold text-[20px] text-white">Send OTP code</p>
-                <img
-                  src={verifyArrowRight}
-                  alt="verifyArrowRight"
-                  className="w-[16px] pt-[8px]"
-                />
+           <button
+  type="button"
+  onClick={handleSendOTP}
+  disabled={isLoading}
+  className="flex items-center justify-center gap-[5px] py-[16px] px-[120px] disabled:opacity-70"
+>
+  <p className="font-bold text-[20px] text-white">
+    {isLoading ? "Sending..." : "Send OTP code"}
+  </p>
 
-              </button>
+  {isLoading ? (
+    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+  ) : (
+    <img
+      src={verifyArrowRight}
+      alt="verifyArrowRight"
+      className="w-[16px] pt-[8px]"
+    />
+  )}
+</button>
             </div>
           </div>
 
