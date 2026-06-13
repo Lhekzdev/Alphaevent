@@ -143,9 +143,9 @@ overflow-hidden
               {/* <li className="py-1 px-4 hover:scale-105 w-[200px] rounded-lg hover:bg-[#EBF1F5] cursor-pointer">
                       Profile
                     </li> */}
-              <li className="px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-[#123499] transition-colors cursor-pointer">
+             <Link to="/settingsPage"><li className="px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-[#123499] transition-colors cursor-pointer">
   Settings
-</li>
+</li></Link> 
 
 <li className="px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-[#123499] transition-colors cursor-pointer">
   Help

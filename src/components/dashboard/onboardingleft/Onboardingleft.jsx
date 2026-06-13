@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate,Link } from "react-router-dom";
+
 // import eventIcon from "../../../assets/eventIcon.svg";
 // import eventWhiteIcon from "../../../assets/eventWhiteIcon.svg";
 // import finance from "../../../assets/finance.svg";
@@ -30,14 +31,13 @@ const Onboardingleft = () => {
       >
         <div className="flex flex-col font-Lato text-white gap-y-10">
           {/* Logo */}
-          <div className="w-[258px]">
-            <img
-              src="https://res.cloudinary.com/dqtyrjpeh/image/upload/q_auto/f_auto/v1770048496/Blue_Logo_ijoxkj.png"
-              alt="Alvent Logo"
-              className="pt-3 w-[189px] px-6 h-[32px] cursor-pointer"
-
-            />
-          </div>
+<Link to="/" className="w-[258px]">
+  <img
+    src="https://res.cloudinary.com/dqtyrjpeh/image/upload/q_auto/f_auto/v1770048496/Blue_Logo_ijoxkj.png"
+    alt="Alvent Logo"
+    className="pt-3 w-[189px] px-6 h-[32px] cursor-pointer"
+  />
+</Link> 
 
           {/* Navigation Links */}
           <ul className="flex flex-col gap-y-3 w-[238px] mb-[380px]">

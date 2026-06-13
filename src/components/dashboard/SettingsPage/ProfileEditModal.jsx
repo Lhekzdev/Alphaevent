@@ -299,7 +299,7 @@ const ProfileEditModal = ({ isOpen, onClose, onProfileUpdated }) => {
             <label htmlFor="Website URL" className="w-[482px] h-[16px] pr-[8px] pl-[8px] text-[#525252] font-bold">
               <h6 >Website URL</h6>
             </label>
-            <input type="url" name="websiteURL" value={contentFormData.socialLinks.website} id="websiteURL" onChange={handleChange} placeholder="Website URL" className="w-full  px-[20px] h-[52px] border rounded-[12px]" />
+            <input type="url" name="website" value={contentFormData.socialLinks.website} id="website"  onChange={handleSocialChange} placeholder="Website URL" className="w-full  px-[20px] h-[52px] border rounded-[12px]" />
           </div>
 
 
