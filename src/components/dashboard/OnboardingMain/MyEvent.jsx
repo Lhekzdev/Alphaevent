@@ -9,9 +9,17 @@ import NotificationBar from "../OnBoarding/NotificationBar";
 const MyEvent = () => {
    const { userID, userName, userEmail } = useEventForm();
   const [showFullDetail, setShowFullDetail] = useState(false);
+  const [selectedEventID, setSelectedEventID] = useState(null);
 
-  const handleCardClick = () => setShowFullDetail(true);
-  const handleBackClick = () => setShowFullDetail(false);
+const handleCardClick = (eventID) => {
+  setSelectedEventID(eventID);
+  setShowFullDetail(true);
+};
+
+const handleBackClick = () => {
+  setShowFullDetail(false);
+  setSelectedEventID(null);
+};
 
   return (
     <section className="flex bg-[#F8F9FC] min-h-screen h-screen overflow-hidden">
@@ -34,7 +42,10 @@ const MyEvent = () => {
 
         <div className="flex-1 overflow-y-auto p-4">
           {showFullDetail ? (
-            <MyEventFullDetail onBack={handleBackClick} />
+  <MyEventFullDetail
+  eventID={selectedEventID}
+  onBack={handleBackClick}
+/>
           ) : (
             <MyEventDetails onCardClick={handleCardClick} />
           )}

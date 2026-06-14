@@ -62,7 +62,7 @@ const MyEventDetails = ({ onCardClick }) => {
           {events.map((event) => (
             <div
               key={event.eventID}
-              onClick={() => onCardClick(event)}
+          onClick={() => onCardClick(event.eventID)}
               className="cardOne cursor-pointer bg-[#FFFFFF] hover:border-yellow-600 border border-transparent
               w-full max-w-[500px] h-auto rounded-[13px] flex items-center flex-col md:flex-row gap-[20px]
               px-[20px] py-[24px] shadow-sm transition"

@@ -1,96 +1,226 @@
-import React from 'react';
-import { useNavigate } from "react-router-dom";
-import MyEventDetails from './MyEventDetails';
+import React, { useEffect, useState} from "react";
+import { useEventForm } from "../../context/context";
+import { toast } from "react-toastify";
+import { useNavigate} from "react-router-dom";
 
-const MyEventFullDetail = ({onBack }) => {
-  const ticketSold = 75;
-  const ticketMaximum = 250;
-  const percentage = (ticketSold / ticketMaximum) * 100; 
-  const navigate = useNavigate();
+const MyEventFullDetail = ({ onBack, eventID }) => {
+    const navigate = useNavigate();
+  const { userID } = useEventForm();
+const [eventDetails, setEventDetails] = useState(null);
+  const [eventData, setEventData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-     return (
-        <>
-          <section className="p-4 w-full h-[48px] mt-1 mb-1">
-          <button onClick={onBack} className="text-blue-500 mb-4">
+  const handleDelete = async () => {
+  const confirmed = window.confirm(
+    "Are you sure you want to delete this event?"
+  );
+
+  if (!confirmed) return;
+
+  try {
+    const response = await fetch(
+      `https://alphaeventappdevmode.onrender.com/api/deleteEvent/${userID}/${eventData.eventID}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      toast.success("Event deleted successfully");
+
+      setTimeout(() => {
+        onBack();
+      }, 1000);
+    } else {
+      toast.error(data.msg);
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error("Failed to delete event");
+  }
+};
+
+ useEffect(() => {
+  const fetchEventDetails = async () => {
+    setLoading(true);
+
+    try {
+      const response = await fetch(
+        `https://alphaeventappdevmode.onrender.com/api/orgMYeventdetails/${userID}/${eventID}`
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setEventData(data.data);
+      } else {
+        toast.error(data.msg);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to fetch event details");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (userID && eventID) {
+    fetchEventDetails();
+  }
+}, [userID, eventID]);
+if (loading) {
+  return (
+    <div className="flex justify-center items-center h-[300px]">
+      <div className="w-10 h-10 border-4 border-[#123499] border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  );
+}
+
+if (!eventData) {
+  return (
+    <div className="text-center py-10">
+      No event details found
+    </div>
+  );
+}
+
+
+  const percentage =
+    eventData.ticketQtyCount > 0
+      ? (eventData.ticketsSold / eventData.ticketQtyCount) * 100
+      : 0;
+
+  return (
+    <section className="p-4 w-full">
+
+      <button
+        onClick={onBack}
+        className="text-blue-500 mb-4"
+      >
         ← Back to events
       </button>
-              {/* Card One */}
-              <div className="cardOne bg-[#FFFFFF] w-[1020px] h-[px] rounded-[13px]  px-[20px] py-[24px]">
-                {/* First Box */}
-                <div className="hero">
-                  <img src={"https://res.cloudinary.com/dqtyrjpeh/image/upload/v1749561772/Image_13_ril8on.png"} alt="" />
-                </div>
-              {/* Second Box */}
-                <div className='w-[1008px] flex gap-[775px] items-center py-[18px]'>
-                  <p className='text-[24px] font-extrabold text-[#333333]'>Fashion Fest</p>
-                  <div className='flex gap-[20px]'>
-                    <img src={"https://res.cloudinary.com/dqtyrjpeh/image/upload/v1749561768/lucide_edit_aivdmp.png"} alt="" />
-                    <img src={"https://res.cloudinary.com/dqtyrjpeh/image/upload/v1749561768/weui_delete-outlined_rrda4p.png"} alt="" />
-                  </div>
-                </div>
-                  {/* Third Box */}
-                  <div className="text-[#333333] text-[14px] font-normal">
-                    <div className='flex gap-[10px] items-center mb-[12px]'>
-                      <img src={"https://res.cloudinary.com/dqtyrjpeh/image/upload/v1749561769/Calendar_aclkly.png"} className='w-[12px] h-[12px]' alt="" />
-                      <p>
-                      <span>April 12, 2025</span> - <span>April 14, 2025</span>
-                    </p>
-                    </div>
-                    <div className='flex gap-[10px] items-center mb-[12px]'>
-                      <img src={"https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_time_rm5459.svg"} className='w-[12px] h-[12px]' alt="" />
-                      <p className="">
-                      <span>9:00 AM WAT</span> - <span>12:00 PM WAT</span>
-                    </p>
-                    </div>
-                    <div className='flex gap-[10px] items-center mb-[12px]'>
-                      <img src={"https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_location_ayfnzy.svg"} className='w-[12px] h-[12px]' alt="" />
-                      <p className="">
-                      City Conference Hall, Abuja
-                    </p>
-                    </div>
 
+      <div className="cardOne bg-[#FFFFFF] rounded-[13px] px-[20px] py-[24px]">
 
-                    <div className='flex gap-[10px] items-center mb-[5px]'>
-                      <img src={"https://res.cloudinary.com/dqtyrjpeh/image/upload/v1749561768/Vector_49_dtmdd8.png"} className='w-[12px] h-[12px]' alt="" />
-                      <div className="flex  text-[#333333]">
-                      <p className="ticketSold font-semibold ">{ticketSold}</p>
-                      <span>/</span>
-                      <p className="ticketMaximum ">{ticketMaximum}</p>
-                      <p className="ticketMaximum ml-[2px]">Registered</p>
-                    </div>
-                  </div>
+        {/* HERO IMAGE */}
+        <div className="hero">
+          <img
+            src={eventData.eventImgURL}
+            alt={eventData.eventTitle}
+            className="w-full h-[350px] object-cover rounded-lg"
+          />
+        </div>
 
-                   
-                    <div className="w-[100px] h-[8px] bg-gray-300 rounded-full overflow-hidden ml-[20px]">
-                      <div
-                        className="h-full transition-all duration-300 rounded-full"
-                        style={{
-                          width: `${percentage}%`,
-                          background: "linear-gradient(to right, #2D6CCF, #2DACCF)",
-                        }}
-                      ></div>
-                    </div>
-                  </div>
-              
+        {/* TITLE */}
+        <div className="flex justify-between items-center py-[18px]">
+          <p className="text-[24px] font-extrabold text-[#333333]">
+            {eventData.eventTitle}
+          </p>
 
-              {/* Fouth Box */}
-              <div className='mt-[32px] border-t border-t-[#ABABAB] py-[20px]'>
-                <div className='mb-[15px]'>
-                  <p className='text-[20px] font-bold text-[#333333]'>
-                  Description
-                  </p>
-                </div>
-                <div>
-                  <p className='text-[12px] font-normal text-[#ABABAB] text-justify'>
-                  Lorem ipsum dolor sit amet consectetur. Eget nunc tortor enim rutrum adipiscing orci. Eget faucibus eu id felis consectetur sed nullam. Tincidunt sollicitudin est et sit mattis vestibulum aenean nec. Nisl fermentum in egestas nunc eu tincidunt non. Amet lectus consectetur massa pretium. Vitae in tincidunt donec dolor sed in scelerisque. Arcu ut enim feugiat velit. Et dictum aliquam felis mattis lectus a. Pharetra dis luctus enim diam euismod eu nunc urna vel. Diam sollicitudin massa nunc ut eu. Dignissim massa pellentesque nec lacinia ultrices odio. Amet est quisque sed erat ac mattis velit praesent. Aliquet imperdiet non risus arcu diam gravida nec vulputate purus. <br /> <br />
-                  Odio amet vitae purus eget turpis risus euismod. Habitant imperdiet rhoncus faucibus egestas urna imperdiet id. Morbi integer sed gravida eu erat eget risus nam tristique. In egestas fermentum iaculis tempor. Nisl augue amet in sed massa mauris. Lobortis volutpat purus facilisis in mollis quisque mattis. Est quam commodo semper laoreet enim ac. Malesuada ut consectetur et massa. Aliquam turpis duis turpis ac. Quis volutpat fringilla lectus risus sit nec interdum cursus lorem. Elit cursus porttitor quis fames vel congue est. Convallis tincidunt at vitae id in ac. Non varius at faucibus leo sem dui. Integer arcu fames in metus.
-                  </p>
-                </div>
-              </div>
-                </div>
+          <div className="flex gap-[20px]">
+          <img
+  src={"https://res.cloudinary.com/dqtyrjpeh/image/upload/v1749561768/lucide_edit_aivdmp.png"}
+  alt="edit"
+  className="cursor-pointer"
+  // onClick={() =>
+  //   navigate(`/EditEvent/${eventData.eventID}`)
+  // }
+/>
+          <img
+  src={"https://res.cloudinary.com/dqtyrjpeh/image/upload/v1749561768/weui_delete-outlined_rrda4p.png"}
+  alt="delete"
+  className="cursor-pointer"
+  onClick={handleDelete}
+/>
+          </div>
+        </div>
+
+        {/* EVENT INFO */}
+        <div className="text-[#333333] text-[14px] font-normal">
+
+          {/* DATE */}
+          <div className="flex gap-[10px] items-center mb-[12px]">
+            <img
+              src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1749561769/Calendar_aclkly.png"
+              className="w-[12px] h-[12px]"
+              alt=""
+            />
+            <p>{eventData.eventDate}</p>
+          </div>
+
+          {/* TIME */}
+          <div className="flex gap-[10px] items-center mb-[12px]">
+            <img
+              src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_time_rm5459.svg"
+              className="w-[12px] h-[12px]"
+              alt=""
+            />
+            <p>{eventData.eventTime}</p>
+          </div>
+
+          {/* LOCATION */}
+          <div className="flex gap-[10px] items-center mb-[12px]">
+            <img
+              src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_location_ayfnzy.svg"
+              className="w-[12px] h-[12px]"
+              alt=""
+            />
+            <p>{eventData.venueInformation}</p>
+          </div>
+
+          {/* TICKET STATS */}
+          <div className="flex gap-[10px] items-center mb-[5px]">
+            <img
+              src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1749561768/Vector_49_dtmdd8.png"
+              className="w-[12px] h-[12px]"
+              alt=""
+            />
+
+            <div className="flex text-[#333333]">
+              <p className="font-semibold">
+                {eventData.ticketsSold}
+              </p>
+
+              <span>/</span>
+
+              <p>{eventData.ticketQtyCount}</p>
+
+              <p className="ml-[2px]">
+                Registered
+              </p>
+            </div>
+          </div>
+
+          {/* PROGRESS BAR */}
+          <div className="w-[150px] h-[8px] bg-gray-300 rounded-full overflow-hidden ml-[20px]">
+            <div
+              className="h-full rounded-full"
+              style={{
+                width: `${percentage}%`,
+                background:
+                  "linear-gradient(to right, #2D6CCF, #2DACCF)",
+              }}
+            />
+          </div>
+        </div>
+
+        {/* DESCRIPTION */}
+        <div className="mt-[32px] border-t border-t-[#ABABAB] py-[20px]">
+
+          <p className="text-[20px] font-bold text-[#333333] mb-[15px]">
+            Description
+          </p>
+
+          <p className="text-[12px] font-normal text-[#ABABAB] text-justify">
+            {eventData.eventDescription}
+          </p>
+
+        </div>
+      </div>
     </section>
-
-    </>
   );
 };
+
 export default MyEventFullDetail;
