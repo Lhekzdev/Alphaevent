@@ -52,24 +52,23 @@ const [isUserIDReady, setIsUserIDReady] = useState(false);
 const [userData, setUserData] = useState(null);
   
 
-const [userID, setUserID] = useState("");
-const [userEmail, setUserEmail] = useState("");
-const [userName, setUserName] = useState("");
+const [userID, setUserID] = useState(() => {
+  return localStorage.getItem("userID") || "";
+});
 
+const [userEmail, setUserEmail] = useState(() => {
+  return localStorage.getItem("userEmail") || "";
+});
+
+const [userName, setUserName] = useState(() => {
+  return localStorage.getItem("userName") || "";
+});
 
 useEffect(() => {
-  const storedEmail = localStorage.getItem('userEmail');
-  console.log("Stored Email:", storedEmail); // ✅ check this
-  
-  if (storedEmail) {
-    fetchUserID(storedEmail);
+  if (userEmail) {
+    fetchUserID(userEmail);
   }
-  else {
-    console.warn("No email found in localStorage");
-  }
-}, []);
-
-
+}, [userEmail]);
 
 const fetchUserID = async (userEmail) => {
   try {

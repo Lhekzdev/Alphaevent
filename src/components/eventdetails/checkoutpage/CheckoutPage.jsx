@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useContext } from "react";
+import { useContext,useEffect } from "react";
 import { useEventForm } from "../../context/context";
-import { useParams, useNavigate, useLocation ,Link } from "react-router-dom";
+import { useParams, useNavigate, useLocation, Link } from "react-router-dom";
 import {
     ChevronLeft,
     ChevronRight,
@@ -12,12 +12,18 @@ import {
 } from "lucide-react";
 
 export default function CheckoutPage() {
+const { userEmail, userName } = useEventForm();
+
+const [agreed, setAgreed] = useState(false);
+const [email, setEmail] = useState("");
+const [fullName, setFullName] = useState("");
 
 
-    const [agreed, setAgreed] = useState(false);
+useEffect(() => {
+  setEmail(userEmail || "");
+  setFullName(userName || "");
+}, [userEmail, userName])
 
-    const [email, setEmail] = useState("");
-    const [fullName, setFullName] = useState("");
     const [phone, setPhone] = useState("");
     const { state } = useLocation();
     const eventTitle = state?.eventTitle || "Event";
@@ -54,7 +60,8 @@ export default function CheckoutPage() {
             },
         });
     };
-    const { userEmail, userName } = useEventForm();
+      
+  
 
     const isMixed = tickets.length > 0;
 
@@ -303,8 +310,8 @@ export default function CheckoutPage() {
 
                                     <input
                                         type="email"
-                                        value={userEmail}
-                                        readOnly
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                                         // onChange={(e) => setEmail(e.target.value)}
                                         // placeholder="you@example.com"
                                         className="w-full outline-none text-sm"
@@ -327,8 +334,8 @@ export default function CheckoutPage() {
 
                                     <input
                                         type="text"
-                                        value={userName}
-                                        readOnly
+                                        value={fullName}
+                                        onChange={(e) => setFullName(e.target.value)}
                                         className="w-full outline-none text-sm"
                                     />
                                 </div>

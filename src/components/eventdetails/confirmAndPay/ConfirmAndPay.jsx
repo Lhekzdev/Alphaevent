@@ -12,33 +12,81 @@ import qrlockimg from "../../../assets/assets/qrlockimg.svg"
 
 export default function ConfirmAndPay() {
 
+  const { state } = useLocation();
+
+  
+  const tickets = state?.tickets || [];
+  const venue = state?.venue || "";
+const eventDate = state?.eventDate || "";
+const email = state?.email; 
+const total =
+    state?.total ||
+    state?.grandTotal ||
+    0;
+
+const payload = {
+  tickets,
+  email,
+  totalPurchase: total,
+};
+
+
+
+
+const handlePay = async () => {
+  try {
+    const res = await fetch(
+      `https://alphaeventappdevmode.onrender.com/buyTicket-initiate/${eventID}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    const data = await res.json();
+
+    console.log("Paystack response:", data);
+
+    if (res.ok) {
+      // save reference for later verification
+      localStorage.setItem("paymentReference", data.reference);
+
+      // redirect to Paystack checkout
+      window.location.href = data.authorization_url;
+    } else {
+      console.error("Payment init failed:", data);
+    }
+  } catch (error) {
+    console.error("Payment error:", error);
+  }
+};
 
   const { eventID } = useParams();
   const navigate = useNavigate();
 
-  const { state } = useLocation();
+
 
  
- const { userEmail, userName }  = useEventForm();
+const ticket = state?.ticket;
+
+
+const userEmail = state?.email || "";
+const userName = state?.fullName || "";
 
 
   console.log("ConfirmAndPay State:", state);
 
-  const ticket = state?.ticket;
-  const tickets = state?.tickets || [];
-  const venue = state?.venue || "";
-const eventDate = state?.eventDate || "";
+
 
   const quantity =
     state?.quantity ||
     ticket?.quantity ||
     1;
 
-  const total =
-    state?.total ||
-    state?.grandTotal ||
-    0;
-
+ 
   const eventTitle =
     state?.eventTitle ||
     "Event";
@@ -272,7 +320,7 @@ const ticketPrice = Number(currentTicket.ticketPrice || 0);
           </div>
 
           {/* Pay Button */}
-          <button onClick={() => navigate(`/connectingPage/${eventID}`)} className="w-full mt-8 bg-[#123499] hover:bg-[#1736a6] text-white py-3 rounded-lg flex items-center justify-center gap-2 font-medium transition">
+          <button   onClick={handlePay} className="w-full mt-8 bg-[#123499] hover:bg-[#1736a6] text-white py-3 rounded-lg flex items-center justify-center gap-2 font-medium transition">
             Pay with Paystack
             <CreditCard size={18} />
           </button>
