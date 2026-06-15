@@ -337,14 +337,7 @@ const ProfileEditModal = ({ isOpen, onClose, onProfileUpdated }) => {
               className="px-[20px] h-[52px] border rounded-[12px]"
             />
 
-            <input
-              type="url"
-              name="website"
-              placeholder="Website URL"
-              value={contentFormData.socialLinks.website}
-              onChange={handleSocialChange}
-              className="px-[20px] h-[52px] border rounded-[12px]"
-            />
+   
           </div>
 
 
