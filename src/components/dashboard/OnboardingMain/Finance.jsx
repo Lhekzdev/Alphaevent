@@ -23,7 +23,8 @@ const Finance = () => {
           />
         </div>
         <div className="flex-1 overflow-y-auto p-4">
-            <FinancePg />
+            <FinancePg
+               userID={userID} />
             </div>
         </div>
    </section>

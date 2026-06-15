@@ -13,6 +13,8 @@ const EventPrecious = () => {
           <div className="eventContainer flex gap-[150px]">
             <div className="events">
 
+              
+
               {/* Scrollable wrapper wrapping all rows */}
               <div className="mainContainer max-h-[250px] overflow-y-auto pr-2 custom-scrollbar">
 
@@ -404,7 +406,7 @@ const EventPrecious = () => {
                   </div>
                 </div>
                 {/* Third Row */}
-                <div className="mainContainer flex gap-[16px] border-b-[1px] border-b-[#ABABAB] mb-[20px] pb-[14px] pr-[18px]">
+                <div className="mainContainer  flex gap-[16px] border-b-[1px] border-b-[#ABABAB] mb-[20px] pb-[14px] pr-[18px]">
                   {/* col1 */}
                   <div className="flex gap-[16px]">
                     <img

@@ -1,9 +1,62 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+  import { useEventForm } from "../../context/context";
+
 
 const WithdrawalHistory = () => {
+  const { userID } = useEventForm();
   const navigate = useNavigate();
+  const [transactions, setTransactions] = useState([]);
+const [loadingTransactions, setLoadingTransactions] = useState(true);
+useEffect(() => {
+  const fetchWithdrawals = async () => {
+    try {
+      const token = localStorage.getItem("authToken");
+         
+console.log("token:", localStorage.getItem("authToken"));
+
+
+
+console.log("userID:", userID);
+console.log("token:", token);
+console.log(
+  `https://alphaeventappdevmode.onrender.com/api/withdrawal-history/${userID}`
+);
+
+      const res = await fetch(
+
+        `https://alphaeventappdevmode.onrender.com/api/withdrawal-history/${userID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await res.json();
+
+      console.log("Withdrawal History:", data);
+
+      // if (res.ok) {
+      //   setTransactions(data.withdrawals || []);
+      // }
+      if (res.ok) {
+  console.log("Withdrawal API Response:", data);
+  setTransactions(data.withdrawals || []);
+}
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoadingTransactions(false);
+    }
+  };
+
+  if (userID) {
+    fetchWithdrawals();
+  }
+}, [userID]);
+
 
   return (
     <section className="bg-black flex items-center justify-center w-full h-screen">
