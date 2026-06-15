@@ -40,7 +40,7 @@ useEffect(() => {
       <section>
         <div>
           {/* Upcoming Event */}
-          <div className="bg-white w-[498px] h-[392px] rounded-[12px] px-[28px] py-[28px] shadow-sm">
+          <div className="bg-white w-[498px] h-auto rounded-[12px] px-[28px] py-[28px] shadow-sm">
             {/* up container */}
 
             <div className="flex gap-[250px] mb-[34px] border-b-[1px] border-b-[#ABABAB]">
@@ -57,7 +57,7 @@ useEffect(() => {
             <div className="eventContainer flex gap-[85px] ">
               <div className="events w-[450px] ">
                 {/* Scrollable wrapper wrapping all rows */}
-                <div className="mainContainer max-h-[250px] overflow-y-auto pr-2 custom-scrollbar">
+                <div className="mainContainer h-auto overflow-y-auto pr-2 custom-scrollbar">
                  
                  
                  {events.map((event) => (
@@ -72,7 +72,7 @@ useEffect(() => {
       className="w-[80px] h-[80px] object-cover rounded-full"
     />
 
-    <div>
+    <div >
       {/* TITLE */}
       <div className="mb-[10px]">
         <p className="text-[#333] font-medium">
@@ -84,7 +84,7 @@ useEffect(() => {
       <div className="flex gap-[16px]">
         
         {/* DATE */}
-        <div className="flex gap-[12px] items-center">
+        <div className="flex gap-[6px] items-center">
           <img
             src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_date_ujatiw.svg"
             className="w-[20px] h-[20px]"
@@ -96,7 +96,7 @@ useEffect(() => {
         </div>
 
         {/* TIME */}
-        <div className="flex gap-[12px] items-center">
+        <div className="flex gap-[6px] items-center">
           <img
             src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_time_rm5459.svg"
             className="w-[20px] h-[20px]"
@@ -108,7 +108,7 @@ useEffect(() => {
         </div>
 
         {/* LOCATION */}
-        <div className="flex gap-[12px] items-center">
+        <div className="flex gap-[6px] items-center">
           <img
             src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_location_ayfnzy.svg"
             className="w-[20px] h-[20px]"
@@ -126,91 +126,11 @@ useEffect(() => {
                   
 
 
-                  {/* Row 4 */}
-                  <div className="flex gap-[16px] mb-[20px] border-b-[1px] border-b-[#ABABAB] pb-[14px]">
-                    <img
-                      src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747835935/dashboard_upcoming_image_4_ybnzyr.png"
-                      alt=""
-                    />
-                    <div>
-                      <div className="mb-[10px]">
-                        <p>
-                          Startup Meetup<span>-</span>
-                          <span>2025</span>
-                        </p>
-                      </div>
-                      <div className="flex gap-[16px]">
-                        <div className="flex gap-[12px] items-center">
-                          <img
-                            src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_date_ujatiw.svg"
-                            className="w-[20px] h-[20px]"
-                            alt=""
-                          />
-                          <p className="text-[#ABABAB] text-[16px]">Date</p>
-                        </div>
-                        <div className="flex gap-[12px] items-center">
-                          <img
-                            src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_time_rm5459.svg"
-                            className="w-[20px] h-[20px]"
-                            alt=""
-                          />
-                          <p className="text-[#ABABAB] text-[16px]">Time</p>
-                        </div>
-                        <div className="flex gap-[12px] items-center">
-                          <img
-                            src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_location_ayfnzy.svg"
-                            className="w-[20px] h-[20px]"
-                            alt=""
-                          />
-                          <p className="text-[#ABABAB] text-[16px]">Location</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
 
                  
 
-                  {/* Row 5 */}
-                  <div className="flex gap-[16px] mb-[20px]">
-                    <img
-                      src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747835936/dashboard_upcoming_image_5_vlvkwn.png"
-                      alt=""
-                    />
-                    <div>
-                      <div className="mb-[10px]">
-                        <p>
-                          Annual Tech Gala<span>-</span>
-                          <span>2026</span>
-                        </p>
-                      </div>
-                      <div className="flex gap-[16px]">
-                        <div className="flex gap-[12px] items-center">
-                          <img
-                            src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_date_ujatiw.svg"
-                            className="w-[20px] h-[20px]"
-                            alt=""
-                          />
-                          <p className="text-[#ABABAB] text-[16px]">Date</p>
-                        </div>
-                        <div className="flex gap-[12px] items-center">
-                          <img
-                            src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_time_rm5459.svg"
-                            className="w-[20px] h-[20px]"
-                            alt=""
-                          />
-                          <p className="text-[#ABABAB] text-[16px]">Time</p>
-                        </div>
-                        <div className="flex gap-[12px] items-center">
-                          <img
-                            src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_location_ayfnzy.svg"
-                            className="w-[20px] h-[20px]"
-                            alt=""
-                          />
-                          <p className="text-[#ABABAB] text-[16px]">Location</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              
+              
 
                 </div>
 
