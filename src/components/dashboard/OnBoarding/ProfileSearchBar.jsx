@@ -19,7 +19,41 @@ const ProfileSearchBar = ( { userID,
   const [showNotifications, setShowNotifications] = useState(false);
   const { activeLink } = useContext(ActiveLinkContext);
 
-  
+
+   const [greetingData, setGreetingData] = useState(null);
+
+ useEffect(() => {
+  if (!userID) return;
+
+  const token = localStorage.getItem("authToken");
+
+  const fetchGreeting = async () => {
+    try {
+      const res = await fetch(
+        `https://alphaeventappdevmode.onrender.com/api/dashboard-greeting/${userID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await res.json();
+
+      console.log("Greeting Response:", data);
+
+      if (data.success) {
+        setGreetingData(data.data);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  fetchGreeting();
+}, [userID]);
+
+
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
   const closeMenu = () => setIsOpen(false);
@@ -40,9 +74,9 @@ const ProfileSearchBar = ( { userID,
     <>
       <section className=" py w-full h-[auto] ">
       <div className="bg-[#EBF1F5] mb-3 py-3 rounded-xl shadow-sm border text-center">
-  <h2 className="text-xl font-Lato text-[#123499]">
-    Welcome back, <span className="text-2xl">{userName} 👋</span>
-  </h2>
+ <h2 className="text-xl font-Lato text-[#123499]">
+  {greetingData?.greeting  }
+</h2>
 
   <p className="mt-2 text-gray-600">
     Your User ID:
@@ -50,7 +84,13 @@ const ProfileSearchBar = ( { userID,
       {userID}
     </span>
   </p>
+
+
+ 
 </div>
+
+
+
         <div className="flex items-center justify-between  rounded-[8px] w-[1020px] px-5">
           
           {/* Left - Active Page Title */}

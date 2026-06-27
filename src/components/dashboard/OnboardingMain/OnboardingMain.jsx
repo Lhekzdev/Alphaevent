@@ -53,9 +53,11 @@ useEffect(() => {
     // Persist to localStorage
     localStorage.setItem("userEmail", email);
     localStorage.setItem("userID", userID);
+    localStorage.setItem("userName", userName);
 
     console.log("EMAIL SAVED:", email);
     console.log("USERID SAVED:", userID);
+    console.log("USERNAME SAVED:", userName);
 
     // Clean URL
     window.history.replaceState(
