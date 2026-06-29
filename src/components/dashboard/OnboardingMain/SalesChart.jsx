@@ -1,105 +1,106 @@
-import React, { useEffect, useState } from "react";
 import {
+  ResponsiveContainer,
   AreaChart,
   Area,
+  CartesianGrid,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
 } from "recharts";
+
+  import { useEventForm } from "../../context/context";
+
+import React,{useState, useEffect } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const SalesChart = () => {
-  const [chartData, setChartData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { userID } = useEventForm();
+  const [salesData, setSalesData] = useState([]);
+   const token = localStorage.getItem("authToken");
+  const BASE_URL ="https://alphaeventappdevmode.onrender.com/api"
 
-  const userID = '68545da4e864b5840ad97523'; 
+useEffect(() => {
+  const fetchSales = async () => {
+    try {
+      const token = localStorage.getItem("authToken");
 
-  useEffect(() => {
-    const fetchSalesData = async () => {
-      try {
-        const response = await axios.get(
-          `https://alphaeventappdevmode.onrender.com/api/dashboard-monthly-performance/${userID}`
-          
-        );
+      const { data } = await axios.get(
+        `${BASE_URL}/dashboard-monthly-performance/${userID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-        // Handle array extraction based on your backend's response structure
-        const salesArray = response.data?.data || []; // Adjust if shape differs
-        setChartData(salesArray);
-      } catch (error) {
-        console.error("Error fetching sales data:", error);
-        toast.error("Failed to load sales performance data.");
-      } finally {
-        setLoading(false);
-      }
-    };
+      setSalesData(data.Performance);
+      console.log("API Response:", data);
+console.log("Performance:", data.Performance);
 
-    fetchSalesData();
-  }, [userID]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  // Safely create X-axis ticks only if chartData is an array
-  const ticks = Array.isArray(chartData)
-    ? chartData.filter((d) => d.date).map((d) => d.position)
-    : [];
+  if (userID) {
+    fetchSales();
+  }
+}, [userID]);
+
+useEffect(() => {
+  console.log("Sales Data:", salesData);
+}, [salesData]);
+
+  
+  // const ticks = Array.isArray(chartData)
+  //   ? chartData.filter((d) => d.date).map((d) => d.position)
+  //   : [];
 
   return (
-    <div className="w-[462px] h-[392px] p-4 bg-white rounded-[12px]">
-      <ToastContainer />
-      <h2 className="text-[20px] font-bold mb-[20px] mt-[20px]">Sales Performance</h2>
+   <div className="bg-white rounded-xl lg:w-[500px] shadow p-6">
 
-      {loading ? (
-        <p>Loading chart...</p>
-      ) : (
-        <AreaChart
-          width={450}
-          height={255}
-          data={chartData}
-          margin={{ top: 30, right: 20, left: 0, bottom: 0 }}
-        >
-          <defs>
-            <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="50%" stopColor="rgba(58, 123, 213, 0.9)" />
-              <stop offset="100%" stopColor="rgba(58, 123, 213, 0.1)" />
-            </linearGradient>
-          </defs>
+    <h2 className="text-2xl font-bold">
+        Sales Performance
+    </h2>
 
-          <XAxis
-            dataKey="position"
-            type="number"
-            domain={["auto", "auto"]}
-            ticks={ticks}
-            tickFormatter={(value) => {
-              const match = chartData.find((d) => d.position === value);
-              return match ? match.date : "";
-            }}
-          />
-          <YAxis domain={[0, 100]} tickCount={6} />
-          <CartesianGrid strokeDasharray="3 3" />
+    <ResponsiveContainer width="100%" height={320}>
+        <AreaChart data={salesData}>
 
-          <Area
-            type="monotone"
-            dataKey="sales"
-            stroke="#3A7BD5"
-            fill="url(#colorSales)"
-            activeDot={{ r: 5, stroke: "#fff", strokeWidth: 2 }}
-            dot={({ cx, cy, payload }) =>
-              payload.date ? (
-                <circle
-                  key={payload.position}
-                  cx={cx}
-                  cy={cy}
-                  r={4}
-                  fill="#fff"
-                  stroke="#A5C5F5"
-                  strokeWidth={2}
-                />
-              ) : null
-            }
-          />
+            <defs>
+                <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.4}/>
+                    <stop offset="95%" stopColor="#3B82F6" stopOpacity={0}/>
+                </linearGradient>
+            </defs>
+
+            <CartesianGrid strokeDasharray="3 3"/>
+
+            <XAxis dataKey="day_date"/>
+
+            <YAxis/>
+
+            <Tooltip/>
+
+            <Area
+                type="monotone"
+                dataKey="day_totalsales"
+                stroke="#2563EB"
+                strokeWidth={3}
+                fill="url(#colorSales)"
+                dot={{
+                    r:4,
+                    fill:"#fff",
+                    stroke:"#2563EB",
+                    strokeWidth:2
+                }}
+            />
+
         </AreaChart>
-      )}
-    </div>
+    </ResponsiveContainer>
+
+</div>
   );
 };
 

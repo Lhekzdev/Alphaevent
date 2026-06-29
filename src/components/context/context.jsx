@@ -80,14 +80,18 @@ const fetchUserID = async (userEmail) => {
 
     console.log("Response data from fetchUserID:", data);
 
-    if (response.ok) {
-      setUserID(data.data?.userID || "");
-      setUserEmail(data.data?.email || userEmail);
-      setUserName(data.data?.fullName || data.data?.name || "");
+if (response.ok) {
+  const fetchedUserID = data.data?.userID || "";
 
+  setUserID(fetchedUserID);
 
-      setIsUserIDReady(true);
-    }
+  localStorage.setItem("userID", fetchedUserID);
+
+  setUserEmail(data.data?.email || userEmail);
+  setUserName(data.data?.fullName || data.data?.name || "");
+
+  setIsUserIDReady(true);
+}
   } catch (error) {
     console.error("Error fetching user ID:", error);
   }
@@ -315,7 +319,8 @@ SubmitFormData.append("tickets", JSON.stringify(cleanedTickets));
 
     userName,
     setUserName,
-   
+isUserIDReady, 
+setIsUserIDReady,
 
 
         handleSubmit

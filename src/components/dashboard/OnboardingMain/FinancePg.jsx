@@ -1,156 +1,454 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+  import { useEventForm } from "../../context/context";
+  import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-    import { useEventForm } from "../../context/context";
+  
 import WithdrawFund from "./WithdrawFund";
+
+
+
+
 const FinancePg = () => {
-  // create state
-  // const [balance, setBalance] = useState(0);
-  // const [transactions, setTransactions] = useState([]);
-  // const [loading, setLoading] = useState(true);
 
-  const navigate = useNavigate();
-const [showWithdrawModal, setShowWithdrawModal] = useState(false);
+  // filter 
 
-const [modalStep, setModalStep] = useState("form"); 
-// "form" | "confirm" | "success"
-
-
-const [transactions, setTransactions] = useState([]);
-const [balance, setBalance] = useState(null);
-const [loading, setLoading] = useState(true);
-
-const [withdrawAmount, setWithdrawAmount] = useState("");
-const [bankName, setBankName] = useState("");
-const [accountNumber, setAccountNumber] = useState("");
-
+  const [transactions, setTransactions] = useState([]);
+const [filteredTransactions, setFilteredTransactions] = useState([]);
+const [statusFilter, setStatusFilter] = useState("All");
 const { userID } = useEventForm();
-const token = localStorage.getItem("token");
 
-// fetchWithdrawals
-//  useEffect(() => {
-//   const fetchWithdrawals = async () => {
-//     try {
-//       const res = await fetch(
-//         `https://alphaeventappdevmode.onrender.com/api/withdrawal-history/${userID}`,
-//         {
-//           headers: {
-//             Authorization: `Bearer ${token}`,
-//           },
-//         }
-//       );
+// for withdraw
 
-//       const data = await res.json();
+const [withdrawableBalance, setwithdrawableBalance] = useState(0);
+const [withdrawStep, setWithdrawStep] = useState(0);
+// 0 = closed
+// 1 = Enter amount
+// 2 = Confirm
+// 3 = Success
 
-//       if (res.ok) {
-//         setTransactions(data.data);
-//       } else {
-//         console.log(data.msg);
-//       }
-//     } catch (err) {
-//       console.error(err);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   if (userID) fetchWithdrawals();
-// }, [userID]);
+const [amount, setAmount] = useState("");
+const [note, setNote] = useState("");
+const [loading, setLoading] = useState(false);
 
 
-// handleWithdraw 
+
+   const token = localStorage.getItem("authToken");
+  const BASE_URL ="https://alphaeventappdevmode.onrender.com/api"
+
+
+
+  useEffect(() => {
+  if (!userID || !token) {
+    console.log("Waiting for userID/token", {
+      userID,
+      token,
+    });
+    return;
+  }
+
+  const fetchBalance = async () => {
+    try {
+      console.log(
+        "Calling:",
+        `${BASE_URL}/orGTotRev/${userID}`
+      );
+
+      const { data } = await axios.get(
+        `${BASE_URL}/orGTotRev/${userID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log("Response:", data);
+
+      setwithdrawableBalance(
+        data.withdrawableBalance || 0
+      );
+    } catch (error) {
+      console.log("Status:", error.response?.status);
+      console.log("Response:", error.response?.data);
+    }
+  };
+
+  fetchBalance();
+}, [userID, token]);
+
 
 const handleWithdraw = async () => {
   try {
-    const res = await fetch(
-      `https://alphaeventappdevmode.onrender.com/api/request-withdrawal/${userID}`,
+    setLoading(true);
+
+    const response = await axios.post(
+      `${BASE_URL}/request-withdrawal/${userID}`,
       {
-        method: "POST",
+        amount: Number(amount),
+         reason: note,
+      },
+      {
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          amount: withdrawAmount,
-          bankName,
-          accountNumber,
-        }),
       }
     );
 
-    const data = await res.json();
+    console.log(response.data);
 
-    if (res.ok) {
-      toast.success("Withdrawal request sent");
+    // Refresh balance
+    setwithdrawableBalance(prev => prev - Number(amount));
 
-      setShowWithdrawModal(false);
+    setWithdrawStep(3);
 
-      // refresh history
-      fetchWithdrawals();
-    } else {
-      toast.error(data.msg);
-    }
-  } catch (err) {
-    toast.error("Network error");
+    setAmount("");
+    setNote("");
+
+  } catch (error) {
+    console.log(error.response?.data);
+  } finally {
+    setLoading(false);
   }
 };
 
-  // const [balance, setBalance] = useState(null);
-  const [loadingDots, setLoadingDots] = useState("");
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLoadingDots((prev) => (prev.length >= 3 ? "" : prev + "."));
-    }, 500);
-
-    return () => clearInterval(interval);
-  }, []);
 
 
+ useEffect(() => {
+  const fetchWithdrawals = async () => {
+    try {
+      console.log("userID:", userID);
+      console.log("token:", token);
 
-  return (
-    <section className="p-4 overflow-y-auto h-full bg-[#F8F9FC]">
-      {/* Heading */}
-      <div>
-        <p className="text-[#123499] text-[24px] font-bold mb-[20px]">Available Balance</p>
-      </div>
+      console.log(
+        "Withdrawal URL:",
+        `${BASE_URL}/withdrawal-history/${userID}`
+      );
 
-      <div>
-        <p className="text-[#2F3B4C] text-[34px] font-bold mb-[20px] ml-[16px]">
-          ₦<span>{balance !== null ? balance.toLocaleString() : `Loading${loadingDots}`}</span>
-        </p>
+      const res = await axios.get(
+        `${BASE_URL}/withdrawal-history/${userID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      </div>
+      console.log("API Response:", res.data);
 
-      <div className="text-[16px] font-bold flex items-center gap-[18px]">
-        <button type="button"
-    onClick={() => setShowWithdrawModal(true)}
-          className="border border-1 border-[#123499] w-[110px] h-[16px] text-[#123499] rounded-[8px] py-[24px] px-[18px] flex items-center justify-center"
-        >
-          Withdraw
-        </button>
+      const formatted = res.data.withdrawals.map((item) => ({
+        id: item._id,
+        date: new Date(item.createdAt).toLocaleString(),
+        description: "Withdrawal",
+        status: item.status,
+        amount: item.amount,
+      }));
 
-        <button type="button"
-          onClick={() => navigate("/WithdrawalHistory")}
-          className="border border-1 border-[#123499] bg-[#123499] w-[140px] h-[16px] text-[#FFFFFF] rounded-[8px] py-[24px] px-[18px] flex items-center justify-center"
-        >
-          View History
-        </button>
-      </div>
-{showWithdrawModal && (
-  <WithdrawFund
-    withdrawAmount={withdrawAmount}
-    setWithdrawAmount={setWithdrawAmount}
-    bankName={bankName}
-    setBankName={setBankName}
-    accountNumber={accountNumber}
-    setAccountNumber={setAccountNumber}
-    onSubmit={handleWithdraw}
-    onClose={() => setShowWithdrawModal(false)}
-  />
-)}
-    </section>
+      setTransactions(formatted);
+      setFilteredTransactions(formatted);
+    } catch (err) {
+      console.log("Status:", err.response?.status);
+      console.log("Response:", err.response?.data);
+      console.error(err);
+    }
+  };
+
+  if (userID && token) {
+    fetchWithdrawals();
+  }
+}, [userID, token]);
+
+
+const handleFilter = (status) => {
+  setStatusFilter(status);
+
+  if (status === "All") {
+    setFilteredTransactions(transactions);
+    return;
+  }
+
+  const filtered = transactions.filter(
+    (transaction) =>
+      transaction.status?.toLowerCase() === status.toLowerCase()
   );
+
+  setFilteredTransactions(filtered);
 };
 
-export default FinancePg;
+
+
+// filter serach
+const [search, setSearch] = useState("");
+
+useEffect(() => {
+  let result = [...transactions];
+
+  if (statusFilter !== "All") {
+    result = result.filter(
+      (item) =>
+        item.status?.toLowerCase() ===
+        statusFilter.toLowerCase()
+    );
+  }
+
+  if (search) {
+    result = result.filter((item) =>
+      item.description
+        .toLowerCase()
+        .includes(search.toLowerCase())
+    );
+  }
+
+  setFilteredTransactions(result);
+}, [statusFilter, search, transactions]);
+
+
+
+ return (
+  
+    <div className="bg-[#f7f7f7] min-h-screen p-6">
+<div className="bg-white rounded-lg p-6 shadow-sm">
+  <div className="flex items-start justify-between">
+    <div>
+      <p className="text-blue-600 text-sm font-medium mb-4">
+        Available Balance
+      </p>
+
+      <h1 className="text-5xl font-bold text-slate-700">
+        ₦{Number(withdrawableBalance).toLocaleString()}
+      </h1>
+    </div>
+
+    <div className="flex gap-3">
+      <button
+       onClick={() => setWithdrawStep(1)}
+        className="px-5 py-2 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition"
+      >
+        Withdraw
+      </button>
+
+      <button
+        onClick={() => navigate("/topup")}
+        className="px-5 py-2 bg-blue-700 text-white rounded-md hover:bg-blue-800 transition"
+      >
+        Top-up
+      </button>
+    </div>
+
+
+{/* withdrawal model */}
+{withdrawStep > 0 && (
+  <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
+
+    {/* STEP 1 */}
+    {withdrawStep === 1 && (
+      <div className="bg-white w-full max-w-md rounded-xl p-6">
+
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="font-semibold text-lg">
+            Withdraw Funds
+          </h2>
+
+          <button onClick={() => setWithdrawStep(0)}>
+            ✕
+          </button>
+        </div>
+
+        <input
+          type="number"
+          placeholder="Amount"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          className="border rounded-md w-full p-3 mb-4"
+        />
+
+        <input
+          type="text"
+          placeholder="Note (Optional)"
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          className="border rounded-md w-full p-3"
+        />
+
+        <div className="flex justify-end gap-3 mt-5">
+
+          <button
+            onClick={() => setWithdrawStep(0)}
+            className="border px-6 py-2 rounded-md"
+          >
+            Cancel
+          </button>
+
+          <button
+            onClick={() => setWithdrawStep(2)}
+            disabled={!amount}
+            className="bg-blue-700 text-white px-6 py-2 rounded-md"
+          >
+            Next
+          </button>
+
+        </div>
+
+      </div>
+    )}
+
+    {/* STEP 2 */}
+
+    {withdrawStep === 2 && (
+      <div className="bg-white w-full max-w-md rounded-xl p-8 text-center">
+
+        <div className="flex justify-end">
+          <button onClick={() => setWithdrawStep(0)}>
+            ✕
+          </button>
+        </div>
+
+        <h2 className="text-xl font-semibold mb-8">
+          Confirm Withdrawal
+        </h2>
+
+        <p className="mb-3">
+          You are withdrawing
+        </p>
+
+        <h1 className="text-3xl font-bold mb-6">
+          ₦{Number(amount).toLocaleString()}
+        </h1>
+
+        <p className="text-gray-500 mb-8">
+          Note: {note || "No note"}
+        </p>
+
+        <button
+          onClick={handleWithdraw}
+          disabled={loading}
+          className="bg-green-600 text-white px-10 py-3 rounded-md"
+        >
+          {loading ? "Processing..." : "Confirm"}
+        </button>
+
+        <button
+          onClick={() => setWithdrawStep(1)}
+          className="block mx-auto mt-5 bg-gray-100 px-8 py-2 rounded-md"
+        >
+          Go Back
+        </button>
+
+      </div>
+    )}
+
+    {/* STEP 3 */}
+
+    {withdrawStep === 3 && (
+      <div className="bg-white w-full max-w-md rounded-xl p-8 text-center">
+
+        <div className="flex justify-end">
+          <button onClick={() => setWithdrawStep(0)}>
+            ✕
+          </button>
+        </div>
+
+        <h2 className="text-xl font-semibold mb-8">
+          Withdrawal Placed Successfully
+        </h2>
+
+        <p className="text-gray-500 mb-8">
+          Your withdrawal request has been submitted.
+          <br />
+          You will be notified once it is processed.
+        </p>
+
+        <button
+          onClick={() => {
+            setWithdrawStep(0);
+          }}
+          className="bg-green-700 text-white px-8 py-3 rounded-md"
+        >
+          Back to Finance
+        </button>
+
+      </div>
+    )}
+
+  </div>
+)}
+      
+  </div>
+
+  <div className="border-b mt-8"></div>
+</div>
+
+      {/* Top Filters */}
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center gap-8">
+          <div className="flex items-center gap-2 text-sm">
+            <span className="text-gray-600">Status:</span>
+     <select
+  value={statusFilter}
+  onChange={(e) => handleFilter(e.target.value)}
+  className="outline-none bg-transparent"
+>
+  <option value="All">All</option>
+  <option value="Pending">Pending</option>
+  <option value="Completed">Completed</option>
+  <option value="Cancelled">Cancelled</option>
+</select>
+          </div>
+
+          <button className="text-[#243BEB] border-b-2 border-[#243BEB] pb-2 font-medium">
+            All
+          </button>
+        </div>
+
+    <input
+  type="text"
+  placeholder="Search transactions..."
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+  className="border rounded px-3 py-2"
+/>
+      </div>
+
+      {/* Heading */}
+      <h2 className="text-2xl font-semibold mb-6">
+        Transaction History
+      </h2>
+
+      {/* Header */}
+      <div className="grid grid-cols-4 bg-[#B9C7FF] rounded-md shadow px-6 py-4 font-medium text-gray-900">
+        <p>Date/Time</p>
+        <p>Description</p>
+        <p>Status</p>
+        <p className="text-right">Amount</p>
+      </div>
+
+      {/* Transactions */}
+      <div className="mt-5 space-y-4">
+        {filteredTransactions.map((transaction) => (
+          <div
+            key={transaction.id}
+            className="grid grid-cols-4 bg-white shadow-md rounded-md px-6 py-6"
+          >
+            <p className="text-gray-800">{transaction.date}</p>
+
+            <p className="text-gray-800">
+              {transaction.description}
+            </p>
+
+            <p
+              className={`font-medium ${getStatusColor(
+                transaction.status
+              )}`}
+            >
+              {transaction.status}
+            </p>
+
+            <p className="text-right font-semibold text-gray-900">
+              ₦{transaction.amount.toLocaleString()}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+  export default FinancePg;
