@@ -1,16 +1,55 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useEventForm } from "../../context/context";
+import axios from "axios";
 
 const EventWeek = () => {
 
-  const ticketSold = 75;
-  const ticketMaximum = 120;
-  const percentage = (ticketSold / ticketMaximum) * 100;
-  const ticketSold2 = 135;
-  const ticketMaximum2 = 250;
-  const percentage2 = (ticketSold / ticketMaximum) * 100;
-  const ticketSold3 = 85;
-  const ticketMaximum3 = 100;
-  const percentage3 = (ticketSold / ticketMaximum) * 100;
+
+  const [eventData, setEventData] = useState(null);
+const { userID, userEmail } = useEventForm();
+  const token = localStorage.getItem("authToken");
+  const BASE_URL = "https://alphaeventappdevmode.onrender.com/api"
+
+  
+
+
+  useEffect(() => {
+
+
+  const fetchEvent = async () => {
+    try {
+      const token = localStorage.getItem("authToken");
+
+      const { data } = await axios.get(
+        `${BASE_URL}/dashboardTicketsoldView/${userID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // 👇 Add these logs here
+      console.log("API Response:", data);
+      console.log("Event Data:", data.data);
+setEventData(data.data);
+      // or setEventData(data.data) depending on the response
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  if (userID) {
+    fetchEvent();
+  }
+}, [userID]);
+
+
+const sold = eventData?.ticketsSold || 0;
+const total = eventData?.ticketQtyCount || 1;
+
+const percentage = Math.min((sold / total) * 100, 100);
 
   return (
     <>
@@ -22,81 +61,83 @@ const EventWeek = () => {
               {/* Scrollable wrapper wrapping all rows */}
               <div className="mainContainer max-h-[250px] overflow-y-auto pr-2 custom-scrollbar">
 
-                {/* First Row */}
-              
-
-                {/* Second Row */}
-         
-                {/* Third Row */}
-       
-                {/* Third Row */}
-       
-                {/* Third Row */}
-            
-                {/* Third Row */}
-             
-                {/* Third Row */}
-           
-                {/* Third Row */}
 
 
-                <div className="mainContainer flex gap-[16px] border-b-[1px] border-b-[#ABABAB] mb-[20px] pb-[14px] pr-[18px]">
+                <div className="mainContainer flex gap-[16px] border-b-[1px]  border-b-[#ABABAB] mb-[20px] pb-[14px] pr-[18px]">
                   {/* col1 */}
-                  <div className="flex gap-[16px]">
-                    <img
-                      src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747835933/dashboard_upcoming_image_2_mv5qfr.png"
-                      alt=""
-                      className="w-[60px] h-[60px]"
-                    />
-                    <div>
-                      <div className="mb-[10px] text-[16px] whitespace-nowrap">
-                        <p>
-                          Digital Business Submit<span>-</span>
-                          <span>2022</span>
-                        </p>
-                      </div>
-                      <div className="flex gap-[16px]">
-                        <div className="flex gap-[12px] items-center">
-                          <img
-                            src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_date_ujatiw.svg"
-                            className="w-[20px] h-[20px]"
-                            alt=""
-                          />
-                          <p className="text-[#ABABAB] text-[16px]">Date</p>
-                        </div>
-                        <div className="flex gap-[12px] items-center">
-                          <img
-                            src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_time_rm5459.svg"
-                            className="w-[20px] h-[20px]"
-                            alt=""
-                          />
-                          <p className="text-[#ABABAB] text-[16px]">Time</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+
+
+                <div className="flex justify-between items-center border-b border-gray-300 pb-4">
+
+  {/* Left */}
+  <div className="flex gap-4">
+    <img
+      src={eventData?.eventImgURL}
+      alt={eventData?.eventTitle}
+      className="w-[60px] h-[60px] rounded-full object-cover"
+    />
+
+    <div>
+      <h3 className="text-lg font-semibold">
+        {eventData?.eventTitle}
+      </h3>
+
+      <div className="flex gap-5 mt-2">
+
+        <div className="flex items-center gap-2">
+          <img
+            src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_date_ujatiw.svg"
+            className="w-5 h-5"
+            alt=""
+          />
+          <span className="text-gray-500">
+            {eventData?.eventDate}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <img
+            src="https://res.cloudinary.com/dqtyrjpeh/image/upload/v1747836657/dashboard_time_rm5459.svg"
+            className="w-5 h-5"
+            alt=""
+          />
+          <span className="text-gray-500">
+            {eventData?.eventTime}
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  {/* Right */}
+  <div className="w-[180px]">
+
+    <div className="text-right font-semibold mb-2">
+      {sold}/{total}
+    </div>
+
+    <div className="w-full h-[8px] bg-gray-200 rounded-full overflow-hidden">
+      <div
+        className="h-full rounded-full transition-all duration-700"
+        style={{
+          width: `${percentage}%`,
+          background:
+            "linear-gradient(90deg,#22c55e 0%,#84cc16 50%,#f59e0b 75%,#ef4444 100%)",
+        }}
+      />
+    </div>
+
+  </div>
+
+</div>
 
                   {/* col2 */}
-                  <div className="pl-[50px] mt-[10px] flex flex-col items-end text-[14px]">
-                    <div className="flex items-center gap-1 mb-2">
-                      <p className="ticketSold font-semibold">{ticketSold}</p>
-                      <span>/</span>
-                      <p className="ticketMaximum text-[#aaa]">{ticketMaximum}</p>
-                    </div>
-                    <div className="w-[100px] h-[8px] bg-gray-300 rounded-full overflow-hidden">
-                      <div
-                        className="h-full transition-all duration-300 rounded-full"
-                        style={{
-                          width: `${percentage}%`,
-                          background: "linear-gradient(to right, #2D6CCF, #2DACCF)",
-                        }}
-                      ></div>
-                    </div>
-                  </div>
+
                 </div>
 
-                
-                
+
+
 
               </div> {/* End of scrollable mainContainer */}
 

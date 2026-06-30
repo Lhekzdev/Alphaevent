@@ -8,7 +8,7 @@ const EventPrecious = () => {
 
   return (
     <>
-      <section>
+      <section >
         <div>
           <div className="eventContainer flex gap-[150px]">
             <div className="events">
