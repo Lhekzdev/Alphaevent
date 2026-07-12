@@ -31,7 +31,7 @@ export default function ConfirmAndPay() {
     tickets,
     email,
     totalPurchase: total,
-  user_Name,
+  userName,
     
     
   };

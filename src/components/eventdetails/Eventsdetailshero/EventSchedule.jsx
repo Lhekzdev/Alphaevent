@@ -133,11 +133,31 @@ import { useState } from "react";
 import React from "react";
 import { CalendarDays, Clock, MapPin, BadgeCheck } from 'lucide-react';
 
+
 function EventSchedule({ eventDetails }) {
   const [readMore, setReadMore] = useState(false);
   if (!eventDetails) {
     return <div>Loading event details...</div>;
   }
+
+
+  const tickets = eventDetails?.tickets || [];
+
+const total = tickets.reduce(
+  (sum, ticket) => sum + Number(ticket.quantity || 0),
+  0
+);
+
+const sold = tickets.reduce(
+  (sum, ticket) => sum + Number(ticket.sold || 0),
+  0
+);
+
+const spotsLeft = total - sold;
+
+const soldPercentage =
+  total > 0 ? (sold / total) * 100 : 0;
+
 
   const {
     eventTitle,
@@ -151,11 +171,7 @@ function EventSchedule({ eventDetails }) {
 
   // To calculate percentage dynamically:
 
-  const totalTickets = 200;
-  const remainingTickets = 23;
 
-  const soldPercentage =
-    ((totalTickets - remainingTickets) / totalTickets) * 100;
 
 
 
@@ -168,7 +184,9 @@ function EventSchedule({ eventDetails }) {
         <div className="h-[39px] px-[16px] w-full md:w-auto md:flex-1 rounded-[43px] border border-[#4CAF50] bg-[#E8F5E9] flex items-center justify-center">
 
           <p className="text-[#008000] font-['Lato'] font-medium text-[16px] leading-[100%] tracking-[0%] whitespace-nowrap">
-            • 177 PEOPLE ATTENDING
+          <p>
+  • {sold.toLocaleString()} PEOPLE ATTENDING
+</p>
           </p>
         </div>
 
@@ -176,7 +194,7 @@ function EventSchedule({ eventDetails }) {
         <div className="h-[39px] px-[16px] w-full md:w-auto md:flex-1 rounded-[43px] border border-[#FF4D4F] bg-[#FFF1F0] flex items-center justify-center">
 
           <p className="text-[#FF0000] font-['Lato'] font-medium text-[16px] leading-[100%] tracking-[0%] whitespace-nowrap">
-            • ONLY 23 SPOTS LEFT
+        • ONLY {spotsLeft.toLocaleString()} SPOTS LEFT
           </p>
         </div>
 
@@ -194,7 +212,7 @@ function EventSchedule({ eventDetails }) {
           </p>
 
           <p className="text-[12px] text-[#FF4D4F] font-semibold">
-            23 of 200 remaining
+           {spotsLeft.toLocaleString()} of {total.toLocaleString()} remaining
           </p>
         </div>
         {/* PROGRESS BAR */}

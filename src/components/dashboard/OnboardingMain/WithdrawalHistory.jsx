@@ -16,14 +16,14 @@ useEffect(() => {
          
 console.log("token:", localStorage.getItem("authToken"));
 
-const BASE_URL ="https://alphaeventappdevmode.onrender.com/api/withdrawal-history/:userId"
+const BASE_URL ="https://alphaeventappdevmode.onrender.com/api/"
 
 // new history
 useEffect(() => {
   const fetchWithdrawals = async () => {
     try {
       const { data } = await axios.get(
-        `${BASE_URL}/withdrawal-history/${user._id}`,
+        `${BASE_URL}/withdrawal-history/${userID }`,
         {
           params: {
             page: 1,
