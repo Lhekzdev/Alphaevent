@@ -40,6 +40,11 @@ useEffect(() => {
             alert("Please agree to the Terms of Service and Refund Policy");
             return;
         }
+        console.log({
+  email,
+  fullName,
+  userName,
+});
 
         navigate(`/confirmAndPay/${eventID}`, {
             state: {
@@ -55,6 +60,7 @@ useEffect(() => {
                 type: state?.type,
                 email,
                 fullName,
+                userEmail,
                 phone,
                 serviceFee,
             },

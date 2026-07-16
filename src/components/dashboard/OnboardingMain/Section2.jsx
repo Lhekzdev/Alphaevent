@@ -6,6 +6,7 @@ import { useEventForm } from "../../context/context";
 
 
 const Section2 = () => {
+  const [showAll, setShowAll] = useState(false);
 const { state } = useLocation();
   const { userID } = useEventForm();
   const [purchaseItems, setPurchaseItems] = useState([]);
@@ -30,6 +31,10 @@ const { state } = useLocation();
     }
   }, [userID]);
 
+
+const displayedItems = showAll
+  ? purchaseItems
+  : purchaseItems.slice(0, 10);
   return (
     <section className="font-lato px-4 py-3">
       <div className="bg-white rounded-[12px] shadow-sm w-full max-w-full">
@@ -60,54 +65,54 @@ const { state } = useLocation();
             </thead>
 
             <tbody>
-              {purchaseItems.length > 0 ? (
-                purchaseItems.map((item, index) => (
-                  <tr
-                    key={index}
-                    className="hover:bg-gray-50 text-[14px] text-[#ABABAB]"
-                  >
-                    <td className="py-2 px-4 border-b">
-                      {item.user_Name}
-                    </td>
+           {displayedItems.length > 0 ? (
+        displayedItems.map((item, index) => (
+          <tr
+            key={index}
+            className="hover:bg-gray-50 text-[14px] text-[#ABABAB]"
+          >
+            <td className="py-2 px-4 border-b">{item.user_Name}</td>
+            <td className="py-2 px-4 border-b">{item.eventName}</td>
+            <td className="py-2 px-4 border-b">{item.ticketType}</td>
+            <td className="py-2 px-4 border-b">{item.purchaseDate}</td>
 
-                    <td className="py-2 px-4 border-b">
-                      {item.eventName}
-                    </td>
-
-                    <td className="py-2 px-4 border-b">
-                      {item.ticketType}
-                    </td>
-
-                    <td className="py-2 px-4 border-b">
-                      {item.purchaseDate}
-                    </td>
-
-                    <td
-                      className={`py-2 px-4 border-b font-bold ${item.paymentStatus.toLowerCase() === "completed"
-                          ? "text-[#2A8212]"
-                          : item.paymentStatus.toLowerCase() === "pending"
-                            ? "text-[#FFB35C]"
-                            : "text-[#ff3e3e]"
-                        }`}
-                    >
-                      {item.paymentStatus.toLowerCase() === "completed"
-                        ? "Successful"
-                        : item.paymentStatus}
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td
-                    colSpan="5"
-                    className="py-6 text-center text-[#ABABAB]"
-                  >
-                    No recent registrations found.
-                  </td>
-                </tr>
-              )}
+            <td
+              className={`py-2 px-4 border-b font-bold ${
+                item.paymentStatus.toLowerCase() === "completed"
+                  ? "text-[#2A8212]"
+                  : item.paymentStatus.toLowerCase() === "pending"
+                  ? "text-[#FFB35C]"
+                  : "text-[#ff3e3e]"
+              }`}
+            >
+              {item.paymentStatus.toLowerCase() === "completed"
+                ? "Successful"
+                : item.paymentStatus}
+            </td>
+          </tr>
+        ))
+      ) : (
+        <tr>
+          <td
+            colSpan="5"
+            className="py-6 text-center text-[#ABABAB]"
+          >
+            No recent registrations found.
+          </td>
+        </tr>
+      )}
             </tbody>
           </table>
+            {purchaseItems.length > 10 && (
+    <div className="flex justify-center py-4">
+      <button
+        onClick={() => setShowAll(!showAll)}
+        className="text-[#123499] font-semibold hover:underline"
+      >
+        {showAll ? "See Less" : "See All"}
+      </button>
+    </div>
+  )}
         </div>
       </div>
     </section>

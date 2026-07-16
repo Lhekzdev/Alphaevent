@@ -21,7 +21,9 @@ export default function ConfirmAndPay() {
   const email = state?.email;
 
   const userEmail = state?.email || "";
-  const userName = state?.user_Name || "";
+  // const userName = state?.user_Name || "";
+  const fullName = state?.fullName || "";
+
   const total =
     state?.total ||
     state?.grandTotal ||
@@ -31,9 +33,8 @@ export default function ConfirmAndPay() {
     tickets,
     email,
     totalPurchase: total,
-  userName,
-    
-    
+
+    userName: state?.fullName || "",
   };
 
 
@@ -286,7 +287,7 @@ export default function ConfirmAndPay() {
               <span className="font-roboto text-[18px] leading-[28px] font-normal tracking-normal text-center text-[#848182]">Name</span>
 
               <span className="font-medium text-gray-900">
-                {userName}
+                {fullName}
               </span>
             </div>
           </div>
