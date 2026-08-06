@@ -70,7 +70,7 @@ const Section2Footer = () => {
                
                 <div className='flex gap-[50px] mt-[10px] lg:mt-[35px]' >
                    
-                    <div className='pt-[45px]'>
+                    <div className='pt-[15px] lg:pt-[45px]'>
                     {/* <img src={honri} alt="" /> */}
                     </div>
                     <ul className='text-left flex flex-col items-start text-[18px] font-semibold text-[#F3F3F3]'>
