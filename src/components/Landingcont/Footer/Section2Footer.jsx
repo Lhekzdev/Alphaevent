@@ -68,7 +68,7 @@ const Section2Footer = () => {
                <div className='' >
                {/* <h2 className='text-[18px] font-bold text-[#F3F3F3]'>Useful Links</h2> */}
                
-                <div className='flex gap-[50px] mt-[35px]' >
+                <div className='flex gap-[50px] mt-[10px] lg:mt-[35px]' >
                    
                     <div className='pt-[45px]'>
                     {/* <img src={honri} alt="" /> */}
@@ -77,7 +77,7 @@ const Section2Footer = () => {
                     {/* <h2 className='text-[18px] font-bold text-[#F3F3F3]'>Useful Links</h2> */}
                     
                        
-                                <li className="mt-[12px] cursor-pointer">
+                  <li className="mt-[12px] cursor-pointer">
                     <Link to="/LogIn">Login</Link>
                   </li>
                   <li className="mt-[12px] cursor-pointer">
@@ -94,7 +94,7 @@ const Section2Footer = () => {
                </div>
                <div>
              
-                <div className='flex gap-[50px] mt-[35px]'>
+                <div className='flex gap-[50px] mt-[10px] lg:mt-[35px]'>
                
                    <div className='pt-[45px]'>
                    {/* <img src={honri} alt="" /> */}

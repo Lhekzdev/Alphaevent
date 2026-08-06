@@ -59,7 +59,7 @@ const Subscribe = () => {
 
   return (
     <section className="w-full px-4 lg:px-0 font-Lato">
-      <div className="max-w-[1280px] bg-[#FFFFFF] flex flex-wrap gap-[270px] rounded-[30px] px-[40px] overflow-hidden shadow-md">
+      <div className="max-w-[1280px] bg-[#FFFFFF] flex flex-wrap gap-[70px] lg:gap-[270px] rounded-[30px] px-[40px] overflow-hidden shadow-md">
         {/* Text and Form Section */}
         <div className="w-full lg:w-1/2 flex flex-col justify-center items-start">
           <p className="text-[18px] font-light text-[#333333]">
