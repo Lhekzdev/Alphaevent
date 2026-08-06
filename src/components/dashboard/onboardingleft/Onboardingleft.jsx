@@ -1,12 +1,6 @@
 import React, { useState, useContext } from "react";
 import { redirect, useNavigate,Link } from "react-router-dom";
 
-// import eventIcon from "../../../assets/eventIcon.svg";
-// import eventWhiteIcon from "../../../assets/eventWhiteIcon.svg";
-// import finance from "../../../assets/finance.svg";
-// import reportIconWhite from "../../../assets/reportIconWhite.svg";
-// import settingIcon from "../../../assets/settingIcon.svg";
-// import settingIconWhite from "../../../assets/settingIconWhite.svg";
 import createEventIcon from "../../../assets/createEventIcon.svg";
 import { ActiveLinkContext } from "../OnboardingMain/ActiveLinkContext";
 

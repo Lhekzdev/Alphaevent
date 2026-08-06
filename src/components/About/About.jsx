@@ -2,7 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom"; 
   import { IoIosBriefcase } from "react-icons/io";
 import { FaUsers } from "react-icons/fa6"; 
-  import { IoRocketSharp } from "react-icons/io5";
+  import { IoRocketSharp } from "react-icons/io5"; 
+  import { MdArrowBack } from "react-icons/md";
 
 const About = () => {
 
@@ -16,6 +17,9 @@ const About = () => {
 
         {/* Heading */}
         <div className="content flex flex-col items-center ">
+          <div className='w-[44px] h-[44px] rounded-[22px] bg-[#E5EDF9] flex items-center justify-center'>
+                         <MdArrowBack onClick={() => redir('/')} className='text-[#123499] text-[30px]'/>
+                       </div>
           <p className="text-[60px] font-extrabold text-[#333333]">About Us</p>
           <p className="text-[24px] font-normal text-[#333333] w-[800px] text-center">
             Building seamless event experiences through smart tools and a

@@ -47,6 +47,9 @@ const Navbar = () => {
             <ol className='hidden font-Roboto text-nowrap items-center md:flex h-[32px] sm:gap-2 md:gap-2 lg:gap-[4.7vw]'>
 
               <li className='hover:border-b-2 hover:border-[#123499]'>
+                <Link to="/">Home</Link>
+              </li>
+              <li className='hover:border-b-2 hover:border-[#123499]'>
                 <Link to="/ExploreEvents">Explore events</Link>
               </li>
               {/*eventsdetailshome */}
@@ -126,6 +129,9 @@ const Navbar = () => {
                 <div className="text-left w-40">
 
                   <a className="text-gray-700 block px-4 py-1 text-lg hover:border-b-2 w-[150px] hover:border-customSkyblue">
+                <Link to="/">Home</Link>
+                  </a>
+                  <a className="text-gray-700 block px-4 py-1 text-lg hover:border-b-2 w-[150px] hover:border-customSkyblue">
                     <Link to="/ExploreEvents">Explore events</Link>
                   </a>
 
@@ -134,7 +140,7 @@ const Navbar = () => {
                   </a>
 
                   <a className="text-gray-700 block px-4 py-1 mb-4 text-lg hover:border-b-2 w-20 hover:border-customSkyblue">
-                    <Link to="/">About</Link>
+                    <Link to="/About">About</Link>
                   </a>
 
                 </div>
