@@ -51,7 +51,7 @@ const Herocontainer = () => {
   };
 
   return (
-    <div className="px-5 md:px-[80px] pt-[60px] my-[60px]">
+    <div className="px-5 md:px-[80px] pt-[30px] lg:pt-[60px] my-[60px]">
       <div
         loading="lazy"
         className="bg-cover bg-black opacity-[100%] bg-center h-screen rounded-[28px] w-full"

@@ -24,7 +24,7 @@ const Section2Footer = () => {
   return (
     <>
     <section>
-        <div className="parent flex flex-col lg:flex-row gap-[150px] pt-[40px] w-full">
+        <div className="parent flex flex-col lg:flex-row gap-[20px] lg:gap-[150px] pt-[40px] w-full">
             <div className="box1">
                 <img
     className='items-center place-content-center w-[152px]  h-[32px]'
@@ -64,7 +64,7 @@ const Section2Footer = () => {
               </a>
             </div>
             </div>
-            <div className="box2 flex flex-col md:flex-row md:gap-[150px] lg:flex-row  gap-[50px]">
+            <div className="box2 flex flex-col md:flex-row md:gap-[150px] lg:flex-row  gap-[20px]">
                <div className='' >
                {/* <h2 className='text-[18px] font-bold text-[#F3F3F3]'>Useful Links</h2> */}
                
