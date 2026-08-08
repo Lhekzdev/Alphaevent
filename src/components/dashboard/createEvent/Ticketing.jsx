@@ -1,219 +1,365 @@
-import React, { useState, useRef, useContext } from "react";
-import axios from "axios";
-import cloudIcon from "../../../assets/cloudIcon.svg";
-import arrowOption from "../../../assets/arrowOption.svg";
-import delectIcon from "../../../assets/delectIcon.svg";
-import questionIcon from "../../../assets/questionIcon.svg";
-import discountIcon from "../../../assets/discountIcon.svg";
-import pencilBlue from "../../../assets/pencilBlue.svg";
+
+import React, { useState, useRef } from "react";
 import { useEventForm } from "../../context/context";
 import { useNavigate } from "react-router-dom";
-
 import TicketingForm from "./ticketing/ticketingForm";
-import { Formik, Form, FieldArray } from 'formik';
-import * as Yup from 'yup';
-
-
-
-// Using Formik
-
-
 
 const TicketConfiguration = () => {
+  const navigate = useNavigate();
 
-    // const [selected, setSelected] = useState('free')
+  // =========================
+  // REFS
+  // =========================
 
-  const navigate = useNavigate()
   const fileInputRef = useRef(null);
   const ticketTypes1Ref = useRef(null);
   const ticketTypes2Ref = useRef(null);
 
-  const {
-    formData, setFormData,
-  } = useEventForm();
+  // =========================
+  // EVENT FORM CONTEXT
+  // =========================
 
-const tickets = formData.tickets || [];
-  // Define required fields
-  const requiredFields = formData.eventType === 'online'
-    ? ['eventType', 'eventTitle', 'startDate', 'endDate', 'url']
-    : ['eventType', 'eventTitle', 'startDate', 'endDate', 'eventCountry', 'eventState', 'eventCity', 'eventVenue'];
+  const { formData, setFormData } = useEventForm();
 
-  // Log the required fields for debugging
+  const tickets = formData.tickets || [];
+
+  // =========================
+  // REQUIRED FIELDS
+  // =========================
+
+  const requiredFields =
+    formData.eventType === "online"
+      ? [
+          "eventType",
+          "eventTitle",
+          "startDate",
+          "endDate",
+          "url",
+        ]
+      : [
+          "eventType",
+          "eventTitle",
+          "startDate",
+          "endDate",
+          "eventCountry",
+          "eventState",
+          "eventCity",
+          "eventVenue",
+        ];
+
   console.log("Required Fields:", requiredFields);
 
-  // ✅ Check if required fields are filled
-  const isDataComplete = requiredFields.every(field => {
+  // =========================
+  // CHECK REQUIRED DATA
+  // =========================
+
+  const isDataComplete = requiredFields.every((field) => {
     const value = formData[field];
-    console.log(`${field}: ${value}`); // Debugging: log each field value
-    return value !== null &&
+
+    console.log(`${field}: ${value}`);
+
+    return (
+      value !== null &&
       value !== undefined &&
-      value.toString().trim() !== '';
+      value.toString().trim() !== ""
+    );
   });
 
+  // =========================
+  // HANDLE TICKET CHANGE
+  // =========================
 
-// Update ticket input (select, input, etc.)
-const handleChange = (index, e) => {
-  const updatedTickets = [...formData.tickets];
-  updatedTickets[index][e.target.name] = e.target.value;
+  const handleChange = (index, e) => {
+    const { name, value } = e.target;
 
-  setFormData((prev) => ({
-    ...prev,
-    tickets: updatedTickets,
-  }));
-};
+    const updatedTickets = [...(formData.tickets || [])];
 
-  const addTicket =()=>{
-    setFormData((prev)=>({
-...prev, 
-tickets : [
-  ...(prev.tickets || []),
-  { ticketType: '', PriceType: '', ticketPrice: '', quantity: '' },
+    updatedTickets[index] = {
+      ...updatedTickets[index],
+      [name]: value,
+    };
 
-]
-    })
+    setFormData((prev) => ({
+      ...prev,
+      tickets: updatedTickets,
+    }));
+  };
 
-    )
-  }
+  // =========================
+  // ADD TICKET
+  // =========================
 
-// Remove a ticket
-const removeTicket = (index) => {
-  if (formData.tickets.length > 1) {
-    const updatedTickets = [...formData.tickets];
-    updatedTickets.splice(index, 1);
-    setFormData({ ...formData, tickets: updatedTickets });
-  } else {
-    alert("At least one ticket must be present.");
-  }
-};
+  const addTicket = () => {
+    setFormData((prev) => ({
+      ...prev,
+      tickets: [
+        ...(prev.tickets || []),
+        {
+          ticketType: "",
+          PriceType: "",
+          ticketPrice: "",
+          quantity: "",
+        },
+      ],
+    }));
+  };
 
-// Set selected price type (free/paid)
-const setSelected = (index, value) => {
-  const updatedTickets = [...formData.tickets];
-  updatedTickets[index].PriceType = value;
+  // =========================
+  // REMOVE TICKET
+  // =========================
 
-  setFormData((prev) => ({
-    ...prev,
-    tickets: updatedTickets,
-  }));
-};
+  const removeTicket = (index) => {
+    if (formData.tickets.length > 1) {
+      const updatedTickets = [...formData.tickets];
 
+      updatedTickets.splice(index, 1);
 
+      setFormData((prev) => ({
+        ...prev,
+        tickets: updatedTickets,
+      }));
+    } else {
+      alert("At least one ticket must be present.");
+    }
+  };
 
-  const [showMessageBox1, setShowMessageBox1] = useState(false);
-  const [showMessageBox2, setShowMessageBox2] = useState(false);
+  // =========================
+  // SET PRICE TYPE
+  // =========================
 
+  const setSelected = (index, value) => {
+    const updatedTickets = [...(formData.tickets || [])];
 
+    updatedTickets[index] = {
+      ...updatedTickets[index],
+      PriceType: value,
+    };
 
+    setFormData((prev) => ({
+      ...prev,
+      tickets: updatedTickets,
+    }));
+  };
 
-  // Clear inputs in ticketTypes1 container
+  // =========================
+  // MESSAGE BOX STATES
+  // =========================
+
+  const [showMessageBox1, setShowMessageBox1] =
+    useState(false);
+
+  const [showMessageBox2, setShowMessageBox2] =
+    useState(false);
+
+  // =========================
+  // CLEAR TICKET TYPE 1
+  // =========================
+
   const clearTicketTypes1Inputs = () => {
-    const inputs = ticketTypes1Ref.current.querySelectorAll("input");
-    const select = ticketTypes1Ref.current.querySelector("select");
+    if (!ticketTypes1Ref.current) return;
 
-    // Clear all input fields
-    inputs.forEach((input) => (input.value = ""));
+    const inputs =
+      ticketTypes1Ref.current.querySelectorAll("input");
 
-    // Reset the select field to its default option
+    const select =
+      ticketTypes1Ref.current.querySelector("select");
+
+    inputs.forEach((input) => {
+      input.value = "";
+    });
+
     if (select) {
       select.value = "selectEventType";
     }
   };
 
-  // Clear inputs in ticketTypes2 container
+  // =========================
+  // CLEAR TICKET TYPE 2
+  // =========================
+
   const clearTicketTypes2Inputs = () => {
-    const inputs = ticketTypes2Ref.current.querySelectorAll("input");
-    inputs.forEach((input) => (input.value = ""));
+    if (!ticketTypes2Ref.current) return;
+
+    const inputs =
+      ticketTypes2Ref.current.querySelectorAll("input");
+
+    inputs.forEach((input) => {
+      input.value = "";
+    });
   };
 
-  // Show and hide message box 1
+  // =========================
+  // ADD TICKET MESSAGE
+  // =========================
+
   const handleAddTicketType = () => {
     setShowMessageBox1(true);
+
     setTimeout(() => {
       setShowMessageBox1(false);
     }, 3000);
   };
 
-  // Show and hide message box 2
+  // =========================
+  // CREATE EVENT MESSAGE
+  // =========================
+
   const handleCreateEvent = () => {
     setShowMessageBox2(true);
+
     setTimeout(() => {
       setShowMessageBox2(false);
     }, 3000);
   };
 
+  // =========================
+  // NUMBER HANDLER
+  // =========================
 
-
-
-
-  // handle number change
   const [value, setValue] = useState(0);
-  const increase = () => setValue(prev => prev + 1);
-  const decrease = () => setValue(prev => (prev > 0 ? prev - 1 : 0)); // prevent going below 0
 
+  const increase = () => {
+    setValue((prev) => prev + 1);
+  };
 
+  const decrease = () => {
+    setValue((prev) => (prev > 0 ? prev - 1 : 0));
+  };
 
+  // =========================
+  // RENDER
+  // =========================
 
   return (
-    <section>
-      {/* Ticket type container  */}
-   
-   {formData.tickets.map((ticket, index) => (
-  <TicketingForm
-    key={index}
-    ticket={ticket}
-    index={index}
-    handleChange={handleChange}
-    setSelected={setSelected}
-    removeTicket={removeTicket}
-    selected={ticket.PriceType}
- 
-  />
-))}
-   
-   
+    <div
+      className="
+        w-full
+        min-w-0
+        overflow-x-hidden
+        px-4
+        sm:px-6
+        md:px-8
+        lg:px-10
+        pb-8
+      "
+    >
 
+      {/* =========================
+          TICKET FORMS
+      ========================== */}
 
+      <div
+        className="
+          w-full
+          max-w-[1032px]
+          mx-auto
+          min-w-0
+          space-y-6
+        "
+      >
+        {tickets.map((ticket, index) => (
+          <div
+            key={index}
+            className="
+              w-full
+              min-w-0
+              overflow-hidden
+            "
+          >
+            <TicketingForm
+              ticket={ticket}
+              index={index}
+              handleChange={handleChange}
+              setSelected={setSelected}
+              removeTicket={removeTicket}
+              selected={ticket.PriceType}
+            />
+          </div>
+        ))}
+      </div>
 
+      {/* =========================
+          BUTTON SECTION
+      ========================== */}
 
- 
-      <div className="flex flex-col float-end gap-y-[40px] mt-[20px]">
-        <button 
-        type="button"
-        onClick={addTicket}
+      <div
+        className="
+          w-full
+          max-w-[1032px]
+          mx-auto
+          mt-6
+          flex
+          flex-col
+          sm:flex-row
+          sm:justify-end
+          items-stretch
+          sm:items-center
+          gap-3
+          sm:gap-4
+        "
+      >
 
-        className="text-center bg-[#008000]  rounded-[8px] h-[48px] w-[147px]" >
-          + Add Ticket
-        </button>
+        {/* =========================
+            ADD TICKET BUTTON
+        ========================== */}
 
         <button
           type="button"
-          
-
-          onClick={() => {
-            // if (isDataComplete) {
-              navigate("/reviewEvent");
-
-
-
-            // } else {
-            //   alert("Please complete all required fields before proceeding.");
-            // }
-          }}
-
-
-          className="bg-[#3A7BD5] text-[#FFFFFF]     text-center rounded-[8px] w-[121px]  h-[48px]"
+          onClick={addTicket}
+          className="
+            w-full
+            sm:w-[147px]
+            min-h-[48px]
+            px-4
+            bg-[#008000]
+            text-white
+            rounded-[8px]
+            text-center
+            font-medium
+            transition-all
+            duration-300
+            hover:opacity-90
+            hover:scale-[1.02]
+            active:scale-[0.98]
+            whitespace-nowrap
+          "
         >
-          Preview 
+          + Add Ticket
         </button>
 
+        {/* =========================
+            PREVIEW BUTTON
+        ========================== */}
+
+        <button
+          type="button"
+          onClick={() => {
+            navigate("/reviewEvent");
+          }}
+          className="
+            w-full
+            sm:w-[121px]
+            min-h-[48px]
+            px-4
+            bg-[#3A7BD5]
+            text-white
+            text-center
+            rounded-[8px]
+            font-medium
+            transition-all
+            duration-300
+            hover:opacity-90
+            hover:scale-[1.02]
+            active:scale-[0.98]
+            whitespace-nowrap
+          "
+        >
+          Preview
+        </button>
 
       </div>
-    
-   
-</section>
-  )
+    </div>
+  );
 };
 
 export default TicketConfiguration;
-
-

@@ -1,397 +1,367 @@
-import {React,useState,useEffect} from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useEventForm } from '../../context/context'
+import { React, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEventForm } from "../../context/context";
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+} from "react-leaflet";
 
-
+import "leaflet/dist/leaflet.css";
 
 const ReviewEvent = () => {
-
-
-
-  
- const { formData,setFormData, handleSubmit } = useEventForm()
-  const navigate = useNavigate()
-
- // 🚨 Enforce “paid tickets must have a price”
-
-  useEffect(() => {
-    let changed = false
-
-    const tickets = formData.tickets.map(tk => {
-      // if it’s paid but has no price…
-      if (tk.PriceType === 'paid' && !tk.ticketPrice) {
-       toast.warning('⚠ Paid tickets require a price — this ticket has been switched to Free.', {
-  className: 'custom-toast',
-  icon: '⚠️', // or a custom component
-});
-        changed = true
-        return { ...tk, PriceType: 'free' }
-      }
-      return tk
-    })
-
-    if (changed) {
-      setFormData(f => ({
-        ...f,
-        tickets: tickets
-      }))
-    }
-  }, [] )
-
-
-const myKey = import.meta.env.VITE_KEY;
-
-
-
-
-
-
-const eventTypeOne = () => {
-  return formData.tickets
-    .filter(tk => ["Vip", "Regular", "Early Bird"].includes(tk.ticketType))
-    .map((ticket, i) => {
-      const isPaidValid =
-        ticket.PriceType?.toLowerCase() === "paid" &&
-        Number(ticket.ticketPrice) > 0;
-
-      const maxTickets = ticket.ticketType === "Vip" ? 200 : 100;
-
-      return (
-        <ul
-          key={i}
-          className="flex justify-between pl-[16px] items-center w-full mb-2"
-        >
-          <li>
-            <h6 className="font-bold text-[16px]">{ticket.ticketType}</h6>
-            <h6 className="text-[10px] text-[#ABABAB]">
-              {isPaidValid ? `₦ ${ticket.ticketPrice}` : "Free Ticket"}
-            </h6>
-            <h6 className="text-[10px] text-[#ABABAB]">
-              Max: {maxTickets} ticket(s)
-            </h6>
-          </li>
-          <li
-            className={`w-[60px] h-[28px] text-center text-white rounded-[68px] ${
-              isPaidValid ? "bg-[#FF0000]" : "bg-[#008000]"
-            }`}
-          >
-            {isPaidValid ? "Paid" : "Free"}
-          </li>
-        </ul>
-      );
-    });
-};
-
-
-
-
-const eventTypeTwo =()=>
-{
-  return formData.tickets.filter(tk=> ["Vip", "Regular", "Early Bird"].includes(tk.ticketType) &&
-      tk.PriceType === "free")
-  .map((ticket,index) =>
-   
-   
-(
-     <ul key={index} className='flex justify-between pl-[16px]  items-center w-full'>
-  <li>
-    <h6 className='font-bold text-[16px] '>{ticket.ticketType}</h6>
-    <h6 className='text-[10px] text-[#ABABAB] '>{ticket.PriceType === "free" ? "Free Ticket": null}</h6>
-    <h6 className='text-[10px] text-[#ABABAB]'>Max: 200 ticket(s)</h6>
-  </li>
-  <li className='w-[60px] h-[28px] text-center text-white rounded-[68px] bg-[#008000]'>{ticket.PriceType === "free" ? "free" : "paid"}</li>
-
-</ul>
-
-)
- 
-
-
-  )}
-
-
-// const eventTypeTwo =()=>
-// {
-//   return formData.tickets.filter(ticket => ticket.ticketType === "Regular")
-//    .map((ticket,index) =>{
-   
-   
-//    { return(
-    
-//     <ul key={index} className='flex justify-between pl-[16px]  items-center w-full'>
-//   <li>
-//     <h6 className='font-bold text-[16px] '>{ticket.ticketType}</h6>
-//     <h6 className='text-[10px] text-[#ABABAB] '>{ticket.PriceType === "free" ? "Free Ticket": null}</h6>
-//     <h6 className='text-[10px] text-[#ABABAB]'>Max: 100 ticket(s)</h6>
-//   </li>
-//   <li className='w-[60px] h-[28px] text-center text-white rounded-[68px] bg-[#008000]'>{(() => {
-//   if (ticket.PriceType === "free" && ticket.ticketPrice <= 0) {
-//     return "Free";
-//   } else if (ticket.PriceType === "free" && ticket.ticketPrice > 0) {
-//     alert("Regular Tickets are not paid for");
-//     return "Error";
-//   } else {
-//     return "Paid";
-//   }
-// })()}</li>
-
-// </ul>
-
-// )}
-
-// }
-
-//   )}
-
-
-
-const eventTypeThree = () => {
-  return formData.tickets
-    .filter(ticket => ticket.ticketType === "Regular" && ticket.ticketType === "Vip")
-    .map((ticket, index) => {
-      const isPaid = ticket.PriceType === "paid" && Number(ticket.ticketPrice) > 0;
-      const maxTickets = ticket.ticketType === "Vip" ? 200 : 100;
-
-      return (
-        <div key={index} className="w-full">
-          <ul className="flex justify-between pl-[16px] items-center w-full">
-            <li>
-              <h6 className="font-bold text-[16px]">{ticket.ticketType}</h6>
-              <h6 className="text-[10px] text-[#ABABAB]">
-                {ticket.ticketPrice ? `₦ ${ticket.ticketPrice}` : 'Free Ticket'}
-              </h6>
-              <h6 className="text-[10px] text-[#ABABAB]">
-                Max: {maxTickets} ticket(s)
-              </h6>
-            </li>
-            <li
-              className={`w-[60px] h-[28px] text-center flex items-center justify-center rounded-[68px] text-white ${
-                isPaid ? "bg-[#FF0000]" : "bg-[#008000]"
-              }`}
-            >
-              {isPaid ? "Paid" : "free"}
-            </li>
-          </ul>
-        </div>
-      );
-    });
-};
-
-
-
-
-
- 
-
+  const { formData, setFormData, handleSubmit } = useEventForm();
+  const navigate = useNavigate();
 
   const [coords, setCoords] = useState(null);
 
-  const handleLocate = async () => {
-    const query = `${formData.eventCity}, ${formData.eventState}, ${formData.eventCountry}`;
-    const response = await axios.get("https://api.opencagedata.com/geocode/v1/json", {
-      params: {
-        q: query,
-        key:myKey,
-      },
+  const myKey = import.meta.env.VITE_KEY;
+
+  // Validate ticket prices
+  useEffect(() => {
+    let changed = false;
+
+    const tickets = formData.tickets.map((tk) => {
+      if (tk.PriceType === "paid" && !tk.ticketPrice) {
+        toast.warning(
+          "⚠ Paid tickets require a price — this ticket has been switched to Free.",
+          {
+            className: "custom-toast",
+            icon: "⚠️",
+          }
+        );
+
+        changed = true;
+
+        return {
+          ...tk,
+          PriceType: "free",
+        };
+      }
+
+      return tk;
     });
-    const { lat, lng } = response.data.results[0].geometry;
-    setCoords([lat, lng]);
+
+    if (changed) {
+      setFormData((f) => ({
+        ...f,
+        tickets,
+      }));
+    }
+  }, []);
+
+  // Get event location coordinates
+  const handleLocate = async () => {
+    try {
+      const query = `${formData.eventCity}, ${formData.eventState}, ${formData.eventCountry}`;
+
+      const response = await axios.get(
+        "https://api.opencagedata.com/geocode/v1/json",
+        {
+          params: {
+            q: query,
+            key: myKey,
+          },
+        }
+      );
+
+      if (response.data.results?.length > 0) {
+        const { lat, lng } = response.data.results[0].geometry;
+        setCoords([lat, lng]);
+      }
+    } catch (error) {
+      console.error("Unable to locate event:", error);
+    }
   };
 
   useEffect(() => {
-    if (formData.eventCountry || formData.eventState || formData.eventCity) {
+    if (
+      formData.eventCountry ||
+      formData.eventState ||
+      formData.eventCity
+    ) {
       handleLocate();
     }
-  }, [formData.eventCountry , formData.eventState, formData.eventCity]);
+  }, [
+    formData.eventCountry,
+    formData.eventState,
+    formData.eventCity,
+  ]);
+
+  // Ticket summary
+  const eventTypeOne = () => {
+    return formData.tickets
+      .filter((tk) =>
+        ["Vip", "Regular", "Early Bird"].includes(tk.ticketType)
+      )
+      .map((ticket, i) => {
+        const isPaidValid =
+          ticket.PriceType?.toLowerCase() === "paid" &&
+          Number(ticket.ticketPrice) > 0;
+
+        const maxTickets =
+          ticket.ticketType === "Vip" ? 200 : 100;
+
+        return (
+          <div
+            key={i}
+            className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 w-full py-2"
+          >
+            <div>
+              <h6 className="font-bold text-[16px]">
+                {ticket.ticketType}
+              </h6>
+
+              <h6 className="text-[10px] text-[#ABABAB]">
+                {isPaidValid
+                  ? `₦ ${ticket.ticketPrice}`
+                  : "Free Ticket"}
+              </h6>
+
+              <h6 className="text-[10px] text-[#ABABAB]">
+                Max: {maxTickets} ticket(s)
+              </h6>
+            </div>
+
+            <div
+              className={`w-[60px] h-[28px] flex items-center justify-center text-center text-white rounded-[68px] ${
+                isPaidValid
+                  ? "bg-[#FF0000]"
+                  : "bg-[#008000]"
+              }`}
+            >
+              {isPaidValid ? "Paid" : "Free"}
+            </div>
+          </div>
+        );
+      });
+  };
 
   return (
-<section className=' pt-12 mx-auto md:w-[929px] font-Lato h-auto bg-[#F8F9FC] p-[40px] flex flex-col gap-y-[20px]'>
+    <section className="w-full max-w-[929px] mx-auto bg-[#F8F9FC] font-Lato px-4 py-8 sm:px-6 md:px-10 flex flex-col gap-y-6">
 
+      {/* Header */}
+      <div className="font-bold text-[20px]">
+        <h4>PREVIEW EVENTS</h4>
+      </div>
 
-<div className='font-bold text-[20px] items-center' >
-  <h4>PREVIEW EVENTS</h4></div>
-  {/* Display Details */}
-<div className='flex items-center  gap-[32px] border-b-[1px] border-y-[#ABABAB]'>
-<ul className='' ><img className='rounded-[112px] w-[100px] h-[100px]' src={formData.eventImgURL} alt="event Img" /></ul>
-<ul  className=' flex gap-[8px]'>
-  <li className='w-[215px] h-[28px] text-[38.4px ] font-bold'>{formData.eventTitle}</li>
-  <li className='text-[16px] text-[#ABABAB] w-[215px] h-[26px] ' >{formData.eventCategory}</li>
-  </ul>
-</div>
+      {/* Event Header */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-8 pb-5 border-b border-[#ABABAB]">
 
-{/* Content */}
-<div className=' flex flex-col w-full h[99px] gap-y-[16px]'>
-  <ul className='flex w-[254px] items-center gap-[8px]'>
-    <li><img className='w-[12px] h-[12px]' src="/calender.svg" alt="Calendar" /></li>
-    <li>{`${formData.startDate ? new Date(formData.startDate).toLocaleDateString() : 'N/A'} - `}</li>
-    <li>{`${formData.endDate ? new Date(formData.endDate).toLocaleDateString() : 'N/A'}  `}</li>
-    
-    </ul>
-  <ul className='gap-[8px] flex items-center'>
-    <li><img className='w-[12px] h-[12px]' src="/clock.svg" alt="Clock" /></li>
-    <li>{`${formData.startTime}  ${formData.startClock} ${formData.startTimezone } `} - {`${formData.endTime}  ${formData.endClock} ${formData.endTimezone } `}</li>
-  </ul>
+        <img
+          className="rounded-full w-[90px] h-[90px] sm:w-[100px] sm:h-[100px] object-cover"
+          src={formData.eventImgURL}
+          alt="event"
+        />
 
+        <div className="flex flex-col gap-2 min-w-0">
+          <h2 className="text-2xl sm:text-3xl font-bold break-words">
+            {formData.eventTitle}
+          </h2>
 
-  
-  <ul className='flex items-center'>
-    <li><img className='w-[12px] h-[12px]' src="/quantity.svg" alt="quantity" /></li>
-    {formData.tickets.map(
-      (ticket,index)=>(
-<li key ={index}>
-{ticket.quantity}
-</li>
+          <p className="text-sm sm:text-base text-[#ABABAB]">
+            {formData.eventCategory}
+          </p>
+        </div>
+      </div>
 
+      {/* Event Date, Time and Quantity */}
+      <div className="flex flex-col gap-y-4 w-full">
 
+        {/* Date */}
+        <div className="flex items-start gap-2 flex-wrap">
+          <img
+            className="w-[14px] h-[14px] mt-1"
+            src="/calender.svg"
+            alt="Calendar"
+          />
 
-      )
-    )}
-  </ul>
+          <span>
+            {formData.startDate
+              ? new Date(formData.startDate).toLocaleDateString()
+              : "N/A"}
+          </span>
 
-</div>
+          <span>-</span>
 
-{/* Description */}
-<div className='w-full  h-auto flex flex-col border-b-[1px] border-red-800 border-y-[#ABABAB] gap-y-[20px]'>
-<h3 className="text-[24px] font-bold">Description</h3>
-<p className='text-[16px] break-words md:w-[840px]  text-[#ABABAB] ' >{formData.eventDesc} </p>
-</div>
+          <span>
+            {formData.endDate
+              ? new Date(formData.endDate).toLocaleDateString()
+              : "N/A"}
+          </span>
+        </div>
 
-{/* Tags */}
-<div className='h-[79px] flex-wrap flex flex-col gap-y-[20px]'>
-<h5>Tags</h5>
-<ul className='flex h-[32px] gap-[16px] w-[88px]  border-b-[1px] border-y-[#F1F1F1]'>
-  {formData.eventTags?.map((tag, index)=>(
- <li key={index} className='text-[18px]  font-bold place-content-center  text-center px-[10px] h-[32px]   bg-[#F1F1F1] rounded-[10px] shadow text-[#333333]'>{tag}</li>
-  ))}
-  
-  
-  </ul>
+        {/* Time */}
+        <div className="flex items-start gap-2 flex-wrap">
+          <img
+            className="w-[14px] h-[14px] mt-1"
+            src="/clock.svg"
+            alt="Clock"
+          />
 
+          <span className="break-words">
+            {formData.startTime} {formData.startClock}{" "}
+            {formData.startTimezone}
+            {" - "}
+            {formData.endTime} {formData.endClock}{" "}
+            {formData.endTimezone}
+          </span>
+        </div>
 
+        {/* Quantity */}
+        <div className="flex items-start gap-2">
+          <img
+            className="w-[14px] h-[14px] mt-1"
+            src="/quantity.svg"
+            alt="Quantity"
+          />
 
-</div>
+          <div className="flex flex-wrap gap-2">
+            {formData.tickets.map((ticket, index) => (
+              <span key={index}>
+                {ticket.quantity}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
 
-  <ul className='flex gap-[8px]'>
-    <li><img className='w-[12px] h-[12px]' src="/location.svg" alt="Icon / map" />
-    </li>
-  <li className=' w-[840px]  border-white border-2'>
-<ul className='flex bg-slate-300 justify-between px-4 py-1'>
-  <li >Country: {formData.eventCountry}</li>
-      <li>State: {formData.eventState}</li>
-      <li>City: {formData.eventCity}</li></ul> 
-   {coords && (
-        <MapContainer center={coords} zoom={13} style={{ height: "400px", width: "100%" }}>
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          <Marker position={coords}>
-            <Popup>{`${formData.eventCity}, ${formData.eventState}, ${formData.eventCountry}`}</Popup>
-          </Marker>
-        </MapContainer>
-      )}</li>
-  </ul>
+      {/* Description */}
+      <div className="w-full flex flex-col gap-y-4 pb-6 border-b border-[#ABABAB]">
 
-<div className='h-[276px] bg-[#FFFFFF] px-[20px] py-[10px] rounded-[10px] flex flex-col gap-y-[30px]'>
-<div className='h-[216px] flex flex-col gap-y-[20px] w-[800px] '>
-  <h4 className='font-bold text-[20px]'>Tickets Summary</h4>
-<div>{eventTypeOne ()}</div>
- {/* <div>{eventTypeTwo  ()}</div> */}
-{/* <div>{eventTypeThree  ()}</div>  */}
+        <h3 className="text-xl sm:text-2xl font-bold">
+          Description
+        </h3>
 
+        <p className="text-sm sm:text-base break-words text-[#ABABAB] leading-6">
+          {formData.eventDesc}
+        </p>
+      </div>
 
-{/* <ul className='flex pl-[16px] justify-between items-center w-full'>
-    <li>
-    <h6 className='font-bold text-[16px] '>{formData.tickets.tickeType}</h6>
-    <h6 className='text-[10px] text-[#ABABAB]'>....</h6>
-    <h6 className='text-[10px] text-[#ABABAB]'>Max: 100 ticket(s)</h6>
-  </li>
-  <li className='w-[60px] h-[28px] rounded-[68px] bg-[#FF0000]'></li>
-</ul> */}
-</div>
+      {/* Tags */}
+      <div className="flex flex-col gap-y-4">
 
-</div>
+        <h5 className="font-medium">
+          Tags
+        </h5>
 
-{/* edit and create  */}
-<div className='w-full h-[52px] flex  gap-[10px] place-content-end '>
-<button type='button' onClick={() => navigate("/createEvent")} className='flex rounded-[8px] justify-center items-center gap-[20px]  text-[20px] text-center text-[#2D6CCF] w-[188px] border-[#2D6CCF] border-[1px]' >
-  <h4>Edit Event</h4> 
-  <img src="/editevent.svg" alt="edit event" />
-</button>
+        <div className="flex flex-wrap gap-3">
+          {formData.eventTags?.map((tag, index) => (
+            <span
+              key={index}
+              className="text-sm sm:text-base font-bold px-3 py-2 bg-[#F1F1F1] rounded-[10px] shadow text-[#333333]"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
 
-<button type='submit' onClick={async (e) => {
-        const result = await handleSubmit(e);
-        if (result !== false) {
-         // Only navigate if submission was successful
-          navigate("/createEvent");
-        } }}
-       className='text-[20px] rounded-[8px] w-[163px] h-[48px] bg-[#2D6CCF] text-[#FFFFFF] font-bold'>
-<h4>Create Event</h4>
-</button>
-</div>
+      {/* Location */}
+      <div className="flex flex-col sm:flex-row gap-3 w-full">
 
-</section>
+        <img
+          className="w-[14px] h-[14px] mt-1"
+          src="/location.svg"
+          alt="Location"
+        />
 
-  )
+        <div className="w-full min-w-0">
 
+          {/* Location details */}
+          <div className="flex flex-col sm:flex-row sm:justify-between gap-2 bg-slate-300 px-4 py-2 text-sm">
+            <span>
+              <strong>Country:</strong>{" "}
+              {formData.eventCountry}
+            </span>
 
-}
+            <span>
+              <strong>State:</strong>{" "}
+              {formData.eventState}
+            </span>
+
+            <span>
+              <strong>City:</strong>{" "}
+              {formData.eventCity}
+            </span>
+          </div>
+
+          {/* Map */}
+          {coords && (
+            <div className="w-full mt-2 overflow-hidden rounded-lg">
+              <MapContainer
+                center={coords}
+                zoom={13}
+                style={{
+                  height: "clamp(250px, 45vw, 400px)",
+                  width: "100%",
+                }}
+              >
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+
+                <Marker position={coords}>
+                  <Popup>
+                    {`${formData.eventCity}, ${formData.eventState}, ${formData.eventCountry}`}
+                  </Popup>
+                </Marker>
+              </MapContainer>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Tickets Summary */}
+      <div className="w-full bg-white px-4 sm:px-5 py-4 rounded-[10px] flex flex-col gap-y-5">
+
+        <h4 className="font-bold text-lg sm:text-xl">
+          Tickets Summary
+        </h4>
+
+        <div className="w-full">
+          {eventTypeOne()}
+        </div>
+      </div>
+
+      {/* Buttons */}
+      <div className="w-full flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
+
+        <button
+          type="button"
+          onClick={() => navigate("/createEvent")}
+          className="w-full sm:w-[188px] min-h-[48px] flex rounded-[8px] justify-center items-center gap-3 text-base sm:text-lg text-[#2D6CCF] border border-[#2D6CCF]"
+        >
+          <span>Edit Event</span>
+
+          <img
+            src="/editevent.svg"
+            alt="edit event"
+            className="w-5 h-5"
+          />
+        </button>
+
+        <button
+          type="submit"
+          onClick={async (e) => {
+            const result = await handleSubmit(e);
+
+            if (result !== false) {
+              navigate("/createEvent");
+            }
+          }}
+          className="w-full sm:w-[163px] min-h-[48px] bg-[#2D6CCF] text-white font-bold text-base sm:text-lg rounded-[8px]"
+        >
+          Create Event
+        </button>
+      </div>
+
+    </section>
+  );
+};
+
 export default ReviewEvent;
-
-
-//     <div className='text-center bg-cyan-600 flex flex-col gap-y-7'>
-//       <h2 className='font-bold text-[40px]  pt-5'>Review Your Event Information</h2>
-//       <div className='pl-10 grid  gap-y-3'> <p className='w-[200px] h-auto mx-auto items-center'> <img src={formData.eventImgURL} alt="" />Event Image</p>
-//        <div className='items-start flex flex-col' > 
-//         <p><strong>Event Title: </strong>{formData.eventTitle}</p>
-//         <p>    <strong>Event Description: </strong> {formData.eventDesc}</p>
-//         <p>  Event Type: {formData.eventType} </p>
-//         <p> Event Country: {formData.eventCountry} </p>
-//         <p>  Event State: {formData.eventState }  </p>
-//         <p>  Event City: {formData.eventCity }</p> 
-//         <p>  Event Venue: {formData.eventVenue}</p>
-//         <p>  Maximum Attendees: {formData.maximumAttendees} </p>
-//         </div>
-//        <div className='items-start flex flex-col'> 
-//        <p><strong>Start Date: </strong>{formData.startDate ? new Date(formData.startDate).toLocaleDateString() : 'N/A'}</p>
-// <p><strong>End Date: </strong>{formData.endDate ? new Date(formData.endDate).toLocaleDateString() : 'N/A'}</p>
-
-//         <p> Url: {formData.url}</p>
-      
-//         <p>Event Address: {formData.eventVenue} </p>
-//         <p> TickeT Price:  {formData.ticketPrice}  </p>
-//         <p> Ticket Type: {formData.tickeType} </p>
-//         {/* <p>quantity:{formData.event} </p> */}
-//         <p>
-//   <strong>Start Time: </strong>
-//   {formData.startTime && new Date(`1970-01-01T${formData.startTime}`).toLocaleTimeString('en-US', {
-//     hour: 'numeric',
-//     minute: 'numeric',
-//     hour12: true,
-//   })}
-// </p>
-// <p>
-//   <strong>End Time: </strong>
-//   {formData.endTime && new Date(`1970-01-01T${formData.endTime}`).toLocaleTimeString('en-US', {
-//     hour: 'numeric',
-//     minute: 'numeric',
-//     hour12: true,
-//   })}
-// </p>
-        
-//         </div></div>
-    
-    
-//      <div className=' pb-6 w-full flex  items-start place-content-center   gap-x-5  '>
-//        <button className='bg-slate-950 px-6 py-1 text-white rounded-md' onClick={() => navigate("/createEvent")}>Back</button>
-//       <button className='bg-slate-950 px-5 py-1 text-white rounded-md'  onClick={async (e) => {
-//         const result = await handleSubmit(e);
-//         if (result !== false) { // Only navigate if submission was successful
-//           navigate("/createEvent");
-//         } }}>
-     
-//         Publish Event
-//       </button>
-//     </div></div>
