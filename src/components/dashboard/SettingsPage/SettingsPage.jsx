@@ -1,107 +1,174 @@
-import { useState, React } from "react";
-import { Link, redirect } from "react-router-dom";
+import { useState } from "react";
 import NotificationBar from "../OnBoarding/NotificationBar.jsx";
 import Onboardingleft from "../onboardingleft/Onboardingleft.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveTab } from "../../../../features/settingsSlice.js";
 import ProfileSummary from "./ProfileSummary.jsx";
 import ProfileEditModal from "./ProfileEditModal.jsx";
-
 import NotificationSettings from "./Notification.jsx";
 import SecurityTab from "./SecurityTab.jsx";
 import AccountInfo from "./AccountInfo.jsx";
 import { IoSettingsOutline } from "react-icons/io5";
-import { useEventForm } from "../../context/context";
 
 const SettingsPage = () => {
     const [refreshProfile, setRefreshProfile] = useState(false);
-    const dispatch = useDispatch();
-    const activeTab = useSelector((state) => state.settings.activeTab)
-    const tabs = ['My Profile', 'Notifications', 'Security', 'Account Info'];
-
-    // for pop up
     const [editing, setEditing] = useState(false);
 
-    // To dim
+    const dispatch = useDispatch();
+    const activeTab = useSelector((state) => state.settings.activeTab);
 
-
-
-
-
-
+    const tabs = [
+        "My Profile",
+        "Notifications",
+        "Security",
+        "Account Info",
+    ];
 
     try {
         return (
+            <div className="addOnBoardLeft flex flex-col lg:flex-row min-h-screen">
 
-            // my profile
-            <div className="addOnBoardLeft flex   ">
+                {/* Sidebar */}
                 <Onboardingleft />
-                <div className="w-full font-Lato px-[40px] py-[40px] bg-[#F8F9FC]  flex flex-col gap-y-[20px] h-auto ">
-                    <div className="md:max-w-[1056px]  flex justify-between ">
-                        <div className="w-[118px] flex items-center justify-center       gap-[12px] text-[#123499] text-[20px]">
 
-                            <div><IoSettingsOutline /></div>
-                            <div> <h4 className="w-[78px] h-[20px]  font-extrabold">Settings</h4></div>
+                {/* Main Content */}
+                <div       className="
+ bg-[#F8F9FC]
+ flex
+ flex-col
+ gap-y-[24px]
+ flex-1
+ w-full
+ overflow-hidden
+ pt-16
+ md:pt-0
+  ">
+
+                    {/* Header */}
+                    <div className="w-full max-w-[1056px] flex items-center justify-between gap-4">
+
+                        {/* Settings Title */}
+                        <div className="flex items-center gap-2 sm:gap-3 text-[#123499] text-lg sm:text-xl ml-[18px]">
+                            <IoSettingsOutline className="shrink-0" />
+
+                            <h4 className="font-extrabold whitespace-nowrap">
+                                Settings
+                            </h4>
                         </div>
-                        <ol><NotificationBar /></ol>
+
+                        {/* Notification */}
+                        <div className="shrink-0">
+                            <NotificationBar />
+                        </div>
                     </div>
 
-                    <div className="flex   h-[48px] rounded-[8px]  p-[4px] gap-[40px] bg-[#EFF1F3]">
-                        {tabs.map(tab => (
+
+                    {/* Tabs */}
+                    <div
+                        className="
+                            w-full
+                            max-w-[1056px]
+                            min-h-[48px]
+                            rounded-[8px]
+                            p-1
+                            bg-[#EFF1F3]
+                            flex
+                            items-center
+                            gap-1
+                            sm:gap-2
+                            overflow-x-auto
+                            scrollbar-hide
+                        "
+                    >
+                        {tabs.map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => dispatch(setActiveTab(tab))}
-                                className={`min-w-[122px] h-[40px] rounded-[8px] border-[1px] text-center px-[24px] py-[12px]text-[16px] box-border ${activeTab === tab ? 'bg-white text-[#123499] font-bold' : 'bg-gray-100'
-                                    }`}
+                                className={`
+                                    shrink-0
+                                    min-w-[110px]
+                                    sm:min-w-[122px]
+                                    h-[40px]
+                                    rounded-[8px]
+                                    border
+                                    text-center
+                                    px-3
+                                    sm:px-4
+                                    py-2
+                                    text-sm
+                                    sm:text-[16px]
+                                    whitespace-nowrap
+                                    transition-all
+                                    duration-200
+                                    ${
+                                        activeTab === tab
+                                            ? "bg-white text-[#123499] font-bold border-white"
+                                            : "bg-gray-100 text-gray-600 border-transparent hover:bg-white"
+                                    }
+                                `}
                             >
                                 {tab}
                             </button>
                         ))}
+                    </div>
 
 
+                    {/* Tab Content */}
+                  <div className="w-full max-w-[1056px] bg-gray-100 rounded-lg overflow-hidden grid grid-cols-2 gap-2">
+
+                        {/* My Profile */}
+                        {activeTab === "My Profile" && (
+                            <div className="w-full p-4 sm:p-5 md:p-6">
+
+                                <ProfileSummary
+                                    refreshProfile={refreshProfile}
+                                    onEdit={() => setEditing(true)}
+                                />
+
+                                <ProfileEditModal
+                                    isOpen={editing}
+                                    onClose={() => setEditing(false)}
+                                    onProfileUpdated={() =>
+                                        setRefreshProfile((prev) => !prev)
+                                    }
+                                />
+
+                            </div>
+                        )}
+
+
+                        {/* Notifications */}
+                        {activeTab === "Notifications" && (
+                            <div className="w-full overflow-x-auto">
+                                <NotificationSettings />
+                            </div>
+                        )}
+
+
+                        {/* Security */}
+                        {activeTab === "Security" && (
+                            <div className="w-full overflow-x-auto">
+                                <SecurityTab />
+                            </div>
+                        )}
+
+
+                        {/* Account Info */}
+                        {activeTab === "Account Info" && (
+                            <div className="w-full overflow-x-auto">
+                                <AccountInfo />
+                            </div>
+                        )}
 
                     </div>
 
-                    {/* Example: conditionally render content based on activeTab */}
-
-                    {activeTab === 'My Profile' &&
-
-
-                        <div className=" bg-gray-100 w-full  p-6">
-                            <ProfileSummary refreshProfile={refreshProfile}
-                                onEdit={() => setEditing(true)} />
-                            <ProfileEditModal
-                                isOpen={editing}
-                                onClose={() => setEditing(false)}
-                                onProfileUpdated={() =>
-                                    setRefreshProfile(prev => !prev)
-                                }
-                            />
-
-
-                        </div>
-
-
-                    }
-
-
-
-                    {activeTab === 'Notifications' && <div className=" bg-gray-100"><NotificationSettings /></div>}
-                    {activeTab === 'Security' && <div className=" bg-gray-100"><SecurityTab /></div>}
-                    {activeTab === 'Account Info' && <div className=" bg-gray-100"><AccountInfo /></div>}
-
-
-
-
                 </div>
             </div>
-
-
-        )
+        );
 
     } catch (error) {
         console.log(error.message);
-
     }
-}
+};
+
 export default SettingsPage;
