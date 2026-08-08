@@ -304,14 +304,15 @@ const About = () => {
 >
             <p className="text-[#FFFFFF] text-[24px] lg:text-[40px] font-center font-extrabold mb-[34px] px-[24px] ">Let's build great experiences, one event at a time!</p>
 
-            <div className="flex gap-[31px]">
-                <button className="w-[190px] h-[42px] bg-[#F3F5FA] rounded-[12px] px-[24px]  text-[#123499] text-[14px] lg:text-[16px] font-medium">
-                Create Your Account
-                </button>
-                <button className="border border-1 border-[#FFFFFF] w-[190px] h-[42px]  rounded-[12px] px-[24px] text-[16px] font-medium text-[rgb(255,255,255)] font-light hover:bg-[#FF7F50] hover:border-[#FF7F50]">
-                Create Your Event
-                </button>
-            </div>
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-[20px] mx-auto w-full">
+  <button className="w-[190px] h-[42px] bg-[#F3F5FA] rounded-[12px] px-[24px] text-[#123499] text-[14px] lg:text-[16px] font-medium">
+    Create Your Account
+  </button>
+
+  <button className="w-[190px] h-[42px] border border-[#FFFFFF] rounded-[12px] px-[24px] text-[16px] font-medium text-white hover:bg-[#FF7F50] hover:border-[#FF7F50]">
+    Create Your Event
+  </button>
+</div>
         </div>
   
       </section>

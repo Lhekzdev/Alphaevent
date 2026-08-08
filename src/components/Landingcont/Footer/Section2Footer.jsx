@@ -24,7 +24,7 @@ const Section2Footer = () => {
   return (
     <>
     <section>
-        <div className="parent flex flex-col lg:flex-row gap-[20px] lg:gap-[150px] pt-[40px] w-full">
+        <div className="parent pt-[10px] flex flex-col lg:flex-row gap-[20px] lg:gap-[150px] lg:pt-[40px] w-full">
             <div className="box1">
                 <img
     className='items-center place-content-center w-[152px]  h-[32px]'

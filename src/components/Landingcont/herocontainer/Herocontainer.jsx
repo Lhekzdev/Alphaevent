@@ -10,7 +10,7 @@ const Herocontainer = () => {
     "Nasarawa","Niger","Ogun","Ondo","Osun","Oyo","Plateau","Rivers","Sokoto",
     "Taraba","Yobe","Zamfara","FCT (Abuja)"
   ]);
-  const [selectedState, setSelectedState] = useState("Port Harcourt");
+  const [selectedState, setSelectedState] = useState("Select State");
   const [events, setEvents] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -60,7 +60,7 @@ const Herocontainer = () => {
             "url('https://res.cloudinary.com/dzyvwxh7n/image/upload/v1731364264/Hero_Section_ooujz0.png')",
         }}
       >
-        <div className="flex flex-col text-[16px] gap-y-[71px] text-white items-center justify-center px-[10px] w-full py-[184px]">
+        <div className="flex flex-col text-[16px] gap-y-[71px] text-white items-center justify-center px-[10px] w-full py-[100px] lg:py-[184px]">
           
           {/* Hero Text */}
           <div className="font-Lato font-leading-[30px] max-w-[300px] md:max-w-[700px] lg:max-w-[858px] lg:h-[108px] text-[32px] md:text-[42px] lg:text-[52px] text-center md:leading-[54.08px] font-bold">
